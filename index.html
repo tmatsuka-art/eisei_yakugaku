@@ -302,7 +302,10 @@
   <!-- STATS -->
   <div id="screen-stats" class="screen">
     <div class="card" style="margin-bottom:16px">
-      <div style="font-weight:700;font-size:16px;margin-bottom:16px">📊 全体進捗</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="font-weight:700;font-size:16px">📊 全体進捗</div>
+        <button class="btn btn-secondary btn-sm" onclick="resetAll()" style="color:var(--red);border-color:var(--red);font-size:12px">🗑 全リセット</button>
+      </div>
       <div class="stats-bar" id="stats-bar2"></div>
     </div>
     <div id="stats-cats"></div>
@@ -752,7 +755,10 @@ function renderStats() {
       </div>`;
     }).join('');
     return `<div class="card" style="margin-bottom:14px;border-left:4px solid ${catColor(cat)}">
-      <div style="font-weight:700;font-size:14px;color:${catColor(cat)};margin-bottom:12px">${cat}（${pool.length}問）</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-weight:700;font-size:14px;color:${catColor(cat)}">${cat}（${pool.length}問）</div>
+        <button class="btn btn-secondary btn-sm" onclick="resetCat('${cat}')" style="color:var(--red);border-color:var(--red);font-size:11px">🗑 リセット</button>
+      </div>
       ${rows}
     </div>`;
   }).join('');
@@ -760,6 +766,23 @@ function renderStats() {
 
 function catColor(cat) {
   return {環境衛生:'#2e7d32',食品衛生:'#e65100',毒性学:'#880e4f',感染制御:'#0d47a1'}[cat]||'#333';
+}
+
+function resetAll() {
+  if (!confirm('全問題の進捗をリセットしますか？\nこの操作は元に戻せません。')) return;
+  ALL_QUESTIONS.forEach(q => { records[q.problem_id] = {correct:0, wrong:0}; });
+  saveRecords();
+  renderStats();
+  alert('全進捗をリセットしました。');
+}
+
+function resetCat(cat) {
+  if (!confirm(`「${cat}」の進捗をリセットしますか？`)) return;
+  ALL_QUESTIONS.filter(q=>q._category===cat).forEach(q => {
+    records[q.problem_id] = {correct:0, wrong:0};
+  });
+  saveRecords();
+  renderStats();
 }
 
 // ── UTILS ──
