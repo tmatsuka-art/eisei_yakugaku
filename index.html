@@ -581,10 +581,10 @@ function renderQuestion() {
   document.getElementById('q-meta').innerHTML =
     `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>`;
 
-  // リード問題（前提症例）の表示
+  // リード問題：問題文に症例情報が含まれていない場合のみ表示
   const leadArea = document.getElementById('q-lead-area');
   leadArea.innerHTML = '';
-  if (q.lead_id) {
+  if (q.lead_id && q.needs_lead) {
     const leadQ = ALL_QUESTIONS.find(x => x.problem_id === q.lead_id);
     if (leadQ) {
       leadArea.innerHTML = `
@@ -827,13 +827,10 @@ function formatText(txt) {
     .replace(/\^\{\*\}/g,'<sup>*</sup>')
     .replace(/\^\{([^}]+)\}/g,'<sup>$1</sup>')
     .replace(/_\{([^}]+)\}/g,'<sub>$1</sub>');
-  // 改行処理
+  // 改行処理：既存の\nをbrに変換
   txt = txt.replace(/\n/g, '<br>');
-  // 「1:誤」「2:正」などの番号の前で改行
-  txt = txt.replace(/([。）])([1-9][0-9]?[:：])/g, '$1<br>$2');
-  txt = txt.replace(/([a-zA-Z0-9])\.([1-9][0-9]?[:：])/g, '$1.<br>$2');
-  // 「参考」の前にも改行
-  txt = txt.replace(/(参考)/g, '<br>$1');
+  // 「。」の直後に番号（1:、2:など）が来る場合のみ改行を追加
+  txt = txt.replace(/([。])([1-9][0-9]?[:：])/g, '$1<br>$2');
   return txt;
 }
 
