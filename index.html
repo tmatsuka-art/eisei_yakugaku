@@ -622,14 +622,28 @@ function renderQuestion() {
   const optArea = document.getElementById('q-options');
   if (q.choices[0] === 'IMAGES') {
     // 選択肢が画像の問題
-    const nums = q.answer.map(Number);
-    const maxOpt = Math.max(...nums, 5);
-    optArea.innerHTML = Array.from({length:maxOpt},(_,i)=>i+1).map(i =>
-      `<button class="option-btn" id="opt-${i}" onclick="selectOption(${i},'${q.problem_id}')">
-        <span class="option-letter">${i}</span>
-        <span>選択肢 ${i}（画像参照）</span>
-      </button>`
-    ).join('');
+    // まとめ画像（problem_id.png）を問題画像エリアに表示
+    const imgArea = document.getElementById('q-image-area');
+    if (q.assets && q.assets.length > 0) {
+      // すでに画像表示済みの場合はスキップ、なければまとめ画像を表示
+      if (imgArea.children.length === 0) {
+        const img = document.createElement('img');
+        img.src = q.assets[0];
+        img.className = 'q-image';
+        img.alt = '選択肢画像';
+        img.onerror = () => img.style.display = 'none';
+        imgArea.appendChild(img);
+      }
+    }
+    // 選択肢ボタンは番号のみ（画像を見て選ぶ）
+    const nums = q.answer.filter(a => !isNaN(Number(a))).map(Number);
+    const maxOpt = nums.length > 0 ? Math.max(...nums, 5) : 5;
+    optArea.innerHTML = `<div style="font-size:12px;color:var(--muted);margin-bottom:8px">↑ 上の画像を参照して番号を選んでください</div>` +
+      Array.from({length:maxOpt},(_,i)=>i+1).map(i =>
+        `<button class="option-btn" id="opt-${i}" onclick="selectOption(${i},'${q.problem_id}')">
+          <span class="option-letter">${i}</span>
+        </button>`
+      ).join('');
   } else {
     optArea.innerHTML = q.choices.map((c,i) =>
       `<button class="option-btn" id="opt-${i+1}" onclick="selectOption(${i+1},'${q.problem_id}')">
