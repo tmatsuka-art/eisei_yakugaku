@@ -788,17 +788,33 @@ function resetCat(cat) {
 // ── UTILS ──
 function formatText(txt) {
   if (!txt) return '';
+  // LaTeX記法を変換
   txt = txt
-    .replace(/\^{\*}/g,'<sup>*</sup>')
-    .replace(/\^{([^}]+)}/g,'<sup>$1</sup>')
-    .replace(/_{([^}]+)}/g,'<sub>$1</sub>');
-  // 既存の改行を処理
+    .replace(/\\circ/g, '°')
+    .replace(/\\times/g, '×')
+    .replace(/\\pm/g, '±')
+    .replace(/\\rightarrow/g, '→')
+    .replace(/\\Delta/g, 'Δ')
+    .replace(/\\alpha/g, 'α')
+    .replace(/\\beta/g, 'β')
+    .replace(/\\gamma/g, 'γ')
+    .replace(/\\delta/g, 'δ')
+    .replace(/\\epsilon/g, 'ε')
+    .replace(/\\micro(?!L|g)/g, 'μ')
+    .replace(/\\microL/g, 'μL')
+    .replace(/\\microg/g, 'μg')
+    .replace(/\\fallingdotseq/g, '≒');
+  // 上付き・下付き文字
+  txt = txt
+    .replace(/\^\{\*\}/g,'<sup>*</sup>')
+    .replace(/\^\{([^}]+)\}/g,'<sup>$1</sup>')
+    .replace(/_\{([^}]+)\}/g,'<sub>$1</sub>');
+  // 改行処理
   txt = txt.replace(/\n/g, '<br>');
-  // 「1:誤」「2:正」などの番号の前に改行を挿入（。や文末の後）
-  txt = txt.replace(/([。）])<br>/g, '$1<br>');
+  // 「1:誤」「2:正」などの番号の前で改行
   txt = txt.replace(/([。）])([1-9][0-9]?[:：])/g, '$1<br>$2');
-  txt = txt.replace(/([a-zA-Z\d])\.([1-9][0-9]?[:：])/g, '$1.<br>$2');
-  // 「参考」「例）」の前にも改行
+  txt = txt.replace(/([a-zA-Z0-9])\.([1-9][0-9]?[:：])/g, '$1.<br>$2');
+  // 「参考」の前にも改行
   txt = txt.replace(/(参考)/g, '<br>$1');
   return txt;
 }
