@@ -269,6 +269,7 @@
 
     <div class="card" id="quiz-card">
       <div class="q-meta" id="q-meta"></div>
+      <div id="q-lead-area"></div>
       <div class="q-title" id="q-text"></div>
       <div id="q-image-area"></div>
       <div id="multi-hint" style="font-size:12px;color:var(--muted);margin-bottom:10px;display:none">※複数選択してください</div>
@@ -579,6 +580,23 @@ function renderQuestion() {
   // meta
   document.getElementById('q-meta').innerHTML =
     `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>`;
+
+  // リード問題（前提症例）の表示
+  const leadArea = document.getElementById('q-lead-area');
+  leadArea.innerHTML = '';
+  if (q.lead_id) {
+    const leadQ = ALL_QUESTIONS.find(x => x.problem_id === q.lead_id);
+    if (leadQ) {
+      leadArea.innerHTML = `
+        <div class="lead-box">
+          <div class="lead-box-title">📋 症例・前提情報（${leadQ.display_title}）</div>
+          <div>${formatText(leadQ.problem_text)}</div>
+          ${leadQ.assets && leadQ.assets.length > 0
+            ? leadQ.assets.map(a => `<img src="${a}" class="q-image" alt="症例図" onerror="this.style.display='none'">`).join('')
+            : ''}
+        </div>`;
+    }
+  }
 
   // question text
   document.getElementById('q-text').innerHTML = formatText(q.problem_text);
