@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>衛生薬学 国試対策</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy2: #1a3260;
+    --blue: #2251a3;
+    --accent: #e8a020;
+    --accent2: #f0c050;
+    --green: #1a7a4a;
+    --green-bg: #e8f5ee;
+    --red: #b02020;
+    --red-bg: #fceaea;
+    --gray: #f4f6fa;
+    --border: #dde3ee;
+    --text: #1a2035;
+    --muted: #6b7a99;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--gray);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-title { color: #fff; }
+  .header-title span { font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+  .header-title small { display: block; color: #8fa8d8; font-size: 10px; letter-spacing: 2px; margin-top: -2px; }
+  nav { display: flex; gap: 6px; }
+  nav button {
+    background: transparent; border: none; color: #8fa8d8;
+    padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
+  }
+  nav button.active, nav button:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+  /* ── LAYOUT ── */
+  main { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff; border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(15,31,61,.07);
+    padding: 22px;
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    border: none; border-radius: 8px; font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700; cursor: pointer; transition: all .15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary { background: var(--blue); color: #fff; padding: 12px 24px; font-size: 14px; }
+  .btn-primary:hover { background: #1a3f8a; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,81,163,.35); }
+  .btn-secondary { background: #fff; color: var(--blue); border: 2px solid var(--blue); padding: 10px 20px; font-size: 13px; }
+  .btn-secondary:hover { background: #eef2fb; }
+  .btn-accent { background: var(--accent); color: var(--navy); padding: 10px 20px; font-size: 13px; }
+  .btn-accent:hover { background: var(--accent2); }
+  .btn-sm { padding: 7px 14px; font-size: 12px; }
+
+  /* ── LOADING ── */
+  #loading {
+    position: fixed; inset: 0; background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 999; transition: opacity .5s;
+  }
+  #loading h1 { font-family: 'Shippori Mincho', serif; color: #fff; font-size: 28px; margin-bottom: 8px; }
+  #loading p { color: #8fa8d8; font-size: 13px; margin-bottom: 32px; }
+  .loader { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SCREEN MANAGEMENT ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── HOME ── */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
+  }
+  .stat-box {
+    background: #fff; border-radius: 12px; padding: 16px; text-align: center;
+    box-shadow: 0 2px 8px rgba(15,31,61,.06);
+  }
+  .stat-num { font-size: 28px; font-weight: 900; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .cat-card {
+    background: #fff; border-radius: 12px; padding: 16px;
+    box-shadow: 0 2px 8px rgba(15,31,61,.06);
+    border-left: 4px solid; cursor: pointer; transition: all .15s;
+  }
+  .cat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,31,61,.12); }
+  .cat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .cat-card p { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .progress-bar { background: #e8ecf5; border-radius: 6px; height: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 6px; transition: width .4s; }
+
+  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .filter-btn {
+    padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    border: 2px solid var(--border); background: #fff; color: var(--muted);
+    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
+  }
+  .filter-btn.active { border-color: var(--blue); background: var(--blue); color: #fff; }
+
+  .section-filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+  /* ── QUIZ ── */
+  .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .quiz-progress-text { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .progress-bar-lg { background: #e8ecf5; border-radius: 8px; height: 8px; margin-bottom: 20px; overflow: hidden; }
+  .progress-fill-lg { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--blue), #5580d0); transition: width .4s; }
+
+  .q-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .q-title { font-family: 'Shippori Mincho', serif; font-size: 16px; font-weight: 700; line-height: 1.8; margin-bottom: 16px; }
+  .q-image { max-width: 100%; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border); }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    width: 100%; text-align: left; padding: 14px 18px;
+    border-radius: 10px; font-size: 14px; font-weight: 500; line-height: 1.6;
+    border: 2px solid var(--border); background: #fafbfd;
+    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--blue); background: #eef2fb; }
+  .option-btn:disabled { cursor: default; }
+  .option-btn.correct { border-color: var(--green) !important; background: var(--green-bg) !important; color: var(--green); }
+  .option-btn.wrong { border-color: var(--red) !important; background: var(--red-bg) !important; color: var(--red); }
+  .option-letter { font-weight: 900; min-width: 20px; color: var(--muted); }
+  .option-btn.correct .option-letter { color: var(--green); }
+  .option-btn.wrong .option-letter { color: var(--red); }
+
+  /* multiple select */
+  .option-btn.selected-multi { border-color: var(--blue); background: #eef2fb; }
+  .option-btn.correct-multi { border-color: var(--green) !important; background: var(--green-bg) !important; }
+  .option-btn.wrong-multi { border-color: var(--red) !important; background: var(--red-bg) !important; }
+
+  .explanation-box {
+    margin-top: 16px; border-radius: 12px; padding: 18px;
+    border-left: 4px solid; animation: fadeIn .3s;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .explanation-box.correct-box { border-color: var(--green); background: var(--green-bg); }
+  .explanation-box.wrong-box { border-color: var(--red); background: var(--red-bg); }
+  .explanation-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
+  .explanation-text { font-size: 13.5px; line-height: 1.9; color: #2a3a55; }
+  .ai-box { margin-top: 14px; background: #f0f4ff; border-radius: 10px; padding: 14px 16px; }
+  .ai-box-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+  .ai-box-text { font-size: 13px; line-height: 1.8; color: #2a3a6a; }
+
+  .quiz-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 10px; }
+
+  /* ── SUMMARY ── */
+  .summary-circle {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 10px solid var(--blue); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; margin: 20px auto;
+  }
+  .summary-pct { font-size: 36px; font-weight: 900; color: var(--blue); line-height: 1; }
+  .summary-sub { font-size: 12px; color: var(--muted); }
+
+  /* ── STATS ── */
+  .stats-q-row {
+    display: flex; align-items: center; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .stats-q-row:last-child { border-bottom: none; }
+  .stats-q-text { flex: 1; color: var(--text); line-height: 1.4; }
+  .stats-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; white-space: nowrap; }
+  .badge-good { background: var(--green-bg); color: var(--green); }
+  .badge-weak { background: var(--red-bg); color: var(--red); }
+  .badge-none { background: #f0f0f0; color: var(--muted); }
+
+  /* CAT colors */
+  .cat-環境衛生 { border-color: #2e7d32; } .cat-環境衛生 .progress-fill { background: #2e7d32; }
+  .cat-食品衛生 { border-color: #e65100; } .cat-食品衛生 .progress-fill { background: #e65100; }
+  .cat-毒性学   { border-color: #880e4f; } .cat-毒性学 .progress-fill { background: #880e4f; }
+  .cat-感染制御 { border-color: #0d47a1; } .cat-感染制御 .progress-fill { background: #0d47a1; }
+  .tag-環境衛生 { background: #e8f5e9; color: #2e7d32; }
+  .tag-食品衛生 { background: #fff3e0; color: #e65100; }
+  .tag-毒性学   { background: #fce4ec; color: #880e4f; }
+  .tag-感染制御 { background: #e3f2fd; color: #0d47a1; }
+  .tag-必須 { background: #e8eaf6; color: #3949ab; }
+  .tag-理論 { background: #f3e5f5; color: #7b1fa2; }
+  .tag-実践 { background: #e0f2f1; color: #00695c; }
+
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid { grid-template-columns: 1fr; }
+    header { padding: 0 12px; }
+    nav button { padding: 7px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading">
+  <h1>衛生薬学 国試対策</h1>
+  <p>PHARMACY EXAM PREP</p>
+  <div class="loader"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-title">
+    <small>PHARMACY EXAM PREP</small>
+    <span>衛生薬学 国試対策</span>
+  </div>
+  <nav>
+    <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
+    <button onclick="showScreen('stats')" id="nav-stats">📊 進捗</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HOME -->
+  <div id="screen-home" class="screen active">
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-weight:700;font-size:15px;margin-bottom:12px">🔬 分野・セクションを選択</div>
+      <div class="filter-row" id="cat-filters"></div>
+      <div class="section-filter-row" id="sec-filters"></div>
+      <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startQuiz(false)">▶ 問題を解く</button>
+        <button class="btn btn-secondary" id="weak-btn" onclick="startQuiz(true)" style="display:none">🔁 苦手問題を復習</button>
+      </div>
+    </div>
+
+    <div class="cat-grid" id="cat-cards"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="screen">
+    <div class="card" style="margin-bottom:14px;padding:14px 18px">
+      <div class="quiz-header">
+        <span class="quiz-progress-text" id="q-progress"></span>
+        <div style="display:flex;gap:6px" id="q-tags"></div>
+      </div>
+      <div class="progress-bar-lg"><div class="progress-fill-lg" id="q-progress-bar"></div></div>
+    </div>
+
+    <div class="card" id="quiz-card">
+      <div class="q-meta" id="q-meta"></div>
+      <div class="q-title" id="q-text"></div>
+      <div id="q-image-area"></div>
+      <div id="multi-hint" style="font-size:12px;color:var(--muted);margin-bottom:10px;display:none">※複数選択してください</div>
+      <div class="options" id="q-options"></div>
+      <div id="q-explanation"></div>
+      <div class="quiz-footer" id="quiz-footer" style="display:none">
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="footer-left"></div>
+        <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div id="screen-summary" class="screen">
+    <div class="card" style="text-align:center;padding:32px">
+      <div style="font-size:40px;margin-bottom:8px">🎓</div>
+      <div style="font-family:'Shippori Mincho',serif;font-size:22px;font-weight:700;margin-bottom:4px">セッション完了！</div>
+      <div class="summary-circle" id="summary-circle">
+        <div class="summary-pct" id="summary-pct"></div>
+        <div class="summary-sub">正答率</div>
+      </div>
+      <div style="font-size:15px;color:var(--muted);margin-bottom:24px" id="summary-text"></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startQuiz(false)">もう一度</button>
+        <button class="btn btn-secondary" onclick="showScreen('home')">ホームへ</button>
+        <button class="btn btn-accent" id="retry-weak-btn" onclick="startQuiz(true)" style="display:none">🔁 不正解のみ再挑戦</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div id="screen-stats" class="screen">
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-weight:700;font-size:16px;margin-bottom:16px">📊 全体進捗</div>
+      <div class="stats-bar" id="stats-bar2"></div>
+    </div>
+    <div id="stats-cats"></div>
+  </div>
+</main>
+
+<script>
+// ── STATE ──
+let ALL_QUESTIONS = [];
+let records = {};       // { problem_id: {correct, wrong} }
+let selectedCat = 'すべて';
+let selectedSec = 'すべて';
+let quizQueue = [];
+let currentIdx = 0;
+let answered = false;
+let selectedOptions = new Set();
+let sessionResults = [];
+const CATS = ['すべて','環境衛生','食品衛生','毒性学','感染制御'];
+const SECS = ['すべて','必須','理論','実践'];
+
+// category mapping from JSONL
+const CAT_MAP = {
+  '環境衛生': q => isEnv(q),
+  '食品衛生': q => isFood(q),
+  '毒性学':   q => isTox(q),
+  '感染制御': q => isInfection(q),
+};
+
+// Simple keyword-based category assignment
+function assignCategory(q) {
+  if (q._category) return q._category;
+  const txt = (q.problem_text + ' ' + (q.comment||'')).toLowerCase();
+  if (/感染|細菌|ウイルス|消毒|滅菌|mrsa|結核|標準予防|院内|抗菌|ワクチン|予防接種|検疫|隔離|手洗|マスク/.test(txt)) return '感染制御';
+  if (/食中毒|食品添加|保存料|農薬|残留|腸炎|サルモネラ|ノロ|ボツリヌス|フグ|カビ毒|aflatoxin|食品衛生|食品安全|食品表示/.test(txt)) return '食品衛生';
+  if (/重金属|水銀|カドミウム|鉛|砒素|農薬|有機リン|中毒|毒性|ld50|tdi|adi|noael|催奇形|変異原|発がん|染色体|変異/.test(txt)) return '毒性学';
+  return '環境衛生';
+}
+
+// ── LOAD DATA ──
+async function loadData() {
+  try {
+    const res = await fetch('hygiene_with_images_v4.jsonl');
+    const text = await res.text();
+    const lines = text.trim().split('\n').filter(l => l.trim());
+    ALL_QUESTIONS = lines.map(l => {
+      const q = JSON.parse(l);
+      q._category = assignCategory(q);
+      return q;
+    });
+    // init records
+    ALL_QUESTIONS.forEach(q => {
+      if (!records[q.problem_id]) records[q.problem_id] = {correct:0, wrong:0};
+    });
+    // load saved records
+    try {
+      const saved = localStorage.getItem('eisei_records');
+      if (saved) records = JSON.parse(saved);
+    } catch(e) {}
+    hideLoading();
+    renderHome();
+  } catch(e) {
+    document.querySelector('#loading p').textContent = 'データ読み込みエラー: ' + e.message;
+  }
+}
+
+function saveRecords() {
+  try { localStorage.setItem('eisei_records', JSON.stringify(records)); } catch(e) {}
+}
+
+function hideLoading() {
+  const el = document.getElementById('loading');
+  el.style.opacity = '0';
+  setTimeout(() => el.style.display = 'none', 500);
+}
+
+// ── NAVIGATION ──
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  const nb = document.getElementById('nav-' + name);
+  if (nb) nb.classList.add('active');
+  if (name === 'home') renderHome();
+  if (name === 'stats') renderStats();
+}
+
+// ── HOME ──
+function getPool(weakOnly) {
+  let pool = ALL_QUESTIONS;
+  if (selectedCat !== 'すべて') pool = pool.filter(q => q._category === selectedCat);
+  if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
+  if (weakOnly) pool = pool.filter(q => (records[q.problem_id]?.wrong || 0) > 0);
+  return pool;
+}
+
+function renderHome() {
+  renderStatsBar('stats-bar');
+  renderCatFilters();
+  renderSecFilters();
+  renderPoolInfo();
+  renderCatCards();
+  renderWeakBtn();
+}
+
+function renderStatsBar(id) {
+  const total = Object.values(records).reduce((s,r)=>s+r.correct+r.wrong,0);
+  const correct = Object.values(records).reduce((s,r)=>s+r.correct,0);
+  const wrong = Object.values(records).reduce((s,r)=>s+r.wrong,0);
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById(id).innerHTML = [
+    {label:'総回答数', val:total, color:'var(--navy)'},
+    {label:'正解数', val:correct, color:'var(--green)'},
+    {label:'不正解数', val:wrong, color:'var(--red)'},
+    {label:'正答率', val:(total?pct+'%':'─'), color:'var(--blue)'},
+  ].map(s=>`<div class="stat-box"><div class="stat-num" style="color:${s.color}">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
+}
+
+function renderCatFilters() {
+  document.getElementById('cat-filters').innerHTML = CATS.map(c =>
+    `<button class="filter-btn ${c===selectedCat?'active':''}" onclick="selectCat('${c}')">${c}</button>`
+  ).join('');
+}
+
+function renderSecFilters() {
+  document.getElementById('sec-filters').innerHTML = SECS.map(s =>
+    `<button class="filter-btn ${s===selectedSec?'active':''}" onclick="selectSec('${s}')">${s}</button>`
+  ).join('');
+}
+
+function renderPoolInfo() {
+  const pool = getPool(false);
+  const weak = pool.filter(q => (records[q.problem_id]?.wrong||0)>0);
+  document.getElementById('pool-info').textContent = `対象: ${pool.length}問（うち苦手: ${weak.length}問）`;
+}
+
+function renderCatCards() {
+  const cats = ['環境衛生','食品衛生','毒性学','感染制御'];
+  document.getElementById('cat-cards').innerHTML = cats.map(cat => {
+    const pool = ALL_QUESTIONS.filter(q=>q._category===cat);
+    const c = pool.reduce((s,q)=>s+(records[q.problem_id]?.correct||0),0);
+    const w = pool.reduce((s,q)=>s+(records[q.problem_id]?.wrong||0),0);
+    const total = c+w;
+    const pct = total ? Math.round(c/total*100) : 0;
+    return `<div class="cat-card cat-${cat}" onclick="selectCat('${cat}')">
+      <h3>${cat}</h3>
+      <p>${pool.length}問収録</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">正答率 ${total?pct+'%':'未回答'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderWeakBtn() {
+  const weak = getPool(true);
+  const btn = document.getElementById('weak-btn');
+  btn.style.display = weak.length > 0 ? 'inline-flex' : 'none';
+  btn.textContent = `🔁 苦手問題を復習（${weak.length}問）`;
+}
+
+function selectCat(c) { selectedCat = c; renderHome(); }
+function selectSec(s) { selectedSec = s; renderHome(); }
+
+// ── QUIZ ──
+function startQuiz(weakOnly) {
+  const pool = getPool(weakOnly);
+  if (pool.length === 0) { alert('該当する問題がありません'); return; }
+  quizQueue = [...pool].sort(() => Math.random() - 0.5);
+  currentIdx = 0;
+  sessionResults = [];
+  showScreen('quiz');
+  document.getElementById('nav-quiz') && (document.getElementById('nav-quiz').classList.add('active'));
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  selectedOptions = new Set();
+  const q = quizQueue[currentIdx];
+  const isMulti = q.answer.length > 1;
+
+  // progress
+  document.getElementById('q-progress').textContent = `問題 ${currentIdx+1} / ${quizQueue.length}`;
+  document.getElementById('q-progress-bar').style.width = `${(currentIdx+1)/quizQueue.length*100}%`;
+
+  // tags
+  document.getElementById('q-tags').innerHTML =
+    `<span class="tag tag-${q._category}">${q._category}</span>` +
+    `<span class="tag tag-${q.section}">${q.section}</span>`;
+
+  // meta
+  document.getElementById('q-meta').innerHTML =
+    `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>`;
+
+  // question text
+  document.getElementById('q-text').innerHTML = formatText(q.problem_text);
+
+  // image
+  const imgArea = document.getElementById('q-image-area');
+  imgArea.innerHTML = '';
+  if (q.assets && q.assets.length > 0) {
+    q.assets.forEach(asset => {
+      const img = document.createElement('img');
+      img.src = asset;
+      img.className = 'q-image';
+      img.alt = '問題図';
+      img.onerror = () => img.style.display = 'none';
+      imgArea.appendChild(img);
+    });
+  }
+
+  // multi hint
+  document.getElementById('multi-hint').style.display = isMulti ? 'block' : 'none';
+
+  // options
+  const optArea = document.getElementById('q-options');
+  if (q.choices[0] === 'IMAGES') {
+    // 選択肢が画像の問題
+    const nums = q.answer.map(Number);
+    const maxOpt = Math.max(...nums, 5);
+    optArea.innerHTML = Array.from({length:maxOpt},(_,i)=>i+1).map(i =>
+      `<button class="option-btn" id="opt-${i}" onclick="selectOption(${i},'${q.problem_id}')">
+        <span class="option-letter">${i}</span>
+        <span>選択肢 ${i}（画像参照）</span>
+      </button>`
+    ).join('');
+  } else {
+    optArea.innerHTML = q.choices.map((c,i) =>
+      `<button class="option-btn" id="opt-${i+1}" onclick="selectOption(${i+1},'${q.problem_id}')">
+        <span class="option-letter">${['ア','イ','ウ','エ','オ'][i]}</span>
+        <span>${formatText(c)}</span>
+      </button>`
+    ).join('');
+  }
+
+  document.getElementById('q-explanation').innerHTML = '';
+  document.getElementById('quiz-footer').style.display = 'none';
+
+  // submit button for multi
+  if (isMulti) {
+    optArea.innerHTML += `<button class="btn btn-primary" style="margin-top:8px" onclick="submitMulti('${q.problem_id}')">✓ 回答を確定する</button>`;
+  }
+}
+
+function selectOption(num, pid) {
+  if (answered) return;
+  const q = quizQueue[currentIdx];
+  const isMulti = q.answer.length > 1;
+
+  if (isMulti) {
+    if (selectedOptions.has(num)) {
+      selectedOptions.delete(num);
+      document.getElementById('opt-'+num)?.classList.remove('selected-multi');
+    } else {
+      selectedOptions.add(num);
+      document.getElementById('opt-'+num)?.classList.add('selected-multi');
+    }
+  } else {
+    processAnswer([num], pid);
+  }
+}
+
+function submitMulti(pid) {
+  if (answered || selectedOptions.size === 0) return;
+  processAnswer([...selectedOptions], pid);
+}
+
+function processAnswer(chosen, pid) {
+  answered = true;
+  const q = quizQueue[currentIdx];
+  const correctNums = q.answer.map(Number);
+  const isCorrect = correctNums.length === chosen.length &&
+    correctNums.every(n => chosen.includes(n));
+
+  if (!records[pid]) records[pid] = {correct:0,wrong:0};
+  records[pid].correct += isCorrect ? 1 : 0;
+  records[pid].wrong   += isCorrect ? 0 : 1;
+  saveRecords();
+  sessionResults.push({pid, correct:isCorrect});
+
+  // highlight options
+  const allBtns = document.querySelectorAll('.option-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  if (q.answer.length > 1) {
+    // multi
+    const allNums = q.choices[0]==='IMAGES'
+      ? Array.from({length:5},(_,i)=>i+1)
+      : q.choices.map((_,i)=>i+1);
+    allNums.forEach(n => {
+      const btn = document.getElementById('opt-'+n);
+      if (!btn) return;
+      if (correctNums.includes(n) && chosen.includes(n)) btn.classList.add('correct-multi');
+      else if (correctNums.includes(n)) btn.classList.add('correct-multi');
+      else if (chosen.includes(n)) btn.classList.add('wrong-multi');
+    });
+  } else {
+    const chosenNum = chosen[0];
+    const correctNum = correctNums[0];
+    const correctBtn = document.getElementById('opt-'+correctNum);
+    const chosenBtn  = document.getElementById('opt-'+chosenNum);
+    if (correctBtn) correctBtn.classList.add('correct');
+    if (chosenBtn && chosenNum !== correctNum) chosenBtn.classList.add('wrong');
+  }
+
+  // explanation
+  const expBox = document.getElementById('q-explanation');
+  expBox.innerHTML = `
+    <div class="explanation-box ${isCorrect?'correct-box':'wrong-box'}">
+      <div class="explanation-title" style="color:${isCorrect?'var(--green)':'var(--red)'}">
+        ${isCorrect ? '✅ 正解！' : '❌ 不正解'} 　正解: ${correctNums.join('・')}番
+      </div>
+      <div class="explanation-text">${formatText(q.comment||'解説なし')}</div>
+      <div class="ai-box" id="ai-area">
+        <button class="btn btn-secondary btn-sm" onclick="fetchAI('${pid}')">🤖 AI追加解説を取得</button>
+      </div>
+    </div>`;
+
+  // footer
+  const footer = document.getElementById('quiz-footer');
+  footer.style.display = 'flex';
+  document.getElementById('footer-left').innerHTML = '';
+  document.getElementById('next-btn').textContent =
+    currentIdx + 1 >= quizQueue.length ? '結果を見る 📋' : '次の問題 →';
+}
+
+async function fetchAI(pid) {
+  const q = ALL_QUESTIONS.find(x=>x.problem_id===pid);
+  if (!q) return;
+  const area = document.getElementById('ai-area');
+  area.innerHTML = '<div class="ai-box-title">🤖 AI解説を生成中...</div>';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`薬剤師国家試験の衛生薬学問題について、薬学生向けに補足解説してください。各選択肢の正誤理由、覚え方・臨床との関連を200〜300字で簡潔に。\n問題:${q.problem_text}\n正解:${q.answer.join(',')}番\n解説:${q.comment}`}]
+      })
+    });
+    const data = await res.json();
+    const txt = data.content?.[0]?.text || 'エラーが発生しました';
+    area.innerHTML = `<div class="ai-box-title">🤖 AI補足解説</div><div class="ai-box-text">${formatText(txt)}</div>`;
+  } catch(e) {
+    area.innerHTML = `<div class="ai-box-title" style="color:var(--red)">AI解説の取得に失敗しました</div>`;
+  }
+}
+
+function nextQuestion() {
+  if (currentIdx + 1 >= quizQueue.length) {
+    showSummary();
+  } else {
+    currentIdx++;
+    renderQuestion();
+  }
+}
+
+function showSummary() {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-summary').classList.add('active');
+  const correct = sessionResults.filter(r=>r.correct).length;
+  const total = sessionResults.length;
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('summary-pct').textContent = pct + '%';
+  document.getElementById('summary-text').textContent = `${correct} / ${total} 問正解`;
+  const hasWrong = sessionResults.some(r=>!r.correct);
+  document.getElementById('retry-weak-btn').style.display = hasWrong ? 'inline-flex' : 'none';
+}
+
+// ── STATS ──
+function renderStats() {
+  renderStatsBar('stats-bar2');
+  const cats = ['環境衛生','食品衛生','毒性学','感染制御'];
+  const container = document.getElementById('stats-cats');
+  container.innerHTML = cats.map(cat => {
+    const pool = ALL_QUESTIONS.filter(q=>q._category===cat);
+    const rows = pool.map(q => {
+      const r = records[q.problem_id] || {correct:0,wrong:0};
+      const total = r.correct + r.wrong;
+      const pct = total ? Math.round(r.correct/total*100) : null;
+      const badge = pct===null
+        ? `<span class="stats-badge badge-none">未回答</span>`
+        : pct>=70
+          ? `<span class="stats-badge badge-good">${pct}% (${r.correct}/${total})</span>`
+          : `<span class="stats-badge badge-weak">⚠ ${pct}% (${r.correct}/${total})</span>`;
+      return `<div class="stats-q-row">
+        <div class="stats-q-text">${q.display_title}　${q.problem_text.slice(0,40)}…</div>
+        ${badge}
+      </div>`;
+    }).join('');
+    return `<div class="card" style="margin-bottom:14px;border-left:4px solid ${catColor(cat)}">
+      <div style="font-weight:700;font-size:14px;color:${catColor(cat)};margin-bottom:12px">${cat}（${pool.length}問）</div>
+      ${rows}
+    </div>`;
+  }).join('');
+}
+
+function catColor(cat) {
+  return {環境衛生:'#2e7d32',食品衛生:'#e65100',毒性学:'#880e4f',感染制御:'#0d47a1'}[cat]||'#333';
+}
+
+// ── UTILS ──
+function formatText(txt) {
+  if (!txt) return '';
+  return txt
+    .replace(/\n/g,'<br>')
+    .replace(/\^{\*}/g,'<sup>*</sup>')
+    .replace(/\^{([^}]+)}/g,'<sup>$1</sup>')
+    .replace(/_{([^}]+)}/g,'<sub>$1</sub>');
+}
+
+// ── INIT ──
+loadData();
+</script>
+</body>
+</html>
