@@ -696,9 +696,7 @@ function processAnswer(chosen, pid) {
         ${isCorrect ? '✅ 正解！' : '❌ 不正解'} 　正解: ${correctNums.join('・')}番
       </div>
       <div class="explanation-text">${formatText(q.comment||'解説なし')}</div>
-      <div class="ai-box" id="ai-area">
-        <button class="btn btn-secondary btn-sm" onclick="fetchAI('${pid}')">🤖 AI追加解説を取得</button>
-      </div>
+
     </div>`;
 
   // footer
@@ -709,28 +707,7 @@ function processAnswer(chosen, pid) {
     currentIdx + 1 >= quizQueue.length ? '結果を見る 📋' : '次の問題 →';
 }
 
-async function fetchAI(pid) {
-  const q = ALL_QUESTIONS.find(x=>x.problem_id===pid);
-  if (!q) return;
-  const area = document.getElementById('ai-area');
-  area.innerHTML = '<div class="ai-box-title">🤖 AI解説を生成中...</div>';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:`薬剤師国家試験の衛生薬学問題について、薬学生向けに補足解説してください。各選択肢の正誤理由、覚え方・臨床との関連を200〜300字で簡潔に。\n問題:${q.problem_text}\n正解:${q.answer.join(',')}番\n解説:${q.comment}`}]
-      })
-    });
-    const data = await res.json();
-    const txt = data.content?.[0]?.text || 'エラーが発生しました';
-    area.innerHTML = `<div class="ai-box-title">🤖 AI補足解説</div><div class="ai-box-text">${formatText(txt)}</div>`;
-  } catch(e) {
-    area.innerHTML = `<div class="ai-box-title" style="color:var(--red)">AI解説の取得に失敗しました</div>`;
-  }
-}
+
 
 function nextQuestion() {
   if (currentIdx + 1 >= quizQueue.length) {
@@ -788,11 +765,19 @@ function catColor(cat) {
 // ── UTILS ──
 function formatText(txt) {
   if (!txt) return '';
-  return txt
-    .replace(/\n/g,'<br>')
+  txt = txt
     .replace(/\^{\*}/g,'<sup>*</sup>')
     .replace(/\^{([^}]+)}/g,'<sup>$1</sup>')
     .replace(/_{([^}]+)}/g,'<sub>$1</sub>');
+  // 既存の改行を処理
+  txt = txt.replace(/\n/g, '<br>');
+  // 「1:誤」「2:正」などの番号の前に改行を挿入（。や文末の後）
+  txt = txt.replace(/([。）])<br>/g, '$1<br>');
+  txt = txt.replace(/([。）])([1-9][0-9]?[:：])/g, '$1<br>$2');
+  txt = txt.replace(/([a-zA-Z\d])\.([1-9][0-9]?[:：])/g, '$1.<br>$2');
+  // 「参考」「例）」の前にも改行
+  txt = txt.replace(/(参考)/g, '<br>$1');
+  return txt;
 }
 
 // ── INIT ──
