@@ -1,0 +1,169 @@
+{
+  "lecture": 1,
+  "title": "地球環境と生態系",
+  "textbook": "VI-1 pp.600-625",
+  "checkpoints": [
+    {
+      "id": "CP1",
+      "section": "A-1 四圏",
+      "after_slide": 15,
+      "questions": [
+        {
+          "id": "L01-Q01",
+          "question": "乾燥大気の主成分で最も体積%が大きいのはどれか？",
+          "choices": ["O₂（酸素）", "N₂（窒素）", "Ar（アルゴン）", "CO₂（二酸化炭素）"],
+          "answer": 1,
+          "explanation": "N₂ が 78.08% で最多。O₂ 20.95%、Ar 0.93%、CO₂ 0.04%。",
+          "time_limit": 20
+        },
+        {
+          "id": "L01-Q02",
+          "question": "オゾン層が存在する大気の層はどれか？",
+          "choices": ["対流圏", "成層圏", "中間圏", "熱圏"],
+          "answer": 1,
+          "explanation": "オゾン層は成層圏（12〜50km）に存在し、UV-B・UV-Cを吸収する。",
+          "time_limit": 15
+        },
+        {
+          "id": "L01-Q03",
+          "question": "地球上で人間が利用可能な淡水は全水量の約何%か？",
+          "choices": ["約2.5%", "約0.8%", "約0.01%", "約0.1%"],
+          "answer": 2,
+          "explanation": "淡水は全水量の2.5%だが、大部分は氷河。利用可能な湖沼・河川水は約0.01%。",
+          "time_limit": 20
+        }
+      ]
+    },
+    {
+      "id": "CP2",
+      "section": "A-2 生態系",
+      "after_slide": 23,
+      "questions": [
+        {
+          "id": "L01-Q04",
+          "question": "逆転することが【ない】生態ピラミッドはどれか？",
+          "choices": ["個体数ピラミッド", "生物体量ピラミッド", "生産速度ピラミッド", "すべて逆転しうる"],
+          "answer": 2,
+          "explanation": "生産速度ピラミッドは熱力学第二法則により必ず上位ほど減少する。個体数・生物体量は逆転しうる。",
+          "time_limit": 20
+        },
+        {
+          "id": "L01-Q05",
+          "question": "生態系の構成要素として正しい組合せはどれか？",
+          "choices": ["生産者・分解者・捕食者", "生産者・消費者・分解者", "独立栄養・従属栄養・寄生", "一次消費者・二次消費者・高次消費者"],
+          "answer": 1,
+          "explanation": "生態系は生産者（独立栄養生物）・消費者（従属栄養生物）・分解者で構成される。",
+          "time_limit": 15
+        }
+      ]
+    },
+    {
+      "id": "CP3",
+      "section": "A-3 物質循環",
+      "after_slide": 33,
+      "questions": [
+        {
+          "id": "L01-Q06",
+          "question": "窒素循環において、NH₄⁺ → NO₂⁻ の反応を行う細菌はどれか？",
+          "choices": ["硝酸菌", "亜硝酸菌", "脱窒菌", "根粒菌"],
+          "answer": 1,
+          "explanation": "亜硝酸菌（Nitrosomonas）がNH₄⁺→NO₂⁻、硝酸菌（Nitrobacter）がNO₂⁻→NO₃⁻。",
+          "time_limit": 20
+        },
+        {
+          "id": "L01-Q07",
+          "question": "脱窒反応の条件として正しいのはどれか？",
+          "choices": ["好気条件・酸化反応", "好気条件・還元反応", "嫌気条件・酸化反応", "嫌気条件・還元反応"],
+          "answer": 3,
+          "explanation": "脱窒＝嫌気＝還元（NO₃⁻→N₂）。対して硝化＝好気＝酸化。",
+          "time_limit": 20
+        },
+        {
+          "id": "L01-Q08",
+          "question": "炭素・窒素・リンのうち、大気中にガス態を持たないのはどれか？",
+          "choices": ["炭素", "窒素", "リン", "いずれもガス態を持つ"],
+          "answer": 2,
+          "explanation": "リンはガス態を持たず、岩石→土壌→水系→堆積物という経路で循環する。",
+          "time_limit": 15
+        }
+      ]
+    },
+    {
+      "id": "CP4",
+      "section": "B 環境内動態",
+      "after_slide": 42,
+      "questions": [
+        {
+          "id": "L01-Q09",
+          "question": "生物濃縮係数（BCF）の計算式はどれか？",
+          "choices": ["環境中濃度 ÷ 体内濃度", "体内濃度 × 環境中濃度", "体内濃度 ÷ 環境中濃度", "（体内−環境）÷ 環境中濃度"],
+          "answer": 2,
+          "explanation": "BCF = 生物体内濃度 ÷ 環境中濃度。BCF > 1 で濃縮あり。",
+          "time_limit": 15
+        },
+        {
+          "id": "L01-Q10",
+          "question": "log Pow が大きい化学物質の特徴として正しいのはどれか？",
+          "choices": ["水溶性が高い", "揮発性が高い", "脂溶性が高く生物濃縮されやすい", "分解されやすい"],
+          "answer": 2,
+          "explanation": "log Pow が大きい＝脂溶性が高い＝BCFが大きい（生物濃縮されやすい）。",
+          "time_limit": 20
+        }
+      ]
+    },
+    {
+      "id": "CP5",
+      "section": "C-1 オゾン層",
+      "after_slide": 52,
+      "questions": [
+        {
+          "id": "L01-Q11",
+          "question": "フロンによるオゾン破壊で触媒として働く原子はどれか？",
+          "choices": ["フッ素原子（F）", "塩素原子（Cl）", "臭素原子（Br）", "酸素原子（O）"],
+          "answer": 1,
+          "explanation": "CFC由来の塩素原子（Cl·）がO₃を触媒的に分解する。1個のCl·で数万分子のO₃を破壊。",
+          "time_limit": 15
+        },
+        {
+          "id": "L01-Q12",
+          "question": "HFCのODP（オゾン破壊係数）はいくつか？",
+          "choices": ["0", "0.05", "0.5", "1.0"],
+          "answer": 0,
+          "explanation": "HFCはClを含まないためODP=0。ただしGWPは高く、キガリ改正で規制対象に。",
+          "time_limit": 15
+        }
+      ]
+    },
+    {
+      "id": "CP6",
+      "section": "C-2/C-3 温暖化・酸性雨",
+      "after_slide": 64,
+      "questions": [
+        {
+          "id": "L01-Q13",
+          "question": "GWP（地球温暖化係数）の基準物質はどれか？",
+          "choices": ["CH₄", "N₂O", "CO₂", "HFC"],
+          "answer": 2,
+          "explanation": "CO₂を基準（GWP=1）とし、各ガスの100年累積温暖化能力を相対値で表す。",
+          "time_limit": 15
+        },
+        {
+          "id": "L01-Q14",
+          "question": "酸性雨と定義されるpHの基準はどれか？",
+          "choices": ["pH 7.0 以下", "pH 6.5 以下", "pH 5.6 以下", "pH 4.5 以下"],
+          "answer": 2,
+          "explanation": "純水でも大気CO₂の溶解でpH 5.6。これより低い降水が酸性雨。",
+          "time_limit": 15
+        },
+        {
+          "id": "L01-Q15",
+          "question": "HFCが抱える「二面性」として正しいのはどれか？",
+          "choices": ["ODP高・GWP低", "ODP=0・GWP高", "ODP高・GWP高", "ODP=0・GWP低"],
+          "answer": 1,
+          "explanation": "HFCはODP=0（オゾン層破壊しない）だがGWP数千〜1万超（温暖化には寄与）。",
+          "time_limit": 20
+        }
+      ]
+    }
+  ]
+}
