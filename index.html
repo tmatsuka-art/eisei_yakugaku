@@ -245,6 +245,8 @@
       <div class="filter-row" id="cat-filters"></div>
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📋 セクション</div>
       <div class="section-filter-row" id="sec-filters"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📅 出題回</div>
+      <div class="filter-row" id="year-filters" style="margin-bottom:12px"></div>
       <div id="sub-filters" style="margin-bottom:12px"></div>
       <div id="quiz-count-area" style="margin-bottom:12px"></div>
       <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
@@ -320,6 +322,7 @@ let records = {};
 let selectedCat = 'すべて';
 let selectedSec = 'すべて';
 let selectedSub = 'すべて';
+let selectedYear = 'すべて';
 let quizCount = 10;
 let quizQueue = [];
 let currentIdx = 0;
@@ -441,6 +444,7 @@ function getPool(weakOnly) {
   let pool = ALL_QUESTIONS;
   if (selectedCat !== 'すべて') pool = pool.filter(q => q._category === selectedCat);
   if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
+  if (selectedYear !== 'すべて') pool = pool.filter(q => q.year === selectedYear);
   if (selectedSub !== 'すべて') pool = pool.filter(q => q._subcat === selectedSub);
   if (weakOnly) pool = pool.filter(q => (records[q.problem_id]?.wrong || 0) > 0);
   return pool;
@@ -450,6 +454,7 @@ function renderHome() {
   renderStatsBar('stats-bar');
   renderCatFilters();
   renderSecFilters();
+  renderYearFilters();
   renderSubFilters();
   renderQuizCount();
   renderPoolInfo();
@@ -548,6 +553,19 @@ function renderWeakBtn() {
 function selectCat(c) { selectedCat = c; selectedSub = 'すべて'; renderHome(); }
 function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
+function selectYear(y) { selectedYear = y; renderHome(); }
+
+function renderYearFilters() {
+  const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
+  const el = document.getElementById('year-filters');
+  if (!el) return;
+  el.innerHTML = [
+    `<button class="filter-btn ${'すべて'===selectedYear?'active':''}" onclick="selectYear('すべて')">すべて</button>`,
+    ...years.map(y =>
+      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
+    )
+  ].join('');
+}
 
 // ── QUIZ ──
 function startQuiz(weakOnly) {
