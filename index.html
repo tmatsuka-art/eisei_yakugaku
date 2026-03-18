@@ -393,6 +393,7 @@ function assignSubcat(q) {
 // ── LOAD DATA ──
 async function loadData() {
   try {
+    // 過去問を読み込み
     const res = await fetch('hygiene_with_images_v4.jsonl');
     const text = await res.text();
     const lines = text.trim().split('\n').filter(l => l.trim());
@@ -402,6 +403,23 @@ async function loadData() {
       q._subcat = assignSubcat(q);
       return q;
     });
+    // 新設問を読み込み（ファイルがなくてもエラーにしない）
+    try {
+      const res2 = await fetch('future_questions.jsonl');
+      if (res2.ok) {
+        const text2 = await res2.text();
+        const lines2 = text2.trim().split('\n').filter(l => l.trim());
+        if (lines2.length > 0 && lines2[0] !== '') {
+          const futureQs = lines2.map(l => {
+            const q = JSON.parse(l);
+            q._category = assignCategory(q);
+            q._subcat = assignSubcat(q);
+            return q;
+          });
+          ALL_QUESTIONS = ALL_QUESTIONS.concat(futureQs);
+        }
+      }
+    } catch(e2) { /* future_questions.jsonlが無くても続行 */ }
     // init records
     ALL_QUESTIONS.forEach(q => {
       if (!records[q.problem_id]) records[q.problem_id] = {correct:0, wrong:0};
@@ -562,7 +580,7 @@ function renderYearFilters() {
   el.innerHTML = [
     `<button class="filter-btn ${'すべて'===selectedYear?'active':''}" onclick="selectYear('すべて')">すべて</button>`,
     ...years.map(y =>
-      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
+      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">${y === 0 ? '新設問' : '第'+y+'回'}</button>`
     )
   ].join('');
 }
