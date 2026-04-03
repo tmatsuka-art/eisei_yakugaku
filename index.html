@@ -657,7 +657,7 @@ function renderYearFilters() {
   el.innerHTML = [
     `<button class="filter-btn ${'すべて'===selectedYear?'active':''}" onclick="selectYear('すべて')">すべて</button>`,
     ...years.map(y =>
-      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">${y === 0 ? '新設問' : '第'+y+'回'}</button>`
+      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">${y === 0 ? '予想問題' : '第'+y+'回'}</button>`
     )
   ].join('');
 }
@@ -922,6 +922,10 @@ function renderBrowse() {
          </div>`
       : `<div style="font-size:13px;color:var(--muted)">解説なし</div>`;
 
+    const assetsHtml = (q.assets && q.assets.length > 0)
+      ? q.assets.map(a => `<img src="${a}" class="q-image" alt="問題図" onerror="this.style.display='none'" style="max-width:100%;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)">`).join('')
+      : '';
+
     return `<div class="browse-card" style="border-left-color:${catColor(q._category)}" id="bcard-${q.problem_id}">
       <div class="browse-header">
         <div style="flex:1">
@@ -932,6 +936,7 @@ function renderBrowse() {
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${globalIdx}. ${formatText(q.problem_text)}</div>
+          ${assetsHtml}
         </div>
         <button class="browse-toggle-btn" id="btoggle-${q.problem_id}" onclick="toggleAnswer('${q.problem_id}')">▼ 解説を見る</button>
       </div>
@@ -1032,6 +1037,10 @@ function doSearch() {
          </div>`
       : `<div style="font-size:13px;color:var(--muted)">解説なし</div>`;
 
+    const assetsHtml = (q.assets && q.assets.length > 0)
+      ? q.assets.map(a => `<img src="${a}" class="q-image" alt="問題図" onerror="this.style.display='none'" style="max-width:100%;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)">`).join('')
+      : '';
+
     return `<div class="browse-card" style="border-left-color:${catColor(q._category)}">
       <div class="browse-header">
         <div style="flex:1">
@@ -1042,6 +1051,7 @@ function doSearch() {
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${highlightKeywords(q.problem_text, keywords)}</div>
+          ${assetsHtml}
         </div>
         <button class="browse-toggle-btn" id="stoggle-${q.problem_id}" onclick="toggleSearchAnswer('${q.problem_id}')">▼ 解説を見る</button>
       </div>
