@@ -1010,18 +1010,47 @@ function doSearch() {
     return;
   }
 
-  resultsEl.innerHTML = hit.map(q => {
-    const preview = highlightKeywords(q.problem_text.slice(0, 120) + (q.problem_text.length > 120 ? '…' : ''), keywords);
-    return `<div class="search-result-card cat-border-${q._category}" style="border-left-color:${catColor(q._category)}">
-      <div class="search-result-title">
-        <span style="color:${catColor(q._category)};font-weight:700">${q._category}</span>
-        <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
-        <span style="color:var(--muted);font-size:11px">${q.display_title}</span>
+  resultsEl.innerHTML = hit.map((q, idx) => {
+    const isMulti = q.answer.length > 1;
+    const answerNums = q.answer.map(Number);
+    const choicesHtml = q.choices[0] === 'IMAGES'
+      ? `<div style="font-size:12px;color:var(--muted)">（選択肢は画像です）</div>`
+      : q.choices.map((c, i) => {
+          const num = i + 1;
+          const isAns = answerNums.includes(num);
+          return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="sc-${q.problem_id}-${num}">
+            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${['ア','イ','ウ','エ','オ'][i]}</span>
+            <span>${formatText(highlightKeywords(c, keywords))}</span>
+            ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
+          </div>`;
+        }).join('');
+
+    const commentHtml = q.comment
+      ? `<div class="explanation-box correct-box" style="margin:0">
+          <div class="explanation-title" style="color:var(--green)">📝 解説</div>
+          <div class="explanation-text">${formatText(q.comment)}</div>
+         </div>`
+      : `<div style="font-size:13px;color:var(--muted)">解説なし</div>`;
+
+    return `<div class="browse-card" style="border-left-color:${catColor(q._category)}">
+      <div class="browse-header">
+        <div style="flex:1">
+          <div class="browse-meta">
+            <span style="font-weight:700;color:${catColor(q._category)}">${q._category}</span>
+            <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
+            <span>${q.display_title}</span>
+            ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
+          </div>
+          <div class="browse-q-text">${highlightKeywords(q.problem_text, keywords)}</div>
+        </div>
+        <button class="browse-toggle-btn" id="stoggle-${q.problem_id}" onclick="toggleSearchAnswer('${q.problem_id}')">▼ 解説を見る</button>
       </div>
-      <div class="search-result-text" style="margin-bottom:10px">${preview}</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-primary btn-sm" onclick="startFromSearch('${q.problem_id}')">▶ テストする</button>
-        <button class="btn btn-accent btn-sm" onclick="browseFromSearch('${q.problem_id}')">📖 閲覧モードで見る</button>
+      <div class="browse-choices">${choicesHtml}</div>
+      <div class="browse-answer-area hidden" id="sans-${q.problem_id}">
+        ${commentHtml}
+        <div style="margin-top:10px;text-align:right">
+          <button class="btn btn-primary btn-sm" onclick="startFromSearch('${q.problem_id}')">▶ テストする</button>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -1044,6 +1073,15 @@ function clearSearch() {
   document.getElementById('search-input').value = '';
   document.getElementById('search-count').textContent = '';
   document.getElementById('search-results').innerHTML = '';
+}
+
+function toggleSearchAnswer(pid) {
+  const area = document.getElementById('sans-' + pid);
+  const btn  = document.getElementById('stoggle-' + pid);
+  if (!area) return;
+  const isHidden = area.classList.contains('hidden');
+  area.classList.toggle('hidden', !isHidden);
+  btn.textContent = isHidden ? '▲ 解説を閉じる' : '▼ 解説を見る';
 }
 
 function browseFromSearch(pid) {
