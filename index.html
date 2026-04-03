@@ -211,6 +211,47 @@
     header { padding: 0 12px; }
     nav button { padding: 7px 10px; font-size: 12px; }
   }
+
+  /* ── BROWSE ── */
+  .browse-card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15,31,61,.06);
+    margin-bottom: 12px; overflow: hidden;
+    border-left: 4px solid var(--border);
+  }
+  .browse-header {
+    padding: 14px 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+  }
+  .browse-q-text { font-size: 14px; line-height: 1.7; flex: 1; }
+  .browse-meta { font-size: 11px; color: var(--muted); margin-bottom: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .browse-toggle-btn {
+    border: none; background: #f0f4ff; color: var(--blue); border-radius: 6px;
+    padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+    white-space: nowrap; font-family: 'Noto Sans JP', sans-serif; flex-shrink: 0;
+  }
+  .browse-toggle-btn:hover { background: #dbe4ff; }
+  .browse-choices { padding: 0 18px 10px; display: flex; flex-direction: column; gap: 6px; }
+  .browse-choice {
+    padding: 10px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.6;
+    border: 2px solid var(--border); background: #fafbfd;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .browse-choice.is-answer { border-color: var(--green); background: var(--green-bg); color: var(--green); font-weight: 700; }
+  .browse-answer-area { padding: 0 18px 14px; animation: fadeIn .2s; }
+  .browse-answer-area.hidden { display: none; }
+
+  /* ── SEARCH ── */
+  .search-result-card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15,31,61,.06);
+    padding: 16px 18px; margin-bottom: 10px;
+    border-left: 4px solid var(--border);
+    cursor: pointer; transition: all .15s;
+  }
+  .search-result-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,31,61,.12); border-left-color: var(--blue); }
+  .search-result-title { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .search-result-text { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .search-highlight { background: #fff176; border-radius: 2px; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -230,6 +271,7 @@
   </div>
   <nav>
     <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
+    <button onclick="showScreen('search')" id="nav-search">🔍 検索</button>
     <button onclick="showScreen('stats')" id="nav-stats">📊 進捗</button>
   </nav>
 </header>
@@ -251,12 +293,32 @@
       <div id="quiz-count-area" style="margin-bottom:12px"></div>
       <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startQuiz(false)">▶ 問題を解く</button>
+        <button class="btn btn-primary" onclick="startQuiz(false)">▶ テストモード</button>
+        <button class="btn btn-accent" onclick="startBrowse()">📖 閲覧モード</button>
         <button class="btn btn-secondary" id="weak-btn" onclick="startQuiz(true)" style="display:none">🔁 苦手問題を復習</button>
       </div>
     </div>
 
     <div class="cat-grid" id="cat-cards"></div>
+  </div>
+
+  <!-- BROWSE -->
+  <div id="screen-browse" class="screen">
+    <div class="card" style="margin-bottom:14px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div>
+        <span style="font-weight:700;font-size:15px">📖 閲覧モード</span>
+        <span id="browse-count-label" style="font-size:13px;color:var(--muted);margin-left:10px"></span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-sm" id="browse-expand-all" onclick="toggleAllAnswers(true)"
+          style="background:#f0f4ff;color:var(--blue);border:1px solid var(--blue)">▼ 全解説を開く</button>
+        <button class="btn btn-sm" id="browse-collapse-all" onclick="toggleAllAnswers(false)"
+          style="background:#fff;color:var(--muted);border:1px solid var(--border)">▲ 全解説を閉じる</button>
+        <button class="btn btn-secondary btn-sm" onclick="showScreen('home')">← 戻る</button>
+      </div>
+    </div>
+    <div id="browse-list"></div>
+    <div id="browse-pager" style="display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap"></div>
   </div>
 
   <!-- QUIZ -->
@@ -300,6 +362,21 @@
         <button class="btn btn-accent" id="retry-weak-btn" onclick="startQuiz(true)" style="display:none">🔁 不正解のみ再挑戦</button>
       </div>
     </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div id="screen-search" class="screen">
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-weight:700;font-size:15px;margin-bottom:12px">🔍 問題を検索</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input type="text" id="search-input" placeholder="キーワードを入力（問題文・選択肢・解説を検索）"
+          style="flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-size:14px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .15s"
+          oninput="doSearch()" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--border)'">
+        <button class="btn btn-secondary btn-sm" onclick="clearSearch()">✕ クリア</button>
+      </div>
+      <div id="search-count" style="font-size:12px;color:var(--muted)"></div>
+    </div>
+    <div id="search-results"></div>
   </div>
 
   <!-- STATS -->
@@ -799,6 +876,195 @@ function showSummary() {
   document.getElementById('summary-text').textContent = `${correct} / ${total} 問正解`;
   const hasWrong = sessionResults.some(r=>!r.correct);
   document.getElementById('retry-weak-btn').style.display = hasWrong ? 'inline-flex' : 'none';
+}
+
+// ── BROWSE ──
+let browsePool = [];
+let browsePage = 0;
+const BROWSE_PAGE_SIZE = 50;
+
+function startBrowse() {
+  browsePool = getPool(false);
+  browsePage = 0;
+  showScreen('browse');
+  renderBrowse();
+}
+
+function renderBrowse() {
+  const total = browsePool.length;
+  const start = browsePage * BROWSE_PAGE_SIZE;
+  const end = Math.min(start + BROWSE_PAGE_SIZE, total);
+  const pageItems = browsePool.slice(start, end);
+
+  document.getElementById('browse-count-label').textContent =
+    `${total}問中 ${start+1}〜${end}問を表示`;
+
+  document.getElementById('browse-list').innerHTML = pageItems.map((q, idx) => {
+    const globalIdx = start + idx + 1;
+    const isMulti = q.answer.length > 1;
+    const answerNums = q.answer.map(Number);
+    const choicesHtml = q.choices[0] === 'IMAGES'
+      ? `<div style="font-size:12px;color:var(--muted)">（選択肢は画像です）</div>`
+      : q.choices.map((c, i) => {
+          const num = i + 1;
+          const isAns = answerNums.includes(num);
+          return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="bc-${q.problem_id}-${num}">
+            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${['ア','イ','ウ','エ','オ'][i]}</span>
+            <span>${formatText(c)}</span>
+            ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
+          </div>`;
+        }).join('');
+
+    const commentHtml = q.comment
+      ? `<div class="explanation-box correct-box" style="margin:0">
+          <div class="explanation-title" style="color:var(--green)">📝 解説</div>
+          <div class="explanation-text">${formatText(q.comment)}</div>
+         </div>`
+      : `<div style="font-size:13px;color:var(--muted)">解説なし</div>`;
+
+    return `<div class="browse-card" style="border-left-color:${catColor(q._category)}" id="bcard-${q.problem_id}">
+      <div class="browse-header">
+        <div style="flex:1">
+          <div class="browse-meta">
+            <span style="font-weight:700;color:${catColor(q._category)}">${q._category}</span>
+            <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
+            <span>${q.display_title}</span>
+            ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
+          </div>
+          <div class="browse-q-text">${globalIdx}. ${formatText(q.problem_text)}</div>
+        </div>
+        <button class="browse-toggle-btn" id="btoggle-${q.problem_id}" onclick="toggleAnswer('${q.problem_id}')">▼ 解説を見る</button>
+      </div>
+      <div class="browse-choices">${choicesHtml}</div>
+      <div class="browse-answer-area hidden" id="bans-${q.problem_id}">
+        ${commentHtml}
+        <div style="margin-top:10px;text-align:right">
+          <button class="btn btn-primary btn-sm" onclick="startFromSearch('${q.problem_id}')">▶ この問題をテストする</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // ページャー
+  const totalPages = Math.ceil(total / BROWSE_PAGE_SIZE);
+  const pager = document.getElementById('browse-pager');
+  if (totalPages <= 1) { pager.innerHTML = ''; return; }
+  pager.innerHTML = Array.from({length: totalPages}, (_, i) =>
+    `<button class="filter-btn ${i === browsePage ? 'active' : ''}" onclick="goBrowsePage(${i})">${i+1}</button>`
+  ).join('');
+}
+
+function toggleAnswer(pid) {
+  const area = document.getElementById('bans-' + pid);
+  const btn  = document.getElementById('btoggle-' + pid);
+  if (!area) return;
+  const isHidden = area.classList.contains('hidden');
+  area.classList.toggle('hidden', !isHidden);
+  btn.textContent = isHidden ? '▲ 解説を閉じる' : '▼ 解説を見る';
+}
+
+function toggleAllAnswers(open) {
+  document.querySelectorAll('.browse-answer-area').forEach(el => {
+    el.classList.toggle('hidden', !open);
+  });
+  document.querySelectorAll('.browse-toggle-btn').forEach(btn => {
+    btn.textContent = open ? '▲ 解説を閉じる' : '▼ 解説を見る';
+  });
+}
+
+function goBrowsePage(page) {
+  browsePage = page;
+  renderBrowse();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── SEARCH ──
+function doSearch() {
+  const kw = document.getElementById('search-input').value.trim();
+  const countEl = document.getElementById('search-count');
+  const resultsEl = document.getElementById('search-results');
+
+  if (!kw) {
+    countEl.textContent = '';
+    resultsEl.innerHTML = '';
+    return;
+  }
+
+  const keywords = kw.split(/\s+/).filter(k => k.length > 0);
+  const hit = ALL_QUESTIONS.filter(q => {
+    const haystack = [
+      q.problem_text || '',
+      ...(q.choices || []),
+      q.comment || '',
+      q.display_title || '',
+    ].join(' ');
+    return keywords.every(k => haystack.includes(k));
+  });
+
+  countEl.textContent = hit.length > 0 ? `${hit.length}件ヒット` : 'ヒットなし';
+
+  if (hit.length === 0) {
+    resultsEl.innerHTML = `<div class="card" style="text-align:center;padding:32px;color:var(--muted)">
+      「${escapeHtml(kw)}」に一致する問題は見つかりませんでした
+    </div>`;
+    return;
+  }
+
+  resultsEl.innerHTML = hit.map(q => {
+    const preview = highlightKeywords(q.problem_text.slice(0, 120) + (q.problem_text.length > 120 ? '…' : ''), keywords);
+    return `<div class="search-result-card cat-border-${q._category}" style="border-left-color:${catColor(q._category)}">
+      <div class="search-result-title">
+        <span style="color:${catColor(q._category)};font-weight:700">${q._category}</span>
+        <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
+        <span style="color:var(--muted);font-size:11px">${q.display_title}</span>
+      </div>
+      <div class="search-result-text" style="margin-bottom:10px">${preview}</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm" onclick="startFromSearch('${q.problem_id}')">▶ テストする</button>
+        <button class="btn btn-accent btn-sm" onclick="browseFromSearch('${q.problem_id}')">📖 閲覧モードで見る</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function highlightKeywords(text, keywords) {
+  let result = escapeHtml(text);
+  keywords.forEach(k => {
+    const escaped = escapeHtml(k).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    result = result.replace(new RegExp(escaped, 'g'), `<span class="search-highlight">${escapeHtml(k)}</span>`);
+  });
+  return result;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-count').textContent = '';
+  document.getElementById('search-results').innerHTML = '';
+}
+
+function browseFromSearch(pid) {
+  const q = ALL_QUESTIONS.find(x => x.problem_id === pid);
+  if (!q) return;
+  browsePool = [q];
+  browsePage = 0;
+  showScreen('browse');
+  renderBrowse();
+  // 解説を最初から開いておく
+  setTimeout(() => toggleAnswer(pid), 100);
+}
+
+function startFromSearch(pid) {
+  const q = ALL_QUESTIONS.find(x => x.problem_id === pid);
+  if (!q) return;
+  quizQueue = [q];
+  currentIdx = 0;
+  sessionResults = [];
+  showScreen('quiz');
+  renderQuestion();
 }
 
 // ── STATS ──
