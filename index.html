@@ -265,7 +265,7 @@
 
 <!-- Header -->
 <header>
-  <div class="header-title">
+  <div class="header-title" onclick="showScreen('home')" style="cursor:pointer">
     <small>PHARMACY EXAM PREP</small>
     <span>衛生薬学 国試対策</span>
   </div>
@@ -760,7 +760,7 @@ function renderQuestion() {
   } else {
     optArea.innerHTML = q.choices.map((c,i) =>
       `<button class="option-btn" id="opt-${i+1}" onclick="selectOption(${i+1},'${q.problem_id}')">
-        <span class="option-letter">${['ア','イ','ウ','エ','オ'][i]}</span>
+        <span class="option-letter">${i+1}</span>
         <span>${formatText(c)}</span>
       </button>`
     ).join('');
@@ -909,7 +909,7 @@ function renderBrowse() {
           const num = i + 1;
           const isAns = answerNums.includes(num);
           return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="bc-${q.problem_id}-${num}">
-            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${['ア','イ','ウ','エ','オ'][i]}</span>
+            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${i+1}</span>
             <span>${formatText(c)}</span>
             ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
           </div>`;
@@ -935,7 +935,7 @@ function renderBrowse() {
             <span>${q.display_title}</span>
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
-          <div class="browse-q-text">${globalIdx}. ${formatText(q.problem_text)}</div>
+          <div class="browse-q-text">${formatText(q.problem_text)}</div>
           ${assetsHtml}
         </div>
         <button class="browse-toggle-btn" id="btoggle-${q.problem_id}" onclick="toggleAnswer('${q.problem_id}')">▼ 解説を見る</button>
@@ -1024,7 +1024,7 @@ function doSearch() {
           const num = i + 1;
           const isAns = answerNums.includes(num);
           return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="sc-${q.problem_id}-${num}">
-            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${['ア','イ','ウ','エ','オ'][i]}</span>
+            <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${i+1}</span>
             <span>${formatText(highlightKeywords(c, keywords))}</span>
             ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
           </div>`;
