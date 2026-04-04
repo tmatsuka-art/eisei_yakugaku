@@ -471,7 +471,7 @@ function assignSubcat(q) {
 async function loadData() {
   try {
     // 過去問を読み込み
-    const res = await fetch('hygiene_with_images_v4.jsonl');
+    const res = await fetch('hygiene_with_images_v4.jsonl?v=' + Date.now());
     const text = await res.text();
     const lines = text.trim().split('\n').filter(l => l.trim());
     ALL_QUESTIONS = lines.map(l => {
@@ -482,7 +482,7 @@ async function loadData() {
     });
     // 新設問を読み込み（ファイルがなくてもエラーにしない）
     try {
-      const res2 = await fetch('future_questions.jsonl');
+      const res2 = await fetch('future_questions.jsonl?v=' + Date.now());
       if (res2.ok) {
         const text2 = await res2.text();
         const lines2 = text2.trim().split('\n').filter(l => l.trim());
@@ -495,8 +495,10 @@ async function loadData() {
           });
           ALL_QUESTIONS = ALL_QUESTIONS.concat(futureQs);
         }
+      } else {
+        console.warn('future_questions.jsonl fetch failed:', res2.status, res2.statusText);
       }
-    } catch(e2) { /* future_questions.jsonlが無くても続行 */ }
+    } catch(e2) { console.warn('future_questions.jsonl load error:', e2); }
     // init records
     ALL_QUESTIONS.forEach(q => {
       if (!records[q.problem_id]) records[q.problem_id] = {correct:0, wrong:0};
