@@ -905,8 +905,23 @@ function renderBrowse() {
     const globalIdx = start + idx + 1;
     const isMulti = q.answer.length > 1;
     const answerNums = q.answer.map(Number);
+    const hasValidAnswer = q.answer.some(a => !isNaN(Number(a)));
+    const answerLabel = hasValidAnswer
+      ? `正解: ${q.answer.join('・')}番`
+      : q.answer.join('');
     const choicesHtml = q.choices[0] === 'IMAGES'
-      ? `<div style="font-size:12px;color:var(--muted)">（選択肢は画像です）</div>`
+      ? (() => {
+          const maxOpt = hasValidAnswer ? Math.max(...answerNums.filter(n => !isNaN(n)), 5) : 5;
+          return `<div style="font-size:12px;color:var(--muted);margin-bottom:8px">↑ 画像を参照して番号を選んでください</div>` +
+            Array.from({length:maxOpt},(_,i)=>i+1).map(num => {
+              const isAns = answerNums.includes(num);
+              return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="bc-${q.problem_id}-${num}">
+                <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${num}</span>
+                ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
+              </div>`;
+            }).join('') +
+            (!hasValidAnswer ? `<div style="font-size:13px;color:var(--red);font-weight:700;margin-top:6px">※ ${answerLabel}</div>` : '');
+        })()
       : q.choices.map((c, i) => {
           const num = i + 1;
           const isAns = answerNums.includes(num);
@@ -1020,8 +1035,23 @@ function doSearch() {
   resultsEl.innerHTML = hit.map((q, idx) => {
     const isMulti = q.answer.length > 1;
     const answerNums = q.answer.map(Number);
+    const hasValidAnswer = q.answer.some(a => !isNaN(Number(a)));
+    const answerLabel = hasValidAnswer
+      ? `正解: ${q.answer.join('・')}番`
+      : q.answer.join('');
     const choicesHtml = q.choices[0] === 'IMAGES'
-      ? `<div style="font-size:12px;color:var(--muted)">（選択肢は画像です）</div>`
+      ? (() => {
+          const maxOpt = hasValidAnswer ? Math.max(...answerNums.filter(n => !isNaN(n)), 5) : 5;
+          return `<div style="font-size:12px;color:var(--muted);margin-bottom:8px">↑ 画像を参照して番号を選んでください</div>` +
+            Array.from({length:maxOpt},(_,i)=>i+1).map(num => {
+              const isAns = answerNums.includes(num);
+              return `<div class="browse-choice ${isAns ? 'is-answer' : ''}" id="sc-${q.problem_id}-${num}">
+                <span style="font-weight:900;min-width:20px;color:${isAns?'var(--green)':'var(--muted)'}">${num}</span>
+                ${isAns ? '<span style="margin-left:auto;font-size:11px">✅ 正解</span>' : ''}
+              </div>`;
+            }).join('') +
+            (!hasValidAnswer ? `<div style="font-size:13px;color:var(--red);font-weight:700;margin-top:6px">※ ${answerLabel}</div>` : '');
+        })()
       : q.choices.map((c, i) => {
           const num = i + 1;
           const isAns = answerNums.includes(num);
