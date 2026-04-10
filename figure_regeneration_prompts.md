@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-04-10 第2ラウンド目視確認の結果
+
+前セッションでGemini再生成した5枚（F261/F218/F211/F163/F1004）のうち、**F218** は完璧。他4枚について以下の指摘事項あり:
+
+| 図 | 重要度 | 問題点 |
+|---|---|---|
+| F261 | 中 | 左上に「栄養ア」という謎のテキスト断片が浮いている（「栄養アセスメント」の生成残骸） |
+| F163 | 中 | (A)槽のすぐ横に「曝気（空気供給）」と書かれており、正答「A:曝気」のヒントになっている |
+| F1004 | 軽 | 図中の分岐に「遺伝子組換え（義務表示）」とあるが、問題文の選択肢4「遺伝子組換え不分別」と用語不一致 → **問題文側を修正する方針のためプロンプト修正不要** |
+| F211 | 軽 | (B)(C)が並列配置だが解説は直列順で記述 → **解説側を修正する方針のためプロンプト修正不要** |
+
+本ラウンドで更新したプロンプト: **F261（第2版）**、**F163（第2版）**。下記「第2版」プロンプトを使用してGeminiで再生成してください。
+
+---
+
 ## 【最優先】F261：栄養補給法の選択フローチャート
 
 ### 旧図の問題点
@@ -177,6 +192,96 @@ CRITICAL REQUIREMENTS:
 - Clean textbook style, white background, Noto Sans JP font.
 - Size: approximately 1400×900 pixels (landscape).
 ```
+
+---
+
+## 【第2版】F261：栄養補給法の選択フローチャート（2026-04-10 再修正）
+
+### 前版（第1版）の残存問題
+- 本体のフロー構造・(A)〜(E)のラベルのみ表示・ロジックは正しい
+- **ただし左上領域に「栄養ア」という謎のテキスト断片が浮いている**（「栄養アセスメント」の一部が誤って独立配置されたもの）
+
+### Gemini用プロンプト（第2版）
+
+```
+Create a clean black-and-white Japanese medical textbook flowchart titled "図　栄養補給法の選択フローチャート". The title appears at the top-left, above the diagram area. Use simple rounded rectangles with thin black borders, white fill, and black Japanese text. All connecting arrows are solid black with arrowheads.
+
+CRITICAL: The ONLY text that appears anywhere in the image is:
+- The title "図　栄養補給法の選択フローチャート" at the very top
+- The text inside the boxes listed below
+- The arrow labels "はい" and "いいえ"
+- The small annotations "2週間以内" and "2週間以上"
+There must be NO other floating, stray, orphaned, or leftover text ANYWHERE in the image. Specifically, do NOT put "栄養ア", "栄養アセスメント", or any similar fragment outside its designated box.
+
+Layout (top to bottom, centered):
+
+1. TOP BOX (centered, first real element below the title): rounded rectangle containing exactly "栄養アセスメント"
+
+2. Arrow straight down to a rounded rectangle containing exactly: "（A）が機能しているか？"
+   - This box has TWO outgoing arrows:
+     - LEFT arrow labeled "はい"
+     - RIGHT arrow labeled "いいえ"
+
+3. LEFT branch (from "はい"): rounded rectangle labeled exactly "（B）" — nothing else inside this box
+   - From (B), two arrows go down to two child boxes arranged side by side:
+     - Left child: "経口摂取"
+     - Right child: "経管栄養（経鼻胃管・胃瘻（PEG）・腸瘻）"
+
+4. RIGHT branch (from "いいえ"): rounded rectangle labeled exactly "（C）" — nothing else inside this box
+   - From (C), two arrows go down to two child boxes arranged side by side:
+     - Left child: box labeled exactly "（D）" — below this box, a small annotation "2週間以内"
+     - Right child: box labeled exactly "（E）" — below this box, a small annotation "2週間以上"
+
+ABSOLUTE REQUIREMENTS:
+- Boxes (A), (B), (C), (D), (E) must contain ONLY the parenthesized letter label. No extra words like "消化管", "経腸栄養", "経静脈栄養", "末梢静脈", "中心静脈", "PPN", "TPN".
+- There must be NO floating or stray text fragments anywhere (especially NOT "栄養ア" or any partial string). Every text element must be either inside a defined box or be one of the specified arrow labels / annotations.
+- The title "図　栄養補給法の選択フローチャート" appears once, at the top, outside all boxes.
+- Clean textbook layout with generous whitespace, clear alignment.
+- Japanese rendering must be correct; use Noto Sans JP or similar.
+- Background: white. Borders: thin black. Box fill: white or very light grey.
+- Size: approximately 1200×900 pixels.
+```
+
+---
+
+## 【第2版】F163：活性汚泥法の処理フロー（2026-04-10 再修正）
+
+### 前版（第1版）の残存問題
+- フロー構造・矢印の向き・返送汚泥の還流・余剰汚泥の下向き矢印はすべて正しい
+- **ただし (A)槽のすぐ横に「曝気（空気供給）」というラベル矢印があり、正答「A:曝気」のヒントになっている**。前版プロンプトでは「(A)槽の曝気ラベルは別要素だからOK」としていたが、問題の公平性を考えると削除すべきと判断
+
+### Gemini用プロンプト（第2版）
+
+```
+Create a clean black-and-white Japanese textbook process flow diagram titled "図　活性汚泥法の処理フロー" showing horizontal left-to-right flow.
+
+Main flow (left to right, rectangular boxes connected by horizontal arrows):
+1. Incoming arrow labeled "流入下水" from the far left
+2. Rectangular box: "最初沈殿池"
+3. Rectangular box: "（A）槽"    ← contains ONLY "（A）槽", no other text
+4. Rectangular box: "（B）池"    ← contains ONLY "（B）池", no other text
+5. Rectangular box: "消毒槽"
+6. Outgoing arrow labeled "放流" to the far right
+
+Above the (A)槽 box: a small downward arrow pointing into the top of (A)槽. This arrow is labeled "空気" ONLY. DO NOT use the word "曝気" or "曝気（空気供給）" anywhere in the diagram — the question asks the student to identify what (A)槽 is (the answer being 曝気槽), so that specific keyword must not appear as a hint.
+
+Sludge return loop:
+- From the (B)池 box, a thin/dashed line curves BACK (right to left) below the main flow, with an arrowhead ending at the (A)槽 box. This return line is labeled "（C）". The label "（C）" must contain ONLY the letter, no words like "返送汚泥".
+
+Excess sludge discharge:
+- From the (B)池 box, a separate SOLID downward arrow exits the bottom of the box and points down/out of the system (not connected to any other box). This arrow is labeled "余剰汚泥".
+
+ABSOLUTE REQUIREMENTS:
+- The words "曝気", "最終沈殿", "返送汚泥" must NOT appear anywhere in the diagram. These are the answers the student must choose, so they must not leak into the figure.
+- The label above (A)槽 must be just "空気" (not "曝気" and not "曝気（空気供給）").
+- Letter labels (A), (B), (C) must stand alone — no accompanying words.
+- The "余剰汚泥" label is acceptable because it is a distinct concept from (C) 返送汚泥 and is explicitly separated in the question.
+- Clean textbook style, white background, thin black borders, Noto Sans JP.
+- Size: approximately 1400×700 pixels (landscape orientation).
+```
+
+### 補足
+生成後のチェックで「曝気」という文字が図中のどこにも残っていないことを確認してください。もし残っている場合は再生成。
 
 ---
 
