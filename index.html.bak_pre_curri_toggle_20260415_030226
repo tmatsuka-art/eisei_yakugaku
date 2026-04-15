@@ -49,33 +49,6 @@
   }
   nav button.active, nav button:hover { background: rgba(255,255,255,.12); color: #fff; }
 
-  /* ── CURRICULUM TOGGLE ── */
-  .curri-toggle {
-    display: inline-flex; background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 18px; padding: 3px; margin-right: 10px;
-  }
-  .curri-toggle button {
-    background: transparent; border: none; color: #8fa8d8;
-    padding: 5px 12px; border-radius: 14px; font-size: 11px; font-weight: 700;
-    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
-    letter-spacing: .5px;
-  }
-  .curri-toggle button.active {
-    background: var(--accent); color: var(--navy);
-    box-shadow: 0 1px 4px rgba(0,0,0,.25);
-  }
-  .curri-toggle button:not(.active):hover { color: #fff; }
-  .curri-code-label {
-    display: inline-block; font-size: 10.5px; font-weight: 700;
-    padding: 2px 8px; border-radius: 10px; margin-right: 4px;
-    background: #f0f4ff; color: var(--blue); letter-spacing: .3px;
-    border: 1px solid #dbe4ff;
-  }
-  .curri-code-label.new-cc { background: #fff4e0; color: #9a6010; border-color: #f0d590; }
-  .curri-code-label.old-cc { background: #eef2fb; color: #3a4570; border-color: #c5d0ea; }
-  .curri-code-title { font-size: 11px; color: var(--muted); margin-left: 4px; }
-
   /* ── LAYOUT ── */
   main { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
 
@@ -305,10 +278,6 @@
     <span>衛生薬学 国試対策</span>
   </div>
   <nav>
-    <div class="curri-toggle" title="コアカリ表示モード切替">
-      <button id="curri-btn-old" onclick="setCurriMode('old')">旧カリ</button>
-      <button id="curri-btn-new" onclick="setCurriMode('new')" class="active">新カリ</button>
-    </div>
     <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
     <button onclick="showScreen('search')" id="nav-search">🔍 検索</button>
     <button onclick="showScreen('stats')" id="nav-stats">📊 進捗</button>
@@ -329,7 +298,6 @@
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📅 出題回</div>
       <div class="filter-row" id="year-filters" style="margin-bottom:12px"></div>
       <div id="sub-filters" style="margin-bottom:12px"></div>
-      <div id="newcc-filters" style="margin-bottom:12px"></div>
       <div id="quiz-count-area" style="margin-bottom:12px"></div>
       <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -440,8 +408,6 @@ let selectedCat = 'すべて';
 let selectedSec = 'すべて';
 let selectedSub = 'すべて';
 let selectedYear = 'すべて';
-let selectedNewCC = 'すべて'; // 新コアカリ詳細コードフィルタ
-let curriculumMode = 'new';  // 'new' | 'old'  — コアカリ表示モード
 let quizCount = 10;
 let quizQueue = [];
 let currentIdx = 0;
@@ -459,75 +425,6 @@ const CAT_DEFS = {
 };
 const CATS = ['すべて', ...Object.keys(CAT_DEFS)];
 const SECS = ['すべて','必須','理論','実践'];
-
-// ── 新コアカリ(令和4年度改訂) 学修事項コード → タイトル ──
-// 予想問題(F番号)のみに付与されている new_corecurri_code の表示ラベル
-const NEW_CC_TITLES = {
-  'E-1-1-(1)': '環境要因による疾病の基本',
-  'E-1-1-(4)': '保健統計・疫学',
-  'E-1-1-(5)': '国際保健',
-  'E-1-1-(6)': '健康づくり対策・生活習慣病',
-  'E-1-1-(7)': '産業保健',
-  'E-1-2-(1)': '主要感染症・感染症総論',
-  'E-1-2-(2)': '感染症の予防・対策',
-  'E-1-2-(5)': '感染症関連法規・行政',
-  'E-2-1-(1)': '栄養素の機能',
-  'E-2-1-(3)': '食事摂取基準',
-  'E-2-1-(4)': '栄養管理・栄養療法',
-  'E-2-1-(5)': '保健機能食品',
-  'E-2-1-(6)': '国民健康・栄養調査',
-  'E-2-2-(1)': '食中毒・食品の変質',
-  'E-2-2-(3)': '食品添加物',
-  'E-2-2-(4)': '食物アレルギー',
-  'E-2-2-(5)': '遺伝子組換え・ゲノム編集食品',
-  'E-2-2-(7)': '食品安全行政',
-  'E-3-1-(1)': '化学物質の毒性(総論・体内動態・発がん)',
-  'E-3-1-(6)': '有害化学物質',
-  'E-3-1-(7)': '法中毒学・死因究明',
-  'E-3-2-(1)': '地球・大気・水・室内環境',
-  'E-3-2-(2)': '電離放射線・電磁波',
-  'E-3-2-(5)': '廃棄物・環境法規',
-};
-// new_corecurri_code → 親カテゴリ (E-1-1 など) の対応
-function newCCParent(code) {
-  if (!code) return null;
-  const m = code.match(/^(E-\d-\d)/);
-  return m ? m[1] : null;
-}
-// 問題に対して「その時点のモード」で表示すべきコード・タイトルを決定
-// 戻り値: {code, title, kind} — kind = 'new' | 'old' | 'cat'
-function curriDisplay(q) {
-  const isPredicted = (q.problem_id || '').startsWith('F') && q.year === 0;
-  if (curriculumMode === 'new') {
-    if (isPredicted && q.new_corecurri_code && NEW_CC_TITLES[q.new_corecurri_code]) {
-      return { code: q.new_corecurri_code, title: NEW_CC_TITLES[q.new_corecurri_code], kind: 'new' };
-    }
-    // 過去問など: 大項目(_category)のみ
-    return { code: q._category, title: q._subcat || '', kind: 'cat' };
-  }
-  // 旧カリモード
-  if (isPredicted && q.corecurri_code) {
-    return { code: q.corecurri_code, title: q._subcat || '', kind: 'old' };
-  }
-  return { code: q._category, title: q._subcat || '', kind: 'cat' };
-}
-// 新カリモード: 切替
-function setCurriMode(mode) {
-  if (mode !== 'new' && mode !== 'old') return;
-  curriculumMode = mode;
-  selectedNewCC = 'すべて'; // 詳細フィルタはリセット
-  try { localStorage.setItem('curriculumMode', mode); } catch(e) {}
-  // トグル見た目を更新
-  document.getElementById('curri-btn-new')?.classList.toggle('active', mode === 'new');
-  document.getElementById('curri-btn-old')?.classList.toggle('active', mode === 'old');
-  // 表示中の画面を再描画
-  const active = document.querySelector('.screen.active')?.id || '';
-  if (active === 'screen-home') renderHome();
-  else if (active === 'screen-browse') renderBrowse();
-  else if (active === 'screen-quiz' && quizQueue.length > 0) renderQuestion();
-  else if (active === 'screen-search') doSearch();
-  else if (active === 'screen-stats') renderStats();
-}
 
 // コアカリ小分類（サブフィルター）
 const SUBCATS = {
@@ -663,13 +560,6 @@ async function loadData() {
       const saved = localStorage.getItem('eisei_records');
       if (saved) records = JSON.parse(saved);
     } catch(e) {}
-    // 保存されたカリキュラムモードを復元
-    try {
-      const savedMode = localStorage.getItem('curriculumMode');
-      if (savedMode === 'old' || savedMode === 'new') curriculumMode = savedMode;
-    } catch(e) {}
-    document.getElementById('curri-btn-new')?.classList.toggle('active', curriculumMode === 'new');
-    document.getElementById('curri-btn-old')?.classList.toggle('active', curriculumMode === 'old');
     hideLoading();
     renderHome();
   } catch(e) {
@@ -705,13 +595,9 @@ function getPool(weakOnly) {
   if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
   if (selectedYear !== 'すべて') pool = pool.filter(q => q.year === selectedYear);
   if (selectedSub !== 'すべて') pool = pool.filter(q => q._subcat === selectedSub);
-  if (curriculumMode === 'new' && selectedNewCC !== 'すべて') {
-    pool = pool.filter(q => q.new_corecurri_code === selectedNewCC);
-  }
   if (weakOnly) pool = pool.filter(q => (records[q.problem_id]?.wrong || 0) > 0);
   return pool;
 }
-function selectNewCC(code) { selectedNewCC = code; renderHome(); }
 
 function renderHome() {
   renderStatsBar('stats-bar');
@@ -719,37 +605,10 @@ function renderHome() {
   renderSecFilters();
   renderYearFilters();
   renderSubFilters();
-  renderNewCCFilters();
   renderQuizCount();
   renderPoolInfo();
   renderCatCards();
   renderWeakBtn();
-}
-
-function renderNewCCFilters() {
-  const el = document.getElementById('newcc-filters');
-  if (!el) return;
-  // 旧カリモードでは非表示
-  if (curriculumMode !== 'new') { el.innerHTML = ''; return; }
-  // 選択中カテゴリに属する new_corecurri_code のみ候補化
-  const codes = Object.keys(NEW_CC_TITLES)
-    .filter(c => selectedCat === 'すべて' || newCCParent(c) === selectedCat)
-    .sort();
-  if (codes.length === 0) { el.innerHTML = ''; return; }
-  // 各コードに該当する予想問題数
-  const countByCode = {};
-  ALL_QUESTIONS.forEach(q => {
-    const c = q.new_corecurri_code;
-    if (c) countByCode[c] = (countByCode[c] || 0) + 1;
-  });
-  el.innerHTML =
-    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ 新コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(予想問題のみ)</span></div>' +
-    `<button class="filter-btn ${'すべて'===selectedNewCC?'active':''}" onclick="selectNewCC('すべて')" style="font-size:11px">すべて</button> ` +
-    codes.map(c => {
-      const n = countByCode[c] || 0;
-      const active = c === selectedNewCC ? 'active' : '';
-      return `<button class="filter-btn ${active}" onclick="selectNewCC('${c}')" style="font-size:11px" title="${NEW_CC_TITLES[c]}">${c} <span style="opacity:.7">(${n})</span></button>`;
-    }).join(' ');
 }
 
 function renderSubFilters() {
@@ -834,7 +693,7 @@ function renderWeakBtn() {
   btn.textContent = `🔁 苦手問題を復習（${weak.length}問）`;
 }
 
-function selectCat(c) { selectedCat = c; selectedSub = 'すべて'; selectedNewCC = 'すべて'; renderHome(); }
+function selectCat(c) { selectedCat = c; selectedSub = 'すべて'; renderHome(); }
 function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
 function selectYear(y) { selectedYear = y; renderHome(); }
@@ -879,15 +738,9 @@ function renderQuestion() {
     `<span class="tag tag-${catCss(q._category)}">${catLabel(q._category)}</span>` +
     `<span class="tag tag-${q.section}">${q.section}</span>`;
 
-  // meta (display_title + コアカリコード・タイトル)
-  const cd = curriDisplay(q);
-  const codeHtml = cd.code
-    ? `<span class="curri-code-label ${cd.kind === 'new' ? 'new-cc' : (cd.kind === 'old' ? 'old-cc' : '')}">${cd.code}</span>` +
-      (cd.title ? `<span class="curri-code-title">${cd.title}</span>` : '')
-    : '';
+  // meta
   document.getElementById('q-meta').innerHTML =
-    `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>` +
-    (codeHtml ? ` <span style="margin-left:8px">${codeHtml}</span>` : '');
+    `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>`;
 
   // リード問題：問題文に症例情報が含まれていない場合のみ表示
   const leadArea = document.getElementById('q-lead-area');
@@ -1136,11 +989,6 @@ function renderBrowse() {
       ? q.assets.map(a => `<img src="${a}" class="q-image" alt="問題図" onerror="this.style.display='none'" style="max-width:100%;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)">`).join('')
       : '';
 
-    const bcd = curriDisplay(q);
-    const bcodeHtml = bcd.code
-      ? `<span class="curri-code-label ${bcd.kind === 'new' ? 'new-cc' : (bcd.kind === 'old' ? 'old-cc' : '')}">${bcd.code}</span>` +
-        (bcd.title && bcd.kind === 'new' ? `<span class="curri-code-title">${bcd.title}</span>` : '')
-      : '';
     return `<div class="browse-card" style="border-left-color:${catColor(q._category)}" id="bcard-${q.problem_id}">
       <div class="browse-header">
         <div style="flex:1">
@@ -1148,7 +996,6 @@ function renderBrowse() {
             <span style="font-weight:700;color:${catColor(q._category)}">${catLabel(q._category)}</span>
             <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
             <span>${q.display_title}</span>
-            ${bcodeHtml}
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${formatText(q.problem_text)}</div>
@@ -1277,11 +1124,6 @@ function doSearch() {
       ? q.assets.map(a => `<img src="${a}" class="q-image" alt="問題図" onerror="this.style.display='none'" style="max-width:100%;border-radius:8px;margin-bottom:8px;border:1px solid var(--border)">`).join('')
       : '';
 
-    const scd = curriDisplay(q);
-    const scodeHtml = scd.code
-      ? `<span class="curri-code-label ${scd.kind === 'new' ? 'new-cc' : (scd.kind === 'old' ? 'old-cc' : '')}">${scd.code}</span>` +
-        (scd.title && scd.kind === 'new' ? `<span class="curri-code-title">${scd.title}</span>` : '')
-      : '';
     return `<div class="browse-card" id="scard-${q.problem_id}" style="border-left-color:${catColor(q._category)}">
       <div class="browse-header">
         <div style="flex:1">
@@ -1289,7 +1131,6 @@ function doSearch() {
             <span style="font-weight:700;color:${catColor(q._category)}">${catLabel(q._category)}</span>
             <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
             <span>${q.display_title}</span>
-            ${scodeHtml}
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${highlightKeywords(q.problem_text, keywords)}</div>
