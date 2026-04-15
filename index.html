@@ -74,7 +74,15 @@
   }
   .curri-code-label.new-cc { background: #fff4e0; color: #9a6010; border-color: #f0d590; }
   .curri-code-label.old-cc { background: #eef2fb; color: #3a4570; border-color: #c5d0ea; }
+  .curri-code-label.new-cc-ref { background: #fff9ec; color: #b98a3d; border-color: #f5e3b8; opacity: .82; }
   .curri-code-title { font-size: 11px; color: var(--muted); margin-left: 4px; }
+  .curri-code-title.ref { opacity: .75; }
+  .curri-ref-badge {
+    display: inline-block; font-size: 9.5px; font-weight: 700;
+    padding: 1px 6px; border-radius: 8px; margin-left: 4px;
+    background: #fff; color: #a98244; border: 1px solid #e6cc95;
+    vertical-align: 1px;
+  }
 
   /* ── LAYOUT ── */
   main { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
@@ -322,13 +330,12 @@
 
     <div class="card" style="margin-bottom:16px">
       <div style="font-weight:700;font-size:15px;margin-bottom:12px">🔬 分野・セクションを選択</div>
-      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📁 コアカリ分野</div>
-      <div class="filter-row" id="cat-filters"></div>
-      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📋 セクション</div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📋 セクション</div>
       <div class="section-filter-row" id="sec-filters"></div>
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📅 出題回</div>
       <div class="filter-row" id="year-filters" style="margin-bottom:12px"></div>
       <div id="sub-filters" style="margin-bottom:12px"></div>
+      <div id="cat-filters-area" style="margin-bottom:12px"></div>
       <div id="newcc-filters" style="margin-bottom:12px"></div>
       <div id="quiz-count-area" style="margin-bottom:12px"></div>
       <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
@@ -495,14 +502,22 @@ function newCCParent(code) {
   return m ? m[1] : null;
 }
 // 問題に対して「その時点のモード」で表示すべきコード・タイトルを決定
-// 戻り値: {code, title, kind} — kind = 'new' | 'old' | 'cat'
+// 戻り値: {code, title, kind} — kind = 'new' | 'new_ref' | 'old' | 'cat'
+//   new     : 予想問題に付与された確定の新カリコード
+//   new_ref : 過去問に _subcat から推定付与した新カリコード（参考値）
+//   old     : 予想問題の旧カリコード
+//   cat     : コード情報なし（大項目のみ）
 function curriDisplay(q) {
   const isPredicted = (q.problem_id || '').startsWith('F') && q.year === 0;
   if (curriculumMode === 'new') {
     if (isPredicted && q.new_corecurri_code && NEW_CC_TITLES[q.new_corecurri_code]) {
       return { code: q.new_corecurri_code, title: NEW_CC_TITLES[q.new_corecurri_code], kind: 'new' };
     }
-    // 過去問など: 大項目(_category)のみ
+    // 過去問: _subcat から推定付与された new_corecurri_code を参考値として表示
+    if (!isPredicted && q.new_corecurri_code && NEW_CC_TITLES[q.new_corecurri_code]) {
+      return { code: q.new_corecurri_code, title: NEW_CC_TITLES[q.new_corecurri_code], kind: 'new_ref' };
+    }
+    // フォールバック: 大項目(_category)のみ
     return { code: q._category, title: q._subcat || '', kind: 'cat' };
   }
   // 旧カリモード
@@ -729,11 +744,11 @@ function renderHome() {
 function renderNewCCFilters() {
   const el = document.getElementById('newcc-filters');
   if (!el) return;
-  // 旧カリモードでは非表示
-  if (curriculumMode !== 'new') { el.innerHTML = ''; return; }
+  // 旧カリモード or 新コアカリ分野が未選択("すべて")では非表示
+  if (curriculumMode !== 'new' || selectedCat === 'すべて') { el.innerHTML = ''; return; }
   // 選択中カテゴリに属する new_corecurri_code のみ候補化
   const codes = Object.keys(NEW_CC_TITLES)
-    .filter(c => selectedCat === 'すべて' || newCCParent(c) === selectedCat)
+    .filter(c => newCCParent(c) === selectedCat)
     .sort();
   if (codes.length === 0) { el.innerHTML = ''; return; }
   // 各コードに該当する予想問題数
@@ -743,7 +758,7 @@ function renderNewCCFilters() {
     if (c) countByCode[c] = (countByCode[c] || 0) + 1;
   });
   el.innerHTML =
-    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ 新コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(予想問題のみ)</span></div>' +
+    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🔖 新コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(過去問は参考値)</span></div>' +
     `<button class="filter-btn ${'すべて'===selectedNewCC?'active':''}" onclick="selectNewCC('すべて')" style="font-size:11px">すべて</button> ` +
     codes.map(c => {
       const n = countByCode[c] || 0;
@@ -791,9 +806,22 @@ function renderStatsBar(id) {
 }
 
 function renderCatFilters() {
-  document.getElementById('cat-filters').innerHTML = CATS.map(c =>
-    `<button class="filter-btn ${c===selectedCat?'active':''}" onclick="selectCat('${c}')" style="${c!=='すべて'?'border-color:'+catColor(c)+';':''}${c===selectedCat&&c!=='すべて'?'background:'+catColor(c)+';color:#fff;':''}">${c==='すべて'?'すべて':catLabel(c)}</button>`
-  ).join('');
+  const area = document.getElementById('cat-filters-area');
+  if (!area) return;
+  // 旧カリモードでは非表示
+  if (curriculumMode !== 'new') {
+    area.innerHTML = '';
+    // すべてにリセット（非表示中の選択残りを防ぐ）
+    if (selectedCat !== 'すべて') { selectedCat = 'すべて'; selectedNewCC = 'すべて'; }
+    return;
+  }
+  area.innerHTML =
+    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ 新コアカリ分野</div>' +
+    '<div class="filter-row" id="cat-filters">' +
+      CATS.map(c =>
+        `<button class="filter-btn ${c===selectedCat?'active':''}" onclick="selectCat('${c}')" style="${c!=='すべて'?'border-color:'+catColor(c)+';':''}${c===selectedCat&&c!=='すべて'?'background:'+catColor(c)+';color:#fff;':''}">${c==='すべて'?'すべて':catLabel(c)}</button>`
+      ).join('') +
+    '</div>';
 }
 
 function renderSecFilters() {
@@ -881,9 +909,15 @@ function renderQuestion() {
 
   // meta (display_title + コアカリコード・タイトル)
   const cd = curriDisplay(q);
+  const cdClass = cd.kind === 'new' ? 'new-cc'
+                : cd.kind === 'new_ref' ? 'new-cc new-cc-ref'
+                : cd.kind === 'old' ? 'old-cc' : '';
+  const cdTitleClass = cd.kind === 'new_ref' ? 'curri-code-title ref' : 'curri-code-title';
+  const cdRefBadge = cd.kind === 'new_ref' ? `<span class="curri-ref-badge" title="_subcatから推定した参考値">参考</span>` : '';
   const codeHtml = cd.code
-    ? `<span class="curri-code-label ${cd.kind === 'new' ? 'new-cc' : (cd.kind === 'old' ? 'old-cc' : '')}">${cd.code}</span>` +
-      (cd.title ? `<span class="curri-code-title">${cd.title}</span>` : '')
+    ? `<span class="curri-code-label ${cdClass}">${cd.code}</span>` +
+      (cd.title ? `<span class="${cdTitleClass}">${cd.title}</span>` : '') +
+      cdRefBadge
     : '';
   document.getElementById('q-meta').innerHTML =
     `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>` +
@@ -1137,18 +1171,18 @@ function renderBrowse() {
       : '';
 
     const bcd = curriDisplay(q);
+    const bcatColor = catColor((bcd.kind === 'new' || bcd.kind === 'new_ref') ? newCCParent(bcd.code) || q._category : q._category);
+    const bIsRef = bcd.kind === 'new_ref';
     const bcodeHtml = bcd.code
-      ? `<span class="curri-code-label ${bcd.kind === 'new' ? 'new-cc' : (bcd.kind === 'old' ? 'old-cc' : '')}">${bcd.code}</span>` +
-        (bcd.title && bcd.kind === 'new' ? `<span class="curri-code-title">${bcd.title}</span>` : '')
+      ? `<span style="font-weight:700;color:${bcatColor};${bIsRef ? 'opacity:.78;' : ''}">${bcd.code}${bcd.title ? ' ' + bcd.title : ''}</span>` +
+        (bIsRef ? '<span class="curri-ref-badge" title="_subcatから推定した参考値">参考</span>' : '')
       : '';
-    return `<div class="browse-card" style="border-left-color:${catColor(q._category)}" id="bcard-${q.problem_id}">
+    return `<div class="browse-card" style="border-left-color:${bcatColor}" id="bcard-${q.problem_id}">
       <div class="browse-header">
         <div style="flex:1">
           <div class="browse-meta">
-            <span style="font-weight:700;color:${catColor(q._category)}">${catLabel(q._category)}</span>
-            <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
-            <span>${q.display_title}</span>
             ${bcodeHtml}
+            <span>${q.display_title}</span>
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${formatText(q.problem_text)}</div>
@@ -1278,18 +1312,18 @@ function doSearch() {
       : '';
 
     const scd = curriDisplay(q);
+    const scatColor = catColor((scd.kind === 'new' || scd.kind === 'new_ref') ? newCCParent(scd.code) || q._category : q._category);
+    const sIsRef = scd.kind === 'new_ref';
     const scodeHtml = scd.code
-      ? `<span class="curri-code-label ${scd.kind === 'new' ? 'new-cc' : (scd.kind === 'old' ? 'old-cc' : '')}">${scd.code}</span>` +
-        (scd.title && scd.kind === 'new' ? `<span class="curri-code-title">${scd.title}</span>` : '')
+      ? `<span style="font-weight:700;color:${scatColor};${sIsRef ? 'opacity:.78;' : ''}">${scd.code}${scd.title ? ' ' + scd.title : ''}</span>` +
+        (sIsRef ? '<span class="curri-ref-badge" title="_subcatから推定した参考値">参考</span>' : '')
       : '';
-    return `<div class="browse-card" id="scard-${q.problem_id}" style="border-left-color:${catColor(q._category)}">
+    return `<div class="browse-card" id="scard-${q.problem_id}" style="border-left-color:${scatColor}">
       <div class="browse-header">
         <div style="flex:1">
           <div class="browse-meta">
-            <span style="font-weight:700;color:${catColor(q._category)}">${catLabel(q._category)}</span>
-            <span class="tag tag-${q.section}" style="font-size:10px">${q.section}</span>
-            <span>${q.display_title}</span>
             ${scodeHtml}
+            <span>${q.display_title}</span>
             ${isMulti ? '<span style="color:var(--blue);font-size:10px;font-weight:700">複数選択</span>' : ''}
           </div>
           <div class="browse-q-text">${highlightKeywords(q.problem_text, keywords)}</div>
