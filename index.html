@@ -334,9 +334,9 @@
       <div class="section-filter-row" id="sec-filters"></div>
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📅 出題回</div>
       <div class="filter-row" id="year-filters" style="margin-bottom:12px"></div>
-      <div id="sub-filters" style="margin-bottom:12px"></div>
       <div id="cat-filters-area" style="margin-bottom:12px"></div>
       <div id="newcc-filters" style="margin-bottom:12px"></div>
+      <div id="sub-filters" style="margin-bottom:12px"></div>
       <div id="quiz-count-area" style="margin-bottom:12px"></div>
       <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -609,6 +609,35 @@ const SUBCAT_TO_CAT = {
   '環境法規・環境影響評価': 'E-3-2',
 };
 
+// トピック(_subcat) → 新コアカリ詳細コード (E-x-x-(n)) の対応
+// 予想問題データから 1:1 で確定。トピックが詳細コードの下位単位となる。
+const SUBCAT_TO_NEWCC = {
+  '疫学': 'E-1-1-(1)',
+  '保健統計': 'E-1-1-(4)',
+  '国際保健': 'E-1-1-(5)',
+  '学校保健': 'E-1-1-(6)', '母子保健': 'E-1-1-(6)', '生活習慣病・予防医学': 'E-1-1-(6)',
+  '産業保健': 'E-1-1-(7)',
+  '主要感染症': 'E-1-2-(1)', '感染症総論': 'E-1-2-(1)',
+  '感染症の予防・対策': 'E-1-2-(2)', '院内感染・薬剤耐性': 'E-1-2-(2)',
+  '感染症の法規・行政': 'E-1-2-(5)',
+  '栄養素の機能': 'E-2-1-(1)',
+  '食事摂取基準': 'E-2-1-(3)',
+  '栄養管理・栄養療法': 'E-2-1-(4)',
+  '保健機能食品': 'E-2-1-(5)',
+  '国民健康・栄養調査': 'E-2-1-(6)',
+  '食中毒': 'E-2-2-(1)', '食品の変質と保存': 'E-2-2-(1)', '食品中の有害物質': 'E-2-2-(1)',
+  '食品添加物': 'E-2-2-(3)',
+  '食物アレルギー': 'E-2-2-(4)',
+  '遺伝子組換え・ゲノム編集食品': 'E-2-2-(5)',
+  '食品安全行政': 'E-2-2-(7)',
+  '毒性学総論': 'E-3-1-(1)', '化学物質の体内動態': 'E-3-1-(1)', '変異原性・発がん性': 'E-3-1-(1)',
+  '有害化学物質': 'E-3-1-(6)',
+  '乱用薬物・法中毒学': 'E-3-1-(7)',
+  '地球環境問題': 'E-3-2-(1)', '大気環境': 'E-3-2-(1)', '室内環境': 'E-3-2-(1)', '水環境': 'E-3-2-(1)',
+  '放射線': 'E-3-2-(2)',
+  '廃棄物・リサイクル': 'E-3-2-(5)', '環境法規・環境影響評価': 'E-3-2-(5)',
+};
+
 // 分類：データの _subcat を優先し、なければキーワードで1回だけ判定
 function classifyQuestion(q) {
   // データに有効な _subcat があればそれを使う
@@ -726,7 +755,14 @@ function getPool(weakOnly) {
   if (weakOnly) pool = pool.filter(q => (records[q.problem_id]?.wrong || 0) > 0);
   return pool;
 }
-function selectNewCC(code) { selectedNewCC = code; renderHome(); }
+function selectNewCC(code) {
+  selectedNewCC = code;
+  // トピックは詳細コードの下位なので、選んだ詳細コードと整合しない場合はリセット
+  if (selectedSub && selectedSub !== 'すべて' && SUBCAT_TO_NEWCC[selectedSub] !== code && code !== 'すべて') {
+    selectedSub = 'すべて';
+  }
+  renderHome();
+}
 
 function renderHome() {
   renderStatsBar('stats-bar');
@@ -770,12 +806,19 @@ function renderNewCCFilters() {
 function renderSubFilters() {
   const catSubcats = Object.keys(SUBCATS).filter(k => {
     if (k === 'すべて') return true;
-    if (selectedCat === 'すべて') return true;
-    return SUBCAT_TO_CAT[k] === selectedCat;
+    // 新カリモードで詳細コードが選択中なら、そのコードに属するトピックのみ
+    if (curriculumMode === 'new' && selectedNewCC && selectedNewCC !== 'すべて') {
+      return SUBCAT_TO_NEWCC[k] === selectedNewCC;
+    }
+    // 大項目が選択中ならそのカテゴリに属するトピックのみ
+    if (selectedCat !== 'すべて') return SUBCAT_TO_CAT[k] === selectedCat;
+    return true;
   });
   const el = document.getElementById('sub-filters');
   if (!el) return;
-  el.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📚 トピック</div>' +
+  // 「すべて」＋1つ以下 = 絞り込み不要なので非表示
+  if (catSubcats.length <= 2) { el.innerHTML = ''; return; }
+  el.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📚 トピック <span style="font-weight:400;color:#9aa3b8">(最細分類)</span></div>' +
     catSubcats.map(s =>
       `<button class="filter-btn ${s===selectedSub?'active':''}" onclick="selectSub('${s}')" style="font-size:11px">${s}</button>`
     ).join('');
