@@ -336,6 +336,19 @@
     background: #e7f5ff; color: #0d56a3;
     border: 1px solid #b3d4f7;
   }
+  .feedback-count {
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    background: #f7f9fc;
+    border-radius: 6px;
+    display: inline-block;
+  }
+  .feedback-subtitle {
+    font-size: 12px; color: var(--muted);
+    margin-top: 12px; margin-bottom: 8px;
+    font-weight: 600;
+  }
 
   /* ── 検証バッジ（予想問題に表示） ── */
   .verif-badge {
@@ -899,8 +912,9 @@ async function loadData() {
       const saved = localStorage.getItem('eisei_records');
       if (saved) records = JSON.parse(saved);
     } catch(e) {}
-    // 検証済み問題IDを読み込み（並行で実行、エラーでも続行）
+    // 検証状態と「妥当」票数を読み込み（並行で実行、エラーでも続行）
     loadVerifiedQuestions();
+    loadCorrectCounts();
     // 保存されたカリキュラムモードを復元
     try {
       const savedMode = localStorage.getItem('curriculumMode');
@@ -1748,6 +1762,7 @@ const SUPABASE_URL = 'https://gmkrsgqgndlrabiicvkh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05';
 
 let VERIFIED_QUESTIONS = new Set(); // ヒトの目で確認済み問題IDのセット
+let CORRECT_COUNTS = {}; // 問題ID -> 「妥当」票数
 
 function isPredictedQ(q) {
   return q && (q.problem_id || '').startsWith('F') && q.year === 0;
@@ -1769,6 +1784,26 @@ async function loadVerifiedQuestions() {
     VERIFIED_QUESTIONS = new Set((data || []).map(v => v.question_id));
   } catch(e) {
     console.warn('Failed to load verifications:', e);
+  }
+}
+
+async function loadCorrectCounts() {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/question_correct_counts?select=question_id,correct_count', {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+      },
+    });
+    if (!res.ok) {
+      console.warn('Failed to load correct counts:', res.status);
+      return;
+    }
+    const data = await res.json();
+    CORRECT_COUNTS = {};
+    (data || []).forEach(r => { CORRECT_COUNTS[r.question_id] = r.correct_count; });
+  } catch(e) {
+    console.warn('Failed to load correct counts:', e);
   }
 }
 
@@ -1817,40 +1852,63 @@ function renderFeedbackArea(q) {
   if (!area) return;
   if (!isPredictedQ(q)) { area.innerHTML = ''; return; }
 
-  const isVerified = VERIFIED_QUESTIONS.has(q.problem_id);
+  const pid = q.problem_id;
+  const isVerified = VERIFIED_QUESTIONS.has(pid);
+  const correctCount = CORRECT_COUNTS[pid] || 0;
+  const vote = (function(){ try { return localStorage.getItem('eisei_fb_' + pid); } catch(e) { return null; } })();
 
-  if (hasVotedFb(q.problem_id)) {
-    const vote = (function(){ try { return localStorage.getItem('eisei_fb_' + q.problem_id); } catch(e) { return null; } })();
+  // 状態C: 「気になる点あり」を送信済み → 終了状態（再操作不可）
+  if (vote === 'report') {
     let label;
     let extraClass = '';
-    if (vote === 'report' && isVerified) {
+    if (isVerified) {
       label = '✅ ご報告ありがとうございました — ヒトの目で確認・対応済みです';
       extraClass = ' fix-confirmed';
-    } else if (vote === 'report') {
-      label = '⚠ 報告を送信済み（教員確認待ち）';
-    } else if (isVerified) {
-      label = '✅ フィードバック送信済み — この問題はヒトの目で確認済みです';
-      extraClass = ' fix-confirmed';
     } else {
-      label = '✓ フィードバック送信済み';
+      label = '⚠ 報告を送信済み（教員確認待ち）';
     }
     area.innerHTML = `<div class="feedback-thanks${extraClass}">${label}</div>`;
     return;
   }
+
+  // 「妥当」票数の表示文（自分が押す前と押した後で表現を変える）
+  const countDisplay = correctCount > 0
+    ? `<div class="feedback-count">👍 これまで ${correctCount}名の学生が「妥当」と判定</div>`
+    : '';
+
+  // 状態B: 「妥当」を投票済み → 件数 + ⚠気になる点ありボタンだけ残す
+  if (vote === 'correct') {
+    const yourCountText = correctCount > 1
+      ? `あなたを含め ${correctCount}名が「妥当」と判定しました`
+      : 'あなたが「妥当」と判定しました';
+    area.innerHTML = `
+      <div class="feedback-section">
+        <div class="feedback-thanks fix-confirmed">✓ ご評価ありがとうございました（${yourCountText}）</div>
+        <div class="feedback-subtitle">気になる点があれば教えてください</div>
+        <div class="feedback-btns">
+          <button class="btn-fb btn-fb-report" onclick="openReportModal('${pid}')">⚠ 気になる点あり</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // 状態A: 未投票 → 件数 + 両ボタン
   area.innerHTML = `
     <div class="feedback-section">
+      ${countDisplay}
       <div class="feedback-title">この設問の内容は妥当ですか？（AI生成のため検証中）</div>
       <div class="feedback-btns">
-        <button class="btn-fb btn-fb-ok" onclick="submitFeedbackCorrect('${q.problem_id}')">👍 内容は妥当</button>
-        <button class="btn-fb btn-fb-report" onclick="openReportModal('${q.problem_id}')">⚠ 気になる点あり</button>
+        <button class="btn-fb btn-fb-ok" onclick="submitFeedbackCorrect('${pid}')">👍 内容は妥当</button>
+        <button class="btn-fb btn-fb-report" onclick="openReportModal('${pid}')">⚠ 気になる点あり</button>
       </div>
     </div>`;
 }
 
 async function submitFeedbackCorrect(pid) {
   if (hasVotedFb(pid)) return;
-  // 楽観的にUI更新
+  // 楽観的にUI更新（ローカルカウントも+1して即時反映）
   markVotedFb(pid, 'correct');
+  CORRECT_COUNTS[pid] = (CORRECT_COUNTS[pid] || 0) + 1;
   const q = quizQueue[currentIdx];
   if (q) renderFeedbackArea(q);
   const ok = await sendFeedback({
@@ -1884,7 +1942,10 @@ async function submitReport() {
   const modal = document.getElementById('report-modal');
   const pid = modal.dataset.pid;
   if (!pid) { closeReportModal(); return; }
-  if (hasVotedFb(pid)) { closeReportModal(); return; }
+  // 既に「気になる点あり」を送信済みのときだけ重複送信をブロック
+  //（「妥当」を押したあとに気になる点を見つけた場合は upgrade を許可）
+  const existingVote = (function(){ try { return localStorage.getItem('eisei_fb_' + pid); } catch(e) { return null; } })();
+  if (existingVote === 'report') { closeReportModal(); return; }
   const kindEl = document.querySelector('input[name="report-kind"]:checked');
   if (!kindEl) { showToast('報告内容を1つ選んでください'); return; }
   const kind = kindEl.value;
