@@ -1871,16 +1871,16 @@ function renderFeedbackArea(q) {
     return;
   }
 
-  // 「妥当」票数の表示文（自分が押す前と押した後で表現を変える）
+  // 「妥当」票数の表示文（同じ anon_id の重複は除外済みの件数）
   const countDisplay = correctCount > 0
-    ? `<div class="feedback-count">👍 これまで ${correctCount}名の学生が「妥当」と判定</div>`
+    ? `<div class="feedback-count">👍 これまで ${correctCount}件の「妥当」評価が寄せられています</div>`
     : '';
 
   // 状態B: 「妥当」を投票済み → 件数 + ⚠気になる点ありボタンだけ残す
   if (vote === 'correct') {
     const yourCountText = correctCount > 1
-      ? `あなたを含め ${correctCount}名が「妥当」と判定しました`
-      : 'あなたが「妥当」と判定しました';
+      ? `あなたの評価を含め ${correctCount}件の「妥当」評価が寄せられています`
+      : 'あなたが「妥当」と評価しました';
     area.innerHTML = `
       <div class="feedback-section">
         <div class="feedback-thanks fix-confirmed">✓ ご評価ありがとうございました（${yourCountText}）</div>
