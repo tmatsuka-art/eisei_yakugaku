@@ -295,6 +295,92 @@
   .search-result-title { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
   .search-result-text { font-size: 14px; line-height: 1.7; color: var(--text); }
   .search-highlight { background: #fff176; border-radius: 2px; font-weight: 700; }
+
+  /* ── FEEDBACK (AI予想問題の検証) ── */
+  .feedback-section {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: #f7f9fc;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+  }
+  .feedback-title {
+    font-size: 12.5px; color: var(--muted);
+    margin-bottom: 10px; font-weight: 600;
+  }
+  .feedback-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn-fb {
+    border: none; border-radius: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700; font-size: 13px;
+    padding: 8px 14px; cursor: pointer; transition: all .15s;
+  }
+  .btn-fb-ok {
+    background: var(--green-bg); color: var(--green);
+    border: 1px solid #b5dcc6;
+  }
+  .btn-fb-ok:hover { background: #d4ecde; }
+  .btn-fb-report {
+    background: #fff4e0; color: #9a6010;
+    border: 1px solid #f0d590;
+  }
+  .btn-fb-report:hover { background: #ffe7bf; }
+  .btn-fb:disabled { opacity: .5; cursor: default; }
+  .feedback-thanks {
+    margin-top: 16px; padding: 8px 14px;
+    background: var(--green-bg); color: var(--green);
+    font-size: 12.5px; font-weight: 600;
+    border-radius: 8px; display: inline-block;
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(15,31,61,.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 200; padding: 16px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-card {
+    background: #fff; border-radius: 14px;
+    padding: 22px; max-width: 460px; width: 100%;
+    box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .modal-subtitle { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .modal-radios { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .modal-radios label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13.5px; cursor: pointer;
+    padding: 7px 8px; border-radius: 6px;
+  }
+  .modal-radios label:hover { background: var(--gray); }
+  .modal-radios input[type=radio] { cursor: pointer; }
+  .modal-textarea {
+    width: 100%; min-height: 70px; max-height: 200px;
+    padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 13px;
+    resize: vertical; outline: none;
+    margin-bottom: 6px;
+  }
+  .modal-textarea:focus { border-color: var(--blue); }
+  .modal-counter { font-size: 11px; color: var(--muted); text-align: right; margin-bottom: 14px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* Toast */
+  #fb-toast {
+    position: fixed; left: 50%; bottom: 28px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--navy); color: #fff;
+    padding: 10px 18px; border-radius: 24px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    opacity: 0; pointer-events: none;
+    transition: all .25s; z-index: 300;
+  }
+  #fb-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -386,6 +472,7 @@
       <div id="multi-hint" style="font-size:12px;color:var(--muted);margin-bottom:10px;display:none">※複数選択してください</div>
       <div class="options" id="q-options"></div>
       <div id="q-explanation"></div>
+      <div id="q-feedback-area"></div>
       <div class="quiz-footer" id="quiz-footer" style="display:none">
         <div style="display:flex;gap:8px;flex-wrap:wrap" id="footer-left"></div>
         <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn"></button>
@@ -438,6 +525,28 @@
     <div id="stats-cats"></div>
   </div>
 </main>
+
+<!-- REPORT MODAL -->
+<div class="modal-backdrop" id="report-modal" onclick="if(event.target===this)closeReportModal()">
+  <div class="modal-card">
+    <div class="modal-title">⚠ 内容の誤りを報告</div>
+    <div class="modal-subtitle">どこに誤りがありますか？（AI生成のため検証中の設問です）</div>
+    <div class="modal-radios">
+      <label><input type="radio" name="report-kind" value="answer_wrong"> 正解が違うと思う</label>
+      <label><input type="radio" name="report-kind" value="choices"> 選択肢が不適切</label>
+      <label><input type="radio" name="report-kind" value="wording"> 問題文がわかりにくい</label>
+      <label><input type="radio" name="report-kind" value="figure"> 図表がおかしい</label>
+      <label><input type="radio" name="report-kind" value="other"> その他</label>
+    </div>
+    <textarea class="modal-textarea" id="report-comment" maxlength="500"
+      placeholder="補足コメント（任意・500字まで）" oninput="updateReportCounter()"></textarea>
+    <div class="modal-counter"><span id="report-counter">0</span> / 500</div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeReportModal()">キャンセル</button>
+      <button class="btn btn-primary btn-sm" onclick="submitReport()">送信</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── STATE ──
@@ -1075,6 +1184,8 @@ function renderQuestion() {
   }
 
   document.getElementById('q-explanation').innerHTML = '';
+  const fbArea = document.getElementById('q-feedback-area');
+  if (fbArea) fbArea.innerHTML = '';
   document.getElementById('quiz-footer').style.display = 'none';
 
   // submit button for multi
@@ -1161,6 +1272,9 @@ function processAnswer(chosen, pid) {
   document.getElementById('footer-left').innerHTML = '';
   document.getElementById('next-btn').textContent =
     currentIdx + 1 >= quizQueue.length ? '結果を見る 📋' : '次の問題 →';
+
+  // フィードバックエリア（予想問題のみ）
+  renderFeedbackArea(q);
 }
 
 
@@ -1560,6 +1674,149 @@ function formatText(txt) {
   // 「。」の直後に番号（1:、2:など）が来る場合のみ改行を追加
   txt = txt.replace(/([。])([1-9][0-9]?[:：])/g, '$1<br>$2');
   return txt;
+}
+
+// ── SUPABASE FEEDBACK ──
+// AI生成の予想問題に対する学生フィードバック収集
+const SUPABASE_URL = 'https://gmkrsgqgndlrabiicvkh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05';
+
+function isPredictedQ(q) {
+  return q && (q.problem_id || '').startsWith('F') && q.year === 0;
+}
+
+function getAnonId() {
+  let id = null;
+  try { id = localStorage.getItem('eisei_anon_id'); } catch(e) {}
+  if (!id) {
+    id = 'anon_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    try { localStorage.setItem('eisei_anon_id', id); } catch(e) {}
+  }
+  return id;
+}
+
+function hasVotedFb(pid) {
+  try { return localStorage.getItem('eisei_fb_' + pid) !== null; } catch(e) { return false; }
+}
+function markVotedFb(pid, vote) {
+  try { localStorage.setItem('eisei_fb_' + pid, vote); } catch(e) {}
+}
+
+async function sendFeedback(payload) {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/question_feedback', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      console.warn('Feedback send failed:', res.status, await res.text().catch(()=>'') );
+      return false;
+    }
+    return true;
+  } catch(e) {
+    console.warn('Feedback send error:', e);
+    return false;
+  }
+}
+
+function renderFeedbackArea(q) {
+  const area = document.getElementById('q-feedback-area');
+  if (!area) return;
+  if (!isPredictedQ(q)) { area.innerHTML = ''; return; }
+  if (hasVotedFb(q.problem_id)) {
+    const vote = (function(){ try { return localStorage.getItem('eisei_fb_' + q.problem_id); } catch(e) { return null; } })();
+    const label = vote === 'report' ? '⚠ 報告を送信済み' : '✓ フィードバック送信済み';
+    area.innerHTML = `<div class="feedback-thanks">${label}</div>`;
+    return;
+  }
+  area.innerHTML = `
+    <div class="feedback-section">
+      <div class="feedback-title">この設問の内容は妥当ですか？（AI生成のため検証中）</div>
+      <div class="feedback-btns">
+        <button class="btn-fb btn-fb-ok" onclick="submitFeedbackCorrect('${q.problem_id}')">👍 内容は妥当</button>
+        <button class="btn-fb btn-fb-report" onclick="openReportModal('${q.problem_id}')">⚠ 内容に誤りあり</button>
+      </div>
+    </div>`;
+}
+
+async function submitFeedbackCorrect(pid) {
+  if (hasVotedFb(pid)) return;
+  // 楽観的にUI更新
+  markVotedFb(pid, 'correct');
+  const q = quizQueue[currentIdx];
+  if (q) renderFeedbackArea(q);
+  const ok = await sendFeedback({
+    question_id: pid,
+    source: 'future',
+    vote_type: 'correct',
+    anon_id: getAnonId(),
+    user_agent: (navigator.userAgent || '').slice(0, 200)
+  });
+  showToast(ok ? '✓ フィードバックありがとうございました' : '送信に失敗しました（ネットワーク確認）');
+}
+
+function openReportModal(pid) {
+  const modal = document.getElementById('report-modal');
+  modal.dataset.pid = pid;
+  modal.classList.add('open');
+  document.querySelectorAll('input[name="report-kind"]').forEach(i => i.checked = false);
+  const ta = document.getElementById('report-comment');
+  ta.value = '';
+  updateReportCounter();
+}
+function closeReportModal() {
+  document.getElementById('report-modal').classList.remove('open');
+}
+function updateReportCounter() {
+  const ta = document.getElementById('report-comment');
+  const c = document.getElementById('report-counter');
+  if (ta && c) c.textContent = ta.value.length;
+}
+async function submitReport() {
+  const modal = document.getElementById('report-modal');
+  const pid = modal.dataset.pid;
+  if (!pid) { closeReportModal(); return; }
+  if (hasVotedFb(pid)) { closeReportModal(); return; }
+  const kindEl = document.querySelector('input[name="report-kind"]:checked');
+  if (!kindEl) { showToast('報告内容を1つ選んでください'); return; }
+  const kind = kindEl.value;
+  const comment = (document.getElementById('report-comment').value || '').slice(0, 500).trim();
+
+  markVotedFb(pid, 'report');
+  closeReportModal();
+  const q = quizQueue[currentIdx];
+  if (q) renderFeedbackArea(q);
+
+  const ok = await sendFeedback({
+    question_id: pid,
+    source: 'future',
+    vote_type: 'report',
+    report_kind: kind,
+    comment: comment || null,
+    anon_id: getAnonId(),
+    user_agent: (navigator.userAgent || '').slice(0, 200)
+  });
+  showToast(ok ? '⚠ 報告ありがとうございました' : '送信に失敗しました（ネットワーク確認）');
+}
+
+let _toastTimer = null;
+function showToast(msg) {
+  let toast = document.getElementById('fb-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'fb-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
 }
 
 // ── INIT ──
