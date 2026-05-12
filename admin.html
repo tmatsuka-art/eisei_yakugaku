@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理画面 - 衛生薬学 国試対策</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy2: #1a3260;
+    --blue: #2251a3;
+    --accent: #e8a020;
+    --green: #1a7a4a;
+    --green-bg: #e8f5ee;
+    --red: #b02020;
+    --red-bg: #fceaea;
+    --gray: #f4f6fa;
+    --border: #dde3ee;
+    --text: #1a2035;
+    --muted: #6b7a99;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--gray);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    color: #fff;
+    position: sticky; top: 0; z-index: 50;
+  }
+  header h1 { font-size: 16px; font-weight: 700; }
+  header .user-info { font-size: 12px; color: #8fa8d8; display: flex; gap: 12px; align-items: center; }
+  header button {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    color: #fff; padding: 6px 12px; border-radius: 6px;
+    font-size: 12px; cursor: pointer; font-family: inherit;
+  }
+  header button:hover { background: rgba(255,255,255,.18); }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  .card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15,31,61,.06);
+    padding: 20px; margin-bottom: 16px;
+  }
+  .hidden { display: none !important; }
+
+  /* Login */
+  .login-card {
+    max-width: 380px; margin: 80px auto;
+    padding: 32px;
+  }
+  .login-card h2 { font-size: 18px; margin-bottom: 4px; }
+  .login-card p { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .login-card input {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: 14px;
+    margin-bottom: 12px; outline: none;
+  }
+  .login-card input:focus { border-color: var(--blue); }
+  .login-card button {
+    width: 100%; padding: 10px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 8px;
+    font-family: inherit; font-weight: 700; font-size: 14px;
+    cursor: pointer;
+  }
+  .login-card button:hover { background: #1d4490; }
+  .login-error { color: var(--red); font-size: 12px; margin-top: 8px; }
+
+  /* Filter tabs */
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab {
+    background: #fff; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-weight: 600;
+    font-family: inherit; cursor: pointer;
+  }
+  .tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .tab:not(.active):hover { background: #f0f4ff; color: var(--blue); border-color: #c5d4ff; }
+  .tab .count { font-size: 11px; opacity: .85; margin-left: 4px; font-weight: 700; }
+
+  /* Question card */
+  .q-card { padding: 0; overflow: hidden; }
+  .q-header {
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    background: #fafbfd;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .q-id { font-weight: 700; font-size: 15px; color: var(--navy); }
+  .q-title { font-size: 12.5px; color: var(--muted); margin-left: 8px; }
+  .q-counts { display: flex; gap: 6px; font-size: 12px; }
+  .badge {
+    padding: 3px 10px; border-radius: 12px;
+    font-weight: 700; font-size: 11.5px;
+  }
+  .badge-correct { background: var(--green-bg); color: var(--green); }
+  .badge-report { background: #fff4e0; color: #9a6010; }
+  .q-body { padding: 14px 20px; font-size: 13px; line-height: 1.7; background: #fdfdff; }
+  .q-body .label {
+    font-size: 10.5px; font-weight: 700; color: var(--muted);
+    margin-top: 10px; margin-bottom: 3px;
+    letter-spacing: 1px;
+  }
+  .q-body .label:first-child { margin-top: 0; }
+  .q-text { font-size: 13.5px; line-height: 1.7; }
+  .q-choices ol { margin-left: 22px; }
+  .q-choices li { margin-bottom: 3px; }
+  .q-answer { color: var(--green); font-weight: 700; }
+  .q-explanation { color: #333; font-size: 12.5px; line-height: 1.7; white-space: pre-wrap; }
+  .q-images { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .q-images img { max-width: 240px; max-height: 180px; border-radius: 6px; border: 1px solid var(--border); }
+
+  /* Reports inside card */
+  .reports-section { border-top: 1px solid var(--border); }
+  .report-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-row:last-child { border-bottom: none; }
+  .report-row.reviewed { opacity: .8; background: #f7f9fc; }
+  .report-meta {
+    font-size: 11.5px; color: var(--muted);
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 6px;
+  }
+  .report-kind-badge {
+    background: #f0f4ff; color: var(--blue);
+    padding: 2px 9px; border-radius: 10px;
+    font-weight: 700; font-size: 11px;
+  }
+  .report-kind-badge.kind-answer_wrong { background: var(--red-bg); color: var(--red); }
+  .report-kind-badge.kind-figure { background: #fff4e0; color: #9a6010; }
+  .report-kind-badge.kind-explanation { background: #e7f5ff; color: #1976d2; }
+  .report-comment {
+    font-size: 13px; padding: 8px 12px;
+    background: #fff8e1; border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    margin: 6px 0;
+    white-space: pre-wrap;
+  }
+  .report-actions {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .report-actions select, .report-actions input {
+    padding: 6px 10px;
+    border: 1px solid var(--border); border-radius: 6px;
+    font-family: inherit; font-size: 12px;
+    outline: none;
+  }
+  .report-actions input { flex: 1; min-width: 220px; }
+  .report-actions input:focus, .report-actions select:focus { border-color: var(--blue); }
+  .report-actions button {
+    padding: 7px 14px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 6px;
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    cursor: pointer;
+  }
+  .report-actions button:hover { background: #1d4490; }
+  .report-actions button.undo {
+    background: #fff; color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .report-actions button.undo:hover { background: var(--gray); color: var(--text); }
+  .report-actions button.copy-btn {
+    background: #f0f4ff; color: var(--blue);
+    border: 1px solid #c5d4ff;
+  }
+  .report-actions button.copy-btn:hover {
+    background: #dfe7ff; color: var(--navy);
+  }
+
+  /* Toast */
+  #admin-toast {
+    position: fixed; left: 50%; bottom: 28px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--navy); color: #fff;
+    padding: 10px 18px; border-radius: 24px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    opacity: 0; pointer-events: none;
+    transition: all .25s; z-index: 300;
+    max-width: 80vw;
+  }
+  #admin-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .review-info {
+    font-size: 11.5px; color: var(--green);
+    margin-top: 6px;
+    background: var(--green-bg); padding: 6px 10px; border-radius: 6px;
+    display: inline-block;
+  }
+
+  .empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--muted); font-size: 14px;
+  }
+  .loading {
+    text-align: center; padding: 40px;
+    color: var(--muted);
+  }
+  .filter-summary {
+    font-size: 12px; color: var(--muted); margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔐 衛生薬学 管理画面</h1>
+  <div class="user-info hidden" id="user-info">
+    <span id="user-email"></span>
+    <button onclick="doLogout()">ログアウト</button>
+  </div>
+</header>
+
+<main>
+  <!-- Login Screen -->
+  <div class="card login-card" id="login-screen">
+    <h2>ログイン</h2>
+    <p>管理者のみアクセス可能です</p>
+    <form onsubmit="doLogin(event); return false;">
+      <input type="email" id="login-email" placeholder="メールアドレス" required>
+      <input type="password" id="login-password" placeholder="パスワード" required>
+      <button type="submit">ログイン</button>
+      <div class="login-error hidden" id="login-error"></div>
+    </form>
+  </div>
+
+  <!-- Admin Screen -->
+  <div id="admin-screen" class="hidden">
+    <div class="tabs">
+      <button class="tab active" data-filter="unreviewed" onclick="setFilter('unreviewed')">⚠ 未対応の報告<span class="count" id="count-unreviewed"></span></button>
+      <button class="tab" data-filter="reviewed" onclick="setFilter('reviewed')">✓ 対応済み<span class="count" id="count-reviewed"></span></button>
+      <button class="tab" data-filter="all" onclick="setFilter('all')">全報告<span class="count" id="count-all"></span></button>
+    </div>
+    <div class="filter-summary" id="filter-summary"></div>
+    <div id="reports-list">
+      <div class="loading">読み込み中...</div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://gmkrsgqgndlrabiicvkh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true }
+});
+
+let allReports = [];
+let questionMap = {}; // problem_id -> question data
+let currentFilter = 'unreviewed';
+
+// ── AUTH ──
+async function checkAuth() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (session) {
+    showAdmin(session.user);
+  } else {
+    showLogin();
+  }
+}
+
+function showLogin() {
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('admin-screen').classList.add('hidden');
+  document.getElementById('user-info').classList.add('hidden');
+}
+
+function showAdmin(user) {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('admin-screen').classList.remove('hidden');
+  document.getElementById('user-info').classList.remove('hidden');
+  document.getElementById('user-email').textContent = user.email || '';
+  loadData();
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.add('hidden');
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'ログイン失敗: ' + error.message;
+    errEl.classList.remove('hidden');
+    return;
+  }
+  showAdmin(data.user);
+}
+
+async function doLogout() {
+  await supabaseClient.auth.signOut();
+  showLogin();
+}
+
+// ── DATA ──
+async function loadQuestions() {
+  try {
+    const res = await fetch('future_questions.jsonl?v=' + Date.now());
+    if (!res.ok) return;
+    const text = await res.text();
+    const lines = text.trim().split('\n').filter(l => l.trim());
+    questionMap = {};
+    for (const line of lines) {
+      try {
+        const q = JSON.parse(line);
+        questionMap[q.problem_id] = q;
+      } catch(e) {}
+    }
+  } catch(e) {
+    console.warn('Failed to load questions:', e);
+  }
+}
+
+async function loadReports() {
+  const { data, error } = await supabaseClient
+    .from('question_feedback')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) {
+    document.getElementById('reports-list').innerHTML =
+      `<div class="empty">読み込みエラー: ${escapeHtml(error.message)}</div>`;
+    return;
+  }
+  allReports = data || [];
+}
+
+async function loadData() {
+  document.getElementById('reports-list').innerHTML = '<div class="loading">読み込み中...</div>';
+  await Promise.all([loadQuestions(), loadReports()]);
+  renderReports();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.filter === f);
+  });
+  renderReports();
+}
+
+const KIND_LABELS = {
+  'answer_wrong': '正解が違うと思う',
+  'choices': '選択肢が不適切',
+  'wording': '問題文がわかりにくい',
+  'figure': '図表がおかしい',
+  'explanation': '解説が不十分',
+  'other': 'その他'
+};
+
+function renderReports() {
+  const listEl = document.getElementById('reports-list');
+
+  // Counts
+  const reportsAll = allReports.filter(r => r.vote_type === 'report');
+  const unreviewedCount = reportsAll.filter(r => !r.reviewed_at).length;
+  const reviewedCount = reportsAll.filter(r => r.reviewed_at).length;
+  const allCount = reportsAll.length;
+
+  document.getElementById('count-unreviewed').textContent = `(${unreviewedCount})`;
+  document.getElementById('count-reviewed').textContent = `(${reviewedCount})`;
+  document.getElementById('count-all').textContent = `(${allCount})`;
+
+  // Apply filter
+  let filtered;
+  if (currentFilter === 'unreviewed') filtered = reportsAll.filter(r => !r.reviewed_at);
+  else if (currentFilter === 'reviewed') filtered = reportsAll.filter(r => r.reviewed_at);
+  else filtered = reportsAll;
+
+  // Total counts per question across ALL data (correct + report)
+  const correctCounts = {};
+  const reportCounts = {};
+  for (const r of allReports) {
+    if (r.vote_type === 'correct') correctCounts[r.question_id] = (correctCounts[r.question_id] || 0) + 1;
+    if (r.vote_type === 'report')  reportCounts[r.question_id]  = (reportCounts[r.question_id]  || 0) + 1;
+  }
+
+  // Group filtered reports by question_id
+  const grouped = {};
+  for (const r of filtered) {
+    if (!grouped[r.question_id]) grouped[r.question_id] = [];
+    grouped[r.question_id].push(r);
+  }
+
+  // Sort: most recent report first per group, groups by most recent report
+  const qids = Object.keys(grouped).sort((a, b) => {
+    const maxA = Math.max(...grouped[a].map(r => new Date(r.created_at).getTime()));
+    const maxB = Math.max(...grouped[b].map(r => new Date(r.created_at).getTime()));
+    return maxB - maxA;
+  });
+
+  // Filter summary
+  const summaryEl = document.getElementById('filter-summary');
+  summaryEl.textContent = `${qids.length} 件の予想問題に関する報告 / 合計 ${filtered.length} 件の報告`;
+
+  if (qids.length === 0) {
+    const msg = currentFilter === 'unreviewed'
+      ? '🎉 未対応の報告はありません'
+      : '該当する報告はありません';
+    listEl.innerHTML = `<div class="card empty">${msg}</div>`;
+    return;
+  }
+
+  listEl.innerHTML = qids.map(qid => {
+    const q = questionMap[qid];
+    const reports = grouped[qid];
+    const correctCount = correctCounts[qid] || 0;
+    const totalReportCount = reportCounts[qid] || 0;
+
+    const qContentHtml = q ? `
+      <div class="q-body">
+        <div class="label">問題文</div>
+        <div class="q-text">${escapeHtml(q.problem_text || '')}</div>
+        ${(q.assets && q.assets.length > 0) ? `
+          <div class="label">画像</div>
+          <div class="q-images">${q.assets.map(a => `<img src="${escapeHtml(a)}" alt="問題図" onerror="this.style.display='none'">`).join('')}</div>
+        ` : ''}
+        ${(q.choices && q.choices.length > 0 && q.choices[0] !== 'IMAGES') ? `
+          <div class="label">選択肢</div>
+          <div class="q-choices"><ol>${q.choices.map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ol></div>
+        ` : ''}
+        ${q.answer ? `
+          <div class="label">正解</div>
+          <div class="q-answer">${escapeHtml(Array.isArray(q.answer) ? q.answer.join(', ') : String(q.answer))} 番</div>
+        ` : ''}
+        ${q.comment ? `
+          <div class="label">解説</div>
+          <div class="q-explanation">${escapeHtml(q.comment)}</div>
+        ` : ''}
+      </div>
+    ` : `<div class="q-body"><div class="empty" style="padding:14px;font-size:12px">⚠ 問題データが見つかりません（${escapeHtml(qid)}）— future_questions.jsonl に該当IDがない可能性</div></div>`;
+
+    return `
+      <div class="card q-card">
+        <div class="q-header">
+          <div>
+            <span class="q-id">${escapeHtml(qid)}</span>
+            ${q && q.display_title ? `<span class="q-title">${escapeHtml(q.display_title)}</span>` : ''}
+          </div>
+          <div class="q-counts">
+            <span class="badge badge-correct">👍 妥当 ${correctCount}</span>
+            <span class="badge badge-report">⚠ 報告 ${totalReportCount}</span>
+          </div>
+        </div>
+        ${qContentHtml}
+        <div class="reports-section">
+          ${reports.map(r => renderReportRow(r)).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderReportRow(r) {
+  const reviewed = !!r.reviewed_at;
+  const kindLabel = KIND_LABELS[r.report_kind] || r.report_kind || '(未指定)';
+  const time = new Date(r.created_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
+  const reviewedTime = reviewed ? new Date(r.reviewed_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' }) : '';
+  return `
+    <div class="report-row ${reviewed ? 'reviewed' : ''}" id="report-${r.id}">
+      <div class="report-meta">
+        <span class="report-kind-badge kind-${escapeHtml(r.report_kind || 'other')}">${escapeHtml(kindLabel)}</span>
+        <span>📅 ${escapeHtml(time)}</span>
+        <span>🧑 ${escapeHtml((r.anon_id || '').slice(0, 16))}</span>
+      </div>
+      ${r.comment ? `<div class="report-comment">${escapeHtml(r.comment)}</div>` : ''}
+      ${reviewed ? `
+        <div class="review-info">
+          ✓ 対応済み: ${escapeHtml(reviewedTime)}
+          ${r.resolution ? ` ｜ ${escapeHtml(r.resolution)}` : ''}
+          ${r.reviewer_note ? ` ｜ 📝 ${escapeHtml(r.reviewer_note)}` : ''}
+        </div>
+        <div class="report-actions">
+          <button class="undo" onclick="markUnreviewed(${r.id})">↶ 未対応に戻す</button>
+        </div>
+      ` : `
+        <div class="report-actions">
+          <button class="copy-btn" onclick="copyFixRequest(${r.id})" title="修正依頼をクリップボードにコピー">📋 Claudeに修正依頼をコピー</button>
+        </div>
+        <div class="report-actions">
+          <select id="resolution-${r.id}">
+            <option value="fixed">fixed (修正済)</option>
+            <option value="not_an_error">not_an_error (誤りではない)</option>
+            <option value="wontfix">wontfix (対応せず)</option>
+            <option value="duplicate">duplicate (重複)</option>
+          </select>
+          <input type="text" id="note-${r.id}" placeholder="メモ（任意・500字まで）" maxlength="500">
+          <button onclick="markReviewed(${r.id})">✓ 対応済みにする</button>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+async function markReviewed(id) {
+  const resolution = document.getElementById('resolution-' + id).value;
+  const noteEl = document.getElementById('note-' + id);
+  const note = (noteEl.value || '').trim().slice(0, 500) || null;
+  const { error } = await supabaseClient
+    .from('question_feedback')
+    .update({
+      reviewed_at: new Date().toISOString(),
+      resolution: resolution,
+      reviewer_note: note
+    })
+    .eq('id', id);
+  if (error) { alert('更新失敗: ' + error.message); return; }
+  await loadReports();
+  renderReports();
+}
+
+async function markUnreviewed(id) {
+  if (!confirm('この報告を未対応に戻しますか？')) return;
+  const { error } = await supabaseClient
+    .from('question_feedback')
+    .update({ reviewed_at: null, resolution: null, reviewer_note: null })
+    .eq('id', id);
+  if (error) { alert('更新失敗: ' + error.message); return; }
+  await loadReports();
+  renderReports();
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  if (typeof s !== 'string') s = String(s);
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ── Claude 修正依頼テキスト生成・コピー ──
+function buildFixRequestText(report, q) {
+  const kindLabel = KIND_LABELS[report.report_kind] || report.report_kind || '(未指定)';
+  const time = new Date(report.created_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
+
+  const lines = [];
+  lines.push(`[${report.question_id} の修正依頼]`);
+  lines.push('');
+  lines.push('## 学生からの報告');
+  lines.push(`- 種別: ${kindLabel}`);
+  if (report.comment) {
+    lines.push(`- コメント: "${report.comment}"`);
+  } else {
+    lines.push('- コメント: (なし)');
+  }
+  lines.push(`- 受信: ${time}`);
+  lines.push('');
+  lines.push('## 現在の問題内容');
+  if (!q) {
+    lines.push(`⚠ future_questions.jsonl 内に問題ID ${report.question_id} が見つかりません。`);
+  } else {
+    lines.push('**問題文:**');
+    lines.push(q.problem_text || '(なし)');
+    lines.push('');
+    if (q.assets && q.assets.length > 0) {
+      lines.push('**画像:**');
+      q.assets.forEach(a => lines.push(`- ${a}`));
+      lines.push('');
+    }
+    if (q.choices && q.choices.length > 0 && q.choices[0] !== 'IMAGES') {
+      lines.push('**選択肢:**');
+      q.choices.forEach((c, i) => lines.push(`${i + 1}. ${c}`));
+      lines.push('');
+    } else if (q.choices && q.choices[0] === 'IMAGES') {
+      lines.push('**選択肢:** (画像選択肢)');
+      lines.push('');
+    }
+    const ans = Array.isArray(q.answer) ? q.answer.join(', ') : (q.answer || '');
+    lines.push(`**現在の正解:** ${ans} 番`);
+    lines.push('');
+    if (q.comment) {
+      lines.push('**現在の解説:**');
+      lines.push(q.comment);
+      lines.push('');
+    }
+  }
+  lines.push('## 修正方針');
+  lines.push('上記の報告内容を踏まえて、future_questions.jsonl の該当行を適切に修正してください。');
+  lines.push('修正後はコミット&プッシュもお願いします。');
+  return lines.join('\n');
+}
+
+async function copyFixRequest(reportId) {
+  const report = allReports.find(r => r.id === reportId);
+  if (!report) return;
+  const q = questionMap[report.question_id];
+  const text = buildFixRequestText(report, q);
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('📋 修正依頼をコピーしました — Claudeに貼り付けてください');
+  } catch (e) {
+    // フォールバック
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('📋 修正依頼をコピーしました — Claudeに貼り付けてください');
+    } catch (e2) {
+      alert('コピーに失敗しました。お使いのブラウザがクリップボードAPI非対応の可能性があります。\n\n--- 以下を手動でコピー ---\n\n' + text);
+    }
+    document.body.removeChild(ta);
+  }
+}
+
+let _adminToastTimer = null;
+function showToast(msg) {
+  let toast = document.getElementById('admin-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'admin-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(_adminToastTimer);
+  _adminToastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ── INIT ──
+checkAuth();
+</script>
+</body>
+</html>
