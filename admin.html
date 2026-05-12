@@ -106,6 +106,21 @@
   }
   .badge-correct { background: var(--green-bg); color: var(--green); }
   .badge-report { background: #fff4e0; color: #9a6010; }
+  .badge-verified { background: #e6f7ec; color: #0e6b3b; border: 1px solid #b5dcc6; }
+  .badge-unverified { background: #f0f4ff; color: #4a5a7a; border: 1px solid #c5d4ff; }
+  .verify-toggle {
+    background: #fff; color: var(--blue);
+    border: 1px solid #c5d4ff;
+    padding: 4px 10px; border-radius: 8px;
+    font-family: inherit; font-size: 11.5px; font-weight: 700;
+    cursor: pointer; transition: all .15s;
+    margin-left: 6px;
+  }
+  .verify-toggle:hover { background: #f0f4ff; }
+  .verify-toggle.verified {
+    background: var(--green); color: #fff; border-color: var(--green);
+  }
+  .verify-toggle.verified:hover { background: #156c40; }
   .q-body { padding: 14px 20px; font-size: 13px; line-height: 1.7; background: #fdfdff; }
   .q-body .label {
     font-size: 10.5px; font-weight: 700; color: var(--muted);
@@ -262,6 +277,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
 
 let allReports = [];
 let questionMap = {}; // problem_id -> question data
+let verifiedSet = new Set(); // 検証済み問題IDのセット
 let currentFilter = 'unreviewed';
 
 // ── AUTH ──
@@ -341,9 +357,20 @@ async function loadReports() {
   allReports = data || [];
 }
 
+async function loadVerifications() {
+  const { data, error } = await supabaseClient
+    .from('question_verifications')
+    .select('question_id');
+  if (error) {
+    console.warn('Failed to load verifications:', error.message);
+    return;
+  }
+  verifiedSet = new Set((data || []).map(v => v.question_id));
+}
+
 async function loadData() {
   document.getElementById('reports-list').innerHTML = '<div class="loading">読み込み中...</div>';
-  await Promise.all([loadQuestions(), loadReports()]);
+  await Promise.all([loadQuestions(), loadReports(), loadVerifications()]);
   renderReports();
 }
 
@@ -446,12 +473,18 @@ function renderReports() {
       </div>
     ` : `<div class="q-body"><div class="empty" style="padding:14px;font-size:12px">⚠ 問題データが見つかりません（${escapeHtml(qid)}）— future_questions.jsonl に該当IDがない可能性</div></div>`;
 
+    const isVerified = verifiedSet.has(qid);
+    const verifyBtnLabel = isVerified ? '✓ 検証済み（解除）' : '☐ 検証済みにする';
+    const verifyBtnClass = isVerified ? 'verify-toggle verified' : 'verify-toggle';
+
     return `
       <div class="card q-card">
         <div class="q-header">
-          <div>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
             <span class="q-id">${escapeHtml(qid)}</span>
             ${q && q.display_title ? `<span class="q-title">${escapeHtml(q.display_title)}</span>` : ''}
+            ${isVerified ? '<span class="badge badge-verified">✓ ヒトの目で確認済み</span>' : '<span class="badge badge-unverified">🤖 AI生成・検証中</span>'}
+            <button class="${verifyBtnClass}" onclick="toggleVerification('${escapeHtml(qid)}')">${verifyBtnLabel}</button>
           </div>
           <div class="q-counts">
             <span class="badge badge-correct">👍 妥当 ${correctCount}</span>
@@ -521,7 +554,43 @@ async function markReviewed(id) {
     })
     .eq('id', id);
   if (error) { alert('更新失敗: ' + error.message); return; }
+
+  // resolution = 'fixed' のときは自動で検証済みフラグも立てる
+  if (resolution === 'fixed') {
+    const report = allReports.find(r => r.id === id);
+    if (report) {
+      await supabaseClient
+        .from('question_verifications')
+        .upsert({
+          question_id: report.question_id,
+          source: 'fixed_via_report',
+          note: note,
+        });
+    }
+  }
+
   await loadReports();
+  await loadVerifications();
+  renderReports();
+}
+
+async function toggleVerification(qid) {
+  if (verifiedSet.has(qid)) {
+    // 解除
+    if (!confirm(`${qid} の検証済みフラグを解除しますか？`)) return;
+    const { error } = await supabaseClient
+      .from('question_verifications')
+      .delete()
+      .eq('question_id', qid);
+    if (error) { alert('解除失敗: ' + error.message); return; }
+  } else {
+    // 検証済みにする
+    const { error } = await supabaseClient
+      .from('question_verifications')
+      .upsert({ question_id: qid, source: 'manual' });
+    if (error) { alert('検証済み登録失敗: ' + error.message); return; }
+  }
+  await loadVerifications();
   renderReports();
 }
 
