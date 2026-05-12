@@ -529,13 +529,14 @@
 <!-- REPORT MODAL -->
 <div class="modal-backdrop" id="report-modal" onclick="if(event.target===this)closeReportModal()">
   <div class="modal-card">
-    <div class="modal-title">⚠ 内容の誤りを報告</div>
-    <div class="modal-subtitle">どこに誤りがありますか？（AI生成のため検証中の設問です）</div>
+    <div class="modal-title">⚠ 気になる点を報告</div>
+    <div class="modal-subtitle">誤り・分かりにくさ・改善要望など、何でも教えてください</div>
     <div class="modal-radios">
       <label><input type="radio" name="report-kind" value="answer_wrong"> 正解が違うと思う</label>
       <label><input type="radio" name="report-kind" value="choices"> 選択肢が不適切</label>
       <label><input type="radio" name="report-kind" value="wording"> 問題文がわかりにくい</label>
       <label><input type="radio" name="report-kind" value="figure"> 図表がおかしい</label>
+      <label><input type="radio" name="report-kind" value="explanation"> 解説が不十分・もっと詳しく</label>
       <label><input type="radio" name="report-kind" value="other"> その他</label>
     </div>
     <textarea class="modal-textarea" id="report-comment" maxlength="500"
@@ -1740,7 +1741,7 @@ function renderFeedbackArea(q) {
       <div class="feedback-title">この設問の内容は妥当ですか？（AI生成のため検証中）</div>
       <div class="feedback-btns">
         <button class="btn-fb btn-fb-ok" onclick="submitFeedbackCorrect('${q.problem_id}')">👍 内容は妥当</button>
-        <button class="btn-fb btn-fb-report" onclick="openReportModal('${q.problem_id}')">⚠ 内容に誤りあり</button>
+        <button class="btn-fb btn-fb-report" onclick="openReportModal('${q.problem_id}')">⚠ 気になる点あり</button>
       </div>
     </div>`;
 }
