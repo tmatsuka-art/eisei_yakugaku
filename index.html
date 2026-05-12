@@ -354,6 +354,35 @@
     border: 1px solid #c5d4ff;
   }
 
+  /* ── 検証バッジ（右上に大きく表示・予想問題用） ── */
+  #q-verif-area {
+    text-align: right;
+    margin-bottom: 10px;
+    min-height: 32px;
+  }
+  .verif-badge-big {
+    display: inline-block;
+    font-size: 13px; font-weight: 700;
+    padding: 7px 16px; border-radius: 18px;
+    letter-spacing: .4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.10);
+  }
+  .verif-badge-big.verified {
+    background: linear-gradient(135deg, #1a7a4a 0%, #2a9b6b 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(26, 122, 74, 0.25);
+  }
+  .verif-badge-big.unverified {
+    background: linear-gradient(135deg, #e8a020 0%, #f0b540 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(232, 160, 32, 0.25);
+  }
+  @media (max-width: 480px) {
+    .verif-badge-big {
+      font-size: 11.5px; padding: 6px 12px;
+    }
+  }
+
   /* Modal */
   .modal-backdrop {
     position: fixed; inset: 0;
@@ -486,6 +515,7 @@
     </div>
 
     <div class="card" id="quiz-card">
+      <div id="q-verif-area"></div>
       <div class="q-meta" id="q-meta"></div>
       <div id="q-lead-area"></div>
       <div class="q-title" id="q-text"></div>
@@ -1131,16 +1161,21 @@ function renderQuestion() {
       (cd.title ? `<span class="${cdTitleClass}">${cd.title}</span>` : '') +
       cdRefBadge
     : '';
-  // 検証バッジ（予想問題のみ表示）
-  const verifBadge = isPredictedQ(q)
-    ? (VERIFIED_QUESTIONS.has(q.problem_id)
-        ? '<span class="verif-badge verified">✓ ヒトの目で確認済み</span>'
-        : '<span class="verif-badge unverified">🤖 AI生成・検証中</span>')
-    : '';
+  // 検証バッジ（右上に大きく表示・予想問題のみ）
+  const verifArea = document.getElementById('q-verif-area');
+  if (verifArea) {
+    if (isPredictedQ(q)) {
+      verifArea.innerHTML = VERIFIED_QUESTIONS.has(q.problem_id)
+        ? '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>'
+        : '<span class="verif-badge-big unverified">🤖 AI生成・検証中</span>';
+    } else {
+      verifArea.innerHTML = '';
+    }
+  }
+
   document.getElementById('q-meta').innerHTML =
     `<span style="font-size:13px;font-weight:700;color:var(--muted)">${q.display_title}</span>` +
-    (codeHtml ? ` <span style="margin-left:8px">${codeHtml}</span>` : '') +
-    verifBadge;
+    (codeHtml ? ` <span style="margin-left:8px">${codeHtml}</span>` : '');
 
   // リード問題：問題文に症例情報が含まれていない場合のみ表示
   const leadArea = document.getElementById('q-lead-area');
