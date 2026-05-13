@@ -1447,23 +1447,58 @@ function renderPoolInfo() {
 
 function renderCatCards() {
   const cats = Object.keys(CAT_DEFS);
+
+  // 現在の year フィルタを問題に適用する関数（getPool と同じロジック）
+  function matchesYearFilter(q) {
+    if (selectedYear === 'past') return q.year > 0;
+    if (selectedYear === 'predicted_all') return (q.problem_id || '').startsWith('F') && q.year === 0;
+    if (selectedYear === 'predicted_verified') return (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id);
+    if (selectedYear === 'predicted_student_only') return (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0;
+    if (selectedYear === 'predicted_unverified') return (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id) && !((CORRECT_COUNTS[q.problem_id] || 0) > 0);
+    if (selectedYear !== 'すべて') return q.year === selectedYear;
+    return true;
+  }
+
+  // フィルタ表示ラベル
+  const filterLabels = {
+    'past': '📜 過去問',
+    'predicted_all': '🔮 予想問題（すべて）',
+    'predicted_verified': '✓ 予想問題 確認済み',
+    'predicted_student_only': '👥 予想問題 学生「妥当」評価',
+    'predicted_unverified': '🤝 予想問題 検証募集中',
+  };
+  let filterDisplay = '';
+  if (selectedYear !== 'すべて') {
+    if (filterLabels[selectedYear]) {
+      filterDisplay = filterLabels[selectedYear];
+    } else if (typeof selectedYear === 'number') {
+      filterDisplay = `📅 第${selectedYear}回`;
+    }
+  }
+
   document.getElementById('cat-cards').innerHTML = cats.map(cat => {
     const def = CAT_DEFS[cat];
-    const pool = ALL_QUESTIONS.filter(q=>q._category===cat);
+    // year フィルタを適用したプール
+    const pool = ALL_QUESTIONS.filter(q => q._category === cat && matchesYearFilter(q));
     const totalCount = pool.length;
-    // 進捗 = 1回以上正解した問題数 / カテゴリ内の総問題数
-    // （何度か間違えても最終的に正解できた問題はカウント対象）
+    // 進捗 = 1回以上正解した問題数 / プール内の総問題数
     const masteredCount = pool.filter(q => (records[q.problem_id]?.correct || 0) > 0).length;
     const pct = totalCount ? Math.round(masteredCount/totalCount*100) : 0;
     const hasActivity = pool.some(q => {
       const r = records[q.problem_id];
       return r && (r.correct > 0 || r.wrong > 0);
     });
-    const label = hasActivity
-      ? `進捗 ${masteredCount}/${totalCount}問 (${pct}%)`
-      : '未着手';
-    return `<div class="cat-card cat-${def.css}" onclick="quickStartCategory('${cat}')" title="クリックで ${def.label} の問題を10問出題">
+    let label;
+    if (totalCount === 0) {
+      label = '該当なし';
+    } else if (!hasActivity) {
+      label = '未着手';
+    } else {
+      label = `進捗 ${masteredCount}/${totalCount}問 (${pct}%)`;
+    }
+    return `<div class="cat-card cat-${def.css}" onclick="quickStartCategory('${cat}')" title="クリックで ${def.label}${filterDisplay?'（'+filterDisplay+'）':''} の問題を10問出題">
       <h3 style="font-size:13px">${def.label}</h3>
+      ${filterDisplay ? `<p style="margin-bottom:2px">${filterDisplay}</p>` : ''}
       <p>${totalCount}問収録</p>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="cat-card-action">
@@ -1475,10 +1510,9 @@ function renderCatCards() {
 }
 
 // カテゴリカードクリックで即座にそのカテゴリのクイズを10問開始
+// selectedYear（過去問・各回・予想問題など）は引き継ぐ
 function quickStartCategory(cat) {
   selectedCat = cat;
-  selectedSec = 'すべて';
-  selectedYear = 'すべて';
   selectedSub = 'すべて';
   selectedNewCC = 'すべて';
   quizCount = 10;
