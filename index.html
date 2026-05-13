@@ -7,16 +7,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    /* === 構造色 === */
     --navy: #0f1f3d;
-    --navy2: #1a3260;
-    --blue: #2251a3;
-    --accent: #e8a020;
-    --accent2: #f0c050;
+    --navy2: #2a3870;        /* 紺グラデの終端を紫寄りに */
+    --blue: #3aaab2;         /* ロイヤルブルー→ティールに */
+    --blue-dark: #2c8c93;    /* ティールのホバー用 */
+    --blue-bg: #e6f5f6;      /* ティールの薄色背景 */
+
+    /* === アクセント(新パレット) === */
+    --accent: #3aaab2;       /* メインアクセント:ティール */
+    --accent2: #7dc5b6;      /* 副アクセント:ミント */
+    --highlight: #5b1f8c;    /* 特別な強調:ディープパープル */
+    --highlight-bg: #f1eaf7; /* パープルの薄色背景 */
+
+    /* === セマンティック === */
     --green: #1a7a4a;
     --green-bg: #e8f5ee;
     --red: #b02020;
     --red-bg: #fceaea;
-    --gray: #f4f6fa;
+
+    /* === ニュートラル === */
+    --gray: #f6f8fc;
     --border: #dde3ee;
     --text: #1a2035;
     --muted: #6b7a99;
@@ -49,31 +60,13 @@
   }
   nav button.active, nav button:hover { background: rgba(255,255,255,.12); color: #fff; }
 
-  /* ── CURRICULUM TOGGLE ── */
-  .curri-toggle {
-    display: inline-flex; background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 18px; padding: 3px; margin-right: 10px;
-  }
-  .curri-toggle button {
-    background: transparent; border: none; color: #8fa8d8;
-    padding: 5px 12px; border-radius: 14px; font-size: 11px; font-weight: 700;
-    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
-    letter-spacing: .5px;
-  }
-  .curri-toggle button.active {
-    background: var(--accent); color: var(--navy);
-    box-shadow: 0 1px 4px rgba(0,0,0,.25);
-  }
-  .curri-toggle button:not(.active):hover { color: #fff; }
+  /* ── CURRICULUM CODE LABEL（新カリのみ） ── */
   .curri-code-label {
     display: inline-block; font-size: 10.5px; font-weight: 700;
     padding: 2px 8px; border-radius: 10px; margin-right: 4px;
-    background: #f0f4ff; color: var(--blue); letter-spacing: .3px;
-    border: 1px solid #dbe4ff;
+    background: #fff4e0; color: #9a6010; letter-spacing: .3px;
+    border: 1px solid #f0d590;
   }
-  .curri-code-label.new-cc { background: #fff4e0; color: #9a6010; border-color: #f0d590; }
-  .curri-code-label.old-cc { background: #eef2fb; color: #3a4570; border-color: #c5d0ea; }
   .curri-code-label.new-cc-ref { background: #fff9ec; color: #b98a3d; border-color: #f5e3b8; opacity: .82; }
   .curri-code-title { font-size: 11px; color: var(--muted); margin-left: 4px; }
   .curri-code-title.ref { opacity: .75; }
@@ -101,11 +94,11 @@
     display: inline-flex; align-items: center; gap: 6px;
   }
   .btn-primary { background: var(--blue); color: #fff; padding: 12px 24px; font-size: 14px; }
-  .btn-primary:hover { background: #1a3f8a; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,81,163,.35); }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(58,170,178,.35); }
   .btn-secondary { background: #fff; color: var(--blue); border: 2px solid var(--blue); padding: 10px 20px; font-size: 13px; }
-  .btn-secondary:hover { background: #eef2fb; }
-  .btn-accent { background: var(--accent); color: var(--navy); padding: 10px 20px; font-size: 13px; }
-  .btn-accent:hover { background: var(--accent2); }
+  .btn-secondary:hover { background: var(--blue-bg); }
+  .btn-accent { background: var(--accent2); color: var(--navy); padding: 10px 20px; font-size: 13px; }
+  .btn-accent:hover { background: #a3d4c9; }
   .btn-sm { padding: 7px 14px; font-size: 12px; }
 
   /* ── LOADING ── */
@@ -124,15 +117,142 @@
   .screen.active { display: block; }
 
   /* ── HOME ── */
-  .stats-bar {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
-  }
-  .stat-box {
-    background: #fff; border-radius: 12px; padding: 16px; text-align: center;
+  /* コンパクト統計バー（1行） */
+  .stats-compact {
+    background: #fff; border-radius: 12px;
     box-shadow: 0 2px 8px rgba(15,31,61,.06);
+    padding: 12px 18px; margin-bottom: 14px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    font-size: 13px;
   }
-  .stat-num { font-size: 28px; font-weight: 900; line-height: 1; }
-  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+  .stats-compact .stat-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .stats-compact .stat-num {
+    font-weight: 900; font-size: 18px; line-height: 1;
+  }
+  .stats-compact .stat-label {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+  }
+  .stats-compact .stat-divider {
+    color: var(--border); user-select: none;
+  }
+
+  /* 折りたたみセクション (details/summary) */
+  .filter-section {
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 0; margin-bottom: 12px;
+    background: #fafbfd;
+  }
+  .filter-section summary {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    padding: 12px 16px; cursor: pointer;
+    list-style: none; user-select: none;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .filter-section summary::-webkit-details-marker { display: none; }
+  .filter-section summary::after {
+    content: '▼'; font-size: 10px; color: var(--muted); transition: transform .2s;
+  }
+  .filter-section[open] summary::after { transform: rotate(180deg); }
+  .filter-section .filter-section-body { padding: 0 16px 14px; }
+  .filter-section .filter-row { margin-bottom: 8px; }
+
+  /* セクションタイトル（フィルタ内の見出し） */
+  .filter-label {
+    font-size: 11.5px; font-weight: 700; color: var(--muted);
+    margin-top: 10px; margin-bottom: 6px;
+    letter-spacing: .3px;
+  }
+  .filter-label:first-child { margin-top: 0; }
+
+  /* トピック検索ボックス */
+  .topic-search {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px;
+    margin-bottom: 8px; outline: none;
+  }
+  .topic-search:focus { border-color: var(--blue); }
+
+  /* 出題コントロール（出題数・苦手のみ） */
+  .quiz-control-row {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .quiz-control-row .control-group {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .quiz-control-row .control-label {
+    font-size: 12px; font-weight: 700; color: var(--muted);
+  }
+  .quiz-count-pill {
+    padding: 6px 12px; border-radius: 18px; font-size: 12px; font-weight: 700;
+    border: 1.5px solid var(--border); background: #fff; color: var(--muted);
+    cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
+  }
+  .quiz-count-pill.active {
+    border-color: var(--blue); background: var(--blue); color: #fff;
+  }
+  .weak-checkbox {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 18px;
+    background: var(--red-bg); color: var(--red);
+    font-size: 12px; font-weight: 700; cursor: pointer;
+    border: 1.5px solid transparent; user-select: none;
+  }
+  .weak-checkbox input { cursor: pointer; }
+  .weak-checkbox.checked { border-color: var(--red); }
+
+  /* 出題情報の表示 */
+  .pool-info-row {
+    background: var(--gray); border-radius: 8px;
+    padding: 10px 14px; margin-top: 12px;
+    font-size: 13px; color: var(--text);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .pool-info-row .pool-count {
+    font-weight: 900; color: var(--blue); font-size: 16px;
+  }
+  .pool-info-row .pool-weak {
+    color: var(--red); font-weight: 700;
+  }
+
+  /* アクションボタン（テスト/閲覧） */
+  .quiz-actions {
+    display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .btn-main {
+    flex: 1; min-width: 180px;
+    padding: 16px 28px; font-size: 15px;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--accent2) 100%);
+    color: #fff; border: none; border-radius: 12px;
+    font-weight: 900; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(58,170,178,.35);
+    transition: all .15s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .btn-main:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(58,170,178,.45);
+  }
+  .btn-sub {
+    padding: 14px 22px; font-size: 13.5px;
+    background: #fff; color: var(--blue-dark);
+    border: 2px solid var(--blue); border-radius: 12px;
+    font-weight: 700; cursor: pointer;
+    transition: all .15s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .btn-sub:hover { background: var(--blue-bg); }
+
+  /* カテゴリクイックスタートセクション */
+  .quick-section-label {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    margin: 20px 0 10px; padding-left: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
 
   .cat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
   .cat-card {
@@ -164,7 +284,7 @@
     font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
   }
   .progress-bar-lg { background: #e8ecf5; border-radius: 8px; height: 8px; margin-bottom: 20px; overflow: hidden; }
-  .progress-fill-lg { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--blue), #5580d0); transition: width .4s; }
+  .progress-fill-lg { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--blue), var(--accent2)); transition: width .4s; }
 
   .q-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
   .q-title { font-family: 'Shippori Mincho', serif; font-size: 16px; font-weight: 700; line-height: 1.8; margin-bottom: 16px; }
@@ -178,7 +298,7 @@
     cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
     display: flex; align-items: flex-start; gap: 10px;
   }
-  .option-btn:hover:not(:disabled) { border-color: var(--blue); background: #eef2fb; }
+  .option-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-bg); }
   .option-btn:disabled { cursor: default; }
   .option-btn.correct { border-color: var(--green) !important; background: var(--green-bg) !important; color: var(--green); }
   .option-btn.wrong { border-color: var(--red) !important; background: var(--red-bg) !important; color: var(--red); }
@@ -187,7 +307,7 @@
   .option-btn.wrong .option-letter { color: var(--red); }
 
   /* multiple select */
-  .option-btn.selected-multi { border-color: var(--blue); background: #eef2fb; }
+  .option-btn.selected-multi { border-color: var(--blue); background: var(--blue-bg); }
   .option-btn.correct-multi { border-color: var(--green) !important; background: var(--green-bg) !important; }
   .option-btn.wrong-multi { border-color: var(--red) !important; background: var(--red-bg) !important; }
 
@@ -200,9 +320,9 @@
   .explanation-box.wrong-box { border-color: var(--red); background: var(--red-bg); }
   .explanation-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
   .explanation-text { font-size: 13.5px; line-height: 1.9; color: #2a3a55; }
-  .ai-box { margin-top: 14px; background: #f0f4ff; border-radius: 10px; padding: 14px 16px; }
-  .ai-box-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
-  .ai-box-text { font-size: 13px; line-height: 1.8; color: #2a3a6a; }
+  .ai-box { margin-top: 14px; background: var(--blue-bg); border-radius: 10px; padding: 14px 16px; }
+  .ai-box-title { font-size: 12px; font-weight: 700; color: var(--blue-dark); margin-bottom: 8px; }
+  .ai-box-text { font-size: 13px; line-height: 1.8; color: var(--text); }
 
   .quiz-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 10px; }
 
@@ -245,10 +365,12 @@
   .tag-実践 { background: #e0f2f1; color: #00695c; }
 
   @media (max-width: 600px) {
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
     .cat-grid { grid-template-columns: 1fr 1fr; }
     header { padding: 0 12px; }
     nav button { padding: 7px 10px; font-size: 12px; }
+    .stats-compact { font-size: 12px; gap: 10px; padding: 10px 14px; }
+    .stats-compact .stat-num { font-size: 16px; }
+    .btn-main { padding: 14px 20px; font-size: 14px; }
   }
 
   /* ── BROWSE ── */
@@ -264,11 +386,11 @@
   .browse-q-text { font-size: 14px; line-height: 1.7; flex: 1; }
   .browse-meta { font-size: 11px; color: var(--muted); margin-bottom: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
   .browse-toggle-btn {
-    border: none; background: #f0f4ff; color: var(--blue); border-radius: 6px;
+    border: none; background: var(--blue-bg); color: var(--blue-dark); border-radius: 6px;
     padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
     white-space: nowrap; font-family: 'Noto Sans JP', sans-serif; flex-shrink: 0;
   }
-  .browse-toggle-btn:hover { background: #dbe4ff; }
+  .browse-toggle-btn:hover { background: #b8e0e3; }
   .browse-choices { padding: 0 18px 10px; display: flex; flex-direction: column; gap: 6px; }
   .browse-choice {
     padding: 10px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.6;
@@ -363,8 +485,8 @@
     border: 1px solid #b5dcc6;
   }
   .verif-badge.unverified {
-    background: #f0f4ff; color: #4a5a7a;
-    border: 1px solid #c5d4ff;
+    background: #fff4e0; color: #9a6010;
+    border: 1px solid #f0d590;
   }
 
   /* ── 検証バッジ（右上に大きく表示・予想問題用） ── */
@@ -467,10 +589,6 @@
     <span>衛生薬学 国試対策</span>
   </div>
   <nav>
-    <div class="curri-toggle" title="コアカリ表示モード切替">
-      <button id="curri-btn-old" onclick="setCurriMode('old')">旧カリ</button>
-      <button id="curri-btn-new" onclick="setCurriMode('new')" class="active">新カリ</button>
-    </div>
     <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
     <button onclick="showScreen('search')" id="nav-search">🔍 検索</button>
     <button onclick="showScreen('stats')" id="nav-stats">📊 進捗</button>
@@ -480,26 +598,59 @@
 <main>
   <!-- HOME -->
   <div id="screen-home" class="screen active">
-    <div class="stats-bar" id="stats-bar"></div>
+    <!-- コンパクト統計バー -->
+    <div class="stats-compact" id="stats-compact"></div>
 
+    <!-- メイン学習エリア -->
     <div class="card" style="margin-bottom:16px">
-      <div style="font-weight:700;font-size:15px;margin-bottom:12px">🔬 分野・セクションを選択</div>
-      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📋 セクション</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:14px">📚 学習を始める</div>
+
+      <!-- フィルタ：常に表示 -->
+      <div class="filter-label">📋 セクション</div>
       <div class="section-filter-row" id="sec-filters"></div>
-      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;margin-top:4px">📅 出題回</div>
-      <div class="filter-row" id="year-filters" style="margin-bottom:12px"></div>
-      <div id="cat-filters-area" style="margin-bottom:12px"></div>
-      <div id="newcc-filters" style="margin-bottom:12px"></div>
-      <div id="sub-filters" style="margin-bottom:12px"></div>
-      <div id="quiz-count-area" style="margin-bottom:12px"></div>
-      <div id="pool-info" style="font-size:13px;color:var(--muted);margin-bottom:14px"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startQuiz(false)">▶ テストモード</button>
-        <button class="btn btn-accent" onclick="startBrowse()">📖 閲覧モード</button>
-        <button class="btn btn-secondary" id="weak-btn" onclick="startQuiz(true)" style="display:none">🔁 苦手問題を復習</button>
+
+      <div id="cat-filters-area"></div>
+
+      <!-- 折りたたみ：出題回 -->
+      <details class="filter-section" id="year-filter-section">
+        <summary>📅 出題回を指定する</summary>
+        <div class="filter-section-body">
+          <div class="filter-row" id="year-filters"></div>
+        </div>
+      </details>
+
+      <!-- 折りたたみ：トピック・詳細コード -->
+      <details class="filter-section" id="detail-filter-section">
+        <summary>🔍 詳細フィルタ（コアカリ詳細・トピック）</summary>
+        <div class="filter-section-body">
+          <div id="newcc-filters"></div>
+          <div class="filter-label" id="sub-filter-label" style="display:none">📚 トピック</div>
+          <input type="text" class="topic-search" id="topic-search" placeholder="🔍 トピックを検索..." oninput="renderSubFilters()">
+          <div id="sub-filters"></div>
+        </div>
+      </details>
+
+      <!-- 出題情報 -->
+      <div class="pool-info-row" id="pool-info"></div>
+
+      <!-- 出題コントロール -->
+      <div class="quiz-control-row">
+        <div class="control-group">
+          <span class="control-label">🎯 出題数</span>
+          <div id="quiz-count-area" style="display:flex;gap:5px;flex-wrap:wrap"></div>
+        </div>
+        <div class="control-group" id="weak-toggle-area"></div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="quiz-actions">
+        <button class="btn-main" onclick="startQuiz(getWeakOnly())">▶ テストを始める</button>
+        <button class="btn-sub" onclick="startBrowse()">📖 閲覧モード</button>
       </div>
     </div>
 
+    <!-- カテゴリ別クイックスタート -->
+    <div class="quick-section-label">🚀 分野別にすぐ始める（クリックで10問テスト）</div>
     <div class="cat-grid" id="cat-cards"></div>
   </div>
 
@@ -512,7 +663,7 @@
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button class="btn btn-sm" id="browse-expand-all" onclick="toggleAllAnswers(true)"
-          style="background:#f0f4ff;color:var(--blue);border:1px solid var(--blue)">▼ 全解説を開く</button>
+          style="background:var(--blue-bg);color:var(--blue-dark);border:1px solid var(--blue)">▼ 全解説を開く</button>
         <button class="btn btn-sm" id="browse-collapse-all" onclick="toggleAllAnswers(false)"
           style="background:#fff;color:var(--muted);border:1px solid var(--border)">▲ 全解説を閉じる</button>
         <button class="btn btn-secondary btn-sm" onclick="showScreen('home')">← 戻る</button>
@@ -589,7 +740,7 @@
         <div style="font-weight:700;font-size:16px">📊 全体進捗</div>
         <button class="btn btn-secondary btn-sm" onclick="resetAll()" style="color:var(--red);border-color:var(--red);font-size:12px">🗑 全リセット</button>
       </div>
-      <div class="stats-bar" id="stats-bar2"></div>
+      <div class="stats-compact" id="stats-bar2"></div>
     </div>
     <div id="stats-cats"></div>
   </div>
@@ -627,7 +778,7 @@ let selectedSec = 'すべて';
 let selectedSub = 'すべて';
 let selectedYear = 'すべて';
 let selectedNewCC = 'すべて'; // 新コアカリ詳細コードフィルタ
-let curriculumMode = 'new';  // 'new' | 'old'  — コアカリ表示モード
+const curriculumMode = 'new';  // 新カリ固定（旧カリトグル廃止）
 let quizCount = 10;
 let quizQueue = [];
 let currentIdx = 0;
@@ -736,24 +887,6 @@ function curriDisplay(q) {
   }
   return { code: q._category, title: q._subcat || '', kind: 'cat' };
 }
-// 新カリモード: 切替
-function setCurriMode(mode) {
-  if (mode !== 'new' && mode !== 'old') return;
-  curriculumMode = mode;
-  selectedNewCC = 'すべて'; // 詳細フィルタはリセット
-  try { localStorage.setItem('curriculumMode', mode); } catch(e) {}
-  // トグル見た目を更新
-  document.getElementById('curri-btn-new')?.classList.toggle('active', mode === 'new');
-  document.getElementById('curri-btn-old')?.classList.toggle('active', mode === 'old');
-  // 表示中の画面を再描画
-  const active = document.querySelector('.screen.active')?.id || '';
-  if (active === 'screen-home') renderHome();
-  else if (active === 'screen-browse') renderBrowse();
-  else if (active === 'screen-quiz' && quizQueue.length > 0) renderQuestion();
-  else if (active === 'screen-search') doSearch();
-  else if (active === 'screen-stats') renderStats();
-}
-
 // コアカリ小分類（サブフィルター）
 const SUBCATS = {
   'すべて': null,
@@ -920,13 +1053,6 @@ async function loadData() {
     // 検証状態と「妥当」票数を読み込み（並行で実行、エラーでも続行）
     loadVerifiedQuestions();
     loadCorrectCounts();
-    // 保存されたカリキュラムモードを復元
-    try {
-      const savedMode = localStorage.getItem('curriculumMode');
-      if (savedMode === 'old' || savedMode === 'new') curriculumMode = savedMode;
-    } catch(e) {}
-    document.getElementById('curri-btn-new')?.classList.toggle('active', curriculumMode === 'new');
-    document.getElementById('curri-btn-old')?.classList.toggle('active', curriculumMode === 'old');
     hideLoading();
     renderHome();
   } catch(e) {
@@ -998,7 +1124,7 @@ function selectNewCC(code) {
 }
 
 function renderHome() {
-  renderStatsBar('stats-bar');
+  renderStatsCompact();
   renderCatFilters();
   renderSecFilters();
   renderYearFilters();
@@ -1007,27 +1133,30 @@ function renderHome() {
   renderQuizCount();
   renderPoolInfo();
   renderCatCards();
-  renderWeakBtn();
+  renderWeakToggle();
+}
+
+// 苦手のみフラグ取得（チェックボックス状態）
+function getWeakOnly() {
+  return document.getElementById('weak-only-checkbox')?.checked || false;
 }
 
 function renderNewCCFilters() {
   const el = document.getElementById('newcc-filters');
   if (!el) return;
-  // 旧カリモード or 新コアカリ分野が未選択("すべて")では非表示
-  if (curriculumMode !== 'new' || selectedCat === 'すべて') { el.innerHTML = ''; return; }
-  // 選択中カテゴリに属する new_corecurri_code のみ候補化
+  // 分野が未選択("すべて")では非表示
+  if (selectedCat === 'すべて') { el.innerHTML = ''; return; }
   const codes = Object.keys(NEW_CC_TITLES)
     .filter(c => newCCParent(c) === selectedCat)
     .sort();
   if (codes.length === 0) { el.innerHTML = ''; return; }
-  // 各コードに該当する予想問題数
   const countByCode = {};
   ALL_QUESTIONS.forEach(q => {
     const c = q.new_corecurri_code;
     if (c) countByCode[c] = (countByCode[c] || 0) + 1;
   });
   el.innerHTML =
-    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🔖 新コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(過去問は参考値)</span></div>' +
+    '<div class="filter-label">🔖 コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(過去問は参考値)</span></div>' +
     `<button class="filter-btn ${'すべて'===selectedNewCC?'active':''}" onclick="selectNewCC('すべて')" style="font-size:11px">すべて</button> ` +
     codes.map(c => {
       const n = countByCode[c] || 0;
@@ -1042,62 +1171,80 @@ function renderNewCCFilters() {
 }
 
 function renderSubFilters() {
+  const searchEl = document.getElementById('topic-search');
+  const searchTerm = (searchEl?.value || '').trim().toLowerCase();
+
   const catSubcats = Object.keys(SUBCATS).filter(k => {
     if (k === 'すべて') return true;
-    // 新カリモードで詳細コードが選択中なら、そのコードに属するトピックのみ
-    if (curriculumMode === 'new' && selectedNewCC && selectedNewCC !== 'すべて') {
+    // 詳細コードが選択中なら、そのコードに属するトピックのみ
+    if (selectedNewCC && selectedNewCC !== 'すべて') {
       return SUBCAT_TO_NEWCC[k] === selectedNewCC;
     }
     // 大項目が選択中ならそのカテゴリに属するトピックのみ
     if (selectedCat !== 'すべて') return SUBCAT_TO_CAT[k] === selectedCat;
     return true;
   });
+
+  // 検索フィルタ適用（「すべて」は常に残す）
+  const filtered = searchTerm
+    ? catSubcats.filter(s => s === 'すべて' || s.toLowerCase().includes(searchTerm))
+    : catSubcats;
+
   const el = document.getElementById('sub-filters');
+  const labelEl = document.getElementById('sub-filter-label');
   if (!el) return;
-  // 「すべて」のみ = 完全に候補ゼロのときだけ非表示
-  if (catSubcats.length <= 1) { el.innerHTML = ''; return; }
-  el.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">📚 トピック <span style="font-weight:400;color:#9aa3b8">(最細分類)</span></div>' +
-    catSubcats.map(s =>
-      `<button class="filter-btn ${s===selectedSub?'active':''}" onclick="selectSub('${s}')" style="font-size:11px">${s}</button>`
-    ).join('');
+
+  // 「すべて」のみ = 完全に候補ゼロのときは非表示
+  if (catSubcats.length <= 1) {
+    el.innerHTML = '';
+    if (labelEl) labelEl.style.display = 'none';
+    return;
+  }
+  if (labelEl) labelEl.style.display = 'block';
+
+  el.innerHTML = filtered.map(s =>
+    `<button class="filter-btn ${s===selectedSub?'active':''}" onclick="selectSub('${s}')" style="font-size:11px">${s}</button>`
+  ).join('');
 }
 
 function renderQuizCount() {
   const el = document.getElementById('quiz-count-area');
   if (!el) return;
-  el.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🎯 出題数</div>' +
-    [5,10,20,30,'全問'].map(n =>
-      `<button class="filter-btn ${quizCount===(n==='全問'?99999:n)?'active':''}" onclick="setQuizCount(${n==='全問'?99999:n})">${n}</button>`
-    ).join('');
+  el.innerHTML = [5,10,20,30,'全問'].map(n => {
+    const val = n === '全問' ? 99999 : n;
+    return `<button class="quiz-count-pill ${quizCount===val?'active':''}" onclick="setQuizCount(${val})">${n}</button>`;
+  }).join('');
 }
 
 function setQuizCount(n) { quizCount = n; renderHome(); }
 
-function renderStatsBar(id) {
+function renderStatsCompact(id) {
   const total = Object.values(records).reduce((s,r)=>s+r.correct+r.wrong,0);
   const correct = Object.values(records).reduce((s,r)=>s+r.correct,0);
   const wrong = Object.values(records).reduce((s,r)=>s+r.wrong,0);
   const pct = total ? Math.round(correct/total*100) : 0;
-  document.getElementById(id).innerHTML = [
-    {label:'総回答数', val:total, color:'var(--navy)'},
-    {label:'正解数', val:correct, color:'var(--green)'},
-    {label:'不正解数', val:wrong, color:'var(--red)'},
-    {label:'正答率', val:(total?pct+'%':'─'), color:'var(--blue)'},
-  ].map(s=>`<div class="stat-box"><div class="stat-num" style="color:${s.color}">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
+  const weak = ALL_QUESTIONS.filter(q => (records[q.problem_id]?.wrong || 0) > 0).length;
+  const el = document.getElementById(id || 'stats-compact');
+  if (!el) return;
+  if (total === 0) {
+    el.innerHTML = `<div style="font-size:13px;color:var(--muted)">📊 まだ回答記録がありません。下のテストを始めて学習をスタートしましょう！</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <span class="stat-pill"><span class="stat-num" style="color:var(--blue-dark)">${pct}%</span><span class="stat-label">正答率</span></span>
+    <span class="stat-divider">│</span>
+    <span class="stat-pill"><span class="stat-num" style="color:var(--navy)">${total}</span><span class="stat-label">回答</span></span>
+    <span class="stat-pill"><span class="stat-num" style="color:var(--green)">${correct}</span><span class="stat-label">正解</span></span>
+    <span class="stat-pill"><span class="stat-num" style="color:var(--red)">${wrong}</span><span class="stat-label">不正解</span></span>
+    ${weak > 0 ? `<span class="stat-divider">│</span><span class="stat-pill"><span class="stat-num" style="color:var(--red)">${weak}</span><span class="stat-label">苦手問題</span></span>` : ''}
+  `;
 }
 
 function renderCatFilters() {
   const area = document.getElementById('cat-filters-area');
   if (!area) return;
-  // 旧カリモードでは非表示
-  if (curriculumMode !== 'new') {
-    area.innerHTML = '';
-    // すべてにリセット（非表示中の選択残りを防ぐ）
-    if (selectedCat !== 'すべて') { selectedCat = 'すべて'; selectedNewCC = 'すべて'; }
-    return;
-  }
   area.innerHTML =
-    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ 新コアカリ分野</div>' +
+    '<div class="filter-label">🗂️ コアカリ分野</div>' +
     '<div class="filter-row" id="cat-filters">' +
       CATS.map(c =>
         `<button class="filter-btn ${c===selectedCat?'active':''}" onclick="selectCat('${c}')" style="${c!=='すべて'?'border-color:'+catColor(c)+';':''}${c===selectedCat&&c!=='すべて'?'background:'+catColor(c)+';color:#fff;':''}">${c==='すべて'?'すべて':catLabel(c)}</button>`
@@ -1115,7 +1262,17 @@ function renderPoolInfo() {
   const pool = getPool(false);
   const weak = pool.filter(q => (records[q.problem_id]?.wrong||0)>0);
   const count = quizCount >= 99999 ? pool.length : Math.min(quizCount, pool.length);
-  document.getElementById('pool-info').textContent = `対象: ${pool.length}問中 ${count}問を出題（うち苦手: ${weak.length}問）`;
+  const el = document.getElementById('pool-info');
+  if (!el) return;
+  if (pool.length === 0) {
+    el.innerHTML = `<span style="color:var(--red)">⚠ 該当する問題がありません。フィルタを見直してください。</span>`;
+    return;
+  }
+  el.innerHTML = `
+    📚 対象問題 <span class="pool-count">${pool.length}</span>問 から
+    <span class="pool-count">${count}</span>問を出題
+    ${weak.length > 0 ? `<span class="pool-weak">（うち苦手 ${weak.length}問）</span>` : ''}
+  `;
 }
 
 function renderCatCards() {
@@ -1127,20 +1284,41 @@ function renderCatCards() {
     const w = pool.reduce((s,q)=>s+(records[q.problem_id]?.wrong||0),0);
     const total = c+w;
     const pct = total ? Math.round(c/total*100) : 0;
-    return `<div class="cat-card cat-${def.css}" onclick="selectCat('${cat}')">
+    return `<div class="cat-card cat-${def.css}" onclick="quickStartCategory('${cat}')" title="クリックで ${def.label} の問題を10問出題">
       <h3 style="font-size:13px">${def.label}</h3>
       <p>${pool.length}問収録</p>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">正答率 ${total?pct+'%':'未回答'}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">${total?'正答率 '+pct+'% ・ ':''}<span style="color:var(--blue-dark);font-weight:700">▶ クリックで10問</span></div>
     </div>`;
   }).join('');
 }
 
-function renderWeakBtn() {
+// カテゴリカードクリックで即座にそのカテゴリのクイズを10問開始
+function quickStartCategory(cat) {
+  selectedCat = cat;
+  selectedSec = 'すべて';
+  selectedYear = 'すべて';
+  selectedSub = 'すべて';
+  selectedNewCC = 'すべて';
+  quizCount = 10;
+  startQuiz(false);
+}
+
+function renderWeakToggle() {
   const weak = getPool(true);
-  const btn = document.getElementById('weak-btn');
-  btn.style.display = weak.length > 0 ? 'inline-flex' : 'none';
-  btn.textContent = `🔁 苦手問題を復習（${weak.length}問）`;
+  const el = document.getElementById('weak-toggle-area');
+  if (!el) return;
+  if (weak.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <label class="weak-checkbox" id="weak-checkbox-label">
+      <input type="checkbox" id="weak-only-checkbox" onchange="document.getElementById('weak-checkbox-label').classList.toggle('checked', this.checked); renderPoolInfo();">
+      🔁 苦手問題のみ (${weak.length}問)
+    </label>
+  `;
+}
+
+function renderWeakBtn() {
+  // 旧互換：何もしない（renderWeakToggle に統合済み）
 }
 
 function selectCat(c) { selectedCat = c; selectedSub = 'すべて'; selectedNewCC = 'すべて'; renderHome(); }
@@ -1719,7 +1897,7 @@ function startFromSearch(pid) {
 
 // ── STATS ──
 function renderStats() {
-  renderStatsBar('stats-bar2');
+  renderStatsCompact('stats-bar2');
   const cats = Object.keys(CAT_DEFS);
   const container = document.getElementById('stats-cats');
   container.innerHTML = cats.map(cat => {
