@@ -1302,6 +1302,8 @@ function showScreen(name) {
   if (nb) nb.classList.add('active');
   if (name === 'home') renderHome();
   if (name === 'stats') renderStats();
+  // 画面切替時は最上部にスクロール
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── HOME ──
