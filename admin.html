@@ -108,6 +108,7 @@
   .badge-report { background: #fff4e0; color: #9a6010; }
   .badge-verified { background: #e6f7ec; color: #0e6b3b; border: 1px solid #b5dcc6; }
   .badge-unverified { background: #f0f4ff; color: #4a5a7a; border: 1px solid #c5d4ff; }
+  .badge-student-verified { background: #fff4e0; color: #b8730a; border: 1px solid #f0d590; }
   .verify-toggle {
     background: #fff; color: var(--blue);
     border: 1px solid #c5d4ff;
@@ -407,7 +408,11 @@ function renderReports() {
   document.getElementById('count-unreviewed').textContent = `(${unreviewedCount})`;
   document.getElementById('count-reviewed').textContent = `(${reviewedCount})`;
   document.getElementById('count-all').textContent = `(${allCount})`;
-  document.getElementById('count-verifications').textContent = `(${verifiedList.length})`;
+
+  // 検証履歴タブ件数 = 公式検証 + 学生「妥当」のみ（重複なし）
+  const correctQids = new Set(allReports.filter(r => r.vote_type === 'correct').map(r => r.question_id));
+  const studentOnlyForCount = [...correctQids].filter(qid => !verifiedSet.has(qid)).length;
+  document.getElementById('count-verifications').textContent = `(${verifiedList.length + studentOnlyForCount})`;
 
   // 検証履歴タブが選択されていれば、検証一覧を描画
   if (currentFilter === 'verifications') {
@@ -514,27 +519,68 @@ function renderReports() {
 function renderVerifications() {
   const listEl = document.getElementById('reports-list');
 
-  if (verifiedList.length === 0) {
-    listEl.innerHTML = '<div class="card empty">まだ検証済みの問題はありません</div>';
+  // 公式検証済み（verifications テーブル由来）
+  const officialItems = verifiedList.map(v => ({
+    type: 'official',
+    question_id: v.question_id,
+    activity_at: v.verified_at,
+    source: v.source,
+    note: v.note,
+  }));
+
+  // 学生「妥当」票の集計（distinct anon_id 単位ではなく行数ベース、admin視点）
+  const correctVotesByQ = {};
+  allReports.filter(r => r.vote_type === 'correct').forEach(r => {
+    const qid = r.question_id;
+    if (!correctVotesByQ[qid]) correctVotesByQ[qid] = { count: 0, latest: '' };
+    correctVotesByQ[qid].count++;
+    if (r.created_at > correctVotesByQ[qid].latest) correctVotesByQ[qid].latest = r.created_at;
+  });
+
+  // 公式検証されていない、学生「妥当」票のみの問題
+  const studentOnlyItems = Object.entries(correctVotesByQ)
+    .filter(([qid]) => !verifiedSet.has(qid))
+    .map(([qid, data]) => ({
+      type: 'student',
+      question_id: qid,
+      activity_at: data.latest,
+      correct_count: data.count,
+    }));
+
+  // 公式 + 学生のみ をマージし、最新順にソート
+  const combined = [...officialItems, ...studentOnlyItems]
+    .sort((a, b) => (b.activity_at || '').localeCompare(a.activity_at || ''));
+
+  if (combined.length === 0) {
+    listEl.innerHTML = '<div class="card empty">まだ確認済みの問題はありません</div>';
     return;
   }
 
-  // フィルタサマリ
   document.getElementById('filter-summary').textContent =
-    `✓ ヒトの目で確認済みの問題 ${verifiedList.length}件（新しい順）`;
+    `📋 計 ${combined.length}問（公式検証 ${officialItems.length}件 + 学生「妥当」のみ ${studentOnlyItems.length}件）`;
 
-  listEl.innerHTML = verifiedList.map(v => {
+  listEl.innerHTML = combined.map(v => {
     const q = questionMap[v.question_id];
-    const time = new Date(v.verified_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
-    const sourceLabel = v.source === 'fixed_via_report'
-      ? '📝 報告対応で自動登録'
-      : v.source === 'manual'
-        ? '✋ 手動で登録'
-        : escapeHtml(v.source || '');
-
-    // 妥当票数
+    const time = new Date(v.activity_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
     const correctCount = allReports.filter(r => r.question_id === v.question_id && r.vote_type === 'correct').length;
     const reportCount = allReports.filter(r => r.question_id === v.question_id && r.vote_type === 'report').length;
+
+    let badgeHtml, sourceLabel, actionBtn, dateLabel;
+    if (v.type === 'official') {
+      badgeHtml = '<span class="badge badge-verified">✓ ヒトの目で確認済み</span>';
+      sourceLabel = v.source === 'fixed_via_report'
+        ? '📝 報告対応で自動登録'
+        : v.source === 'manual'
+          ? '✋ 手動で登録'
+          : escapeHtml(v.source || '');
+      actionBtn = `<button class="verify-toggle verified" onclick="toggleVerification('${escapeHtml(v.question_id)}')">✗ 検証解除</button>`;
+      dateLabel = '検証日時';
+    } else {
+      badgeHtml = '<span class="badge badge-student-verified">👥 学生「妥当」のみ</span>';
+      sourceLabel = `👍 学生から「妥当」評価 ${v.correct_count}件 (公式検証は未実施)`;
+      actionBtn = `<button class="verify-toggle" onclick="toggleVerification('${escapeHtml(v.question_id)}')">☑ 公式検証に格上げ</button>`;
+      dateLabel = '最新の妥当票';
+    }
 
     return `
       <div class="card q-card">
@@ -542,17 +588,17 @@ function renderVerifications() {
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
             <span class="q-id">${escapeHtml(v.question_id)}</span>
             ${q && q.display_title ? `<span class="q-title">${escapeHtml(q.display_title)}</span>` : ''}
-            <span class="badge badge-verified">✓ ヒトの目で確認済み</span>
+            ${badgeHtml}
           </div>
           <div class="q-counts">
             <span class="badge badge-correct">👍 妥当 ${correctCount}</span>
             <span class="badge badge-report">⚠ 報告 ${reportCount}</span>
-            <button class="verify-toggle verified" onclick="toggleVerification('${escapeHtml(v.question_id)}')">✗ 検証解除</button>
+            ${actionBtn}
           </div>
         </div>
         <div class="q-body" style="font-size:12.5px;color:#444;padding:12px 20px;">
-          <div><strong style="color:var(--muted)">📅 検証日時:</strong> ${escapeHtml(time)}</div>
-          <div><strong style="color:var(--muted)">🔖 登録方法:</strong> ${sourceLabel}</div>
+          <div><strong style="color:var(--muted)">📅 ${escapeHtml(dateLabel)}:</strong> ${escapeHtml(time)}</div>
+          <div><strong style="color:var(--muted)">🔖 経路:</strong> ${sourceLabel}</div>
           ${v.note ? `<div style="margin-top:4px;"><strong style="color:var(--muted)">📝 メモ:</strong> ${escapeHtml(v.note)}</div>` : ''}
         </div>
       </div>
