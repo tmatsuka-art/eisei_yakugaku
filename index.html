@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>順天堂大学 衛生化学</title>
+<title>順天堂大学 薬学部 衛生化学分野</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -426,10 +426,13 @@
   @media (max-width: 600px) {
     .cat-grid { grid-template-columns: 1fr 1fr; }
     header { padding: 0 12px; }
-    nav button { padding: 7px 10px; font-size: 12px; }
+    nav button { padding: 6px 8px; font-size: 11px; }
     .stats-compact { font-size: 12px; gap: 10px; padding: 10px 14px; }
     .stats-compact .stat-num { font-size: 16px; }
     .btn-main { padding: 14px 20px; font-size: 14px; }
+    /* タイトル長くなったのでスマホで縮小 */
+    .header-title span { font-size: 14px; letter-spacing: .3px; }
+    .header-title small { font-size: 8.5px; letter-spacing: 1px; }
   }
 
   /* ── PC専用調整（幅768px以上） ── */
@@ -702,16 +705,16 @@
 
 <!-- Loading -->
 <div id="loading">
-  <h1>順天堂大学 衛生化学</h1>
-  <p>JUNTENDO UNIV - HYGIENIC CHEMISTRY</p>
+  <h1>順天堂大学 薬学部 衛生化学分野</h1>
+  <p>JUNTENDO PHARMACY · HYGIENIC CHEMISTRY</p>
   <div class="loader"></div>
 </div>
 
 <!-- Header -->
 <header>
   <div class="header-title" onclick="showScreen('home')" style="cursor:pointer">
-    <small>JUNTENDO UNIV - HYGIENIC CHEMISTRY</small>
-    <span>順天堂大学 衛生化学</span>
+    <small>JUNTENDO PHARMACY · HYGIENIC CHEMISTRY</small>
+    <span>順天堂大学 薬学部 衛生化学分野</span>
   </div>
   <nav>
     <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
