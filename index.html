@@ -390,6 +390,11 @@
     color: #fff;
     box-shadow: 0 2px 8px rgba(232, 160, 32, 0.25);
   }
+  .verif-badge-big.student {
+    background: linear-gradient(135deg, #2872c4 0%, #4a9bd9 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(40, 114, 196, 0.25);
+  }
   @media (max-width: 480px) {
     .verif-badge-big {
       font-size: 11.5px; padding: 6px 12px;
@@ -955,13 +960,24 @@ function getPool(weakOnly) {
   let pool = ALL_QUESTIONS;
   if (selectedCat !== 'すべて') pool = pool.filter(q => q._category === selectedCat);
   if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
-  // year filter（過去問グループ / 予想問題グループ）
+  // year filter（過去問グループ / 予想問題グループ・3状態）
   if (selectedYear === 'past') {
     pool = pool.filter(q => q.year > 0);
   } else if (selectedYear === 'predicted_verified') {
     pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id));
+  } else if (selectedYear === 'predicted_student_only') {
+    pool = pool.filter(q =>
+      (q.problem_id || '').startsWith('F') && q.year === 0 &&
+      !VERIFIED_QUESTIONS.has(q.problem_id) &&
+      (CORRECT_COUNTS[q.problem_id] || 0) > 0
+    );
   } else if (selectedYear === 'predicted_unverified') {
-    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id));
+    // 検証募集中 = 公式検証もなく、学生「妥当」票もない問題
+    pool = pool.filter(q =>
+      (q.problem_id || '').startsWith('F') && q.year === 0 &&
+      !VERIFIED_QUESTIONS.has(q.problem_id) &&
+      !((CORRECT_COUNTS[q.problem_id] || 0) > 0)
+    );
   } else if (selectedYear !== 'すべて') {
     pool = pool.filter(q => q.year === selectedYear);
   }
@@ -1137,10 +1153,13 @@ function renderYearFilters() {
   const el = document.getElementById('year-filters');
   if (!el) return;
 
-  // 予想問題の集計（検証済み/検証中の問題数）
+  // 予想問題の集計（3状態に分割: 公式検証/学生「妥当」あり/検証募集中）
   const predictedQs = ALL_QUESTIONS.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
   const verifiedCount = predictedQs.filter(q => VERIFIED_QUESTIONS.has(q.problem_id)).length;
-  const unverifiedCount = predictedQs.length - verifiedCount;
+  const studentOnlyCount = predictedQs.filter(q =>
+    !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0
+  ).length;
+  const unverifiedCount = predictedQs.length - verifiedCount - studentOnlyCount;
   const pastYears = years.filter(y => y > 0);
   const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
 
@@ -1152,9 +1171,10 @@ function renderYearFilters() {
   for (const y of pastYears) {
     buttons.push(`<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`);
   }
-  // 予想問題ボタン（検証済み/検証中で分割）
+  // 予想問題ボタン（3状態に分割）
   if (years.includes(0)) {
     buttons.push(`<button class="filter-btn ${'predicted_verified'===selectedYear?'active':''}" onclick="selectYear('predicted_verified')">予想問題 ✓確認済み (${verifiedCount}問)</button>`);
+    buttons.push(`<button class="filter-btn ${'predicted_student_only'===selectedYear?'active':''}" onclick="selectYear('predicted_student_only')">予想問題 👥学生「妥当」あり (${studentOnlyCount}問)</button>`);
     buttons.push(`<button class="filter-btn ${'predicted_unverified'===selectedYear?'active':''}" onclick="selectYear('predicted_unverified')">予想問題 🤝検証募集中 (${unverifiedCount}問)</button>`);
   }
   el.innerHTML = buttons.join('');
@@ -1200,13 +1220,19 @@ function renderQuestion() {
       (cd.title ? `<span class="${cdTitleClass}">${cd.title}</span>` : '') +
       cdRefBadge
     : '';
-  // 検証バッジ（右上に大きく表示・予想問題のみ）
+  // 検証バッジ（右上に大きく表示・予想問題のみ・3状態）
   const verifArea = document.getElementById('q-verif-area');
   if (verifArea) {
     if (isPredictedQ(q)) {
-      verifArea.innerHTML = VERIFIED_QUESTIONS.has(q.problem_id)
-        ? '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>'
-        : '<span class="verif-badge-big unverified">🤖 AI作成・検証募集中</span>';
+      const isVerified = VERIFIED_QUESTIONS.has(q.problem_id);
+      const studentConfirmed = !isVerified && (CORRECT_COUNTS[q.problem_id] || 0) > 0;
+      if (isVerified) {
+        verifArea.innerHTML = '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>';
+      } else if (studentConfirmed) {
+        verifArea.innerHTML = '<span class="verif-badge-big student">👥 学生「妥当」あり</span>';
+      } else {
+        verifArea.innerHTML = '<span class="verif-badge-big unverified">🤖 AI作成・検証募集中</span>';
+      }
     } else {
       verifArea.innerHTML = '';
     }
@@ -1835,6 +1861,11 @@ async function loadCorrectCounts() {
     const data = await res.json();
     CORRECT_COUNTS = {};
     (data || []).forEach(r => { CORRECT_COUNTS[r.question_id] = r.correct_count; });
+    // フィルタ件数を即時反映
+    renderYearFilters();
+    if (document.getElementById('screen-home')?.classList.contains('active')) {
+      renderHome();
+    }
   } catch(e) {
     console.warn('Failed to load correct counts:', e);
   }
