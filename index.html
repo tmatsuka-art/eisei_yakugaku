@@ -1450,16 +1450,24 @@ function renderCatCards() {
   document.getElementById('cat-cards').innerHTML = cats.map(cat => {
     const def = CAT_DEFS[cat];
     const pool = ALL_QUESTIONS.filter(q=>q._category===cat);
-    const c = pool.reduce((s,q)=>s+(records[q.problem_id]?.correct||0),0);
-    const w = pool.reduce((s,q)=>s+(records[q.problem_id]?.wrong||0),0);
-    const total = c+w;
-    const pct = total ? Math.round(c/total*100) : 0;
+    const totalCount = pool.length;
+    // 進捗 = 1回以上正解した問題数 / カテゴリ内の総問題数
+    // （何度か間違えても最終的に正解できた問題はカウント対象）
+    const masteredCount = pool.filter(q => (records[q.problem_id]?.correct || 0) > 0).length;
+    const pct = totalCount ? Math.round(masteredCount/totalCount*100) : 0;
+    const hasActivity = pool.some(q => {
+      const r = records[q.problem_id];
+      return r && (r.correct > 0 || r.wrong > 0);
+    });
+    const label = hasActivity
+      ? `進捗 ${masteredCount}/${totalCount}問 (${pct}%)`
+      : '未着手';
     return `<div class="cat-card cat-${def.css}" onclick="quickStartCategory('${cat}')" title="クリックで ${def.label} の問題を10問出題">
       <h3 style="font-size:13px">${def.label}</h3>
-      <p>${pool.length}問収録</p>
+      <p>${totalCount}問収録</p>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="cat-card-action">
-        <span>${total?'正答率 '+pct+'%':'未回答'}</span>
+        <span>${label}</span>
         <span class="cat-action-cta">10問テスト →</span>
       </div>
     </div>`;
