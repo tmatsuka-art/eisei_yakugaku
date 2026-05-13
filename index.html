@@ -759,14 +759,14 @@
     <!-- 詳細フィルタ（折りたたみ・控えめスタイル） -->
     <div style="margin-bottom:14px;background:transparent;border:1px solid var(--border);border-radius:10px">
       <details class="filter-section" style="border:none;background:transparent">
-        <summary style="padding:12px 18px;font-size:12.5px;color:var(--muted)">🔍 詳細フィルタを表示（セクション・分野・各回・トピック）</summary>
+        <summary style="padding:12px 18px;font-size:12.5px;color:var(--muted)">🔍 詳細フィルタを表示（コアカリ分野・各回）</summary>
         <div class="filter-section-body" style="padding:0 18px 16px">
           <div id="cat-filters-area"></div>
 
           <details class="filter-section">
             <summary>📅 個別の回を指定する</summary>
             <div class="filter-section-body">
-              <div class="filter-row" id="year-filters-detail"></div>
+              <div id="year-filters-detail"></div>
             </div>
           </details>
 
@@ -1498,27 +1498,37 @@ function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
 function selectYear(y) { selectedYear = y; renderHome(); }
 
-// 個別の回(過去問すべて + 第N回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+// 個別の回(各回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+// 過去問すべては renderQuickSelect の役割なのでここには出さない（二重ハイライト防止）
 function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
   const el = document.getElementById('year-filters-detail');
   if (!el) return;
 
   const pastYears = years.filter(y => y > 0);
-  const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
   const predictedCount = ALL_QUESTIONS.filter(q => q.year === 0).length;
 
-  // 過去問すべて → 各回 → 予想問題全種類 の順
-  const buttons = [
-    `<button class="filter-btn ${'past'===selectedYear?'active':''}" onclick="selectYear('past')">📜 過去問すべて (${pastCount}問)</button>`,
-    ...pastYears.map(y =>
+  let html = '';
+
+  // 📜 過去問の各回
+  if (pastYears.length > 0) {
+    html += '<div class="filter-label">📜 過去問の各回</div>';
+    html += '<div class="filter-row">';
+    html += pastYears.map(y =>
       `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
-    ),
-  ];
-  if (years.includes(0)) {
-    buttons.push(`<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">🔮 予想問題 (${predictedCount}問・全種類)</button>`);
+    ).join('');
+    html += '</div>';
   }
-  el.innerHTML = buttons.join('');
+
+  // 🔮 予想問題（全種類）
+  if (years.includes(0)) {
+    html += '<div class="filter-label" style="margin-top:10px">🔮 予想問題</div>';
+    html += '<div class="filter-row">';
+    html += `<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">予想問題 全種類 (${predictedCount}問)</button>`;
+    html += '</div>';
+  }
+
+  el.innerHTML = html;
 }
 
 // ── QUIZ ──
