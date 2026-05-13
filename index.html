@@ -955,7 +955,16 @@ function getPool(weakOnly) {
   let pool = ALL_QUESTIONS;
   if (selectedCat !== 'すべて') pool = pool.filter(q => q._category === selectedCat);
   if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
-  if (selectedYear !== 'すべて') pool = pool.filter(q => q.year === selectedYear);
+  // year filter（過去問グループ / 予想問題グループ）
+  if (selectedYear === 'past') {
+    pool = pool.filter(q => q.year > 0);
+  } else if (selectedYear === 'predicted_verified') {
+    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id));
+  } else if (selectedYear === 'predicted_unverified') {
+    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id));
+  } else if (selectedYear !== 'すべて') {
+    pool = pool.filter(q => q.year === selectedYear);
+  }
   if (selectedSub !== 'すべて') pool = pool.filter(q => q._subcat === selectedSub);
   if (curriculumMode === 'new' && selectedNewCC !== 'すべて') {
     pool = pool.filter(q => q.new_corecurri_code === selectedNewCC);
@@ -1127,12 +1136,28 @@ function renderYearFilters() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
   const el = document.getElementById('year-filters');
   if (!el) return;
-  el.innerHTML = [
+
+  // 予想問題の集計（検証済み/検証中の問題数）
+  const predictedQs = ALL_QUESTIONS.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
+  const verifiedCount = predictedQs.filter(q => VERIFIED_QUESTIONS.has(q.problem_id)).length;
+  const unverifiedCount = predictedQs.length - verifiedCount;
+  const pastYears = years.filter(y => y > 0);
+  const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
+
+  const buttons = [
     `<button class="filter-btn ${'すべて'===selectedYear?'active':''}" onclick="selectYear('すべて')">すべて</button>`,
-    ...years.map(y =>
-      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">${y === 0 ? '予想問題' : '第'+y+'回'}</button>`
-    )
-  ].join('');
+    `<button class="filter-btn ${'past'===selectedYear?'active':''}" onclick="selectYear('past')">過去問 (${pastCount}問)</button>`,
+  ];
+  // 各回ボタン
+  for (const y of pastYears) {
+    buttons.push(`<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`);
+  }
+  // 予想問題ボタン（検証済み/検証中で分割）
+  if (years.includes(0)) {
+    buttons.push(`<button class="filter-btn ${'predicted_verified'===selectedYear?'active':''}" onclick="selectYear('predicted_verified')">予想問題 ✓確認済み (${verifiedCount}問)</button>`);
+    buttons.push(`<button class="filter-btn ${'predicted_unverified'===selectedYear?'active':''}" onclick="selectYear('predicted_unverified')">予想問題 🤖検証中 (${unverifiedCount}問)</button>`);
+  }
+  el.innerHTML = buttons.join('');
 }
 
 // ── QUIZ ──
@@ -1782,6 +1807,10 @@ async function loadVerifiedQuestions() {
     }
     const data = await res.json();
     VERIFIED_QUESTIONS = new Set((data || []).map(v => v.question_id));
+    // ホーム画面が表示中ならフィルタ件数を即時反映
+    if (document.getElementById('screen-home')?.classList.contains('active')) {
+      renderHome();
+    }
   } catch(e) {
     console.warn('Failed to load verifications:', e);
   }
