@@ -1155,7 +1155,7 @@ function renderYearFilters() {
   // 予想問題ボタン（検証済み/検証中で分割）
   if (years.includes(0)) {
     buttons.push(`<button class="filter-btn ${'predicted_verified'===selectedYear?'active':''}" onclick="selectYear('predicted_verified')">予想問題 ✓確認済み (${verifiedCount}問)</button>`);
-    buttons.push(`<button class="filter-btn ${'predicted_unverified'===selectedYear?'active':''}" onclick="selectYear('predicted_unverified')">予想問題 🤝検証協力中 (${unverifiedCount}問)</button>`);
+    buttons.push(`<button class="filter-btn ${'predicted_unverified'===selectedYear?'active':''}" onclick="selectYear('predicted_unverified')">予想問題 🤝検証募集中 (${unverifiedCount}問)</button>`);
   }
   el.innerHTML = buttons.join('');
 }
@@ -1206,7 +1206,7 @@ function renderQuestion() {
     if (isPredictedQ(q)) {
       verifArea.innerHTML = VERIFIED_QUESTIONS.has(q.problem_id)
         ? '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>'
-        : '<span class="verif-badge-big unverified">🤖 AI作成・検証協力募集中</span>';
+        : '<span class="verif-badge-big unverified">🤖 AI作成・検証募集中</span>';
     } else {
       verifArea.innerHTML = '';
     }
