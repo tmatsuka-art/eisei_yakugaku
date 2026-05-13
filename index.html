@@ -35,7 +35,10 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Noto Sans JP', sans-serif;
-    background: var(--gray);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(92,39,135,.04) 0, transparent 60%),
+      radial-gradient(circle at 100% 100%, rgba(58,170,178,.06) 0, transparent 60%),
+      var(--gray);
     color: var(--text);
     min-height: 100vh;
   }
@@ -406,6 +409,70 @@
     .btn-main { padding: 14px 20px; font-size: 14px; }
   }
 
+  /* ── PC専用調整（幅768px以上） ── */
+  @media (min-width: 768px) {
+    /* メインコンテンツ幅を少し広めに */
+    main { max-width: 920px; padding: 28px 24px; }
+
+    /* クイック選択ボタンを中央寄せ＋幅制限（伸びすぎ防止） */
+    .quick-select-row {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 10px;
+    }
+    .quick-select-btn {
+      flex: 0 1 200px;
+      min-width: 160px;
+      max-width: 220px;
+    }
+
+    /* テスト・閲覧ボタンを中央寄せ＋主役ボタンに上限幅 */
+    .quiz-actions {
+      justify-content: center;
+      gap: 14px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-main {
+      flex: 0 1 360px;
+      max-width: 360px;
+      padding: 18px 32px;
+      font-size: 16px;
+    }
+    .btn-sub {
+      flex: 0 0 auto;
+      min-width: 140px;
+    }
+
+    /* 出題情報も中央寄せで主役のテストボタンに合わせる */
+    .pool-info-row {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+    }
+    .quiz-control-row {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+    }
+
+    /* 統計バー中央寄せ */
+    .stats-compact {
+      justify-content: center;
+      gap: 18px;
+    }
+
+    /* メインカード見出しを少し大きく */
+    .card-section-title { font-size: 17px !important; }
+  }
+  .card-section-title {
+    font-weight: 700; font-size: 15px; margin-bottom: 12px;
+  }
+
   /* ── BROWSE ── */
   .browse-card {
     background: #fff; border-radius: 12px;
@@ -633,7 +700,7 @@
   <div id="screen-home" class="screen active">
     <!-- メイン学習エリア -->
     <div class="card" style="margin-bottom:14px">
-      <div style="font-weight:700;font-size:15px;margin-bottom:12px">📚 学習を始める</div>
+      <div class="card-section-title">📚 学習を始める</div>
 
       <!-- クイック選択：何を解くか -->
       <div class="filter-label">🎯 何を解きますか？</div>
