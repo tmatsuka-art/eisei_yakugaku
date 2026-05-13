@@ -1802,12 +1802,16 @@ async function loadVerifiedQuestions() {
       },
     });
     if (!res.ok) {
-      console.warn('Failed to load verifications:', res.status);
+      const errText = await res.text().catch(() => '');
+      console.warn('Failed to load verifications:', res.status, errText);
       return;
     }
     const data = await res.json();
     VERIFIED_QUESTIONS = new Set((data || []).map(v => v.question_id));
-    // ホーム画面が表示中ならフィルタ件数を即時反映
+    console.log('[verifications] loaded', VERIFIED_QUESTIONS.size, '件:', [...VERIFIED_QUESTIONS]);
+    // フィルタ件数を即時反映（要素が無ければ何もしない）
+    renderYearFilters();
+    // ホーム画面の他のUI（カテゴリ等）も更新
     if (document.getElementById('screen-home')?.classList.contains('active')) {
       renderHome();
     }
