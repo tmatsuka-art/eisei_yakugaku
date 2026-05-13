@@ -55,6 +55,7 @@
   .header-title { color: #fff; }
   .header-title span { font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; }
   .header-title small { display: block; color: rgba(255,255,255,.75); font-size: 10px; letter-spacing: 2px; margin-top: -2px; }
+  .header-br { display: none; }
   nav { display: flex; gap: 6px; }
   nav button {
     background: transparent; border: none; color: #fff;
@@ -401,11 +402,37 @@
     font-weight: 700 !important;
     box-shadow: 0 0 0 3px rgba(26,122,74,.12) !important;
   }
+  /* 正解だが選ばなかった選択肢（見落とし）→ 破線・薄い背景で区別 */
+  .option-btn.correct-multi.missed-correct {
+    background: #fff !important;
+    border-style: dashed !important;
+    box-shadow: none !important;
+  }
   .option-btn.wrong-multi {
     border-color: var(--red) !important; border-width: 2px !important;
     background: var(--red-bg) !important; color: var(--red) !important;
     font-weight: 700 !important;
     box-shadow: 0 0 0 3px rgba(176,32,32,.12) !important;
+  }
+  /* 結果マーカー（選択肢ボタン内に追加表示） */
+  .result-marker {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    border-radius: 10px;
+    background: rgba(0,0,0,.06);
+    vertical-align: 1px;
+  }
+  .option-btn.correct-multi:not(.missed-correct) .result-marker {
+    background: var(--green); color: #fff;
+  }
+  .option-btn.correct-multi.missed-correct .result-marker {
+    background: #fff; color: var(--green); border: 1px solid var(--green);
+  }
+  .option-btn.wrong-multi .result-marker {
+    background: var(--red); color: #fff;
   }
   /* 選択上限に達したとき、未選択ボタンを薄く表示 */
   .option-btn.multi-disabled {
@@ -470,14 +497,18 @@
 
   @media (max-width: 600px) {
     .cat-grid { grid-template-columns: 1fr 1fr; }
-    header { padding: 0 12px; }
+    header {
+      padding: 6px 12px; height: auto; min-height: 60px;
+      align-items: center;
+    }
     nav button { padding: 6px 8px; font-size: 11px; }
     .stats-compact { font-size: 12px; gap: 10px; padding: 10px 14px; }
     .stats-compact .stat-num { font-size: 16px; }
     .btn-main { padding: 14px 20px; font-size: 14px; }
-    /* タイトル長くなったのでスマホで縮小 */
-    .header-title span { font-size: 14px; letter-spacing: .3px; }
+    /* タイトル長くなったのでスマホで縮小・2行表示 */
+    .header-title span { font-size: 14px; letter-spacing: .3px; line-height: 1.3; }
     .header-title small { font-size: 8.5px; letter-spacing: 1px; }
+    .header-br { display: block; } /* スマホでは改行を有効化 */
   }
 
   /* ── PC専用調整（幅768px以上） ── */
@@ -759,7 +790,7 @@
 <header>
   <div class="header-title" onclick="showScreen('home')" style="cursor:pointer">
     <small>JUNTENDO PHARMACY · HYGIENIC CHEMISTRY</small>
-    <span>順天堂大学 薬学部 衛生化学分野</span>
+    <span>順天堂大学 薬学部<br class="header-br">衛生化学分野</span>
   </div>
   <nav>
     <button onclick="showScreen('home')" id="nav-home" class="active">🏠 ホーム</button>
@@ -793,7 +824,7 @@
 
       <!-- アクションボタン -->
       <div class="quiz-actions">
-        <button class="btn-main" onclick="startQuiz(getWeakOnly())"><span style="font-size:1.2em;margin-right:4px">▶</span> テストを始める</button>
+        <button class="btn-main" onclick="startQuiz(getWeakOnly())"><span style="font-size:1.2em;margin-right:4px">▶</span> 学習をはじめる</button>
         <button class="btn-sub" onclick="startBrowse()">📖 閲覧モード</button>
       </div>
     </div>
@@ -1870,9 +1901,28 @@ function processAnswer(chosen, pid) {
       // 回答後は選択中ハイライト(青)を外し、正解/不正解(緑/赤)に切り替え
       btn.classList.remove('selected-multi');
       btn.classList.remove('multi-disabled');
-      if (correctNums.includes(n) && chosen.includes(n)) btn.classList.add('correct-multi');
-      else if (correctNums.includes(n)) btn.classList.add('correct-multi');
-      else if (chosen.includes(n)) btn.classList.add('wrong-multi');
+
+      const userChose = chosen.includes(n);
+      const isCorrect = correctNums.includes(n);
+      let markerText = '';
+      if (isCorrect && userChose) {
+        btn.classList.add('correct-multi');
+        markerText = '○ 選択して正解';
+      } else if (isCorrect) {
+        btn.classList.add('correct-multi', 'missed-correct');
+        markerText = '正解(未選択)';
+      } else if (userChose) {
+        btn.classList.add('wrong-multi');
+        markerText = '× 選択(誤答)';
+      }
+      // 既存マーカーを削除して再付与（再回答対応）
+      btn.querySelectorAll('.result-marker').forEach(el => el.remove());
+      if (markerText) {
+        const m = document.createElement('span');
+        m.className = 'result-marker';
+        m.textContent = markerText;
+        btn.appendChild(m);
+      }
     });
   } else {
     const chosenNum = chosen[0];
@@ -1884,12 +1934,19 @@ function processAnswer(chosen, pid) {
   }
 
   // explanation
+  const isMulti = q.answer.length > 1;
+  const chosenStr = chosen.join('・');
+  const correctStr = correctNums.join('・');
+  const userAnswerLine = isMulti
+    ? `<div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">あなたの解答: <b style="color:${isCorrect?'var(--green)':'var(--red)'}">${chosenStr}番</b>　／　正解: <b style="color:var(--green)">${correctStr}番</b></div>`
+    : '';
   const expBox = document.getElementById('q-explanation');
   expBox.innerHTML = `
     <div class="explanation-box ${isCorrect?'correct-box':'wrong-box'}">
       <div class="explanation-title" style="color:${isCorrect?'var(--green)':'var(--red)'}">
-        ${isCorrect ? '✅ 正解！' : '❌ 不正解'} 　正解: ${correctNums.join('・')}番
+        ${isCorrect ? '✅ 正解！' : '❌ 不正解'} 　正解: ${correctStr}番
       </div>
+      ${userAnswerLine}
       <div class="explanation-text">${formatText(q.comment||'解説なし')}</div>
 
     </div>`;
@@ -1910,9 +1967,11 @@ function processAnswer(chosen, pid) {
 function nextQuestion() {
   if (currentIdx + 1 >= quizQueue.length) {
     showSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     currentIdx++;
     renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
