@@ -258,6 +258,7 @@
       <button class="tab active" data-filter="unreviewed" onclick="setFilter('unreviewed')">⚠ 未対応の報告<span class="count" id="count-unreviewed"></span></button>
       <button class="tab" data-filter="reviewed" onclick="setFilter('reviewed')">✓ 対応済み<span class="count" id="count-reviewed"></span></button>
       <button class="tab" data-filter="all" onclick="setFilter('all')">全報告<span class="count" id="count-all"></span></button>
+      <button class="tab" data-filter="verifications" onclick="setFilter('verifications')">📋 検証履歴<span class="count" id="count-verifications"></span></button>
     </div>
     <div class="filter-summary" id="filter-summary"></div>
     <div id="reports-list">
@@ -278,6 +279,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
 let allReports = [];
 let questionMap = {}; // problem_id -> question data
 let verifiedSet = new Set(); // 検証済み問題IDのセット
+let verifiedList = []; // 検証済み問題のフルレコード（履歴表示用）
 let currentFilter = 'unreviewed';
 
 // ── AUTH ──
@@ -360,12 +362,14 @@ async function loadReports() {
 async function loadVerifications() {
   const { data, error } = await supabaseClient
     .from('question_verifications')
-    .select('question_id');
+    .select('question_id, verified_at, source, note')
+    .order('verified_at', { ascending: false });
   if (error) {
     console.warn('Failed to load verifications:', error.message);
     return;
   }
-  verifiedSet = new Set((data || []).map(v => v.question_id));
+  verifiedList = data || [];
+  verifiedSet = new Set(verifiedList.map(v => v.question_id));
 }
 
 async function loadData() {
@@ -403,6 +407,13 @@ function renderReports() {
   document.getElementById('count-unreviewed').textContent = `(${unreviewedCount})`;
   document.getElementById('count-reviewed').textContent = `(${reviewedCount})`;
   document.getElementById('count-all').textContent = `(${allCount})`;
+  document.getElementById('count-verifications').textContent = `(${verifiedList.length})`;
+
+  // 検証履歴タブが選択されていれば、検証一覧を描画
+  if (currentFilter === 'verifications') {
+    renderVerifications();
+    return;
+  }
 
   // Apply filter
   let filtered;
@@ -494,6 +505,55 @@ function renderReports() {
         ${qContentHtml}
         <div class="reports-section">
           ${reports.map(r => renderReportRow(r)).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderVerifications() {
+  const listEl = document.getElementById('reports-list');
+
+  if (verifiedList.length === 0) {
+    listEl.innerHTML = '<div class="card empty">まだ検証済みの問題はありません</div>';
+    return;
+  }
+
+  // フィルタサマリ
+  document.getElementById('filter-summary').textContent =
+    `✓ ヒトの目で確認済みの問題 ${verifiedList.length}件（新しい順）`;
+
+  listEl.innerHTML = verifiedList.map(v => {
+    const q = questionMap[v.question_id];
+    const time = new Date(v.verified_at).toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' });
+    const sourceLabel = v.source === 'fixed_via_report'
+      ? '📝 報告対応で自動登録'
+      : v.source === 'manual'
+        ? '✋ 手動で登録'
+        : escapeHtml(v.source || '');
+
+    // 妥当票数
+    const correctCount = allReports.filter(r => r.question_id === v.question_id && r.vote_type === 'correct').length;
+    const reportCount = allReports.filter(r => r.question_id === v.question_id && r.vote_type === 'report').length;
+
+    return `
+      <div class="card q-card">
+        <div class="q-header">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
+            <span class="q-id">${escapeHtml(v.question_id)}</span>
+            ${q && q.display_title ? `<span class="q-title">${escapeHtml(q.display_title)}</span>` : ''}
+            <span class="badge badge-verified">✓ ヒトの目で確認済み</span>
+          </div>
+          <div class="q-counts">
+            <span class="badge badge-correct">👍 妥当 ${correctCount}</span>
+            <span class="badge badge-report">⚠ 報告 ${reportCount}</span>
+            <button class="verify-toggle verified" onclick="toggleVerification('${escapeHtml(v.question_id)}')">✗ 検証解除</button>
+          </div>
+        </div>
+        <div class="q-body" style="font-size:12.5px;color:#444;padding:12px 20px;">
+          <div><strong style="color:var(--muted)">📅 検証日時:</strong> ${escapeHtml(time)}</div>
+          <div><strong style="color:var(--muted)">🔖 登録方法:</strong> ${sourceLabel}</div>
+          ${v.note ? `<div style="margin-top:4px;"><strong style="color:var(--muted)">📝 メモ:</strong> ${escapeHtml(v.note)}</div>` : ''}
         </div>
       </div>
     `;
