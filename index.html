@@ -1218,9 +1218,11 @@ function getPool(weakOnly) {
   let pool = ALL_QUESTIONS;
   if (selectedCat !== 'すべて') pool = pool.filter(q => q._category === selectedCat);
   if (selectedSec !== 'すべて') pool = pool.filter(q => q.section === selectedSec);
-  // year filter（過去問グループ / 予想問題グループ・3状態）
+  // year filter（過去問グループ / 予想問題グループ・3状態 + 全予想問題）
   if (selectedYear === 'past') {
     pool = pool.filter(q => q.year > 0);
+  } else if (selectedYear === 'predicted_all') {
+    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
   } else if (selectedYear === 'predicted_verified') {
     pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id));
   } else if (selectedYear === 'predicted_student_only') {
@@ -1493,16 +1495,23 @@ function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
 function selectYear(y) { selectedYear = y; renderHome(); }
 
-// 個別の回(第N回)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+// 個別の回(第N回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
 function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
   const el = document.getElementById('year-filters-detail');
   if (!el) return;
 
   const pastYears = years.filter(y => y > 0);
-  el.innerHTML = pastYears.map(y =>
+  const predictedCount = ALL_QUESTIONS.filter(q => q.year === 0).length;
+
+  const buttons = pastYears.map(y =>
     `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
-  ).join('');
+  );
+  // 予想問題（全種類 = 検証済み + 学生評価 + 検証募集中）も選択可能に
+  if (years.includes(0)) {
+    buttons.push(`<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">予想問題 (${predictedCount}問・全種類)</button>`);
+  }
+  el.innerHTML = buttons.join('');
 }
 
 // ── QUIZ ──
