@@ -774,9 +774,6 @@
           </details>
 
           <div id="newcc-filters"></div>
-          <div class="filter-label" id="sub-filter-label" style="display:none">📚 トピック</div>
-          <input type="text" class="topic-search" id="topic-search" placeholder="🔍 トピックを検索..." oninput="renderSubFilters()">
-          <div id="sub-filters"></div>
         </div>
       </details>
     </div>
@@ -1263,7 +1260,6 @@ function renderHome() {
   renderCatFilters();
   renderSecFilters();
   renderYearFiltersDetail();
-  renderSubFilters();
   renderNewCCFilters();
   renderQuizCount();
   renderPoolInfo();
@@ -1320,14 +1316,25 @@ function renderNewCCFilters() {
     const c = q.new_corecurri_code;
     if (c) countByCode[c] = (countByCode[c] || 0) + 1;
   });
+
+  // 親カテゴリの色を取得（薄色背景・テキスト色・ボーダー色）
+  const parentDef = CAT_DEFS[selectedCat];
+  const bgColor = parentDef ? parentDef.bg : '#fff';
+  const txtColor = parentDef ? parentDef.color : 'var(--text)';
+
   el.innerHTML =
     '<div class="filter-label">🔖 コアカリ詳細コード <span style="font-weight:400;color:#9aa3b8">(過去問は参考値)</span></div>' +
     `<button class="filter-btn ${'すべて'===selectedNewCC?'active':''}" onclick="selectNewCC('すべて')" style="font-size:11px">すべて</button> ` +
     codes.map(c => {
       const n = countByCode[c] || 0;
-      const active = c === selectedNewCC ? 'active' : '';
+      const isActive = c === selectedNewCC;
       const title = NEW_CC_TITLES[c] || '';
-      return `<button class="filter-btn ${active}" onclick="selectNewCC('${c}')" style="font-size:11px" title="${title}">`
+      // アクティブ: 親カテゴリの濃色背景 + 白文字
+      // 非アクティブ: 親カテゴリの薄色背景 + 濃色文字 + 濃色枠線
+      const style = isActive
+        ? `background:${txtColor};color:#fff;border-color:${txtColor};`
+        : `background:${bgColor};color:${txtColor};border-color:${txtColor};`;
+      return `<button class="filter-btn ${isActive ? 'active' : ''}" onclick="selectNewCC('${c}')" style="font-size:11px;${style}" title="${title}">`
         + `<span style="font-weight:700">${c}</span>`
         + (title ? ` <span style="opacity:.85">${title}</span>` : '')
         + ` <span style="opacity:.6">(${n})</span>`
