@@ -346,6 +346,28 @@
   .progress-bar-lg { background: #e8ecf5; border-radius: 8px; height: 8px; margin-bottom: 20px; overflow: hidden; }
   .progress-fill-lg { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--blue), var(--accent2)); transition: width .4s; }
 
+  /* 問題カード上端の細い進捗ストリップ（学習モード中） */
+  #quiz-card { position: relative; }
+  .quiz-progress-strip {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px; background: #e8ecf5;
+    border-radius: 14px 14px 0 0; overflow: hidden;
+  }
+  .progress-fill-strip {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--accent2));
+    transition: width .4s;
+  }
+  .quiz-card-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+    font-size: 12px;
+    flex-wrap: wrap; gap: 6px;
+  }
+  .q-progress-mini {
+    color: var(--muted); font-weight: 700; font-size: 12px;
+  }
+
   .q-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
   .q-title { font-family: 'Shippori Mincho', serif; font-size: 16px; font-weight: 700; line-height: 1.8; margin-bottom: 16px; }
   .q-image { max-width: 100%; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border); }
@@ -877,15 +899,14 @@
 
   <!-- QUIZ -->
   <div id="screen-quiz" class="screen">
-    <div class="card" style="margin-bottom:14px;padding:14px 18px">
-      <div class="quiz-header">
-        <span class="quiz-progress-text" id="q-progress"></span>
+    <div class="card" id="quiz-card">
+      <!-- 問題カード上端の進捗ストリップ -->
+      <div class="quiz-progress-strip"><div class="progress-fill-strip" id="q-progress-bar"></div></div>
+      <!-- 進捗テキスト + タグ（カテゴリ・セクション） -->
+      <div class="quiz-card-meta">
+        <span class="q-progress-mini" id="q-progress"></span>
         <div style="display:flex;gap:6px" id="q-tags"></div>
       </div>
-      <div class="progress-bar-lg"><div class="progress-fill-lg" id="q-progress-bar"></div></div>
-    </div>
-
-    <div class="card" id="quiz-card">
       <div id="q-verif-area"></div>
       <div class="q-meta" id="q-meta"></div>
       <div id="q-lead-area"></div>
@@ -1698,7 +1719,7 @@ function renderQuestion() {
   const isMulti = q.answer.length > 1;
 
   // progress
-  document.getElementById('q-progress').textContent = `問題 ${currentIdx+1} / ${quizQueue.length}`;
+  document.getElementById('q-progress').textContent = `${currentIdx+1} / ${quizQueue.length}`;
   document.getElementById('q-progress-bar').style.width = `${(currentIdx+1)/quizQueue.length*100}%`;
 
   // tags
