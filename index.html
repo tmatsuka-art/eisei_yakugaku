@@ -361,11 +361,37 @@
     border-color: #b8e0e3; background: rgba(58,170,178,.04);
   }
   .option-btn:disabled { cursor: default; }
-  .option-btn.correct { border-color: var(--green) !important; background: var(--green-bg) !important; color: var(--green); }
-  .option-btn.wrong { border-color: var(--red) !important; background: var(--red-bg) !important; color: var(--red); }
   .option-letter { font-weight: 900; min-width: 20px; color: var(--muted); }
-  .option-btn.correct .option-letter { color: var(--green); }
-  .option-btn.wrong .option-letter { color: var(--red); }
+
+  /* 正解・不正解（単一選択） — 強い視覚フィードバック */
+  .option-btn.correct {
+    border-color: var(--green) !important; border-width: 2px !important;
+    background: var(--green-bg) !important; color: var(--green) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 0 3px rgba(26,122,74,.12) !important;
+  }
+  .option-btn.wrong {
+    border-color: var(--red) !important; border-width: 2px !important;
+    background: var(--red-bg) !important; color: var(--red) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 0 3px rgba(176,32,32,.12) !important;
+  }
+  .option-btn.correct .option-letter,
+  .option-btn.correct-multi .option-letter {
+    background: var(--green) !important; color: #fff !important;
+    border-radius: 50%;
+    min-width: 26px; width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .option-btn.wrong .option-letter,
+  .option-btn.wrong-multi .option-letter {
+    background: var(--red) !important; color: #fff !important;
+    border-radius: 50%;
+    min-width: 26px; width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
 
   /* multiple select - 選択済みはホバーよりも強い見た目で差別化 */
   .option-btn.selected-multi {
@@ -379,6 +405,19 @@
     min-width: 24px; width: 24px; height: 24px;
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 12px;
+  }
+  /* 正解・不正解（複数選択） */
+  .option-btn.correct-multi {
+    border-color: var(--green) !important; border-width: 2px !important;
+    background: var(--green-bg) !important; color: var(--green) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 0 3px rgba(26,122,74,.12) !important;
+  }
+  .option-btn.wrong-multi {
+    border-color: var(--red) !important; border-width: 2px !important;
+    background: var(--red-bg) !important; color: var(--red) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 0 3px rgba(176,32,32,.12) !important;
   }
   /* 選択上限に達したとき、未選択ボタンを薄く表示 */
   .option-btn.multi-disabled {
@@ -1840,6 +1879,9 @@ function processAnswer(chosen, pid) {
     allNums.forEach(n => {
       const btn = document.getElementById('opt-'+n);
       if (!btn) return;
+      // 回答後は選択中ハイライト(青)を外し、正解/不正解(緑/赤)に切り替え
+      btn.classList.remove('selected-multi');
+      btn.classList.remove('multi-disabled');
       if (correctNums.includes(n) && chosen.includes(n)) btn.classList.add('correct-multi');
       else if (correctNums.includes(n)) btn.classList.add('correct-multi');
       else if (chosen.includes(n)) btn.classList.add('wrong-multi');
