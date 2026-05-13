@@ -357,7 +357,9 @@
     cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
     display: flex; align-items: flex-start; gap: 10px;
   }
-  .option-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-bg); }
+  .option-btn:hover:not(:disabled):not(.selected-multi) {
+    border-color: #b8e0e3; background: rgba(58,170,178,.04);
+  }
   .option-btn:disabled { cursor: default; }
   .option-btn.correct { border-color: var(--green) !important; background: var(--green-bg) !important; color: var(--green); }
   .option-btn.wrong { border-color: var(--red) !important; background: var(--red-bg) !important; color: var(--red); }
@@ -365,8 +367,24 @@
   .option-btn.correct .option-letter { color: var(--green); }
   .option-btn.wrong .option-letter { color: var(--red); }
 
-  /* multiple select */
-  .option-btn.selected-multi { border-color: var(--blue); background: var(--blue-bg); }
+  /* multiple select - 選択済みはホバーよりも強い見た目で差別化 */
+  .option-btn.selected-multi {
+    border-color: var(--blue); border-width: 2px;
+    background: rgba(58,170,178,.15);
+    color: var(--blue-dark); font-weight: 700;
+  }
+  .option-btn.selected-multi .option-letter {
+    background: var(--blue); color: #fff;
+    border-radius: 50%;
+    min-width: 24px; width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  /* 選択上限に達したとき、未選択ボタンを薄く表示 */
+  .option-btn.multi-disabled {
+    opacity: .45; cursor: not-allowed;
+  }
+  .option-btn.multi-disabled:hover { border-color: var(--border); background: #fafbfd; }
   .option-btn.correct-multi { border-color: var(--green) !important; background: var(--green-bg) !important; }
   .option-btn.wrong-multi { border-color: var(--red) !important; background: var(--red-bg) !important; }
 
@@ -1699,7 +1717,9 @@ function renderQuestion() {
   }
 
   // multi hint
-  document.getElementById('multi-hint').style.display = isMulti ? 'block' : 'none';
+  const hintEl = document.getElementById('multi-hint');
+  hintEl.style.display = isMulti ? 'block' : 'none';
+  if (isMulti) hintEl.textContent = `※ ${q.answer.length}つ選択してください`;
 
   // options
   const optArea = document.getElementById('q-options');
@@ -1753,16 +1773,41 @@ function selectOption(num, pid) {
   const isMulti = q.answer.length > 1;
 
   if (isMulti) {
+    const maxCount = q.answer.length;
     if (selectedOptions.has(num)) {
+      // 既に選択済み → 解除
       selectedOptions.delete(num);
       document.getElementById('opt-'+num)?.classList.remove('selected-multi');
     } else {
+      // 新規選択 → 上限チェック
+      if (selectedOptions.size >= maxCount) return; // 上限到達なら無視
       selectedOptions.add(num);
       document.getElementById('opt-'+num)?.classList.add('selected-multi');
     }
+    // 上限到達したら未選択ボタンを薄くする
+    refreshMultiButtonStates(q);
   } else {
     processAnswer([num], pid);
   }
+}
+
+// 複数選択時、上限到達後の未選択ボタンの見た目を更新
+function refreshMultiButtonStates(q) {
+  if (!q || q.answer.length <= 1) return;
+  const maxCount = q.answer.length;
+  const atMax = selectedOptions.size >= maxCount;
+  const allNums = q.choices[0] === 'IMAGES'
+    ? Array.from({length: 5}, (_, i) => i + 1)
+    : q.choices.map((_, i) => i + 1);
+  allNums.forEach(n => {
+    const btn = document.getElementById('opt-' + n);
+    if (!btn) return;
+    if (atMax && !selectedOptions.has(n)) {
+      btn.classList.add('multi-disabled');
+    } else {
+      btn.classList.remove('multi-disabled');
+    }
+  });
 }
 
 function submitMulti(pid) {
