@@ -1243,9 +1243,10 @@ function getPool(weakOnly) {
   return pool;
 }
 function selectNewCC(code) {
-  selectedNewCC = code;
+  // 同じ値を再クリックしたら解除
+  selectedNewCC = (selectedNewCC === code && code !== 'すべて') ? 'すべて' : code;
   // トピックは詳細コードの下位なので、選んだ詳細コードと整合しない場合はリセット
-  if (selectedSub && selectedSub !== 'すべて' && SUBCAT_TO_NEWCC[selectedSub] !== code && code !== 'すべて') {
+  if (selectedSub && selectedSub !== 'すべて' && SUBCAT_TO_NEWCC[selectedSub] !== selectedNewCC && selectedNewCC !== 'すべて') {
     selectedSub = 'すべて';
   }
   renderHome();
@@ -1493,38 +1494,66 @@ function renderWeakBtn() {
   // 旧互換：何もしない（renderWeakToggle に統合済み）
 }
 
-function selectCat(c) { selectedCat = c; selectedSub = 'すべて'; selectedNewCC = 'すべて'; renderHome(); }
-function selectSec(s) { selectedSec = s; renderHome(); }
-function selectSub(s) { selectedSub = s; renderHome(); }
-function selectYear(y) { selectedYear = y; renderHome(); }
+// 同じ値を再クリックしたら解除（'すべて' に戻る）
+function selectCat(c) {
+  selectedCat = (selectedCat === c && c !== 'すべて') ? 'すべて' : c;
+  selectedSub = 'すべて';
+  selectedNewCC = 'すべて';
+  renderHome();
+}
+function selectSec(s) {
+  selectedSec = (selectedSec === s && s !== 'すべて') ? 'すべて' : s;
+  renderHome();
+}
+function selectSub(s) {
+  selectedSub = (selectedSub === s && s !== 'すべて') ? 'すべて' : s;
+  renderHome();
+}
+function selectYear(y) {
+  selectedYear = (selectedYear === y && y !== 'すべて') ? 'すべて' : y;
+  renderHome();
+}
 
-// 個別の回(各回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+// 個別の回(各回 + 予想問題すべて)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
 // 過去問すべては renderQuickSelect の役割なのでここには出さない（二重ハイライト防止）
+// カテゴリ・詳細コード選択中はその範囲に絞った問題数を表示
 function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
   const el = document.getElementById('year-filters-detail');
   if (!el) return;
 
+  // 現在のカテゴリ/詳細コード絞り込みを適用したベースプール
+  // （年フィルタは適用しない — 年ごとのカウントを出すため）
+  const basePool = ALL_QUESTIONS.filter(q => {
+    if (selectedCat !== 'すべて' && q._category !== selectedCat) return false;
+    if (selectedNewCC && selectedNewCC !== 'すべて' && q.new_corecurri_code !== selectedNewCC) return false;
+    return true;
+  });
+
   const pastYears = years.filter(y => y > 0);
-  const predictedCount = ALL_QUESTIONS.filter(q => q.year === 0).length;
+  const filterLabel = selectedCat !== 'すべて'
+    ? `（${catLabel(selectedCat)}${selectedNewCC && selectedNewCC !== 'すべて' ? ' / ' + selectedNewCC : ''}）`
+    : '';
 
   let html = '';
 
   // 📜 過去問の各回
   if (pastYears.length > 0) {
-    html += '<div class="filter-label">📜 過去問の各回</div>';
+    html += `<div class="filter-label">📜 過去問の各回${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
     html += '<div class="filter-row">';
-    html += pastYears.map(y =>
-      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
-    ).join('');
+    html += pastYears.map(y => {
+      const n = basePool.filter(q => q.year === y).length;
+      return `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回 <span style="opacity:.6">(${n})</span></button>`;
+    }).join('');
     html += '</div>';
   }
 
-  // 🔮 予想問題（全種類）
+  // 🔮 予想問題（すべて）
   if (years.includes(0)) {
-    html += '<div class="filter-label" style="margin-top:10px">🔮 予想問題</div>';
+    const predictedCount = basePool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0).length;
+    html += `<div class="filter-label" style="margin-top:10px">🔮 予想問題${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
     html += '<div class="filter-row">';
-    html += `<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">予想問題 全種類 (${predictedCount}問)</button>`;
+    html += `<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')" title="検証済み・学生「妥当」評価・検証募集中、すべての予想問題">予想問題（すべて） (${predictedCount}問)</button>`;
     html += '</div>';
   }
 
