@@ -192,13 +192,21 @@
     font-size: 12px; font-weight: 700; color: var(--muted);
   }
   .quiz-count-pill {
-    padding: 6px 12px; border-radius: 18px; font-size: 12px; font-weight: 700;
+    padding: 7px 14px; border-radius: 18px; font-size: 12px; font-weight: 700;
     border: 1.5px solid var(--border); background: #fff; color: var(--muted);
     cursor: pointer; transition: all .15s; font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: 0 1px 2px rgba(15,31,61,.04);
+  }
+  .quiz-count-pill:hover {
+    border-color: var(--blue); color: var(--blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(58,170,178,.15);
   }
   .quiz-count-pill.active {
     border-color: var(--blue); background: var(--blue); color: #fff;
+    box-shadow: 0 2px 8px rgba(58,170,178,.35);
   }
+  .quiz-count-pill.active:hover { color: #fff; transform: translateY(-1px); }
   .weak-checkbox {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 12px; border-radius: 18px;
@@ -254,8 +262,10 @@
   /* カテゴリクイックスタートセクション */
   .quick-section-label {
     font-size: 13px; font-weight: 700; color: var(--text);
-    margin: 20px 0 10px; padding-left: 4px;
+    margin: 20px 0 10px; padding-left: 12px;
+    border-left: 4px solid var(--accent2);
     display: flex; align-items: center; gap: 6px;
+    line-height: 1.2;
   }
 
   /* クイック選択行（何を解く？） */
@@ -271,7 +281,10 @@
     border: 2px solid var(--border);
     background: #fff; color: var(--muted);
     cursor: pointer; transition: all .15s;
-    text-align: left; line-height: 1.4;
+    text-align: left; line-height: 1.35;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    min-height: 64px;
   }
   .quick-select-btn:hover {
     border-color: var(--blue);
@@ -295,10 +308,20 @@
     background: #fff; border-radius: 12px; padding: 16px;
     box-shadow: 0 2px 8px rgba(15,31,61,.06);
     border-left: 4px solid; cursor: pointer; transition: all .15s;
+    position: relative;
   }
-  .cat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,31,61,.12); }
-  .cat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .cat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(15,31,61,.12); }
+  .cat-card:hover .cat-action-cta { color: var(--blue); }
+  .cat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; padding-right: 20px; }
   .cat-card p { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .cat-card-action {
+    font-size: 11px; color: var(--muted); margin-top: 4px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cat-card-action .cat-action-cta {
+    color: var(--blue-dark); font-weight: 700;
+    transition: color .15s;
+  }
   .progress-bar { background: #e8ecf5; border-radius: 6px; height: 6px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 6px; transition: width .4s; }
 
@@ -470,7 +493,9 @@
     .card-section-title { font-size: 17px !important; }
   }
   .card-section-title {
-    font-weight: 700; font-size: 15px; margin-bottom: 12px;
+    font-weight: 700; font-size: 15px; margin-bottom: 14px;
+    padding-left: 12px; border-left: 4px solid var(--blue);
+    line-height: 1.2;
   }
 
   /* ── BROWSE ── */
@@ -720,7 +745,7 @@
 
       <!-- アクションボタン -->
       <div class="quiz-actions">
-        <button class="btn-main" onclick="startQuiz(getWeakOnly())">▶ テストを始める</button>
+        <button class="btn-main" onclick="startQuiz(getWeakOnly())"><span style="font-size:1.2em;margin-right:4px">▶</span> テストを始める</button>
         <button class="btn-sub" onclick="startBrowse()">📖 閲覧モード</button>
       </div>
     </div>
@@ -728,10 +753,10 @@
     <!-- コンパクト統計バー（テストの下に） -->
     <div class="stats-compact" id="stats-compact"></div>
 
-    <!-- 詳細フィルタ（折りたたみ） -->
-    <div class="card" style="margin-bottom:14px;padding:0">
+    <!-- 詳細フィルタ（折りたたみ・控えめスタイル） -->
+    <div style="margin-bottom:14px;background:transparent;border:1px solid var(--border);border-radius:10px">
       <details class="filter-section" style="border:none;background:transparent">
-        <summary style="padding:14px 18px">🔍 詳細フィルタを表示（セクション・分野・各回・トピック）</summary>
+        <summary style="padding:12px 18px;font-size:12.5px;color:var(--muted)">🔍 詳細フィルタを表示（セクション・分野・各回・トピック）</summary>
         <div class="filter-section-body" style="padding:0 18px 16px">
           <div class="filter-label">📋 セクション</div>
           <div class="section-filter-row" id="sec-filters"></div>
@@ -1259,7 +1284,7 @@ function renderQuickSelect() {
     { val: 'すべて', label: '📚 すべて', count: allCount },
     { val: 'past', label: '📜 過去問', count: pastCount },
     { val: 'predicted_verified', label: '✓ 予想問題 確認済み', count: verifiedCount },
-    { val: 'predicted_student_only', label: '👥 予想問題 学生が「妥当」と評価', count: studentOnlyCount },
+    { val: 'predicted_student_only', label: '👥 予想問題 学生「妥当」評価', count: studentOnlyCount },
     { val: 'predicted_unverified', label: '🤝 予想問題 検証募集中', count: unverifiedCount },
   ];
 
@@ -1424,7 +1449,10 @@ function renderCatCards() {
       <h3 style="font-size:13px">${def.label}</h3>
       <p>${pool.length}問収録</p>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">${total?'正答率 '+pct+'% ・ ':''}<span style="color:var(--blue-dark);font-weight:700">▶ クリックで10問</span></div>
+      <div class="cat-card-action">
+        <span>${total?'正答率 '+pct+'%':'未回答'}</span>
+        <span class="cat-action-cta">10問テスト →</span>
+      </div>
     </div>`;
   }).join('');
 }
@@ -1523,7 +1551,7 @@ function renderQuestion() {
       if (isVerified) {
         verifArea.innerHTML = '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>';
       } else if (studentConfirmed) {
-        verifArea.innerHTML = '<span class="verif-badge-big student">👥 学生が「妥当」と評価</span>';
+        verifArea.innerHTML = '<span class="verif-badge-big student">👥 学生「妥当」評価</span>';
       } else {
         verifArea.innerHTML = '<span class="verif-badge-big unverified">🤖 AI作成・検証募集中</span>';
       }
