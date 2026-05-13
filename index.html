@@ -761,9 +761,6 @@
       <details class="filter-section" style="border:none;background:transparent">
         <summary style="padding:12px 18px;font-size:12.5px;color:var(--muted)">🔍 詳細フィルタを表示（セクション・分野・各回・トピック）</summary>
         <div class="filter-section-body" style="padding:0 18px 16px">
-          <div class="filter-label">📋 セクション</div>
-          <div class="section-filter-row" id="sec-filters"></div>
-
           <div id="cat-filters-area"></div>
 
           <details class="filter-section">
@@ -1258,7 +1255,6 @@ function renderHome() {
   renderStatsCompact();
   renderQuickSelect();
   renderCatFilters();
-  renderSecFilters();
   renderYearFiltersDetail();
   renderNewCCFilters();
   renderQuizCount();
@@ -1502,21 +1498,25 @@ function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
 function selectYear(y) { selectedYear = y; renderHome(); }
 
-// 個別の回(第N回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+// 個別の回(過去問すべて + 第N回 + 予想問題全種類)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
 function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
   const el = document.getElementById('year-filters-detail');
   if (!el) return;
 
   const pastYears = years.filter(y => y > 0);
+  const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
   const predictedCount = ALL_QUESTIONS.filter(q => q.year === 0).length;
 
-  const buttons = pastYears.map(y =>
-    `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
-  );
-  // 予想問題（全種類 = 検証済み + 学生評価 + 検証募集中）も選択可能に
+  // 過去問すべて → 各回 → 予想問題全種類 の順
+  const buttons = [
+    `<button class="filter-btn ${'past'===selectedYear?'active':''}" onclick="selectYear('past')">📜 過去問すべて (${pastCount}問)</button>`,
+    ...pastYears.map(y =>
+      `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
+    ),
+  ];
   if (years.includes(0)) {
-    buttons.push(`<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">予想問題 (${predictedCount}問・全種類)</button>`);
+    buttons.push(`<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')">🔮 予想問題 (${predictedCount}問・全種類)</button>`);
   }
   el.innerHTML = buttons.join('');
 }
