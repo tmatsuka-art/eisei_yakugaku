@@ -8,8 +8,8 @@
 <style>
   :root {
     /* === 構造色 === */
-    --navy: #0f1f3d;
-    --navy2: #2a3870;        /* 紺グラデの終端を紫寄りに */
+    --navy: #5C2787;         /* ディープパープル（旧:濃紺#0f1f3d） */
+    --navy2: #7a3aa8;        /* グラデーション終端、明るめ紫 */
     --blue: #3aaab2;         /* ロイヤルブルー→ティールに */
     --blue-dark: #2c8c93;    /* ティールのホバー用 */
     --blue-bg: #e6f5f6;      /* ティールの薄色背景 */
@@ -252,6 +252,38 @@
     font-size: 13px; font-weight: 700; color: var(--text);
     margin: 20px 0 10px; padding-left: 4px;
     display: flex; align-items: center; gap: 6px;
+  }
+
+  /* クイック選択行（何を解く？） */
+  .quick-select-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .quick-select-btn {
+    flex: 1; min-width: 130px;
+    padding: 10px 14px; border-radius: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12.5px; font-weight: 700;
+    border: 2px solid var(--border);
+    background: #fff; color: var(--muted);
+    cursor: pointer; transition: all .15s;
+    text-align: left; line-height: 1.4;
+  }
+  .quick-select-btn:hover {
+    border-color: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(58,170,178,.15);
+  }
+  .quick-select-btn.active {
+    background: var(--blue); color: #fff;
+    border-color: var(--blue);
+    box-shadow: 0 2px 8px rgba(58,170,178,.3);
+  }
+  .quick-select-btn .qs-label {
+    display: block; font-size: 13px; font-weight: 800;
+  }
+  .quick-select-btn .qs-count {
+    font-size: 11px; opacity: .8; font-weight: 600;
   }
 
   .cat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
@@ -598,37 +630,13 @@
 <main>
   <!-- HOME -->
   <div id="screen-home" class="screen active">
-    <!-- コンパクト統計バー -->
-    <div class="stats-compact" id="stats-compact"></div>
-
     <!-- メイン学習エリア -->
-    <div class="card" style="margin-bottom:16px">
-      <div style="font-weight:700;font-size:15px;margin-bottom:14px">📚 学習を始める</div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="font-weight:700;font-size:15px;margin-bottom:12px">📚 学習を始める</div>
 
-      <!-- フィルタ：常に表示 -->
-      <div class="filter-label">📋 セクション</div>
-      <div class="section-filter-row" id="sec-filters"></div>
-
-      <div id="cat-filters-area"></div>
-
-      <!-- 折りたたみ：出題回 -->
-      <details class="filter-section" id="year-filter-section">
-        <summary>📅 出題回を指定する</summary>
-        <div class="filter-section-body">
-          <div class="filter-row" id="year-filters"></div>
-        </div>
-      </details>
-
-      <!-- 折りたたみ：トピック・詳細コード -->
-      <details class="filter-section" id="detail-filter-section">
-        <summary>🔍 詳細フィルタ（コアカリ詳細・トピック）</summary>
-        <div class="filter-section-body">
-          <div id="newcc-filters"></div>
-          <div class="filter-label" id="sub-filter-label" style="display:none">📚 トピック</div>
-          <input type="text" class="topic-search" id="topic-search" placeholder="🔍 トピックを検索..." oninput="renderSubFilters()">
-          <div id="sub-filters"></div>
-        </div>
-      </details>
+      <!-- クイック選択：何を解くか -->
+      <div class="filter-label">🎯 何を解きますか？</div>
+      <div class="quick-select-row" id="quick-select-area"></div>
 
       <!-- 出題情報 -->
       <div class="pool-info-row" id="pool-info"></div>
@@ -647,6 +655,34 @@
         <button class="btn-main" onclick="startQuiz(getWeakOnly())">▶ テストを始める</button>
         <button class="btn-sub" onclick="startBrowse()">📖 閲覧モード</button>
       </div>
+    </div>
+
+    <!-- コンパクト統計バー（テストの下に） -->
+    <div class="stats-compact" id="stats-compact"></div>
+
+    <!-- 詳細フィルタ（折りたたみ） -->
+    <div class="card" style="margin-bottom:14px;padding:0">
+      <details class="filter-section" style="border:none;background:transparent">
+        <summary style="padding:14px 18px">🔍 詳細フィルタを表示（セクション・分野・各回・トピック）</summary>
+        <div class="filter-section-body" style="padding:0 18px 16px">
+          <div class="filter-label">📋 セクション</div>
+          <div class="section-filter-row" id="sec-filters"></div>
+
+          <div id="cat-filters-area"></div>
+
+          <details class="filter-section">
+            <summary>📅 個別の回を指定する</summary>
+            <div class="filter-section-body">
+              <div class="filter-row" id="year-filters-detail"></div>
+            </div>
+          </details>
+
+          <div id="newcc-filters"></div>
+          <div class="filter-label" id="sub-filter-label" style="display:none">📚 トピック</div>
+          <input type="text" class="topic-search" id="topic-search" placeholder="🔍 トピックを検索..." oninput="renderSubFilters()">
+          <div id="sub-filters"></div>
+        </div>
+      </details>
     </div>
 
     <!-- カテゴリ別クイックスタート -->
@@ -1125,15 +1161,46 @@ function selectNewCC(code) {
 
 function renderHome() {
   renderStatsCompact();
+  renderQuickSelect();
   renderCatFilters();
   renderSecFilters();
-  renderYearFilters();
+  renderYearFiltersDetail();
   renderSubFilters();
   renderNewCCFilters();
   renderQuizCount();
   renderPoolInfo();
   renderCatCards();
   renderWeakToggle();
+}
+
+// 「何を解く？」のクイック選択(5ボタン)
+function renderQuickSelect() {
+  const el = document.getElementById('quick-select-area');
+  if (!el) return;
+
+  const predictedQs = ALL_QUESTIONS.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
+  const verifiedCount = predictedQs.filter(q => VERIFIED_QUESTIONS.has(q.problem_id)).length;
+  const studentOnlyCount = predictedQs.filter(q =>
+    !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0
+  ).length;
+  const unverifiedCount = predictedQs.length - verifiedCount - studentOnlyCount;
+  const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
+  const allCount = ALL_QUESTIONS.length;
+
+  const items = [
+    { val: 'すべて', label: '📚 すべて', count: allCount },
+    { val: 'past', label: '📜 過去問', count: pastCount },
+    { val: 'predicted_verified', label: '✓ 予想問題 確認済み', count: verifiedCount },
+    { val: 'predicted_student_only', label: '👥 予想問題 学生「妥当」', count: studentOnlyCount },
+    { val: 'predicted_unverified', label: '🤝 予想問題 検証募集中', count: unverifiedCount },
+  ];
+
+  el.innerHTML = items.map(item =>
+    `<button class="quick-select-btn ${item.val===selectedYear?'active':''}" onclick="selectYear('${item.val}')">
+      <span class="qs-label">${item.label}</span>
+      <span class="qs-count">${item.count}問</span>
+    </button>`
+  ).join('');
 }
 
 // 苦手のみフラグ取得（チェックボックス状態）
@@ -1326,36 +1393,16 @@ function selectSec(s) { selectedSec = s; renderHome(); }
 function selectSub(s) { selectedSub = s; renderHome(); }
 function selectYear(y) { selectedYear = y; renderHome(); }
 
-function renderYearFilters() {
+// 個別の回(第N回)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
+function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
-  const el = document.getElementById('year-filters');
+  const el = document.getElementById('year-filters-detail');
   if (!el) return;
 
-  // 予想問題の集計（3状態に分割: 公式検証/学生「妥当」あり/検証募集中）
-  const predictedQs = ALL_QUESTIONS.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
-  const verifiedCount = predictedQs.filter(q => VERIFIED_QUESTIONS.has(q.problem_id)).length;
-  const studentOnlyCount = predictedQs.filter(q =>
-    !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0
-  ).length;
-  const unverifiedCount = predictedQs.length - verifiedCount - studentOnlyCount;
   const pastYears = years.filter(y => y > 0);
-  const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
-
-  const buttons = [
-    `<button class="filter-btn ${'すべて'===selectedYear?'active':''}" onclick="selectYear('すべて')">すべて</button>`,
-    `<button class="filter-btn ${'past'===selectedYear?'active':''}" onclick="selectYear('past')">過去問 (${pastCount}問)</button>`,
-  ];
-  // 各回ボタン
-  for (const y of pastYears) {
-    buttons.push(`<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`);
-  }
-  // 予想問題ボタン（3状態に分割）
-  if (years.includes(0)) {
-    buttons.push(`<button class="filter-btn ${'predicted_verified'===selectedYear?'active':''}" onclick="selectYear('predicted_verified')">予想問題 ✓確認済み (${verifiedCount}問)</button>`);
-    buttons.push(`<button class="filter-btn ${'predicted_student_only'===selectedYear?'active':''}" onclick="selectYear('predicted_student_only')">予想問題 👥学生「妥当」あり (${studentOnlyCount}問)</button>`);
-    buttons.push(`<button class="filter-btn ${'predicted_unverified'===selectedYear?'active':''}" onclick="selectYear('predicted_unverified')">予想問題 🤝検証募集中 (${unverifiedCount}問)</button>`);
-  }
-  el.innerHTML = buttons.join('');
+  el.innerHTML = pastYears.map(y =>
+    `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回</button>`
+  ).join('');
 }
 
 // ── QUIZ ──
@@ -2013,9 +2060,8 @@ async function loadVerifiedQuestions() {
     const data = await res.json();
     VERIFIED_QUESTIONS = new Set((data || []).map(v => v.question_id));
     console.log('[verifications] loaded', VERIFIED_QUESTIONS.size, '件:', [...VERIFIED_QUESTIONS]);
-    // フィルタ件数を即時反映（要素が無ければ何もしない）
-    renderYearFilters();
-    // ホーム画面の他のUI（カテゴリ等）も更新
+    // クイック選択件数を即時反映
+    if (typeof renderQuickSelect === 'function') renderQuickSelect();
     if (document.getElementById('screen-home')?.classList.contains('active')) {
       renderHome();
     }
@@ -2039,8 +2085,8 @@ async function loadCorrectCounts() {
     const data = await res.json();
     CORRECT_COUNTS = {};
     (data || []).forEach(r => { CORRECT_COUNTS[r.question_id] = r.correct_count; });
-    // フィルタ件数を即時反映
-    renderYearFilters();
+    // クイック選択件数を即時反映
+    if (typeof renderQuickSelect === 'function') renderQuickSelect();
     if (document.getElementById('screen-home')?.classList.contains('active')) {
       renderHome();
     }
