@@ -557,7 +557,7 @@ function renderVerifications() {
   }
 
   document.getElementById('filter-summary').textContent =
-    `📋 計 ${combined.length}問（公式検証 ${officialItems.length}件 + 学生「妥当」のみ ${studentOnlyItems.length}件）`;
+    `📋 計 ${combined.length}問（教員確認済み ${officialItems.length}件 + 学生が「妥当」と評価のみ ${studentOnlyItems.length}件）`;
 
   listEl.innerHTML = combined.map(v => {
     const q = questionMap[v.question_id];
@@ -576,7 +576,7 @@ function renderVerifications() {
       actionBtn = `<button class="verify-toggle verified" onclick="toggleVerification('${escapeHtml(v.question_id)}')">✗ 検証解除</button>`;
       dateLabel = '検証日時';
     } else {
-      badgeHtml = '<span class="badge badge-student-verified">👥 学生「妥当」のみ</span>';
+      badgeHtml = '<span class="badge badge-student-verified">👥 学生が「妥当」と評価のみ</span>';
       sourceLabel = `👍 学生から「妥当」評価 ${v.correct_count}件 (公式検証は未実施)`;
       actionBtn = `<button class="verify-toggle" onclick="toggleVerification('${escapeHtml(v.question_id)}')">☑ 公式検証に格上げ</button>`;
       dateLabel = '最新の妥当票';
