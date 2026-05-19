@@ -1,0 +1,29 @@
+name: Supabase Keep Alive
+
+# Supabase 無料プランは7日間アクセスがないとプロジェクトが自動停止される。
+# このワークフローが毎日1回 REST API に軽いクエリを送り「活動中」を維持する。
+
+on:
+  schedule:
+    # 毎日 UTC 0:00（日本時間 9:00）に実行
+    - cron: '0 0 * * *'
+  # Actions タブから手動実行も可能
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          echo "Supabase プロジェクトを keep-alive..."
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://gmkrsgqgndlrabiicvkh.supabase.co/rest/v1/question_verifications?select=question_id&limit=1" \
+            -H "apikey: sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05" \
+            -H "Authorization: Bearer sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05")
+          echo "HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "::warning::想定外のステータスコード ($HTTP_CODE)。Supabase が停止中の可能性があります。"
+            exit 1
+          fi
+          echo "Supabase ping 成功。プロジェクトは活動中です。"
