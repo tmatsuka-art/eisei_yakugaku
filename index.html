@@ -1317,18 +1317,18 @@ function getPool(weakOnly) {
   } else if (selectedYear === 'predicted_all') {
     pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
   } else if (selectedYear === 'predicted_verified') {
-    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id));
+    pool = pool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0 && isQuestionVerified(q));
   } else if (selectedYear === 'predicted_student_only') {
     pool = pool.filter(q =>
       (q.problem_id || '').startsWith('F') && q.year === 0 &&
-      !VERIFIED_QUESTIONS.has(q.problem_id) &&
+      !isQuestionVerified(q) &&
       (CORRECT_COUNTS[q.problem_id] || 0) > 0
     );
   } else if (selectedYear === 'predicted_unverified') {
     // 検証募集中 = 公式検証もなく、学生「妥当」票もない問題
     pool = pool.filter(q =>
       (q.problem_id || '').startsWith('F') && q.year === 0 &&
-      !VERIFIED_QUESTIONS.has(q.problem_id) &&
+      !isQuestionVerified(q) &&
       !((CORRECT_COUNTS[q.problem_id] || 0) > 0)
     );
   } else if (selectedYear !== 'すべて') {
@@ -1369,9 +1369,9 @@ function renderQuickSelect() {
   if (!el) return;
 
   const predictedQs = ALL_QUESTIONS.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0);
-  const verifiedCount = predictedQs.filter(q => VERIFIED_QUESTIONS.has(q.problem_id)).length;
+  const verifiedCount = predictedQs.filter(q => isQuestionVerified(q)).length;
   const studentOnlyCount = predictedQs.filter(q =>
-    !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0
+    !isQuestionVerified(q) && (CORRECT_COUNTS[q.problem_id] || 0) > 0
   ).length;
   const unverifiedCount = predictedQs.length - verifiedCount - studentOnlyCount;
   const pastCount = ALL_QUESTIONS.filter(q => q.year > 0).length;
@@ -1551,9 +1551,9 @@ function renderCatCards() {
   function matchesYearFilter(q) {
     if (selectedYear === 'past') return q.year > 0;
     if (selectedYear === 'predicted_all') return (q.problem_id || '').startsWith('F') && q.year === 0;
-    if (selectedYear === 'predicted_verified') return (q.problem_id || '').startsWith('F') && q.year === 0 && VERIFIED_QUESTIONS.has(q.problem_id);
-    if (selectedYear === 'predicted_student_only') return (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id) && (CORRECT_COUNTS[q.problem_id] || 0) > 0;
-    if (selectedYear === 'predicted_unverified') return (q.problem_id || '').startsWith('F') && q.year === 0 && !VERIFIED_QUESTIONS.has(q.problem_id) && !((CORRECT_COUNTS[q.problem_id] || 0) > 0);
+    if (selectedYear === 'predicted_verified') return (q.problem_id || '').startsWith('F') && q.year === 0 && isQuestionVerified(q);
+    if (selectedYear === 'predicted_student_only') return (q.problem_id || '').startsWith('F') && q.year === 0 && !isQuestionVerified(q) && (CORRECT_COUNTS[q.problem_id] || 0) > 0;
+    if (selectedYear === 'predicted_unverified') return (q.problem_id || '').startsWith('F') && q.year === 0 && !isQuestionVerified(q) && !((CORRECT_COUNTS[q.problem_id] || 0) > 0);
     if (selectedYear !== 'すべて') return q.year === selectedYear;
     return true;
   }
@@ -1745,7 +1745,7 @@ function renderQuestion() {
   const verifArea = document.getElementById('q-verif-area');
   if (verifArea) {
     if (isPredictedQ(q)) {
-      const isVerified = VERIFIED_QUESTIONS.has(q.problem_id);
+      const isVerified = isQuestionVerified(q);
       const studentConfirmed = !isVerified && (CORRECT_COUNTS[q.problem_id] || 0) > 0;
       if (isVerified) {
         verifArea.innerHTML = '<span class="verif-badge-big verified">✓ ヒトの目で確認済み</span>';
@@ -2391,11 +2391,26 @@ function formatText(txt) {
 const SUPABASE_URL = 'https://gmkrsgqgndlrabiicvkh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_0ZCMmC57gwzd7M3G0ggIOw_AK6sse05';
 
-let VERIFIED_QUESTIONS = new Set(); // ヒトの目で確認済み問題IDのセット
+let VERIFIED_QUESTIONS = new Set(); // ヒトの目で確認済み問題IDのセット（admin.html経由）
 let CORRECT_COUNTS = {}; // 問題ID -> 「妥当」票数
 
 function isPredictedQ(q) {
   return q && (q.problem_id || '').startsWith('F') && q.year === 0;
+}
+
+// AI＋先生承認済み（ai_review.status が approved 系）の判定
+// AIエージェントが提案 → 先生（あなた）が承認した問題に付くフィールド
+function isAiApproved(q) {
+  if (!q || !q.ai_review) return false;
+  const status = q.ai_review.status;
+  return status === 'approved_modify' || status === 'approved_rewrite';
+}
+
+// ヒトの目で確認済み判定（admin.html経由 OR AIレビュー経由の合算）
+// どちらのルートで承認されても、学生さんから見れば「確認済み」扱い
+function isQuestionVerified(q) {
+  if (!q) return false;
+  return VERIFIED_QUESTIONS.has(q.problem_id) || isAiApproved(q);
 }
 
 async function loadVerifiedQuestions() {
@@ -2495,7 +2510,7 @@ function renderFeedbackArea(q) {
   if (!isPredictedQ(q)) { area.innerHTML = ''; return; }
 
   const pid = q.problem_id;
-  const isVerified = VERIFIED_QUESTIONS.has(pid);
+  const isVerified = isQuestionVerified(q);
   const correctCount = CORRECT_COUNTS[pid] || 0;
   const vote = (function(){ try { return localStorage.getItem('eisei_fb_' + pid); } catch(e) { return null; } })();
 
