@@ -1,0 +1,121 @@
+{
+  "F210": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "comment_append": "\n\n【最新動向】環境関連法は近年改正が続く。地球温暖化対策推進法は2021年改正で2050年カーボンニュートラルを法定化、2022年GX推進法が成立。フロン排出抑制法はキガリ改正（HFC段階削減）への対応が進行中。化学物質管理は2023年GFC（Global Framework on Chemicals）採択でSAICM後継枠組みへ移行。"
+    }
+  },
+  "F038": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(4)",
+      "choice_4": "サリドマイド事件やスモン事件を教訓に、医薬品の安全性評価制度が強化された"
+    }
+  },
+  "F151": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2+tier3",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(8)",
+      "choice_4": "リスク認知は科学的なリスク評価の結果と多くの場面で重なる傾向にある。"
+    }
+  },
+  "F219": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(7)",
+      "choice_2": "「目標値を超過しても短期的な健康被害は想定されないこと」を説明し、行政の対応状況の確認を案内する",
+      "comment_replace": "1：誤。PFASの健康影響については研究が進展しており、IARCは2023年12月にPFOAをGroup 1（ヒトに対して発がん性がある）に再分類した（同時にPFOSはGroup 2Bに新規分類）。発がん性が指摘される物質ではあるが、暫定目標値超過は短期的な健康被害が生じる濃度ではなく、転居を勧めるほどの急性リスクではない。過度な不安を煽る対応は不適切である。\n2：正。暫定目標値はリスク管理の指標であり、超過しても短期的な健康被害が生じるとは限らない。科学的根拠に基づいた正確な情報提供を行い、行政（水道事業者、保健所等）の対応状況や代替水源の利用について案内することが適切である。\n3：誤。暫定目標値を超えている以上、「安全性が保証されている」と断言することは不正確であり、信頼を損なう。\n4：誤。薬剤師は化学物質や健康影響に関する知識を有する専門職であり、住民の健康相談に対応する役割がある。「専門外」として回答を避けることは不適切である。\n5：誤。長期的な対策としてボトルウォーターの利用は一つの選択肢であるが、「生涯飲み続けるしかない」は過度な表現であり、行政による水源対策等の展望も含めた説明が必要である。"
+    }
+  },
+  "F220": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(4)",
+      "choice_3": "生態系サービスの経済的価値評価は研究段階にあり、政策決定に用いられる例は限定的とされている",
+      "choice_4": "生物多様性の喪失は生態系サービスへの影響が限定的とする見方が国際的に支配的である",
+      "choice_5": "生態系リスク評価とヒト健康リスク評価は、PEC/PNEC比などの手法を共有しつつ運用される"
+    }
+  },
+  "F1011": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2+tier3",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(4)",
+      "choice_4": "規制対象物質は採択時の6物質に固定されている"
+    }
+  },
+  "F1018": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "SDGsは先進国の関与を求めず、開発途上国を中心に推進されている枠組みである",
+      "choice_3": "SDGsは健康と社会経済を中心とし、環境分野は別途のフレームワークで扱われる",
+      "choice_4": "SDGsの目標達成期限は採択から30年後とされ、当面の到達目標は中期的に設定されている",
+      "choice_5": "SDGsはOECD加盟国の合意により採択された開発援助の枠組みである"
+    }
+  },
+  "F1045": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)",
+      "choice_4": "マイクロプラスチックは海水中の微生物分解により段階的に縮小し、長期残留性は限定的とされる。",
+      "choice_5": "洗顔料等に含まれるマイクロビーズの製造・販売は、日本では化審法の特定化学物質指定により禁止されている。"
+    }
+  },
+  "F037": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F194": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F195": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F198": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F214": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F872": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  },
+  "F1194": {
+    "status": "skipped",
+    "decision_at": "2026-05-27",
+    "tier": "tier3",
+    "changes": {}
+  }
+}
