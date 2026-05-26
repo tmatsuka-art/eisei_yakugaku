@@ -89,6 +89,7 @@ def main():
     skipped = []
     not_found = set(decisions.keys())
 
+    deleted = []
     for line in lines:
         q = json.loads(line)
         pid = q.get("problem_id")
@@ -96,6 +97,11 @@ def main():
         if pid in decisions:
             not_found.discard(pid)
             decision = decisions[pid]
+
+            if decision["status"] == "deleted":
+                # 削除：このレコードは出力に含めない
+                deleted.append((pid, decision.get("changes", {}).get("delete_reason", "duplicate")))
+                continue  # skip writing this line
 
             if decision["status"] == "skipped":
                 # 変更せず ai_review だけ付ける
@@ -130,6 +136,10 @@ def main():
         print(f"\nSkipped (recorded as checked): {len(skipped)} problems")
         for pid in skipped:
             print(f"  {pid}")
+    if deleted:
+        print(f"\nDeleted: {len(deleted)} problems (removed from jsonl)")
+        for pid, reason in deleted:
+            print(f"  {pid}: {reason}")
 
     if args.dry_run:
         print("\n[DRY RUN] no file written")
