@@ -1,0 +1,34 @@
+{
+  "F101": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier3",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(1)"
+    }
+  },
+  "F143": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier3",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F145": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier3",
+    "changes": {
+      "choice_5": "労働基準法の時間外労働の上限規制では、臨時的な特別の事情がある場合でも月100時間未満が上限とされている。"
+    }
+  },
+  "F150": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier3",
+    "changes": {
+      "choice_1": "厚労省指針が示すメンタルヘルス対策の4つのケアとは、セルフケア、ラインによるケア、事業場内産業保健スタッフ等によるケア、事業場外資源によるケアである。"
+    }
+  }
+}

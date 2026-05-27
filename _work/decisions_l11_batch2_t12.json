@@ -1,0 +1,173 @@
+{
+  "F016": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_2": "建築基準法では、VOCの室内濃度基準は20物質以上が体系的に規定されている",
+      "choice_4": "シックハウス症候群の症状は主に呼吸器症状として現れる",
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F018": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_4": "クリソタイル（白石綿）は他の石綿より毒性が低いため、現在も使用が認められている",
+      "choice_5": "石綿による肺がんの発生において喫煙の寄与は限定的とされる"
+    }
+  },
+  "F065": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_4": "生物学的半減期が非常に短い物質では、採尿のタイミングが測定値に与える影響は無視できる程度である",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F067": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "一酸化炭素はヘモグロビンとの親和性が酸素の約200倍と高く、酸素運搬能を低下させる",
+      "choice_5": "一酸化炭素中毒では、急性期を脱した後の神経系の後遺症が出現することはまれである"
+    }
+  },
+  "F117": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_2": "一過性聴力閾値変動（TTS）は、騒音曝露後に安静にしても長期間にわたり聴力が回復しにくい。",
+      "choice_5": "永久性聴力閾値変動（PTS）は、4,000 Hz付近よりも低周波領域での聴力低下を主徴とする。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F141": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F142": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F144": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_4": "高ストレス者と判定された労働者については、医師による面接指導の実施は事業者の判断で進められる。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F145": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F146": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F147": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_3": "産業医は、衛生管理者を兼任することが原則とされている。",
+      "choice_4": "衛生管理者は、労働者の健康診断や指導等の医学的判断を主たる業務とする。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F149": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_2": "VDT作業による眼精疲労は、画面輝度の調整によって解消する範囲のものとされる。",
+      "choice_3": "高気圧障害（潜函病）が発生した場合は、まず再加圧治療を実施する。",
+      "choice_4": "局所振動障害（白ろう病）は、振動工具使用後の症状であり職業病として扱われる。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F150": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F183": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F186": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_1": "石綿曝露の健康影響を疫学的に評価する際、喫煙との交互作用は副次的要因として扱われる。",
+      "choice_2": "中皮腫は石綿曝露以外の原因では発症しにくいとされ、特異性の高い疾患である。",
+      "choice_5": "石綿曝露の健康影響評価には、症例対照研究よりもコホート研究が用いられないことが多い。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F190": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_5": "建築基準法に基づくシックハウス対策では、換気回数とは別の基準で気密性が規定されている。",
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F203": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_3": "公害健康被害補償法では、汚染原因者特定が困難な場合の補償は限定的とされている。"
+    }
+  },
+  "F558": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F101": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier3_pending",
+    "changes": {}
+  },
+  "F143": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier3_pending",
+    "changes": {}
+  }
+}
