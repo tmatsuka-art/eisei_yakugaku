@@ -1,0 +1,174 @@
+{
+  "F137": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_1": "学校薬剤師は、学校種を問わず必ず置かなければならないとされている",
+      "new_corecurri_code": "E-1-1-(6)"
+    }
+  },
+  "F139": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(6)"
+    }
+  },
+  "F560": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_3": "SDSの提供は事業者の自主的判断に委ねられている",
+      "choice_4": "SDSには、GHSに基づく分類はSDSとは別の制度で扱われる",
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F585": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_5": "学校薬剤師の設置は学校長の判断に委ねられている"
+    }
+  },
+  "F586": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F851": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F852": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_2": "照度は日常点検項目に限定され定期検査からは除外されている",
+      "choice_4": "照度の基準値は教室種別ごとに学校が独自に定めることとされている",
+      "choice_5": "照度が高いほど学習効率上望ましいとされている"
+    }
+  },
+  "F853": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "飲料水検査は学校環境衛生基準の対象とはされていない",
+      "choice_2": "残留塩素濃度の検査は水道水を使用する場合には省略できる",
+      "choice_5": "水質基準値を超えた場合の対応については基準上の規定がない"
+    }
+  },
+  "F854": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_3": "教室の温度基準は冷暖房設備の有無により異なる別途の規定がある",
+      "choice_4": "教室温度は学校環境衛生基準の検査項目から除外されている",
+      "choice_5": "温度の検査は年1回の頻度で実施されることとされている"
+    }
+  },
+  "F855": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_2": "薬物乱用防止教育は中学校段階で集中的に行うことが推奨されている",
+      "choice_3": "薬物乱用防止教育は学校薬剤師の業務範囲から外れる位置づけにある",
+      "choice_4": "薬物乱用防止教育の教材は学校が独自に作成することが基本とされる",
+      "choice_5": "薬物乱用防止教育には保護者の関与が限定的とされる"
+    }
+  },
+  "F856": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F858": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F859": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F691": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_2": "環境基本法は大気汚染防止のみを目的とする法律として位置づけられている",
+      "choice_4": "環境基本法は2010年に初めて制定された比較的新しい法律である",
+      "choice_5": "環境基本法と公害対策基本法は現在も並立する別個の法律である"
+    }
+  },
+  "F701": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier3_pending",
+    "changes": {}
+  },
+  "F705": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "土壌汚染は地下水汚染と切り離して評価される独立の現象である",
+      "choice_2": "土壌中の重金属の蓄積は地下水への移行とは異なる経路の問題である",
+      "choice_4": "土壌汚染対策法の対象は揮発性有機化合物を中心に規定されている",
+      "choice_5": "汚染土壌からの暴露経路として地下水経由は副次的に扱われる"
+    }
+  },
+  "F875": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "環境影響評価法は2010年に廃止された旧制度である",
+      "choice_3": "環境影響評価の対象事業は道路建設に限定されている",
+      "choice_4": "環境影響評価における住民意見聴取の手続きは制度上設けられていない"
+    }
+  },
+  "F889": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F979": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_1": "化学物質の管理状況の公開を制限することができる",
+      "choice_3": "化学物質のリスクコミュニケーションは事業者の責務とは別途の協力事項とされる",
+      "choice_4": "化学物質の排出量の報告は事業者の自主判断に委ねられている",
+      "choice_5": "国民への情報提供は主として行政機関が担うものとされる",
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F1029": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_1": "学校薬剤師は、学校種を問わずすべての教育機関に配置されている",
+      "choice_4": "学校薬剤師の業務は学校環境衛生に係る助言・指導の範囲に位置づけられている"
+    }
+  }
+}
