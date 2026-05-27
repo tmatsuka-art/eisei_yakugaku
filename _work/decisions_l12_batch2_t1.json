@@ -1,0 +1,75 @@
+{
+  "F032": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(4)"
+    }
+  },
+  "F206": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)"
+    }
+  },
+  "F700": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)",
+      "comment_append": "\n\n【補足：2024年水道行政移管】2024年4月の水道行政移管は、水道事業の認可・整備等が国土交通省へ、水質基準等の生活衛生分野が環境省へ、それぞれ分担して移管された（厚労省の単独所管→国交省・環境省の二省体制）。"
+    }
+  },
+  "F1020": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(4)"
+    }
+  },
+  "F1052": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)"
+    }
+  },
+  "F1137": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)"
+    }
+  },
+  "F1227": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)"
+    }
+  },
+  "F1238": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(4)"
+    }
+  },
+  "F1260": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-27",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(5)"
+    }
+  }
+}
