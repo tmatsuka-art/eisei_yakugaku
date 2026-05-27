@@ -1,0 +1,142 @@
+{
+  "F111": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(2)"
+    }
+  },
+  "F112": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_2": "UV-Bは皮膚でのビタミンD産生に関与するが、DNA損傷を引き起こす作用は副次的とされる。",
+      "new_corecurri_code": "E-3-2-(2)"
+    }
+  },
+  "F113": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_4": "不感蒸泄は温熱環境にかかわらず一定量で推移する。",
+      "choice_5": "高温環境下での作業では、相対湿度の熱中症リスクへの寄与は乾球温度に比べて副次的とされる。",
+      "new_corecurri_code": "E-1-1-(2)"
+    }
+  },
+  "F148": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_1": "鉛取扱い労働者では、血中鉛濃度および尿中δ-アミノレブリン酸が検査項目となる。",
+      "choice_4": "特殊健康診断は雇入れ時に実施されるのが原則で、その後の定期実施は事業者の判断による。",
+      "new_corecurri_code": "E-1-1-(7)"
+    }
+  },
+  "F171": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(2)"
+    }
+  },
+  "F174": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_2": "ラドン（²²²Rn）は自然放射線による内部被ばくの主要原因である"
+    }
+  },
+  "F178": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(2)"
+    }
+  },
+  "F180": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(1)"
+    }
+  },
+  "F215": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_4": "多くのリスク要因について、専門家と一般市民の評価は概ね一致している",
+      "new_corecurri_code": "E-3-2-(7)"
+    }
+  },
+  "F1042": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier2",
+    "changes": {
+      "choice_3": "自然放射線による年間被ばく線量は、日本の平均で約0.5 mSvであり、医療被ばくに比べて小さい。",
+      "choice_4": "放射線のリスクコミュニケーションでは、100 mSv以下の低線量被ばくのリスクは科学的に検出限界以下とされ、リスクなしと説明される。"
+    }
+  },
+  "F1114": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1+tier2",
+    "changes": {
+      "choice_4": "紫外線による皮膚がんの主要メカニズムは、グアニンの酸化（8-OHdG形成）が主体のDNA損傷である。",
+      "new_corecurri_code": "E-3-2-(2)"
+    }
+  },
+  "F1155": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(2)"
+    }
+  },
+  "F172": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F173": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F175": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F176": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F177": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  },
+  "F179": {
+    "status": "skipped",
+    "decision_at": "2026-05-28",
+    "tier": "tier1",
+    "changes": {}
+  }
+}
