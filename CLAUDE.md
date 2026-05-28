@@ -204,7 +204,8 @@
 
 - `git status` でローカル変更の有無
 - `git pull` の必要性（他マシンで進めた可能性）
-- `ai_review_log_第*.md` で進捗状況を把握
+- **`HANDOFF_YYYY-MM-DD.md` ファイルがあれば最新のものを読む**（前セッションの引き継ぎメモ。日付が新しいものを優先）
+- `ai_review_log_第*.md` または `ai_review_log_横断_*.md` で進捗状況を把握
 - 未コミットの decisions JSON があれば適用済みかチェック
 
 ## 注意
