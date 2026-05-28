@@ -1,0 +1,162 @@
+{
+  "F047": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_2": "指定薬物の所持・使用は2007年の薬事法改正時から禁止対象であり、製造・販売の規制と同時に成立した"
+    }
+  },
+  "F054": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "モルヒネの鎮痛作用にはピペリジン環N-メチル基がオピオイド受容体結合の決定基として機能する"
+    }
+  },
+  "F055": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "シンナーの吸入は数時間の酩酊感をもたらすが、覚醒後は中枢神経機能が完全に回復する一過性中毒である"
+    }
+  },
+  "F072": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "わが国の法医解剖は司法解剖と行政解剖の2種類で構成され、承諾解剖や調査法解剖は法医解剖には含まれない"
+    }
+  },
+  "F073": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_1": "薬毒物分析の標準検体は血液と尿の2種類であり、臓器組織や毛髪は法令上の検体には認められていない"
+    }
+  },
+  "F078": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_1": "毛髪からの薬物検出は服用後24時間以内の血中ピーク濃度を反映するため、慢性使用歴の評価には不向きである"
+    }
+  },
+  "F079": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_3": "死後再分布は死後72時間を経過すると始まる現象であり、それ以前の血中濃度は生前値を維持する"
+    }
+  },
+  "F080": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_3": "死後のエタノール新生の評価は血中エタノール濃度の測定で完結し、硝子体液との比較や微生物代謝産物の検出は不要である"
+    }
+  },
+  "F094": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_4": "食品安全基本法ではリスクコミュニケーションを食品安全委員会の内部規程に委ね、法律本文には条文がない"
+    }
+  },
+  "F095": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_1": "予防原則は、科学的にリスクが確実に立証された場合に厳格な規制根拠として適用される"
+    }
+  },
+  "F096": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_2": "健康被害が発生した場合、原因究明と被害規模の確定を待ってから情報を一括公表する方針が国際的に採用されている"
+    }
+  },
+  "F098": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_1": "リスクの大きさは確率値（10⁻⁶等）で正確に示せば誤解を生まないため、図表による補足説明はかえって理解を阻害する"
+    }
+  },
+  "F103": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "Hillの基準は9項目で構成され、このうち6項目以上を満たすことが因果認定の必要条件とされる。"
+    }
+  },
+  "F109": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_2": "システマティックレビューでは、査読付き英語論文を対象とし、和文論文や学会抄録は別系統のレビューで扱われる。"
+    }
+  },
+  "F121": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_4": "生活習慣病の発症予防を最優先目標とし、重症化予防は次期計画（第四次）への持ち越し課題となっている。"
+    }
+  },
+  "F123": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_3": "UHCとは、すべての人が国家保険制度に強制加入し、定額負担で標準医療を受ける仕組みを意味する。"
+    }
+  },
+  "F125": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "ヘルスプロモーションは医療専門職と行政担当者の連携で推進する活動であり、住民は受益者の立場で関与する。"
+    }
+  },
+  "F127": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_5": "新興感染症の出現は、抗菌薬の世界的普及と冷暖房設備の整備により1990年代以降は減少傾向にある。"
+    }
+  },
+  "F128": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_2": "DALYは早期死亡による損失年数（YLL）を算出する指標であり、障害による生活の質の低下はQALYで別途評価される。"
+    }
+  },
+  "F129": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-28",
+    "tier": "batch14-abs",
+    "changes": {
+      "choice_2": "加熱式たばこは紙巻きたばこより有害物質が90%以上低減されており、健康影響の差は統計的に検出できない水準である。"
+    }
+  }
+}
