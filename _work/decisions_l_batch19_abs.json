@@ -1,0 +1,162 @@
+{
+  "F546": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "危険ドラッグは、麻薬及び向精神薬取締法によって包括的に規制される"
+    }
+  },
+  "F551": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_1": "アスベストの発がん性は、IARCでヒトに対する発がん性の疑い（グループ2B）とされている"
+    }
+  },
+  "F556": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_5": "塩化ビニルモノマーの主な毒性は、腎毒性である"
+    }
+  },
+  "F559": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "エコチル調査は、欧米の数か国が共同で実施する国際調査である"
+    }
+  },
+  "F563": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_5": "相対危険度は、−1から+1の範囲の値をとる"
+    }
+  },
+  "F564": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_1": "交絡因子は研究の解析段階の多変量解析で調整するものであり、設計段階での制御にはなじまない。"
+    }
+  },
+  "F567": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_1": "メタアナリシスは、1つの大規模研究の結果を再解析する手法である"
+    }
+  },
+  "F577": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_5": "がんの発生は遺伝要因が中心で、環境要因の寄与は小さい"
+    }
+  },
+  "F578": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "受動喫煙対策は、健康増進法ではなく大気汚染防止法に規定されている"
+    }
+  },
+  "F582": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "フェニルケトン尿症は、思春期以降に発症する後天性の代謝疾患である"
+    }
+  },
+  "F583": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_1": "TORCH症候群は、学童期の小児に好発する感染症群である"
+    }
+  },
+  "F587": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "作業環境測定では、第3管理区分が管理濃度以下の良好な状態を示し、第1管理区分が改善を要する。"
+    }
+  },
+  "F591": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_5": "慢性疾患では、有病率は罹患率より低くなる"
+    }
+  },
+  "F602": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_3": "感度を上げると、特異度も同じ割合で上昇する"
+    }
+  },
+  "F606": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "COPDは、20歳代の若年層に好発する疾患である"
+    }
+  },
+  "F607": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_5": "記述疫学は、人を対象とせず動物実験を中心とする手法である"
+    }
+  },
+  "F612": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_3": "アミロペクチンは、分岐をもたない直鎖構造である"
+    }
+  },
+  "F613": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "グリコーゲンは、β-1,4結合とβ-1,6結合で構成される"
+    }
+  },
+  "F617": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_4": "ペントースリン酸経路は、骨格筋で最も活性が高い"
+    }
+  },
+  "F622": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch19-abs",
+    "changes": {
+      "choice_3": "コレステロールは、代謝されずに尿中へ排泄される"
+    }
+  }
+}
