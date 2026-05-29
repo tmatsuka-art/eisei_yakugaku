@@ -1,0 +1,162 @@
+{
+  "F623": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "エイコサノイドの合成は、ミトコンドリアの電子伝達系を介して進行する"
+    }
+  },
+  "F631": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "マグネシウムは、その大部分が血漿中に遊離した状態で存在する"
+    }
+  },
+  "F632": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_2": "腎臓は、二酸化炭素の排出を介して血液のpHを調節する"
+    }
+  },
+  "F634": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "目標量は、13種のビタミンに対して設定される指標である"
+    }
+  },
+  "F635": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_4": "NPC/N比は、静脈栄養に固有の指標であり、経腸栄養では考慮しない"
+    }
+  },
+  "F636": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "Harris-Benedictの式は、身長と体重の2変数から基礎代謝量を求める"
+    }
+  },
+  "F637": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "栄養機能食品は、事業者が選んだ任意の成分について機能を表示できる"
+    }
+  },
+  "F646": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "経口補水液は、医療機関での点滴用製剤として用いられる"
+    }
+  },
+  "F652": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "リンは、体内に微量しか存在しない微量ミネラルである"
+    }
+  },
+  "F653": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "摂食調節の中枢は延髄にあり、視床下部は関与が乏しい"
+    }
+  },
+  "F656": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "褥瘡の発生に栄養状態は関与せず、予防は体位変換と除圧によって行う"
+    }
+  },
+  "F685": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_4": "有効半減期は、物理学的半減期と生物学的半減期の和に等しい"
+    }
+  },
+  "F687": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "ヨウ素剤は、セシウムやストロンチウムの体内取り込みも併せて防ぐ"
+    }
+  },
+  "F704": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_4": "分子量が小さいほど生物濃縮されやすい"
+    }
+  },
+  "F710": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "SSは, 有機物のうちBOD値が高い成分を選択的に反映する指標である"
+    }
+  },
+  "F734": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_4": "タバコの主流煙より副流煙のほうがホルムアルデヒド濃度は低い"
+    }
+  },
+  "F737": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_4": "薬物の尿中排泄速度は、尿pHによらず一定に保たれる"
+    }
+  },
+  "F739": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_2": "P-gpは、小腸の刷子縁膜に特異的に発現するトランスポーターである"
+    }
+  },
+  "F742": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_3": "大豆イソフラボンは、骨吸収を促進して骨密度を低下させる"
+    }
+  },
+  "F746": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch20-abs",
+    "changes": {
+      "choice_5": "コエンザイムQ10は、加齢とともに体内で新たに増加する物質である"
+    }
+  }
+}
