@@ -1,0 +1,162 @@
+{
+  "F331": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_1": "遺伝子組換え技術では、同種の生物由来の遺伝子を組み込んで新たな形質を付与する。"
+    }
+  },
+  "F336": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_3": "カルタヘナ法の規制対象は遺伝子組換え植物と動物であり、微生物は対象外である。"
+    }
+  },
+  "F342": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_5": "リスクコミュニケーションは、リスク管理の決定が下された後に開始される。"
+    }
+  },
+  "F343": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_1": "ポジティブリスト制度は、食品中の残留ではなく農薬の使用方法を規制する制度である。"
+    }
+  },
+  "F344": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "食品中の鉛は、メイラード反応により加熱時に生成する汚染物質である。"
+    }
+  },
+  "F352": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_1": "不顕性感染では、感染後すみやかに病原体が体外へ排除される"
+    }
+  },
+  "F359": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_3": "MRSAは毒性が強く、健常人に重篤な感染症を起こす菌である。"
+    }
+  },
+  "F365": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_1": "煮沸消毒（100℃、30分）は芽胞にも有効である"
+    }
+  },
+  "F379": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "致死率は1%未満にとどまる"
+    }
+  },
+  "F380": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_5": "HIV感染症の標準治療は、抗HIV薬1剤による単剤療法である"
+    }
+  },
+  "F381": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "B型肝炎ワクチンは、希望者が受ける任意接種に位置づけられている"
+    }
+  },
+  "F386": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_5": "百日咳は接触感染を主な経路として伝播する"
+    }
+  },
+  "F400": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_2": "健常者の腸管内では検出されず、入院後に外部から獲得される"
+    }
+  },
+  "F404": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "任意接種による健康被害は、予防接種法に基づき市町村が救済する"
+    }
+  },
+  "F408": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_3": "DNAワクチンは液性免疫を活性化するが、細胞性免疫は誘導しない"
+    }
+  },
+  "F412": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_3": "メイラード反応は、冷蔵温度域で最も速く進行する"
+    }
+  },
+  "F419": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "潜伏期間は30分〜6時間と短い"
+    }
+  },
+  "F422": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_5": "わが国のボツリヌス食中毒は、缶詰や瓶詰食品を主な原因食品とする"
+    }
+  },
+  "F437": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_2": "わが国のアフラトキシン規制基準は、コーデックスより大幅に緩い10 mg/kgである"
+    }
+  },
+  "F438": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch17-abs",
+    "changes": {
+      "choice_4": "食品中のヒ素は、魚介類では毒性の高い無機ヒ素として存在する"
+    }
+  }
+}
