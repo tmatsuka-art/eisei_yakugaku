@@ -1,0 +1,162 @@
+{
+  "F444": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_4": "ダイオキシン類は急性毒性が強く、微量の摂取でも数日以内に死亡する"
+    }
+  },
+  "F448": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_3": "ADIが設定不要とされた食品添加物は、使用も認められない"
+    }
+  },
+  "F453": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_1": "HACCPは、最終製品の抜き取り検査によって食品の安全性を確保するシステムである"
+    }
+  },
+  "F455": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_3": "食物アレルギーの表示が義務付けられている特定原材料は28品目である"
+    }
+  },
+  "F478": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_5": "ヨウ素を過剰摂取すると、甲状腺機能を高める作用をもつ"
+    }
+  },
+  "F479": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_2": "セレン欠乏症の克山病は、土壌のセレンが豊富な地域で発生する風土病である。"
+    }
+  },
+  "F484": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_5": "リポタンパク質は、アポタンパク質と糖鎖が結合した糖タンパク質である"
+    }
+  },
+  "F494": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_2": "メタボリックシンドロームの診断は、BMIと血圧の2項目で判定する"
+    }
+  },
+  "F497": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_2": "アミノ酸価は、必須アミノ酸の合計含量を基準タンパク質と比較して算出する"
+    }
+  },
+  "F502": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_1": "リフィーディング症候群は、肥満で過栄養の患者に好発する"
+    }
+  },
+  "F506": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_2": "運動療法はLDLコレステロールを直接分解して低下させる"
+    }
+  },
+  "F509": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_5": "新生児は腸内細菌によるビタミンK合成が活発で、欠乏は起こりにくい"
+    }
+  },
+  "F518": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_4": "シアンの解毒には、硫黄供与体としてグルタチオンが用いられる"
+    }
+  },
+  "F519": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_2": "酵素誘導は、脂溶性の化学物質であれば一様に起こる"
+    }
+  },
+  "F527": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_4": "ヒ素の慢性曝露では、発がん性よりも肝硬変が主たる健康影響である"
+    }
+  },
+  "F528": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_3": "クロムの毒性は三価が最も強く、六価は生体に無害である"
+    }
+  },
+  "F532": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_5": "パラコートの経口致死量は高く、安全性の高い除草剤である"
+    }
+  },
+  "F536": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_1": "発がん物質は、体内で代謝活性化を受けて初めてDNAと反応する"
+    }
+  },
+  "F537": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_1": "2-ナフチルアミンは、主に肝がんを引き起こす芳香族アミンである"
+    }
+  },
+  "F545": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch18-abs",
+    "changes": {
+      "choice_4": "モルヒネの主な代謝経路は、CYPによるN-脱メチル化である"
+    }
+  }
+}
