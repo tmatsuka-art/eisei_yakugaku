@@ -1,0 +1,162 @@
+{
+  "F252": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "ビタミンやミネラルを補給する製品は、栄養機能食品ではなく特定保健用食品に分類される"
+    }
+  },
+  "F254": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "栄養機能食品の機能表示には、国が定めた定型文を用いる"
+    }
+  },
+  "F264": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_4": "脂肪乳剤は浸透圧が高いため、末梢静脈から投与すると重度の静脈炎を起こす"
+    }
+  },
+  "F281": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_3": "身体状況調査では血圧は測定するが、血液検査は実施しない。"
+    }
+  },
+  "F283": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_3": "耐容上限量（UL）は、習慣的摂取量がこの値の半分を超えると過剰症状が現れる目安である。"
+    }
+  },
+  "F287": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_2": "栄養素摂取量の日間変動（個人内変動）は、エネルギーより脂溶性ビタミンの方が小さい。"
+    }
+  },
+  "F291": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "腐敗は、食品中の炭水化物が微生物により分解されて有機酸を生じる現象である。"
+    }
+  },
+  "F296": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "HACCPの重要管理点（CCP）は、製造工程全体を一括して1か所に設定する。"
+    }
+  },
+  "F301": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_2": "食中毒の届出義務が生じるのは、患者数が50名以上の大規模事例である。"
+    }
+  },
+  "F305": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_2": "A：殺菌料　B：発色剤　C：合成着色料は使用禁止　D：糖尿病患者は禁忌"
+    }
+  },
+  "F306": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_4": "ADIが設定不要とされた食品添加物は、使用も禁止されている。"
+    }
+  },
+  "F311": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_3": "安息香酸ナトリウムは、食肉製品の保存料として広く使用される。"
+    }
+  },
+  "F312": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "BHA（ブチルヒドロキシアニソール）は、清涼飲料水の酸化防止剤として使用される。"
+    }
+  },
+  "F313": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_2": "日本で使用が認められている食用タール色素は、20品目である。"
+    }
+  },
+  "F316": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "乳化剤であるグリセリン脂肪酸エステルは、HLB値が低いため水に溶けやすい。"
+    }
+  },
+  "F317": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_3": "新たな食品添加物の指定には、急性毒性試験と28日間反復投与毒性試験の2試験で足りる。"
+    }
+  },
+  "F318": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "エタノールは、近年新たに指定添加物として登録された。"
+    }
+  },
+  "F320": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_4": "加工助剤やキャリーオーバーは、原材料名の直後に表示が義務付けられている。"
+    }
+  },
+  "F321": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_3": "肥満細胞から放出されるヒスタミンは、主に遅延型アレルギー反応を起こす。"
+    }
+  },
+  "F330": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-29",
+    "tier": "batch16-abs",
+    "changes": {
+      "choice_5": "食物アレルギーの情報管理と緊急時対応は、担任教諭が一人で担う。"
+    }
+  }
+}
