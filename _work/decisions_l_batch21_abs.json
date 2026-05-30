@@ -1,0 +1,162 @@
+{
+  "F747": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_4": "アントシアニンは、pHによらず一貫して鮮やかな赤色を呈する水溶性色素である"
+    }
+  },
+  "F748": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "クルクミンは、主に動物性食品に含まれる色素である"
+    }
+  },
+  "F750": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_3": "レスベラトロールは、赤身肉やレバー等の動物性食品に多く含まれる成分である"
+    }
+  },
+  "F795": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "疾病の早期治療の徹底"
+    }
+  },
+  "F802": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "低水準消毒薬は、芽胞を含む微生物を死滅させる"
+    }
+  },
+  "F808": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "VREは感染症法上の四類感染症に指定され、診断した医師に当日中の届出義務が課せられる"
+    }
+  },
+  "F810": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_3": "抗菌薬の適正使用推進は、医療機関内の院内感染対策として位置づけられる"
+    }
+  },
+  "F812": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_4": "結核患者には、飛沫予防策を適用する"
+    }
+  },
+  "F816": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "HIVの感染経路は性行為感染が中心で、血液感染はほとんど起こらない"
+    }
+  },
+  "F819": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_3": "結核の治療薬の中心はエタンブトールであり、イソニアジド（INH）は補助的に用いる"
+    }
+  },
+  "F822": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_1": "麻しんは飛沫感染と接触感染によって伝播する"
+    }
+  },
+  "F826": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_5": "天然痘ワクチンは、エムポックスに対する交差防御効果をもたない"
+    }
+  },
+  "F834": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_2": "サーベイランスは、アウトブレイクが発生した後に実施するものである"
+    }
+  },
+  "F836": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_4": "ツベルクリン反応陽性は、現在結核に罹患していることを意味する"
+    }
+  },
+  "F839": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_5": "レジオネラ症は感染症法上の五類感染症であり、定点把握の対象である"
+    }
+  },
+  "F840": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_2": "アナフィラキシーショックには、ステロイドの静注を第一選択として行う"
+    }
+  },
+  "F846": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_2": "百日咳は小児に特有の疾患であり、成人の発症例はまれである"
+    }
+  },
+  "F848": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_5": "過酢酸は、エンベロープを有するウイルスに選択的に有効である"
+    }
+  },
+  "F861": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_2": "事務作業者も含めて対象となる"
+    }
+  },
+  "F863": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch21-abs",
+    "changes": {
+      "choice_4": "有機粉じんが主な原因"
+    }
+  }
+}
