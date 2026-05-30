@@ -1,0 +1,162 @@
+{
+  "F964": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "2016年の福岡宣言は、AMR対策に向けて採択された宣言である"
+    }
+  },
+  "F968": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_2": "易感染宿主は免疫低下者を指し、高齢者は該当しない"
+    }
+  },
+  "F972": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_2": "化学物質のリスクが有害性の強さで決まること"
+    }
+  },
+  "F981": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_5": "食物アレルギーは成人になって初めて発症する"
+    }
+  },
+  "F984": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_5": "特定原材料の表示は原材料に適用され、添加物は対象外である"
+    }
+  },
+  "F988": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "交差抗原性は、アレルゲンの構造が大きく異なる食品間で生じる"
+    }
+  },
+  "F994": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_2": "アニサキスアレルギーの症状は、原因食の摂取直後に発現する"
+    }
+  },
+  "F1006": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_5": "食品衛生法と健康増進法"
+    }
+  },
+  "F1007": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_3": "米国では以前から遺伝子組換え食品に表示を義務付けていた"
+    }
+  },
+  "F1022": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_5": "日本では、ワンヘルスの推進を環境省が一元的に担当している。"
+    }
+  },
+  "F1025": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_1": "日本では、動物用抗菌薬は獣医師の処方箋や指示なしに自由に購入・使用できる。"
+    }
+  },
+  "F1027": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "抗菌薬適正使用支援加算は、施設基準を満たさない医療機関でも算定できる。"
+    }
+  },
+  "F1032": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_2": "学校保健安全法に基づく健康診断は、毎年8月31日までに実施するものとされる。"
+    }
+  },
+  "F1036": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_3": "SDN-3は、標的部位を切断し、短い鋳型DNAで数塩基を改変する技術である。"
+    }
+  },
+  "F1037": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_3": "遺伝子組換え食品と同様に、ゲノム編集技術応用食品にも表示が課されている。"
+    }
+  },
+  "F1038": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_5": "届出されたゲノム編集技術応用食品は、植物由来のものに限られる。"
+    }
+  },
+  "F1046": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "世界的なAMR対策では、新規抗菌薬の開発推進が他の対策に優先される。"
+    }
+  },
+  "F1048": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "リスクコミュニケーションは、健康危機の発生後に実施すれば十分である。"
+    }
+  },
+  "F1050": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "届出の対象は食品であり、飼料は対象外である。"
+    }
+  },
+  "F1059": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch23-abs",
+    "changes": {
+      "choice_4": "シックハウス症候群の原因物質は、ホルムアルデヒドに限定される。"
+    }
+  }
+}
