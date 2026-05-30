@@ -1,0 +1,162 @@
+{
+  "F871": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "ビスフェノールAは高濃度暴露時に毒性を示し、低用量では生体影響を及ぼさない"
+    }
+  },
+  "F888": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_4": "食品ロス削減は事業者の責務であり、消費者に求められる取組はない"
+    }
+  },
+  "F893": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_2": "肥満は遺伝要因で決まり、生活習慣は無関係である"
+    }
+  },
+  "F894": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "適度な飲酒は、虚血性心疾患を予防する効果が確立している"
+    }
+  },
+  "F896": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_2": "LDLコレステロール100 mg/dL以上で高LDLコレステロール血症と診断する"
+    }
+  },
+  "F904": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "ワクチンは種類を問わず同一の温度条件で保存できる"
+    }
+  },
+  "F907": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "遅発性の副反応については、被接種者への説明を省略してよい"
+    }
+  },
+  "F909": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_2": "海外では生ワクチンを含むワクチンを筋肉内注射で接種している"
+    }
+  },
+  "F910": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "予防接種の接種後2日以内に発熱が見られた者"
+    }
+  },
+  "F918": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_4": "エタノールを産生する細菌は、n-プロパノールも併せて産生する"
+    }
+  },
+  "F920": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "スタース・オットー法は、単一物質の精製を目的として用いられる"
+    }
+  },
+  "F924": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "トリカブト等の自然毒を含む薬毒物を検出できる"
+    }
+  },
+  "F925": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_4": "シアン化物イオンが血液から検出されれば事件性が裏付けられる"
+    }
+  },
+  "F937": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_2": "脂溶性の高い薬物は、血液中に最も高濃度で存在する"
+    }
+  },
+  "F938": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_2": "犯罪性がないと判断された場合、試料は廃棄してよい"
+    }
+  },
+  "F941": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_4": "AMR対策は、医療分野が中心となって取り組む課題である"
+    }
+  },
+  "F942": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_3": "ワンヘルスの対象は感染症に限定され、化学物質による環境汚染や食品安全の問題は対象外である。"
+    }
+  },
+  "F944": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_5": "AMR対策アクションプランは、数値目標を伴わない理念的な計画である"
+    }
+  },
+  "F947": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_1": "AMRワンヘルス動向調査は、ヒトの分野を対象としている"
+    }
+  },
+  "F960": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch22-abs",
+    "changes": {
+      "choice_1": "多剤耐性結核菌は、ストレプトマイシンに耐性を獲得した菌である"
+    }
+  }
+}
