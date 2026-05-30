@@ -1,0 +1,162 @@
+{
+  "F1143": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_3": "フードディフェンスの対策は、食品製造業者が実施するもので、流通段階の対策は不要である。"
+    }
+  },
+  "F1148": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_4": "RMP（医薬品リスク管理計画）は、製造販売前の承認審査のための計画である。"
+    }
+  },
+  "F1149": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_3": "オピオイド（モルヒネ等）は、精神依存を形成するが、身体依存は形成しない。"
+    }
+  },
+  "F1160": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_3": "環境化学物質への曝露による遺伝子発現への影響は、DNA変異を介して生じる。"
+    }
+  },
+  "F1162": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "熱中症の応急処置では、水分を補給し、塩分（電解質）の補給は不要である。"
+    }
+  },
+  "F1169": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "核内受容体を介するCYP誘導は、数秒以内に完了する。"
+    }
+  },
+  "F1171": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_4": "信頼区間は標本数に依存せず、一定の幅となる。"
+    }
+  },
+  "F1173": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "NNTは連続変数のアウトカムに適用される。"
+    }
+  },
+  "F1174": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_1": "ランダム化は、既知の交絡因子を制御することができる。"
+    }
+  },
+  "F1176": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_4": "SAICMの後継枠組みは、先進国を対象としている。"
+    }
+  },
+  "F1177": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_3": "赤潮は、淡水域で発生する現象である。"
+    }
+  },
+  "F1180": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_4": "じん肺の管理区分は、胸部X線写真によって決定される。"
+    }
+  },
+  "F1183": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "リスクアセスメントは事業場の設置時に実施すればよい。"
+    }
+  },
+  "F1185": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_2": "感染経路は汚染された二枚貝の生食が中心で、感染者の吐物や手指を介した二次感染は起こらない。"
+    }
+  },
+  "F1189": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_2": "薬剤師は地域包括ケアシステムにおける多職種連携では補助的な立場にとどまる。"
+    }
+  },
+  "F1190": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "産後うつのスクリーニングは、母子保健ではなく精神保健福祉法に基づき実施される。"
+    }
+  },
+  "F1191": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "5類感染症は、全数把握の対象として7日以内の届出が必要である。"
+    }
+  },
+  "F1193": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "PFASは自然界には存在せず、フッ素樹脂製造過程の副生成物として生成する物質である。"
+    }
+  },
+  "F1200": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_4": "シックハウス症候群は、新築住宅で発生し、既存住宅では起こらない。"
+    }
+  },
+  "F1206": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch25-abs",
+    "changes": {
+      "choice_5": "トランス脂肪酸は、植物油の水素添加工程で生成され、牛肉や乳製品などの天然の食品に含まれることはない。"
+    }
+  }
+}
