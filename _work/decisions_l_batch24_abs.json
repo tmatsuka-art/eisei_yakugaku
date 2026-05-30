@@ -1,0 +1,164 @@
+{
+  "F1061": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_4": "耐容上限量（UL）は、エネルギーを含む約50種類の栄養素に設定されている。"
+    }
+  },
+  "F1062": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_3": "五類感染症は、全数把握の対象である。"
+    }
+  },
+  "F1065": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_3": "内分泌かく乱作用は、通常の毒性評価と同様に高用量で観察され、低用量での影響は無視できるとされる。"
+    }
+  },
+  "F1084": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "有機溶剤中毒予防規則の対象となる有機溶剤は、第一種有機溶剤に分類される。"
+    }
+  },
+  "F1090": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "HACCPは医薬品の製造管理に適用される手法である。"
+    }
+  },
+  "F1091": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_4": "加熱式たばこ（電子たばこを含む）は、紙巻きたばこより健康リスクが低いことが確認されている。"
+    }
+  },
+  "F1096": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "CYPによる代謝は解毒反応であり、代謝活性化によって毒性が増強されることはない。"
+    }
+  },
+  "F1098": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "第II相反応は、第I相反応の後に起こる逐次反応である。"
+    }
+  },
+  "F1103": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "生物濃縮は、海洋生態系で起こり、陸上生態系では起こらない。"
+    }
+  },
+  "F1104": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "エルシニア・エンテロコリチカ ―― 高温（50℃以上）で増殖する好熱性菌である"
+    }
+  },
+  "F1115": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_2": "薬剤師は、災害時の医薬品の供給・管理において重要な役割を果たすが、これは公衆衛生活動とは別の業務である。"
+    }
+  },
+  "F1117": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_4": "保健所長は、薬剤師でなければならない。"
+    }
+  },
+  "F1118": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_3": "栄養成分表示の義務は、生鮮食品を含む食品に適用される。"
+    }
+  },
+  "F1120": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_4": "化学物質過敏症は、シックハウス症候群とは異なる原因で生じる無関係の疾患である。"
+    }
+  },
+  "F1123": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_4": "調剤報酬は薬剤師の技術料と薬剤料で構成され、かかりつけ薬剤師指導料はこれとは別に算定される。"
+    }
+  },
+  "F1124": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_3": "健康格差は、個人の生活習慣の改善によって解消できる。"
+    }
+  },
+  "F1126": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "研究倫理審査委員会（IRB）の審査は、動物実験について必要である。"
+    }
+  },
+  "F1135": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "COVID-19は接触感染で広がり、飛沫感染やエアロゾル感染は起こらない。"
+    }
+  },
+  "F1139": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-abs",
+    "changes": {
+      "choice_5": "内分泌かく乱作用の評価には、in vitro試験で十分であり、in vivo試験は不要である。"
+    }
+  },
+  "F1089": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch24-tier3",
+    "changes": {
+      "choice_2": "食品の酸化の進行度は、水分活性（Aw）の測定によって評価できる。",
+      "choice_4": "食品照射（放射線照射）は、日本では香辛料の殺菌に広く認められている。",
+      "comment_replace": "食品の変質機構と保存法は、食品衛生の基本知識です。\n1:正　水分活性（Aw）は、微生物が利用可能な自由水の割合を示す指標であり、Awが低いほど微生物の増殖が抑制されます。乾燥、塩蔵、糖蔵はAwを低下させる保存法です。\n2:誤　水分活性（Aw）は自由水の割合を示す指標であり、微生物増殖のしやすさの指標です。食品の脂質酸化の評価には、POV（過酸化物価、初期酸化の指標）やTBARS（チオバルビツール酸反応物質、二次酸化の指標）を用います。\n3:正　ヒスタミンは、赤身魚（マグロ、サバ等）に多く含まれるヒスチジンが、Morganella morganii等の細菌が持つヒスチジン脱炭酸酵素の作用により生成されます。\n4:誤　日本で食品照射が認められているのは、ジャガイモ（馬鈴薯）の発芽防止のみです。香辛料の殺菌には認められていません。\n5:誤　窒素ガス置換包装は、酸素を窒素で置換することで脂質の酸化を防止する効果がありますが、嫌気性菌（ボツリヌス菌等）の増殖抑制には効果がありません。すべての微生物に有効ではありません。"
+    }
+  }
+}
