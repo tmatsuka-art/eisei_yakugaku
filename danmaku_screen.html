@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弾幕スクリーン｜衛生薬学</title>
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<style>
+  :root { --font: 32px; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000;
+    font-family: "Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+  }
+
+  /* 背景：スライド画像 */
+  #slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+  #slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  #slide .empty { color: #6982a0; font-size: 22px; text-align: center; line-height: 1.9; }
+
+  /* 流れるコメント層 */
+  #danmaku-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 10; }
+  .danmaku {
+    position: absolute; left: 0; top: 0; white-space: nowrap;
+    font-size: var(--font); font-weight: 700; color: #fff;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                  0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000;
+    will-change: transform; transform: translateX(100vw); animation: flow linear forwards;
+  }
+  @keyframes flow {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(calc(-100% - 40px)); }
+  }
+
+  /* 操作パネル（録画では H キーで隠せます）*/
+  #panel {
+    position: absolute; top: 10px; left: 10px; z-index: 30;
+    background: rgba(13,27,42,.80); color: #e6eef7; padding: 10px 12px;
+    border-radius: 10px; font-size: 13px; line-height: 1.7; backdrop-filter: blur(4px); max-width: 320px;
+  }
+  #panel.hidden { display: none; }
+  #panel label, #panel button {
+    font-size: 13px; margin: 2px 4px 2px 0; padding: 6px 10px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #e6eef7; cursor: pointer; display: inline-block;
+  }
+  #panel .keys { color: #9fb3c8; margin-top: 6px; }
+  #fileInput { display: none; }
+
+  /* QRコード（投稿ページへの入口）*/
+  #qrwrap {
+    position: absolute; bottom: 24px; right: 24px; z-index: 30;
+    background: #fff; padding: 14px; border-radius: 12px; text-align: center; transition: transform .2s; transform-origin: bottom right;
+  }
+  #qrwrap.big { transform: scale(1.7); }
+  #qrwrap.hidden { display: none; }
+  #qrwrap .cap { font-size: 13px; color: #222; margin-top: 8px; font-weight: 700; }
+  #roomTag { position: absolute; bottom: 8px; left: 12px; z-index: 30; color: #6982a0; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div id="slide">
+    <div class="empty">
+      スライド画像をここにドラッグ＆ドロップ<br>
+      または左上の「スライドを読み込む」で選択<br>
+      <small>（PowerPoint を 画像[PNG] で書き出したもの）</small>
+    </div>
+  </div>
+
+  <div id="danmaku-layer"></div>
+
+  <div id="panel">
+    <div>
+      <label for="fileInput">スライドを読み込む</label>
+      <input type="file" id="fileInput" accept="image/*" multiple>
+      <button id="qrBtn">QR 大/小</button>
+      <button id="fsBtn">全画面</button>
+      <button id="hideBtn">この枠を隠す</button>
+    </div>
+    <div class="keys">← →：スライド送り　Q：QR大小　F：全画面　H：この枠　C：弾幕消去</div>
+    <div class="keys">部屋：<b id="roomName">default</b>（学生は右下のQRから投稿）</div>
+  </div>
+
+  <div id="qrwrap" class="big">
+    <div id="qr"></div>
+    <div class="cap">スマホで読んでコメント📱</div>
+  </div>
+  <div id="roomTag"></div>
+
+<script>
+// ===== 接続先（この授業のコメント倉庫）=====
+const SUPABASE_URL = 'https://rnzomqldodkrcjzkknea.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_roQVZm2_YjFpHxr-fCGkGg_5NYZQEOh';
+// 投稿ページの住所（GitHubに上げたあと、この住所で学生がアクセスします）
+const POST_BASE = 'https://tmatsuka-art.github.io/eisei_yakugaku/danmaku_post.html';
+
+const HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY };
+
+const params = new URLSearchParams(location.search);
+const room = (params.get('room') || 'default').slice(0, 40);
+document.getElementById('roomName').textContent = room;
+document.getElementById('roomTag').textContent = '部屋: ' + room;
+
+// ===== QRコード（投稿ページのURLを、この部屋つきで）=====
+const postUrl = POST_BASE + '?room=' + encodeURIComponent(room);
+new QRCode(document.getElementById('qr'), { text: postUrl, width: 170, height: 170 });
+
+// ===== 弾幕（コメントを流す）=====
+const layer = document.getElementById('danmaku-layer');
+const COLORS = ['#ffffff','#ffffff','#fff7d6','#ffd6e0','#d6f0ff','#d8ffd6','#ffe0b3'];
+
+function laneInfo() {
+  const laneH = 50, top = 70, bottom = 40;
+  const usable = Math.max(laneH, window.innerHeight - top - bottom);
+  const lanes = Math.max(4, Math.floor(usable / laneH));
+  return { laneH, top, lanes };
+}
+let laneBusyUntil = [];
+function pickLane(lanes) {
+  const now = Date.now();
+  if (laneBusyUntil.length !== lanes) laneBusyUntil = new Array(lanes).fill(0);
+  const free = [];
+  for (let i = 0; i < lanes; i++) if (laneBusyUntil[i] <= now) free.push(i);
+  if (free.length) return free[Math.floor(Math.random() * free.length)];
+  let m = 0;
+  for (let i = 1; i < lanes; i++) if (laneBusyUntil[i] < laneBusyUntil[m]) m = i;
+  return m;
+}
+function launchComment(text, color) {
+  text = (text || '').toString();
+  if (!text) return;
+  const { laneH, top, lanes } = laneInfo();
+  const el = document.createElement('div');
+  el.className = 'danmaku';
+  el.textContent = text;
+  el.style.color = color || COLORS[Math.floor(Math.random() * COLORS.length)];
+  layer.appendChild(el);
+  const w = el.offsetWidth;
+  const lane = pickLane(lanes);
+  el.style.top = (top + lane * laneH) + 'px';
+  const speed = 110 + Math.random() * 50;
+  const dist = window.innerWidth + w + 40;
+  el.style.animationDuration = (dist / speed) + 's';
+  laneBusyUntil[lane] = Date.now() + ((w + 30) / speed * 1000) + 200;
+  el.addEventListener('animationend', () => el.remove());
+}
+
+// ===== Supabaseから新着コメントを拾う（2秒ごと）=====
+let lastId = 0;
+async function initLastId() {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&select=id&order=id.desc&limit=1', { headers: HEADERS });
+    if (res.ok) { const rows = await res.json(); if (rows.length) lastId = rows[0].id; }
+  } catch (e) { console.warn(e); }
+}
+async function poll() {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&id=gt.' + lastId + '&order=id.asc&select=id,text,color', { headers: HEADERS });
+    if (!res.ok) return;
+    const rows = await res.json();
+    for (const r of rows) { launchComment(r.text, r.color); if (r.id > lastId) lastId = r.id; }
+  } catch (e) { console.warn(e); }
+}
+// 起動より前のコメントは流さず、起動後の新着だけを流す
+initLastId().then(() => { setInterval(poll, 2000); });
+
+// ===== スライド画像（ローカルのPNGを読み込む。ネットに上げる必要なし）=====
+const slideBox = document.getElementById('slide');
+let slides = [], cur = 0;
+function showSlide() {
+  if (!slides.length) {
+    slideBox.innerHTML = '<div class="empty">スライド画像をここにドラッグ＆ドロップ<br>または左上の「スライドを読み込む」で選択</div>';
+    return;
+  }
+  slideBox.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = slides[cur];
+  slideBox.appendChild(img);
+}
+function loadFiles(fileList) {
+  const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+  files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  slides = files.map(f => URL.createObjectURL(f));
+  cur = 0; showSlide();
+}
+document.getElementById('fileInput').addEventListener('change', e => loadFiles(e.target.files));
+window.addEventListener('dragover', e => e.preventDefault());
+window.addEventListener('drop', e => { e.preventDefault(); if (e.dataTransfer.files.length) loadFiles(e.dataTransfer.files); });
+
+// ===== ボタン・キーボード操作 =====
+const qrwrap = document.getElementById('qrwrap');
+const panel = document.getElementById('panel');
+function toggleFs() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+document.getElementById('qrBtn').addEventListener('click', () => qrwrap.classList.toggle('big'));
+document.getElementById('hideBtn').addEventListener('click', () => panel.classList.add('hidden'));
+document.getElementById('fsBtn').addEventListener('click', toggleFs);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { if (cur < slides.length - 1) { cur++; showSlide(); } }
+  else if (e.key === 'ArrowLeft') { if (cur > 0) { cur--; showSlide(); } }
+  else if (e.key === 'q' || e.key === 'Q') { qrwrap.classList.toggle('big'); }
+  else if (e.key === 'f' || e.key === 'F') { toggleFs(); }
+  else if (e.key === 'h' || e.key === 'H') { panel.classList.toggle('hidden'); }
+  else if (e.key === 'c' || e.key === 'C') { layer.innerHTML = ''; }
+});
+</script>
+</body>
+</html>

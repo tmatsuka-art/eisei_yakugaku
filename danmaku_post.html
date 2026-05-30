@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>コメントを送る｜衛生薬学</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    font-family: "Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+    background: #0d1b2a; color: #fff;
+  }
+  .wrap {
+    max-width: 520px; margin: 0 auto; padding: 24px 18px 36px;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  h1 { font-size: 24px; margin: 6px 0 4px; text-align: center; }
+  .room { text-align: center; color: #9fb3c8; font-size: 14px; margin: 0 0 18px; }
+  .room b { color: #fff; }
+  .quick { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+  .quick button {
+    font-size: 15px; padding: 10px 16px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #e6eef7;
+  }
+  textarea {
+    width: 100%; font-size: 18px; padding: 14px; border-radius: 12px;
+    border: none; resize: none; height: 110px; outline: none;
+  }
+  .count { text-align: right; color: #7d90a6; font-size: 13px; margin: 6px 2px 0; }
+  .send {
+    margin-top: 12px; font-size: 20px; font-weight: 700; padding: 16px;
+    border: none; border-radius: 12px; background: #2a7de1; color: #fff; width: 100%;
+  }
+  .send:disabled { opacity: .5; }
+  .status { min-height: 24px; text-align: center; font-size: 16px; margin: 14px 0 0; }
+  .status.ok { color: #7fe0a0; }
+  .status.warn { color: #ffd479; }
+  .status.err { color: #ff9a9a; }
+  .note { margin-top: auto; text-align: center; color: #7d90a6; font-size: 13px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>💬 コメントを送ろう</h1>
+  <p class="room">部屋：<b id="roomName">default</b></p>
+
+  <div class="quick" id="quick"></div>
+
+  <textarea id="cmt" maxlength="100" placeholder="ここに入力して「画面に流す」を押してね（100字まで）"></textarea>
+  <div class="count"><span id="count">0</span>/100</div>
+
+  <button class="send" id="send">画面に流す</button>
+  <p class="status" id="status"></p>
+
+  <p class="note">匿名です。名前は送られません。<br>みんなが気持ちよく見られるコメントにしてね。</p>
+</div>
+
+<script>
+// ===== 接続先（この授業のコメント倉庫）=====
+const SUPABASE_URL = 'https://rnzomqldodkrcjzkknea.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_roQVZm2_YjFpHxr-fCGkGg_5NYZQEOh';
+
+// 文字の色（送るときにランダムで1つ選ぶ）
+const COLORS = ['#ffffff','#ffffff','#fff7d6','#ffd6e0','#d6f0ff','#d8ffd6','#ffe0b3'];
+
+// 「部屋」＝授業ごとの合言葉。URLに ?room=xxx を付けると切り替わる
+const params = new URLSearchParams(location.search);
+const room = (params.get('room') || 'default').slice(0, 40);
+document.getElementById('roomName').textContent = room;
+
+const cmt = document.getElementById('cmt');
+const sendBtn = document.getElementById('send');
+const statusEl = document.getElementById('status');
+const countEl = document.getElementById('count');
+
+cmt.addEventListener('input', () => { countEl.textContent = cmt.value.length; });
+function showStatus(msg, kind) { statusEl.textContent = msg; statusEl.className = 'status ' + (kind || ''); }
+
+// 連続投稿の防止（3秒に1回まで）
+let lastSent = 0;
+
+async function sendComment(text) {
+  text = (text || '').trim();
+  if (!text) { showStatus('何か入力してね', 'warn'); return; }
+  const now = Date.now();
+  if (now - lastSent < 3000) { showStatus('続けて送るのは少し待ってね', 'warn'); return; }
+
+  sendBtn.disabled = true;
+  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ room: room, text: text.slice(0, 100), color: color })
+    });
+    if (res.ok) {
+      lastSent = now;
+      showStatus('流れたよ！🎉', 'ok');
+      cmt.value = ''; countEl.textContent = '0';
+    } else {
+      showStatus('送れなかった…もう一度試してね', 'err');
+      console.warn('insert failed', res.status, await res.text().catch(() => ''));
+    }
+  } catch (e) {
+    showStatus('ネットの調子が悪いみたい。もう一度ね', 'err');
+    console.warn(e);
+  } finally {
+    setTimeout(() => { sendBtn.disabled = false; }, 800);
+  }
+}
+
+sendBtn.addEventListener('click', () => sendComment(cmt.value));
+
+// 押すだけで送れる定型ボタン（スマホで打つのが面倒な子向け）
+const QUICKS = ['8888888','なるほど！','むずかしい','もう一回お願いします','質問です','😀','👏'];
+const quick = document.getElementById('quick');
+QUICKS.forEach(t => {
+  const b = document.createElement('button');
+  b.textContent = t;
+  b.addEventListener('click', () => sendComment(t));
+  quick.appendChild(b);
+});
+</script>
+</body>
+</html>
