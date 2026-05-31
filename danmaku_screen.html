@@ -205,6 +205,17 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'h' || e.key === 'H') { panel.classList.toggle('hidden'); }
   else if (e.key === 'c' || e.key === 'C') { layer.innerHTML = ''; }
 });
+
+// ===== OBS用 透明モード（URLの最後に ?transparent=1 を付けると有効）=====
+// 背景を透明にし、スライド枠と操作パネルを隠す。弾幕（とQR）だけが残るので、
+// OBSのブラウザソースに入れると、PowerPointの画面の上に文字だけが重なります。
+if (params.get('transparent') === '1') {
+  document.documentElement.style.background = 'transparent';
+  document.body.style.background = 'transparent';
+  slideBox.style.display = 'none';      // スライド枠は不要（PowerPointはOBS側で映すため）
+  panel.classList.add('hidden');        // 操作パネルを隠す
+  qrwrap.classList.remove('big');       // QRは隅に小さめで残す（学生の投稿入口）
+}
 </script>
 </body>
 </html>
