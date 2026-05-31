@@ -147,9 +147,14 @@ function launchComment(text, color) {
 // ===== Supabaseから新着コメントを拾う（2秒ごと）=====
 let lastId = 0;
 async function initLastId() {
+  // 起動時に直近5件を流す（OBSで開いた／更新した瞬間に動作が分かるように。開始時の賑わいにも）
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&select=id&order=id.desc&limit=1', { headers: HEADERS });
-    if (res.ok) { const rows = await res.json(); if (rows.length) lastId = rows[0].id; }
+    const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&select=id,text,color&order=id.desc&limit=5', { headers: HEADERS });
+    if (res.ok) {
+      const rows = await res.json();   // 新しい順に最大5件
+      rows.reverse();                   // 古い順に並べ直して流す
+      for (const r of rows) { launchComment(r.text, r.color); if (r.id > lastId) lastId = r.id; }
+    }
   } catch (e) { console.warn(e); }
 }
 async function poll() {
