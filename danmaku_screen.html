@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>弾幕スクリーン｜衛生薬学</title>
 <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root { --font: 32px; }
   * { box-sizing: border-box; }
@@ -170,12 +171,23 @@ async function poll() {
 //    そこで Web Worker（裏方の作業員）側でタイマーを回し、止まらない見回りにする。
 initLastId().then(() => {
   try {
-    const workerCode = 'setInterval(function(){ postMessage(0); }, 2000);';
-    const blob = new Blob([workerCode], { type: 'application/javascript' });
-    const worker = new Worker(URL.createObjectURL(blob));
-    worker.onmessage = function() { poll(); };
+    // Supabase Realtime（向こうから知らせてくる方式）。OBSでもタイマーに頼らず確実に届く。
+    const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sbClient
+      .channel('danmaku-' + room)
+      .on('postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'danmaku_comments', filter: 'room=eq.' + room },
+        function (payload) { if (payload.new) launchComment(payload.new.text, payload.new.color); }
+      )
+      .subscribe();
   } catch (e) {
-    setInterval(poll, 2000); // Workerが使えない環境では普通のタイマーに切り替え
+    // 万一 Realtime が使えない場合の保険：Web Workerタイマーで見に行く
+    console.warn('Realtime unavailable, fallback to polling', e);
+    try {
+      const blob = new Blob(['setInterval(function(){postMessage(0)},2000)'], { type: 'application/javascript' });
+      const worker = new Worker(URL.createObjectURL(blob));
+      worker.onmessage = function() { poll(); };
+    } catch (e2) { setInterval(poll, 2000); }
   }
 });
 
