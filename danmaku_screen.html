@@ -179,7 +179,11 @@ initLastId().then(() => {
         { event: 'INSERT', schema: 'public', table: 'danmaku_comments', filter: 'room=eq.' + room },
         function (payload) { if (payload.new) launchComment(payload.new.text, payload.new.color); }
       )
-      .subscribe();
+      .subscribe(function (status) {
+        // 接続状態を左下に表示（うまくいけば「SUBSCRIBED」と出る）
+        var tag = document.getElementById('roomTag');
+        if (tag) tag.textContent = '部屋: ' + room + ' / 通信: ' + status;
+      });
   } catch (e) {
     // 万一 Realtime が使えない場合の保険：Web Workerタイマーで見に行く
     console.warn('Realtime unavailable, fallback to polling', e);
