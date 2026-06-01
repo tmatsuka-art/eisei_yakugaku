@@ -125,6 +125,23 @@ function pickLane(lanes) {
   return m;
 }
 const active = [];   // 流れている最中のコメント {el, startX, startT, speed, w}
+
+// ===== 流量制御（混雑してもコメントが重ならないように）=====
+// 受信したコメントは、いったん queue（待ち行列）に並べ、一定間隔で1件ずつ流す。
+// どっと来ても重ならず流れる。行列が長いほど間隔を少し詰めて、溜まりを消化する。
+const queue = [];
+let lastEmit = 0;
+function pump() {
+  if (queue.length === 0) return;
+  const now = Date.now();
+  const interval = Math.max(70, 230 - queue.length * 4); // 行列が長いほど詰める（下限70ms）
+  if (now - lastEmit >= interval) {
+    lastEmit = now;
+    const r = queue.shift();
+    launchComment(r.text, r.color);
+  }
+}
+
 function launchComment(text, color) {
   text = (text || '').toString();
   if (!text) return;
@@ -149,6 +166,7 @@ function launchComment(text, color) {
 //    取りこぼされて「流れない」ことがある。left の書き換えは通常の描画なので確実に映る。
 //    位置は経過時間から計算するので、rAFでもタイマーでも速度は一定。
 function stepDanmaku() {
+  pump();   // 待ち行列から、頃合いを見て1件ずつ放出する
   const now = Date.now();
   for (let i = active.length - 1; i >= 0; i--) {
     const c = active[i];
@@ -176,7 +194,8 @@ function showComment(r) {
     seen.add(r.id);
     if (r.id > lastId) lastId = r.id;
   }
-  launchComment(r.text, r.color);
+  queue.push(r);                                                // 直接流さず、待ち行列へ（流量制御）
+  if (queue.length > 300) queue.splice(0, queue.length - 300);  // 溜まりすぎたら古い分を間引く
 }
 
 async function initLastId() {
