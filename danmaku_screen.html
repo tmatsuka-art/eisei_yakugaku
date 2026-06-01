@@ -146,18 +146,27 @@ function launchComment(text, color) {
 }
 
 // ===== Supabaseから新着コメントを拾う =====
-// 受信は2本立て：
-//  (1) ポーリング … 2秒ごとにRESTで新着を取りに行く（どのネットワークでも確実。職場PCもOK）
-//  (2) Realtime  … 届けば“即時”表示（速い）。使えない環境でも(1)が拾うので問題なし。
+// 【重要】OBSのブラウザソースは「OBSが前面ウィンドウでない」とき、ページの
+//   通常タイマー(setInterval)やWeb Workerを省エネのため止めてしまう。
+//   一方、映像の“描画”はOBSが出力のため常に回し続ける。
+//   そこで描画ループ requestAnimationFrame で見回りを駆動する＝OBSが裏でも止まらない。
+//   念のため通常タイマー・Web Worker・Realtime も併用し、どれか1つでも生きていれば届く。
 // 同じコメントを二重に流さないよう、表示済みID(seen)で重複チェックする。
 let lastId = 0;
 const seen = new Set();
+const stat = { poll: 0, recv: 0, rt: '—' };   // 画面左下の動作表示（見回り回数・受信件数・通信）
+function updateTag() {
+  var tag = document.getElementById('roomTag');
+  if (tag) tag.textContent = '部屋:' + room + ' ・ 見回り' + stat.poll + ' ・ 受信' + stat.recv + ' ・ 通信' + stat.rt;
+}
 function showComment(r) {
   if (!r) return;
-  if (r.id == null) { launchComment(r.text, r.color); return; }  // ID無し時の保険
-  if (seen.has(r.id)) return;        // すでに流した → 二重表示しない
-  seen.add(r.id);
-  if (r.id > lastId) lastId = r.id;
+  if (r.id != null) {
+    if (seen.has(r.id)) return;        // すでに流した → 二重表示しない
+    seen.add(r.id);
+    if (r.id > lastId) lastId = r.id;
+  }
+  stat.recv++; updateTag();
   launchComment(r.text, r.color);
 }
 
@@ -172,29 +181,40 @@ async function initLastId() {
     }
   } catch (e) { console.warn(e); }
 }
+
+let polling = false, lastPollAt = 0;
 async function poll() {
+  const now = Date.now();
+  if (polling || now - lastPollAt < 1500) return;   // 多重実行・連打を防止
+  polling = true;
+  stat.poll++; updateTag();
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&id=gt.' + lastId + '&order=id.asc&select=id,text,color', { headers: HEADERS, cache: 'no-store' });
-    if (!res.ok) return;
-    const rows = await res.json();
-    for (const r of rows) showComment(r);
+    if (res.ok) { const rows = await res.json(); for (const r of rows) showComment(r); }
   } catch (e) { console.warn(e); }
+  finally { polling = false; lastPollAt = Date.now(); }
 }
 
-// 見回り（ポーリング）を“常に”動かす。これが本命（どの環境でも確実に届く）。
-// ※ OBSのブラウザソースは省エネのため通常のタイマー(setInterval)を止めてしまう。
-//    そこで Web Worker（裏方の作業員）側でタイマーを回し、止まらない見回りにする。
+// 見回りを複数の駆動源で回す（どれかが生きていれば新着が届く）。poll()内で重複実行は防いでいる。
 function startPolling() {
+  // (1) 描画ループ駆動 … OBSは映像出力のため常に描画する＝OBSが非アクティブでも止まらない（本命）
+  let lastRaf = 0;
+  function rafTick(ts) {
+    if (ts - lastRaf >= 2000) { lastRaf = ts; poll(); }
+    requestAnimationFrame(rafTick);
+  }
+  requestAnimationFrame(rafTick);
+  // (2) 通常タイマー … 前面のときの保険
+  setInterval(poll, 2000);
+  // (3) Web Workerタイマー … 環境により裏でも回ることがある保険
   try {
     const blob = new Blob(['setInterval(function(){postMessage(0)},2000)'], { type: 'application/javascript' });
     const worker = new Worker(URL.createObjectURL(blob));
     worker.onmessage = function() { poll(); };
-  } catch (e2) {
-    setInterval(poll, 2000);   // Web Workerが使えない環境の保険
-  }
+  } catch (e) {}
 }
 
-// Realtime（届けば即時表示）。使えなくてもポーリングが拾うので、状態表示だけ更新する。
+// Realtime（届けば即時表示）。使えなくても見回りが拾うので、状態表示だけ更新する。
 function startRealtime() {
   try {
     const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -204,18 +224,16 @@ function startRealtime() {
         { event: 'INSERT', schema: 'public', table: 'danmaku_comments', filter: 'room=eq.' + room },
         function (payload) { if (payload.new) showComment(payload.new); }
       )
-      .subscribe(function (status) {
-        // 接続状態を左下に表示。Realtimeがダメでも「見回りON」で新着は流れる。
-        var tag = document.getElementById('roomTag');
-        if (tag) tag.textContent = '部屋: ' + room + ' / 通信: ' + status + '（見回りON）';
-      });
+      .subscribe(function (status) { stat.rt = status; updateTag(); });
   } catch (e) {
+    stat.rt = 'なし'; updateTag();
     console.warn('Realtime unavailable (polling continues)', e);
   }
 }
 
+updateTag();
 initLastId().then(() => {
-  startPolling();   // ← どの環境でも必ず動く本命
+  startPolling();   // ← 描画ループ駆動。OBSが裏でも止まらない本命
   startRealtime();  // ← 使えれば即時表示の補助
 });
 
