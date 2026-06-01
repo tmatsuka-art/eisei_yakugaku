@@ -26,12 +26,10 @@
     font-size: var(--font); font-weight: 700; color: #fff;
     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
                   0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000;
-    will-change: transform; transform: translateX(100vw); animation: flow linear forwards;
   }
-  @keyframes flow {
-    from { transform: translateX(100vw); }
-    to   { transform: translateX(calc(-100% - 40px)); }
-  }
+  /* 動きは JavaScript で left を毎フレーム書き換えて出す。
+     CSSアニメーション(transform)はGPUコンポジタ任せになり、OBSのオフスクリーン描画で
+     取りこぼされる（＝OBSで流れない）ことがあるため、あえて使わない。 */
 
   /* 操作パネル（録画では H キーで隠せます）*/
   #panel {
@@ -126,6 +124,7 @@ function pickLane(lanes) {
   for (let i = 1; i < lanes; i++) if (laneBusyUntil[i] < laneBusyUntil[m]) m = i;
   return m;
 }
+const active = [];   // 流れている最中のコメント {el, startX, startT, speed, w}
 function launchComment(text, color) {
   text = (text || '').toString();
   if (!text) return;
@@ -135,15 +134,31 @@ function launchComment(text, color) {
   el.textContent = text;
   el.style.color = color || COLORS[Math.floor(Math.random() * COLORS.length)];
   layer.appendChild(el);
-  const w = el.offsetWidth;
+  const w = el.offsetWidth || (text.length * 34);
   const lane = pickLane(lanes);
   el.style.top = (top + lane * laneH) + 'px';
-  const speed = 110 + Math.random() * 50;
-  const dist = window.innerWidth + w + 40;
-  el.style.animationDuration = (dist / speed) + 's';
+  const startX = window.innerWidth || 1920;
+  el.style.left = startX + 'px';
+  const speed = 110 + Math.random() * 50;   // px/秒
+  active.push({ el, startX, startT: Date.now(), speed, w });
   laneBusyUntil[lane] = Date.now() + ((w + 30) / speed * 1000) + 200;
-  el.addEventListener('animationend', () => el.remove());
 }
+
+// コメントの動きを JavaScript で毎フレーム更新する（left を直接書き換える）。
+// ※ CSSアニメーション(transform)はGPUコンポジタ任せになり、OBSのオフスクリーン描画で
+//    取りこぼされて「流れない」ことがある。left の書き換えは通常の描画なので確実に映る。
+//    位置は経過時間から計算するので、rAFでもタイマーでも速度は一定。
+function stepDanmaku() {
+  const now = Date.now();
+  for (let i = active.length - 1; i >= 0; i--) {
+    const c = active[i];
+    const x = c.startX - c.speed * (now - c.startT) / 1000;
+    c.el.style.left = x + 'px';
+    if (x < -(c.w + 60)) { c.el.remove(); active.splice(i, 1); }   // 左端を出たら片付け
+  }
+}
+(function rafLoop() { stepDanmaku(); requestAnimationFrame(rafLoop); })();
+setInterval(stepDanmaku, 33);   // rAFが回らない環境の保険
 
 // ===== Supabaseから新着コメントを拾う =====
 // 【重要】OBSのブラウザソースは「OBSが前面ウィンドウでない」とき、ページの
