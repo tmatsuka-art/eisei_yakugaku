@@ -169,11 +169,6 @@ setInterval(stepDanmaku, 33);   // rAFが回らない環境の保険
 // 同じコメントを二重に流さないよう、表示済みID(seen)で重複チェックする。
 let lastId = 0;
 const seen = new Set();
-const stat = { poll: 0, recv: 0, rt: '—' };   // 画面左下の動作表示（見回り回数・受信件数・通信）
-function updateTag() {
-  var tag = document.getElementById('roomTag');
-  if (tag) tag.textContent = '部屋:' + room + ' ・ 見回り' + stat.poll + ' ・ 受信' + stat.recv + ' ・ 通信' + stat.rt;
-}
 function showComment(r) {
   if (!r) return;
   if (r.id != null) {
@@ -181,7 +176,6 @@ function showComment(r) {
     seen.add(r.id);
     if (r.id > lastId) lastId = r.id;
   }
-  stat.recv++; updateTag();
   launchComment(r.text, r.color);
 }
 
@@ -202,7 +196,6 @@ async function poll() {
   const now = Date.now();
   if (polling || now - lastPollAt < 1500) return;   // 多重実行・連打を防止
   polling = true;
-  stat.poll++; updateTag();
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&id=gt.' + lastId + '&order=id.asc&select=id,text,color', { headers: HEADERS, cache: 'no-store' });
     if (res.ok) { const rows = await res.json(); for (const r of rows) showComment(r); }
@@ -239,16 +232,14 @@ function startRealtime() {
         { event: 'INSERT', schema: 'public', table: 'danmaku_comments', filter: 'room=eq.' + room },
         function (payload) { if (payload.new) showComment(payload.new); }
       )
-      .subscribe(function (status) { stat.rt = status; updateTag(); });
+      .subscribe();
   } catch (e) {
-    stat.rt = 'なし'; updateTag();
     console.warn('Realtime unavailable (polling continues)', e);
   }
 }
 
-updateTag();
 initLastId().then(() => {
-  startPolling();   // ← 描画ループ駆動。OBSが裏でも止まらない本命
+  startPolling();   // ← 見回り（本命）
   startRealtime();  // ← 使えれば即時表示の補助
 });
 
@@ -303,6 +294,7 @@ if (params.get('transparent') === '1') {
   document.body.style.background = 'transparent';
   slideBox.style.display = 'none';      // スライド枠は不要（PowerPointはOBS側で映すため）
   panel.classList.add('hidden');        // 操作パネルを隠す
+  var rtag = document.getElementById('roomTag'); if (rtag) rtag.style.display = 'none';  // 左下の部屋表示も隠す（本番はすっきり）
   qrwrap.classList.remove('big');       // QRは隅に小さめで残す（学生の投稿入口）
 }
 </script>
