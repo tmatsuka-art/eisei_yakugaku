@@ -145,8 +145,22 @@ function launchComment(text, color) {
   el.addEventListener('animationend', () => el.remove());
 }
 
-// ===== Supabaseから新着コメントを拾う（2秒ごと）=====
+// ===== Supabaseから新着コメントを拾う =====
+// 受信は2本立て：
+//  (1) ポーリング … 2秒ごとにRESTで新着を取りに行く（どのネットワークでも確実。職場PCもOK）
+//  (2) Realtime  … 届けば“即時”表示（速い）。使えない環境でも(1)が拾うので問題なし。
+// 同じコメントを二重に流さないよう、表示済みID(seen)で重複チェックする。
 let lastId = 0;
+const seen = new Set();
+function showComment(r) {
+  if (!r) return;
+  if (r.id == null) { launchComment(r.text, r.color); return; }  // ID無し時の保険
+  if (seen.has(r.id)) return;        // すでに流した → 二重表示しない
+  seen.add(r.id);
+  if (r.id > lastId) lastId = r.id;
+  launchComment(r.text, r.color);
+}
+
 async function initLastId() {
   // 起動時に直近5件を流す（OBSで開いた／更新した瞬間に動作が分かるように。開始時の賑わいにも）
   try {
@@ -154,7 +168,7 @@ async function initLastId() {
     if (res.ok) {
       const rows = await res.json();   // 新しい順に最大5件
       rows.reverse();                   // 古い順に並べ直して流す
-      for (const r of rows) { launchComment(r.text, r.color); if (r.id > lastId) lastId = r.id; }
+      for (const r of rows) showComment(r);
     }
   } catch (e) { console.warn(e); }
 }
@@ -163,36 +177,46 @@ async function poll() {
     const res = await fetch(SUPABASE_URL + '/rest/v1/danmaku_comments?room=eq.' + encodeURIComponent(room) + '&id=gt.' + lastId + '&order=id.asc&select=id,text,color', { headers: HEADERS, cache: 'no-store' });
     if (!res.ok) return;
     const rows = await res.json();
-    for (const r of rows) { launchComment(r.text, r.color); if (r.id > lastId) lastId = r.id; }
+    for (const r of rows) showComment(r);
   } catch (e) { console.warn(e); }
 }
-// 起動時に直近を流したあと、新着を定期的に見に行く。
+
+// 見回り（ポーリング）を“常に”動かす。これが本命（どの環境でも確実に届く）。
 // ※ OBSのブラウザソースは省エネのため通常のタイマー(setInterval)を止めてしまう。
 //    そこで Web Worker（裏方の作業員）側でタイマーを回し、止まらない見回りにする。
-initLastId().then(() => {
+function startPolling() {
   try {
-    // Supabase Realtime（向こうから知らせてくる方式）。OBSでもタイマーに頼らず確実に届く。
+    const blob = new Blob(['setInterval(function(){postMessage(0)},2000)'], { type: 'application/javascript' });
+    const worker = new Worker(URL.createObjectURL(blob));
+    worker.onmessage = function() { poll(); };
+  } catch (e2) {
+    setInterval(poll, 2000);   // Web Workerが使えない環境の保険
+  }
+}
+
+// Realtime（届けば即時表示）。使えなくてもポーリングが拾うので、状態表示だけ更新する。
+function startRealtime() {
+  try {
     const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     sbClient
       .channel('danmaku-' + room)
       .on('postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'danmaku_comments', filter: 'room=eq.' + room },
-        function (payload) { if (payload.new) launchComment(payload.new.text, payload.new.color); }
+        function (payload) { if (payload.new) showComment(payload.new); }
       )
       .subscribe(function (status) {
-        // 接続状態を左下に表示（うまくいけば「SUBSCRIBED」と出る）
+        // 接続状態を左下に表示。Realtimeがダメでも「見回りON」で新着は流れる。
         var tag = document.getElementById('roomTag');
-        if (tag) tag.textContent = '部屋: ' + room + ' / 通信: ' + status;
+        if (tag) tag.textContent = '部屋: ' + room + ' / 通信: ' + status + '（見回りON）';
       });
   } catch (e) {
-    // 万一 Realtime が使えない場合の保険：Web Workerタイマーで見に行く
-    console.warn('Realtime unavailable, fallback to polling', e);
-    try {
-      const blob = new Blob(['setInterval(function(){postMessage(0)},2000)'], { type: 'application/javascript' });
-      const worker = new Worker(URL.createObjectURL(blob));
-      worker.onmessage = function() { poll(); };
-    } catch (e2) { setInterval(poll, 2000); }
+    console.warn('Realtime unavailable (polling continues)', e);
   }
+}
+
+initLastId().then(() => {
+  startPolling();   // ← どの環境でも必ず動く本命
+  startRealtime();  // ← 使えれば即時表示の補助
 });
 
 // ===== スライド画像（ローカルのPNGを読み込む。ネットに上げる必要なし）=====
