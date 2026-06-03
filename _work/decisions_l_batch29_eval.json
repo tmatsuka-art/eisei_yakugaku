@@ -1,0 +1,27 @@
+{
+  "F215": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch29-eval",
+    "changes": {
+      "choice_4": "専門家と一般市民のリスク評価の差は、多くの要因で2倍以内にとどまっている"
+    }
+  },
+  "F691": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch29-eval",
+    "changes": {
+      "choice_2": "環境基本法は、公害による健康被害者の補償について定めた法律である",
+      "choice_4": "環境基本法は2010年に制定された"
+    }
+  },
+  "F1210": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch29-eval",
+    "changes": {
+      "choice_5": "放射線感受性は、神経や筋肉など分裂頻度の低い組織ほど高い。"
+    }
+  }
+}
