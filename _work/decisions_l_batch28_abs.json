@@ -1,0 +1,60 @@
+{
+  "F1389": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_3": "小核は、染色体が娘細胞へ均等に分配される過程で正常に生じる構造である"
+    }
+  },
+  "F1394": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_5": "ヒストンのアセチル化は、クロマチン構造を凝縮させて遺伝子の転写を抑制する"
+    }
+  },
+  "F1395": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_3": "EBVは、カポジ肉腫を引き起こす代表的な腫瘍ウイルスである"
+    }
+  },
+  "F1397": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_4": "アスベストは、体内で代謝活性化を受けて究極発がん物質に変換される化学物質である"
+    }
+  },
+  "F1400": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_2": "活性酸素種は、酸素を用いない嫌気的代謝の過程で主に生成される"
+    }
+  },
+  "F1406": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_2": "本症の治療では、ビタミンB12の補充とメチオニンの積極的な摂取が基本となる"
+    }
+  },
+  "F1411": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch28-abs",
+    "changes": {
+      "choice_2": "薬物乱用防止教育は、薬物への恐怖心を形成することを主たる目的とし、医薬品の科学的な理解には踏み込まない",
+      "choice_3": "薬剤師の指導は、専門的な正確さを保つため、板書を用いた一方向的な講義形式を基本とする",
+      "choice_5": "保健室の医薬品の点検・管理は、児童の目に触れない場所で行うことが教育上望ましい"
+    }
+  }
+}

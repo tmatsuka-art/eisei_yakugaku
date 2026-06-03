@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弾幕コメント 見た目デモ — 衛生薬学</title>
+<style>
+  :root{
+    --font: 30px;       /* 流れる文字の大きさ */
+    --lane-h: 48px;     /* 1行の高さ */
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    overflow: hidden;
+    background: #0d1b2a;
+  }
+
+  /* ===== 背景：授業スライド風 ===== */
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 30% 20%, #1b3a5c 0%, #0d1b2a 70%);
+  }
+  .slide-card {
+    width: min(80%, 900px);
+    background: #fdfdfb;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    padding: 48px 56px;
+    border-top: 10px solid #2a7de1;
+  }
+  .slide-card h1 {
+    margin: 0 0 28px;
+    font-size: 40px; color: #173a5e;
+    letter-spacing: .02em;
+  }
+  .slide-card ul { margin: 0; padding-left: 1.1em; }
+  .slide-card li {
+    font-size: 26px; color: #2c3e50;
+    line-height: 1.9;
+  }
+  .slide-card .key { color: #c0392b; font-weight: 700; }
+  .slide-foot {
+    margin-top: 28px; font-size: 16px; color: #8a9bb0;
+  }
+
+  /* ===== 流れるコメント層 ===== */
+  #danmaku-layer {
+    position: absolute; inset: 0;
+    pointer-events: none;   /* コメントはクリックを邪魔しない */
+    overflow: hidden;
+    z-index: 10;
+  }
+  .danmaku {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    font-size: var(--font);
+    font-weight: 700;
+    color: #fff;
+    /* ニコニコ風の黒フチ */
+    text-shadow:
+      -2px -2px 0 #000, 2px -2px 0 #000,
+      -2px  2px 0 #000, 2px  2px 0 #000,
+       0   -2px 0 #000, 0    2px 0 #000,
+      -2px  0   0 #000, 2px  0   0 #000;
+    will-change: transform;
+    transform: translateX(100vw);
+    animation: flow linear forwards;
+  }
+  @keyframes flow {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(calc(-100% - 40px)); }
+  }
+
+  /* ===== 下部の入力バー（先生が試す用） ===== */
+  .inputbar {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    display: flex; gap: 10px; align-items: center;
+    padding: 14px 18px;
+    background: rgba(13,27,42,.82);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .inputbar input {
+    flex: 1;
+    font-size: 18px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+  }
+  .inputbar button {
+    font-size: 18px; font-weight: 700;
+    padding: 12px 26px;
+    border: none; border-radius: 10px;
+    background: #2a7de1; color: #fff;
+    cursor: pointer;
+  }
+  .inputbar button:active { transform: translateY(1px); }
+  .inputbar .hint {
+    color: #9fb3c8; font-size: 13px; margin-left: 6px;
+    max-width: 240px; line-height: 1.4;
+  }
+
+  /* お試し用の定型ボタン */
+  .quickrow {
+    position: absolute; left: 0; right: 0; bottom: 70px;
+    z-index: 20;
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding: 0 18px 10px;
+  }
+  .quickrow button {
+    font-size: 14px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    color: #e6eef7; cursor: pointer;
+  }
+  .quickrow button:hover { background: rgba(255,255,255,.18); }
+</style>
+</head>
+<body>
+
+  <!-- 背景の授業スライド（ダミー） -->
+  <div class="slide">
+    <div class="slide-card">
+      <h1>重金属による健康影響</h1>
+      <ul>
+        <li>水俣病 ── <span class="key">メチル水銀</span>（有機水銀）</li>
+        <li>イタイイタイ病 ── <span class="key">カドミウム</span></li>
+        <li>慢性ヒ素中毒 ── 地下水・井戸水の汚染</li>
+        <li>鉛中毒 ── 造血器・神経系への影響</li>
+      </ul>
+      <div class="slide-foot">※ これは「見た目」を確認するためのダミースライドです</div>
+    </div>
+  </div>
+
+  <!-- 流れるコメントが乗る層 -->
+  <div id="danmaku-layer"></div>
+
+  <!-- お試し定型コメント -->
+  <div class="quickrow" id="quickrow"></div>
+
+  <!-- 入力バー -->
+  <div class="inputbar">
+    <input id="cmt" type="text" placeholder="ここに打って Enter ＝ 画面を流れます" autocomplete="off">
+    <button id="send">流す</button>
+    <span class="hint">本番では、この入力を学生さんがスマホからやります</span>
+  </div>
+
+<script>
+// ============================================================
+//  弾幕（コメントが流れる）見た目デモ
+//  ※ ここでは倉庫(Supabase)は使わず、その場で流すだけです
+// ============================================================
+
+const layer = document.getElementById('danmaku-layer');
+
+// 流れる文字の色（白を多めに、たまに色付き＝ニコニコ風）
+const COLORS = ['#ffffff','#ffffff','#ffffff','#fff7d6','#ffd6e0','#d6f0ff','#d8ffd6','#ffe0b3'];
+
+// 画面を縦に「レーン（行）」で分け、なるべく重ならないようにする
+function laneInfo() {
+  const laneH = 48;
+  const top = 80;                    // 上の余白
+  const bottom = 150;                // 下の入力バー分をよける
+  const usable = Math.max(laneH, window.innerHeight - top - bottom);
+  const lanes = Math.max(4, Math.floor(usable / laneH));
+  return { laneH, top, lanes };
+}
+let laneBusyUntil = []; // 各レーンが次に空く時刻(ms)
+
+function pickLane(lanes) {
+  const now = Date.now();
+  if (laneBusyUntil.length !== lanes) laneBusyUntil = new Array(lanes).fill(0);
+  // 空いているレーンを上から探す
+  const free = [];
+  for (let i = 0; i < lanes; i++) if (laneBusyUntil[i] <= now) free.push(i);
+  if (free.length) return free[Math.floor(Math.random() * free.length)];
+  // 全部埋まっていたら、一番早く空くレーンに相乗り
+  let min = 0;
+  for (let i = 1; i < lanes; i++) if (laneBusyUntil[i] < laneBusyUntil[min]) min = i;
+  return min;
+}
+
+// コメントを1つ流す
+function launchComment(text) {
+  text = (text || '').toString().trim();
+  if (!text) return;
+  if (text.length > 60) text = text.slice(0, 60) + '…'; // 長すぎる対策
+
+  const { laneH, top, lanes } = laneInfo();
+  const el = document.createElement('div');
+  el.className = 'danmaku';
+  el.textContent = text;
+  el.style.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+  layer.appendChild(el);
+
+  const w = el.offsetWidth;
+  const lane = pickLane(lanes);
+  el.style.top = (top + lane * laneH) + 'px';
+
+  // 一定の速さ（px/秒）で流す。少しだけランダムに。
+  const speed = 110 + Math.random() * 50;             // 110〜160 px/s
+  const distance = window.innerWidth + w + 40;        // 右外→左外
+  const dur = distance / speed;                        // 秒
+  el.style.animationDuration = dur + 's';
+
+  // このレーンを、後続が重ならない時間だけ「使用中」にする
+  const enterTime = (w + 30) / speed * 1000;           // 文字全体が画面に入るまで(ms)
+  laneBusyUntil[lane] = Date.now() + enterTime + 200;
+
+  // 流れ終わったら片付ける
+  el.addEventListener('animationend', () => el.remove());
+}
+
+// ===== 入力まわり =====
+const cmt = document.getElementById('cmt');
+const send = document.getElementById('send');
+function fire() {
+  launchComment(cmt.value);
+  cmt.value = '';
+  cmt.focus();
+}
+send.addEventListener('click', fire);
+cmt.addEventListener('keydown', e => { if (e.key === 'Enter') fire(); });
+
+// ===== お試し定型ボタン =====
+const QUICKS = ['8888888','なるほど！','ここ国試出ますか？','むずかしい…','先生わかりやすい',
+                'もう一回お願いします','カドミウム！','それな','眠い…','拍手👏'];
+const qr = document.getElementById('quickrow');
+QUICKS.forEach(t => {
+  const b = document.createElement('button');
+  b.textContent = t;
+  b.addEventListener('click', () => launchComment(t));
+  qr.appendChild(b);
+});
+
+// ===== 開いた瞬間に、サンプルを自動で流して雰囲気を見せる =====
+const DEMO = ['8888888','なるほど〜','水俣病はメチル水銀','イタイイタイ病＝カドミウム',
+              'ここテスト出る？','先生の説明わかりやすい！','ヒ素こわい','過去問どこ〜',
+              '8888888','重金属むずい','図もう一回！','メモした'];
+let di = 0;
+const timer = setInterval(() => {
+  launchComment(DEMO[di % DEMO.length]);
+  di++;
+  if (di >= DEMO.length) clearInterval(timer); // 一巡したら自動流しは止める
+}, 900);
+
+cmt.focus();
+</script>
+</body>
+</html>

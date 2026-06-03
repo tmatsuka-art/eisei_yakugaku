@@ -1,0 +1,164 @@
+{
+  "F257": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "えん下困難者用食品は、特別用途食品のうち病者用食品の一区分として分類される"
+    }
+  },
+  "F325": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_1": "FDEIAは、原因食物を摂取せずに運動した場合にも発症する。"
+    }
+  },
+  "F443": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_2": "N-ニトロソアミンは、野菜や果物などの植物性食品に特に高濃度で含まれる"
+    }
+  },
+  "F450": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "甘味料は、一括名による表示が認められている添加物である"
+    }
+  },
+  "F844": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_2": "結核は五類感染症に分類され、診断後7日以内に届け出ればよい"
+    }
+  },
+  "F966": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_5": "新興感染症は、ヒトを自然宿主とする病原体によって引き起こされる"
+    }
+  },
+  "F1021": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_5": "薬剤耐性菌の監視は、農林水産省のJVARMが医療・畜産の両分野を一元的に担当する。"
+    }
+  },
+  "F1133": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "接触感染の標準的な対策は、N95マスクの着用と陰圧室での患者管理である。"
+    }
+  },
+  "F1161": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_5": "在宅での高カロリー輸液の調製は、無菌操作を要さず清潔操作で足りる。"
+    }
+  },
+  "F1170": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "食品表示法は、食品衛生法・JAS法・薬機法の食品表示規定を一元化した法律である。"
+    }
+  },
+  "F1182": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_4": "第3管理区分では、有効な呼吸用保護具を使用すれば、作業環境の改善措置は不要となる。"
+    }
+  },
+  "F1359": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_4": "薬剤師は、虐待の確証が得られるまでは通告を控えるべきである"
+    }
+  },
+  "F1360": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_5": "不妊治療は、人工授精から開始し、効果がなければタイミング法に移行する"
+    }
+  },
+  "F1361": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_1": "健康な個人の97〜98%の必要量を満たすレベル"
+    }
+  },
+  "F1367": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_2": "乳幼児期は、体重当たりのたんぱく質必要量が成人より少ない"
+    }
+  },
+  "F1368": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_4": "リノール酸は、n-3系多価不飽和脂肪酸に分類される"
+    }
+  },
+  "F1382": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "p53遺伝子は、DNA損傷時に不活化され、細胞増殖を促進する"
+    }
+  },
+  "F1384": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_5": "プロモーターの作用は不可逆的であり、曝露を中止しても細胞増殖の促進は持続する"
+    }
+  },
+  "F1386": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_3": "ニトロソアミンは、骨髄を標的として白血病を引き起こす"
+    }
+  },
+  "F1387": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-03",
+    "tier": "batch27-abs",
+    "changes": {
+      "choice_1": "アルキル化剤などの直接発がん物質も、CYPによる代謝活性化を経て初めて作用する",
+      "choice_3": "究極発がん物質は、CYPによってさらに代謝されて速やかに無毒化される",
+      "choice_5": "究極発がん物質の形成は、主にグルクロン酸抱合などの抱合反応によって進む"
+    }
+  }
+}

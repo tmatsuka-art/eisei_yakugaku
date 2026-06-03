@@ -1,0 +1,162 @@
+{
+  "F1212": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_4": "学校薬剤師の主な職務は、児童生徒の健康相談と保健指導である。"
+    }
+  },
+  "F1213": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_4": "フードディフェンスは、食品衛生法によって食品事業者に実施が義務付けられている。"
+    }
+  },
+  "F1214": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "ゲノム編集食品は、外来遺伝子の有無にかかわらず安全性審査を経なければ流通できない。"
+    }
+  },
+  "F1215": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "リスクコミュニケーションにおいて、不確実性の情報は確定後に提供する。"
+    }
+  },
+  "F1221": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "診断には血圧130/85 mmHg以上、脂質異常、空腹時血糖110 mg/dL以上の3項目を満たす必要がある。"
+    }
+  },
+  "F1223": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "特定保健指導は、臨床心理士が認知行動療法を用いて実施する。"
+    }
+  },
+  "F1235": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_4": "SDGsは、達成義務を各国に課す法的拘束力を持つ国際条約である。"
+    }
+  },
+  "F1241": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "栄養摂取状況調査では、対象者が前日の食事を思い出して回答する24時間思い出し法が用いられる。"
+    }
+  },
+  "F1252": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "ノンクリティカル器具（健常皮膚に接触）には、高水準消毒が必要である。"
+    }
+  },
+  "F1254": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_1": "結核は飛沫感染で伝播し、空気感染はしない。"
+    }
+  },
+  "F1255": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "メチル水銀は胎盤を通過しにくいため、胎児への影響は小さい。"
+    }
+  },
+  "F1266": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "GHSは物理化学的危険性を分類し、健康有害性や環境有害性は対象外である。"
+    }
+  },
+  "F1288": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_2": "災害時、薬剤師は避難所で負傷者のトリアージを統括する役割を担う。"
+    }
+  },
+  "F1290": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_1": "市販後調査は、医薬品の承認前に実施される。"
+    }
+  },
+  "F1299": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_2": "リスク ── 食品中に危害要因が存在すること"
+    }
+  },
+  "F1341": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "交付権限は都道府県知事が有している"
+    }
+  },
+  "F1344": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_3": "陽性と判定された児は当該疾患を有しており、追加検査は不要である"
+    }
+  },
+  "F1350": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_4": "乳児死亡率には新生児死亡は含まれるが、早期新生児死亡は除外する"
+    }
+  },
+  "F1352": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "妊産婦死亡は分娩関連合併症が原因である"
+    }
+  },
+  "F1357": {
+    "status": "approved_modify",
+    "decision_at": "2026-05-30",
+    "tier": "batch26-abs",
+    "changes": {
+      "choice_5": "乳児の薬物血中濃度は母親の血中濃度と一致する"
+    }
+  }
+}
