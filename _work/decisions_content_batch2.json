@@ -1,0 +1,122 @@
+{
+  "F070": {
+    "status": "skipped",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {}
+  },
+  "F074": {
+    "status": "skipped",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {}
+  },
+  "F088": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(7)",
+      "choice_1": "コカインは血中エステラーゼによる分解を受けず、未変化体のまま尿中に排泄される"
+    }
+  },
+  "F102": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(1)",
+      "choice_5": "このコホート研究の結果は、高血圧の治療が心筋梗塞を予防することを証明している。"
+    }
+  },
+  "F104": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(4)"
+    }
+  },
+  "F105": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(1)"
+    }
+  },
+  "F106": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(1)"
+    }
+  },
+  "F107": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(4)"
+    }
+  },
+  "F108": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(4)"
+    }
+  },
+  "F110": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(4)"
+    }
+  },
+  "F116": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F122": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-1-1-(4)",
+      "choice_2": "Cは心疾患であり、死亡率は1970年代をピークに低下している。",
+      "choice_5": "Dは肺炎であり、2017年の死因分類の変更により死亡率が大きく上昇した。"
+    }
+  },
+  "F161": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F163": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)"
+    }
+  },
+  "F181": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch2",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(3)"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "F011": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1-t3",
+    "changes": {
+      "new_corecurri_code": "E-3-2-(1)",
+      "choice_2": "新潟水俣病 ── カドミウム"
+    }
+  },
+  "F020": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1-t3",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(2)"
+    }
+  },
+  "F057": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1-t3",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(7)"
+    }
+  },
+  "F059": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1-t3",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(7)"
+    }
+  }
+}

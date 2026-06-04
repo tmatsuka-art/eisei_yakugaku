@@ -1,0 +1,14 @@
+{
+  "F001": {
+    "status": "skipped",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {}
+  },
+  "F003": {
+    "status": "skipped",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {}
+  }
+}

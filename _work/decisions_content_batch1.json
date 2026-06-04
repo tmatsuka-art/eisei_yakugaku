@@ -1,0 +1,60 @@
+{
+  "F009": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "choice_3": "脂溶性の高い化学物質は、そのままの形で腎臓から尿中に排泄される",
+      "choice_4": "グルクロン酸抱合体は胆汁中に排泄された後、そのまま糞便中に排泄される"
+    }
+  },
+  "F041": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F043": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F044": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(5)",
+      "choice_5": "改正前は大麻由来医薬品が一般用医薬品として薬局で販売されていた"
+    }
+  },
+  "F045": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(5)"
+    }
+  },
+  "F057": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "choice_4": "毛髪分析により、覚醒剤の数か月にわたる使用歴を推定することが可能である"
+    }
+  },
+  "F060": {
+    "status": "approved_modify",
+    "decision_at": "2026-06-04",
+    "tier": "content-batch1",
+    "changes": {
+      "new_corecurri_code": "E-3-1-(7)"
+    }
+  }
+}
