@@ -861,9 +861,10 @@
         <div class="filter-section-body" style="padding:0 18px 16px">
           <div id="cat-filters-area"></div>
 
-          <details class="filter-section">
-            <summary>📅 個別の回を指定する</summary>
+          <details class="filter-section" open>
+            <summary>📅 授業回・国試の回で選ぶ</summary>
             <div class="filter-section-body">
+              <div id="lecture-filters"></div>
               <div id="year-filters-detail"></div>
             </div>
           </details>
@@ -1001,6 +1002,8 @@ let selectedSec = 'すべて';
 let selectedSub = 'すべて';
 let selectedYear = 'すべて';
 let selectedNewCC = 'すべて'; // 新コアカリ詳細コードフィルタ
+let selectedLecture = 'すべて'; // 授業回フィルタ（例: 衛II-9）
+let LECTURE_MAP = {}; // lecture_map.json の内容（授業回→過去問ID）
 const curriculumMode = 'new';  // 新カリ固定（旧カリトグル廃止）
 let quizCount = 10;
 let quizQueue = [];
@@ -1246,6 +1249,11 @@ async function loadData() {
       classifyQuestion(q);
       return q;
     });
+    // 授業回マッピングを読み込み（無くてもエラーにしない）
+    try {
+      const resL = await fetch('lecture_map.json?v=' + Date.now());
+      if (resL.ok) LECTURE_MAP = await resL.json();
+    } catch(eL) { console.warn('lecture_map.json load error:', eL); }
     // 新設問を読み込み（ファイルがなくてもエラーにしない）
     try {
       const res2 = await fetch('future_questions.jsonl?v=' + Date.now());
@@ -1334,6 +1342,17 @@ function getPool(weakOnly) {
   } else if (selectedYear !== 'すべて') {
     pool = pool.filter(q => q.year === selectedYear);
   }
+  // 授業回フィルタ（例: 衛II-9 → lecture_map の該当回の過去問IDで絞る）
+  if (selectedLecture && selectedLecture !== 'すべて') {
+    const dash = selectedLecture.lastIndexOf('-');
+    const lsubj = selectedLecture.slice(0, dash);
+    const lnum = selectedLecture.slice(dash + 1);
+    const lentry = LECTURE_MAP[lsubj] && LECTURE_MAP[lsubj].lectures && LECTURE_MAP[lsubj].lectures[lnum];
+    if (lentry && lentry.ids) {
+      const idset = new Set(lentry.ids);
+      pool = pool.filter(q => idset.has(q.problem_id));
+    }
+  }
   if (selectedSub !== 'すべて') pool = pool.filter(q => q._subcat === selectedSub);
   if (curriculumMode === 'new' && selectedNewCC !== 'すべて') {
     pool = pool.filter(q => q.new_corecurri_code === selectedNewCC);
@@ -1355,6 +1374,7 @@ function renderHome() {
   renderStatsCompact();
   renderQuickSelect();
   renderCatFilters();
+  renderLectureFilters();
   renderYearFiltersDetail();
   renderNewCCFilters();
   renderQuizCount();
@@ -1653,6 +1673,36 @@ function selectSub(s) {
 function selectYear(y) {
   selectedYear = (selectedYear === y && y !== 'すべて') ? 'すべて' : y;
   renderHome();
+}
+function selectLecture(key) {
+  selectedLecture = (selectedLecture === key && key !== 'すべて') ? 'すべて' : key;
+  renderHome();
+}
+// 授業回フィルタUI（科目ごとに回ボタンを描画。国試の回とは別グループ）
+function renderLectureFilters() {
+  const el = document.getElementById('lecture-filters');
+  if (!el) return;
+  if (!LECTURE_MAP || Object.keys(LECTURE_MAP).length === 0) { el.innerHTML = ''; return; }
+  let html = '';
+  for (const subj of Object.keys(LECTURE_MAP)) {
+    const info = LECTURE_MAP[subj] || {};
+    const lecs = info.lectures || {};
+    const keys = Object.keys(lecs).sort((a, b) => Number(a) - Number(b));
+    if (keys.length === 0) continue;
+    const color = info.color || '#64748b';
+    html += `<div class="filter-label">${info.icon || '📚'} ${info.label || subj}（授業回）</div>`;
+    html += '<div class="filter-row">';
+    html += keys.map(k => {
+      const key = `${subj}-${k}`;
+      const theme = lecs[k].theme || '';
+      const n = (lecs[k].ids || []).length;
+      const active = key === selectedLecture ? 'active' : '';
+      const style = active ? `style="background:${color};border-color:${color};color:#fff"` : '';
+      return `<button class="filter-btn ${active}" ${style} onclick="selectLecture('${key}')">${subj}-${k} ${theme} <span style="opacity:.6">(${n})</span></button>`;
+    }).join('');
+    html += '</div>';
+  }
+  el.innerHTML = html;
 }
 
 // 個別の回(各回 + 予想問題すべて)を選ぶフィルタ。クイック選択は renderQuickSelect が担当。
