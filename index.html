@@ -864,8 +864,9 @@
           <details class="filter-section" open>
             <summary>📅 国試の回・授業回で選ぶ</summary>
             <div class="filter-section-body">
-              <div id="year-filters-detail"></div>
+              <div id="year-filters-past"></div>
               <div id="lecture-filters"></div>
+              <div id="year-filters-predicted"></div>
             </div>
           </details>
 
@@ -1710,8 +1711,9 @@ function renderLectureFilters() {
 // カテゴリ・詳細コード選択中はその範囲に絞った問題数を表示
 function renderYearFiltersDetail() {
   const years = [...new Set(ALL_QUESTIONS.map(q => q.year))].sort((a,b) => a - b);
-  const el = document.getElementById('year-filters-detail');
-  if (!el) return;
+  const pastEl = document.getElementById('year-filters-past');
+  const predEl = document.getElementById('year-filters-predicted');
+  if (!pastEl && !predEl) return;
 
   // 現在のカテゴリ/詳細コード絞り込みを適用したベースプール
   // （年フィルタは適用しない — 年ごとのカウントを出すため）
@@ -1726,29 +1728,29 @@ function renderYearFiltersDetail() {
     ? `（${catLabel(selectedCat)}${selectedNewCC && selectedNewCC !== 'すべて' ? ' / ' + selectedNewCC : ''}）`
     : '';
 
-  let html = '';
-
-  // 📜 過去問の各回
+  // 📜 過去問の各回（この下に授業回 lecture-filters が入る）
+  let pastHtml = '';
   if (pastYears.length > 0) {
-    html += `<div class="filter-label">📜 過去問の各回${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
-    html += '<div class="filter-row">';
-    html += pastYears.map(y => {
+    pastHtml += `<div class="filter-label">📜 過去問の各回${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
+    pastHtml += '<div class="filter-row">';
+    pastHtml += pastYears.map(y => {
       const n = basePool.filter(q => q.year === y).length;
       return `<button class="filter-btn ${y===selectedYear?'active':''}" onclick="selectYear(${y})">第${y}回 <span style="opacity:.6">(${n})</span></button>`;
     }).join('');
-    html += '</div>';
+    pastHtml += '</div>';
   }
+  if (pastEl) pastEl.innerHTML = pastHtml;
 
-  // 🔮 予想問題（すべて）
+  // 🔮 予想問題（すべて）— 過去問グループ（各回＋授業回）と線で区切る
+  let predHtml = '';
   if (years.includes(0)) {
     const predictedCount = basePool.filter(q => (q.problem_id || '').startsWith('F') && q.year === 0).length;
-    html += `<div class="filter-label" style="margin-top:10px">🔮 予想問題${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
-    html += '<div class="filter-row">';
-    html += `<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')" title="検証済み・学生「妥当」評価・検証募集中、すべての予想問題">予想問題（すべて） (${predictedCount}問)</button>`;
-    html += '</div>';
+    predHtml += `<div class="filter-label" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">🔮 予想問題${filterLabel ? ' <span style="font-weight:400;color:#9aa3b8">'+filterLabel+'</span>' : ''}</div>`;
+    predHtml += '<div class="filter-row">';
+    predHtml += `<button class="filter-btn ${'predicted_all'===selectedYear?'active':''}" onclick="selectYear('predicted_all')" title="検証済み・学生「妥当」評価・検証募集中、すべての予想問題">予想問題（すべて） (${predictedCount}問)</button>`;
+    predHtml += '</div>';
   }
-
-  el.innerHTML = html;
+  if (predEl) predEl.innerHTML = predHtml;
 }
 
 // ── QUIZ ──
