@@ -217,6 +217,15 @@
   }
   .weak-checkbox input { cursor: pointer; }
   .weak-checkbox.checked { border-color: var(--red); }
+  .shuffle-checkbox {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 18px;
+    background: var(--blue-bg); color: var(--blue-dark);
+    font-size: 12px; font-weight: 700; cursor: pointer;
+    border: 1.5px solid transparent; user-select: none;
+  }
+  .shuffle-checkbox input { cursor: pointer; }
+  .shuffle-checkbox.checked { border-color: var(--blue-dark); }
 
   /* 出題情報の表示 */
   .pool-info-row {
@@ -842,6 +851,7 @@
           <div id="quiz-count-area" style="display:flex;gap:5px;flex-wrap:wrap"></div>
         </div>
         <div class="control-group" id="weak-toggle-area"></div>
+        <div class="control-group" id="shuffle-toggle-area"></div>
       </div>
 
       <!-- アクションボタン -->
@@ -1012,6 +1022,9 @@ let currentIdx = 0;
 let answered = false;
 let selectedOptions = new Set();
 let sessionResults = [];
+// 選択肢シャッフル（既定オン。テスト時のみ適用、図/順序問題などは自動除外）
+let shuffleChoices = (function(){ try { return localStorage.getItem('eisei_shuffle') !== '0'; } catch(e){ return true; } })();
+let currentRender = null; // 現在表示中の問題の並べ替え情報（順序・正解番号・解説）
 // コアカリ6小項目
 const CAT_DEFS = {
   'E-1-1': { label: 'E-1-1 疾病予防・健康被害防止', short: 'E-1-1 疾病予防', color: '#1565c0', bg: '#e3f2fd', css: 'E11' },
@@ -1382,6 +1395,7 @@ function renderHome() {
   renderPoolInfo();
   renderCatCards();
   renderWeakToggle();
+  renderShuffleToggle();
 }
 
 // 「何を解く？」のクイック選択(5ボタン)
@@ -1652,6 +1666,23 @@ function renderWeakToggle() {
   `;
 }
 
+function renderShuffleToggle() {
+  const el = document.getElementById('shuffle-toggle-area');
+  if (!el) return;
+  el.innerHTML = `
+    <label class="shuffle-checkbox ${shuffleChoices?'checked':''}" id="shuffle-checkbox-label" title="選択肢の並び順を毎回ランダムにします（場所での暗記防止）。図・年代順・「上記」等の問題は自動で除外。">
+      <input type="checkbox" id="shuffle-checkbox" ${shuffleChoices?'checked':''} onchange="setShuffleChoices(this.checked)">
+      🔀 選択肢をシャッフル
+    </label>
+  `;
+}
+
+function setShuffleChoices(on) {
+  shuffleChoices = on;
+  try { localStorage.setItem('eisei_shuffle', on ? '1' : '0'); } catch(e) {}
+  document.getElementById('shuffle-checkbox-label')?.classList.toggle('checked', on);
+}
+
 function renderWeakBtn() {
   // 旧互換：何もしない（renderWeakToggle に統合済み）
 }
@@ -1766,10 +1797,96 @@ function startQuiz(weakOnly) {
   renderQuestion();
 }
 
+// ── 選択肢シャッフル（方式A：並べ替え＋番号振り直し＋解説の番号合わせ） ──
+// データ（jsonl）は変更せず、表示時のみ並べ替える。結果は currentRender に保持。
+
+// 「上記」「いずれも」「1と2」など、位置・全体を指す選択肢（並べ替え不可）
+const POS_REF_RE = /上記|下記|前記|後記|いずれも|いずれか|すべて正し|すべて誤|全て正し|全て誤|該当するものはない|該当なし|正しいものはない|誤っているものはない|当てはまるものはない|[1-5][とや・，,][1-5]|[abABａｂＡＢ][とや・，,]/;
+
+function leadingNumber(c) {
+  const s = (c || '').replace(/[\s,，]/g, '').replace(/^[約およそ]+/, '');
+  const m = s.match(/^(\d+(?:\.\d+)?)/);
+  return m ? parseFloat(m[1]) : null;
+}
+// 年代順・数値の大小順など、順序に意味がある選択肢か
+function isOrderedNumeric(ch) {
+  const v = ch.map(leadingNumber);
+  if (v.some(x => x === null) || v.length < 3) return false;
+  let inc = true, dec = true;
+  for (let i = 0; i < v.length - 1; i++) { if (!(v[i] < v[i+1])) inc = false; if (!(v[i] > v[i+1])) dec = false; }
+  return inc || dec;
+}
+// この問題は並べ替えてよいか
+function canShuffle(q) {
+  const ch = q.choices || [];
+  if (ch.length < 2) return false;
+  if (ch[0] === 'IMAGES') return false;                     // 図で選ぶ問題
+  if ((q.answer || []).length === 0) return false;
+  if ((q.answer || []).some(a => !/^\d+$/.test(String(a).trim()))) return false; // 「解なし」「いずれか正解」等の特殊解答
+  if (ch.some(c => POS_REF_RE.test(c || ''))) return false; // 上記/いずれも 等
+  if (isOrderedNumeric(ch)) return false;                   // 順序に意味がある
+  return true;
+}
+
+// 解説の選択肢番号マーカー（行頭 or 。の直後の「数字：」）
+const RE_MARK = /(^|\n|。)([ \t　]*)([0-9]{1,2})([：:])/g;
+function parseSegs(comment, n) {
+  if (!comment) return null;
+  RE_MARK.lastIndex = 0;
+  const marks = []; let m;
+  while ((m = RE_MARK.exec(comment)) !== null) {
+    marks.push({ num: parseInt(m[3], 10), sep: m[1], sepEnd: m.index + m[1].length, markerStart: m.index, bodyStart: RE_MARK.lastIndex });
+  }
+  if (marks.length !== n) return null;
+  for (let i = 0; i < n; i++) if (marks[i].num !== i + 1) return null; // 1..n が順に1回ずつ揃う時のみ
+  const seg = {};
+  for (let i = 0; i < marks.length; i++) {
+    let end;
+    if (i + 1 < marks.length) { const nx = marks[i+1]; end = (nx.sep === '。') ? nx.sepEnd : nx.markerStart; }
+    else end = comment.length;
+    seg[marks[i].num] = comment.slice(marks[i].bodyStart, end).trim();
+  }
+  const p0 = marks[0]; const pe = (p0.sep === '。') ? p0.sepEnd : p0.markerStart;
+  return { prefix: comment.slice(0, pe).trim(), seg };
+}
+// 解説の番号を表示順に振り直す（番号式のときのみ。それ以外は null を返す）
+function remapComment(comment, n, dispToOrig) {
+  const parsed = parseSegs(comment, n);
+  if (!parsed) return null;
+  const lines = [];
+  for (let d = 1; d <= n; d++) lines.push(d + '：' + parsed.seg[dispToOrig[d]]);
+  return (parsed.prefix ? parsed.prefix + '\n' : '') + lines.join('\n');
+}
+// 解説の種類: full=番号式(振り直す) / ref=番号で言及あり(並べ替え不可) / none,plain=安全
+function commentClass(comment, n) {
+  if (!comment) return 'none';
+  if (parseSegs(comment, n)) return 'full';
+  if (/選択肢[1-9]|[1-9]番|(?:^|\n|。)[ \t　]*[1-9][）).．、]|[1-5][とや・][1-5]/.test(comment)) return 'ref';
+  return 'plain';
+}
+
+// 現在の問題の「表示順・正解番号・解説」を組み立てる（元データは変更しない）
+function buildRender(q) {
+  const ch = q.choices || []; const n = ch.length;
+  const identity = { shuffled: false, order: Array.from({length:n}, (_,i)=>i), answerNums: (q.answer||[]).map(Number), comment: q.comment };
+  if (!shuffleChoices || !canShuffle(q)) return identity;
+  const cls = commentClass(q.comment, n);
+  if (cls === 'ref') return identity;                        // 番号で言及する解説 → 並べ替えない
+  const order = Array.from({length:n}, (_,i)=>i);            // 表示位置(0始) → 元index
+  for (let i = n-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); const t = order[i]; order[i] = order[j]; order[j] = t; }
+  const origToDisp = {}, dispToOrig = {};
+  order.forEach((origIdx, d0) => { const d = d0+1; origToDisp[origIdx+1] = d; dispToOrig[d] = origIdx+1; });
+  const answerNums = (q.answer||[]).map(a => origToDisp[Number(a)]).filter(x => x != null);
+  let comment = q.comment;
+  if (cls === 'full') { const r = remapComment(q.comment, n, dispToOrig); if (r != null) comment = r; }
+  return { shuffled: true, order, answerNums, comment };
+}
+
 function renderQuestion() {
   answered = false;
   selectedOptions = new Set();
   const q = quizQueue[currentIdx];
+  currentRender = buildRender(q); // 表示順・正解番号・解説（シャッフルoff時は元のまま）
   const isMulti = q.answer.length > 1;
 
   // progress
@@ -1881,12 +1998,14 @@ function renderQuestion() {
         </button>`
       ).join('');
   } else {
-    optArea.innerHTML = q.choices.map((c,i) =>
-      `<button class="option-btn" id="opt-${i+1}" onclick="selectOption(${i+1},'${q.problem_id}')">
-        <span class="option-letter">${i+1}</span>
-        <span>${formatText(c)}</span>
-      </button>`
-    ).join('');
+    // currentRender.order = 表示位置順に並んだ「元のindex」。番号は表示位置(1..n)で振り直す
+    optArea.innerHTML = currentRender.order.map((origIdx, d0) => {
+      const d = d0 + 1;
+      return `<button class="option-btn" id="opt-${d}" onclick="selectOption(${d},'${q.problem_id}')">
+        <span class="option-letter">${d}</span>
+        <span>${formatText(q.choices[origIdx])}</span>
+      </button>`;
+    }).join('');
   }
 
   document.getElementById('q-explanation').innerHTML = '';
@@ -1951,7 +2070,8 @@ function submitMulti(pid) {
 function processAnswer(chosen, pid) {
   answered = true;
   const q = quizQueue[currentIdx];
-  const correctNums = q.answer.map(Number);
+  // 表示中の正解番号（シャッフル時は振り直し後）。未構築時は元データにフォールバック
+  const correctNums = (currentRender && currentRender.answerNums) ? currentRender.answerNums : q.answer.map(Number);
   const isCorrect = correctNums.length === chosen.length &&
     correctNums.every(n => chosen.includes(n));
 
@@ -2022,7 +2142,7 @@ function processAnswer(chosen, pid) {
         ${isCorrect ? '✅ 正解！' : '❌ 不正解'} 　正解: ${correctStr}番
       </div>
       ${userAnswerLine}
-      <div class="explanation-text">${formatText(q.comment||'解説なし')}</div>
+      <div class="explanation-text">${formatText(((currentRender && currentRender.comment) || q.comment) || '解説なし')}</div>
 
     </div>`;
 
