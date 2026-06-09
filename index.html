@@ -1716,6 +1716,17 @@ function renderLectureFilters() {
   if (!el) return;
   if (!LECTURE_MAP || Object.keys(LECTURE_MAP).length === 0) { el.innerHTML = ''; return; }
   let html = '';
+  // ボタンの数字を「現在の出題範囲(selectedYear)」に連動させる（過去問/予想/すべてで件数が変わる）
+  const ymatch = (q) => {
+    if (selectedYear === 'すべて') return true;
+    if (selectedYear === 'past') return q.year > 0;
+    if (selectedYear === 'predicted_all') return (q.problem_id||'').startsWith('F') && q.year === 0;
+    if (selectedYear === 'predicted_verified') return (q.problem_id||'').startsWith('F') && q.year === 0 && isQuestionVerified(q);
+    if (selectedYear === 'predicted_student_only') return (q.problem_id||'').startsWith('F') && q.year === 0 && !isQuestionVerified(q) && (CORRECT_COUNTS[q.problem_id]||0) > 0;
+    if (selectedYear === 'predicted_unverified') return (q.problem_id||'').startsWith('F') && q.year === 0 && !isQuestionVerified(q) && !((CORRECT_COUNTS[q.problem_id]||0) > 0);
+    return q.year === selectedYear;
+  };
+  const yearOK = new Set(ALL_QUESTIONS.filter(ymatch).map(q => q.problem_id));
   for (const subj of Object.keys(LECTURE_MAP)) {
     const info = LECTURE_MAP[subj] || {};
     const lecs = info.lectures || {};
@@ -1727,7 +1738,7 @@ function renderLectureFilters() {
     html += keys.map(k => {
       const key = `${subj}-${k}`;
       const theme = lecs[k].theme || '';
-      const n = (lecs[k].ids || []).length;
+      const n = (lecs[k].ids || []).filter(id => yearOK.has(id)).length;
       const active = key === selectedLecture ? 'active' : '';
       const style = active ? `style="background:${color};border-color:${color};color:#fff"` : '';
       return `<button class="filter-btn ${active}" ${style} onclick="selectLecture('${key}')">${subj}-${k} ${theme} <span style="opacity:.6">(${n})</span></button>`;
