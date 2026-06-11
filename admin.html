@@ -229,6 +229,33 @@
   .filter-summary {
     font-size: 12px; color: var(--muted); margin-bottom: 12px;
   }
+
+  /* 「問題を直す」タブ */
+  .fix-search-bar { display: flex; gap: 8px; }
+  .fix-search-bar input {
+    flex: 1; padding: 10px 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: 14px; outline: none;
+  }
+  .fix-search-bar input:focus { border-color: var(--blue); }
+  .fix-search-bar button {
+    padding: 10px 18px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 8px;
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    cursor: pointer; white-space: nowrap;
+  }
+  .fix-search-bar button:hover { background: #1d4490; }
+  .fix-hint { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+  .fix-srcfile { font-size: 11px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .fix-instr {
+    width: 100%; min-height: 90px; resize: vertical;
+    padding: 10px 12px; margin-top: 4px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: 13px; line-height: 1.6;
+    outline: none;
+  }
+  .fix-instr:focus { border-color: var(--blue); }
 </style>
 </head>
 <body>
@@ -260,6 +287,7 @@
       <button class="tab" data-filter="reviewed" onclick="setFilter('reviewed')">✓ 対応済み<span class="count" id="count-reviewed"></span></button>
       <button class="tab" data-filter="all" onclick="setFilter('all')">全報告<span class="count" id="count-all"></span></button>
       <button class="tab" data-filter="verifications" onclick="setFilter('verifications')">📋 検証履歴<span class="count" id="count-verifications"></span></button>
+      <button class="tab" data-filter="fix" onclick="setFilter('fix')">🔧 問題を直す<span class="count" id="count-fix"></span></button>
     </div>
     <div class="filter-summary" id="filter-summary"></div>
     <div id="reports-list">
@@ -282,6 +310,7 @@ let questionMap = {}; // problem_id -> question data
 let verifiedSet = new Set(); // 検証済み問題IDのセット
 let verifiedList = []; // 検証済み問題のフルレコード（履歴表示用）
 let currentFilter = 'unreviewed';
+let fixLastQuery = ''; // 「問題を直す」タブの直近の検索語（タブ再描画時に復元）
 
 // ── AUTH ──
 async function checkAuth() {
@@ -329,22 +358,33 @@ async function doLogout() {
 }
 
 // ── DATA ──
-async function loadQuestions() {
+// 1ファイル分の jsonl を読み込んで questionMap に流し込む。
+// 各問題に _sourceFile を付与し、後で「どのファイルを直すか」を依頼文に明記できるようにする。
+async function loadOneJsonl(url, sourceFile) {
   try {
-    const res = await fetch('future_questions.jsonl?v=' + Date.now());
-    if (!res.ok) return;
+    const res = await fetch(url + '?v=' + Date.now());
+    if (!res.ok) { console.warn('Failed to fetch', url, res.status); return; }
     const text = await res.text();
     const lines = text.trim().split('\n').filter(l => l.trim());
-    questionMap = {};
     for (const line of lines) {
       try {
         const q = JSON.parse(line);
+        q._sourceFile = sourceFile;
         questionMap[q.problem_id] = q;
       } catch(e) {}
     }
   } catch(e) {
-    console.warn('Failed to load questions:', e);
+    console.warn('Failed to load questions from', url, e);
   }
+}
+
+async function loadQuestions() {
+  // 予想問題（F始まり）と過去問（6桁数字）を統合。IDは衝突しないので上書きの心配はない。
+  questionMap = {};
+  await Promise.all([
+    loadOneJsonl('future_questions.jsonl', 'future_questions.jsonl'),
+    loadOneJsonl('hygiene_with_images_v4.jsonl', 'hygiene_with_images_v4.jsonl'),
+  ]);
 }
 
 async function loadReports() {
@@ -414,9 +454,18 @@ function renderReports() {
   const studentOnlyForCount = [...correctQids].filter(qid => !verifiedSet.has(qid)).length;
   document.getElementById('count-verifications').textContent = `(${verifiedList.length + studentOnlyForCount})`;
 
+  // 「問題を直す」タブ件数 = 検索対象（予想問題＋過去問）の総数
+  document.getElementById('count-fix').textContent = `(${Object.keys(questionMap).length})`;
+
   // 検証履歴タブが選択されていれば、検証一覧を描画
   if (currentFilter === 'verifications') {
     renderVerifications();
+    return;
+  }
+
+  // 「問題を直す」タブが選択されていれば、検索＋改題UIを描画
+  if (currentFilter === 'fix') {
+    renderFixTab();
     return;
   }
 
@@ -769,15 +818,11 @@ function buildFixRequestText(report, q) {
   return lines.join('\n');
 }
 
-async function copyFixRequest(reportId) {
-  const report = allReports.find(r => r.id === reportId);
-  if (!report) return;
-  const q = questionMap[report.question_id];
-  const text = buildFixRequestText(report, q);
-
+// クリップボードへコピー（API非対応ブラウザ向けのフォールバック付き）
+async function copyToClipboard(text, okMsg) {
   try {
     await navigator.clipboard.writeText(text);
-    showToast('📋 修正依頼をコピーしました — Claudeに貼り付けてください');
+    showToast(okMsg);
   } catch (e) {
     // フォールバック
     const ta = document.createElement('textarea');
@@ -788,12 +833,222 @@ async function copyFixRequest(reportId) {
     ta.select();
     try {
       document.execCommand('copy');
-      showToast('📋 修正依頼をコピーしました — Claudeに貼り付けてください');
+      showToast(okMsg);
     } catch (e2) {
       alert('コピーに失敗しました。お使いのブラウザがクリップボードAPI非対応の可能性があります。\n\n--- 以下を手動でコピー ---\n\n' + text);
     }
     document.body.removeChild(ta);
   }
+}
+
+async function copyFixRequest(reportId) {
+  const report = allReports.find(r => r.id === reportId);
+  if (!report) return;
+  const q = questionMap[report.question_id];
+  const text = buildFixRequestText(report, q);
+  await copyToClipboard(text, '📋 修正依頼をコピーしました — Claudeに貼り付けてください');
+}
+
+// ── 「🔧 問題を直す」タブ ──
+function renderFixTab() {
+  const listEl = document.getElementById('reports-list');
+  document.getElementById('filter-summary').textContent =
+    '🔧 過去問・予想問題を検索して、改題や修正の依頼文を作ります（問題ID や「シアン」などのキーワードで検索）';
+
+  listEl.innerHTML = `
+    <div class="card">
+      <div class="fix-search-bar">
+        <input type="text" id="fix-search-input" placeholder="問題ID（例 098023 / F001）またはキーワード（例 シアン）"
+               onkeydown="if(event.key==='Enter'){runFixSearch();}">
+        <button onclick="runFixSearch()">🔍 検索</button>
+      </div>
+      <div class="fix-hint">ヒント：問題IDがわかっていればそのまま入力、わからなければ語句で探せます。</div>
+    </div>
+    <div id="fix-results"></div>
+  `;
+
+  // 直近の検索語があれば復元して再検索（タブを行き来しても結果が残る）
+  const input = document.getElementById('fix-search-input');
+  if (fixLastQuery) {
+    input.value = fixLastQuery;
+    runFixSearch();
+  }
+  input.focus();
+}
+
+function runFixSearch() {
+  const input = document.getElementById('fix-search-input');
+  const resultsEl = document.getElementById('fix-results');
+  const qRaw = (input.value || '').trim();
+  fixLastQuery = qRaw;
+
+  if (!qRaw) {
+    resultsEl.innerHTML = '<div class="card empty" style="padding:30px">検索語を入力してください。</div>';
+    return;
+  }
+
+  const qLower = qRaw.toLowerCase();
+  const matches = Object.values(questionMap).filter(q => {
+    const id = (q.problem_id || '').toLowerCase();
+    if (id.includes(qLower)) return true;
+    const hay = [
+      q.problem_text, q.display_title, q.comment,
+      ...(Array.isArray(q.choices) ? q.choices : [])
+    ].join('\n');
+    return hay.includes(qRaw);
+  });
+
+  // 完全一致のID → ID昇順 で並べる
+  matches.sort((a, b) => {
+    const ax = (a.problem_id || '').toLowerCase() === qLower ? 0 : 1;
+    const bx = (b.problem_id || '').toLowerCase() === qLower ? 0 : 1;
+    if (ax !== bx) return ax - bx;
+    return (a.problem_id || '').localeCompare(b.problem_id || '');
+  });
+
+  const CAP = 60;
+  const shown = matches.slice(0, CAP);
+
+  if (shown.length === 0) {
+    resultsEl.innerHTML = `<div class="card empty" style="padding:30px">「${escapeHtml(qRaw)}」に一致する問題は見つかりませんでした。</div>`;
+    return;
+  }
+
+  const moreNote = matches.length > CAP
+    ? `<div class="fix-hint" style="margin:0 0 12px">${matches.length} 件ヒット。先頭 ${CAP} 件を表示しています（検索語を絞ると見つけやすくなります）。</div>`
+    : `<div class="fix-hint" style="margin:0 0 12px">${matches.length} 件ヒットしました。</div>`;
+
+  resultsEl.innerHTML = moreNote + shown.map(q => renderFixCard(q)).join('');
+}
+
+function renderFixCard(q) {
+  const qid = q.problem_id || '';
+  const isPast = q._sourceFile === 'hygiene_with_images_v4.jsonl';
+  const kindLabel = isPast ? '過去問' : '予想問題';
+  const ans = Array.isArray(q.answer) ? q.answer.join(', ') : (q.answer || '');
+  const hasImageChoices = q.choices && q.choices[0] === 'IMAGES';
+
+  return `
+    <div class="card q-card">
+      <div class="q-header">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
+          <span class="q-id">${escapeHtml(qid)}</span>
+          ${q.display_title ? `<span class="q-title">${escapeHtml(q.display_title)}</span>` : ''}
+          <span class="badge ${isPast ? 'badge-report' : 'badge-unverified'}">${kindLabel}</span>
+        </div>
+        <div class="q-counts">
+          <span class="fix-srcfile">📄 ${escapeHtml(q._sourceFile || '')}</span>
+        </div>
+      </div>
+      <div class="q-body">
+        <div class="label">問題文</div>
+        <div class="q-text">${escapeHtml(q.problem_text || '')}</div>
+        ${(q.assets && q.assets.length > 0) ? `
+          <div class="label">画像</div>
+          <div class="q-images">${q.assets.map(a => `<img src="${escapeHtml(a)}" alt="問題図" onerror="this.style.display='none'">`).join('')}</div>
+          <div class="fix-hint">画像パス: ${q.assets.map(a => escapeHtml(a)).join(' , ')}</div>
+        ` : ''}
+        ${(q.choices && q.choices.length > 0 && !hasImageChoices) ? `
+          <div class="label">選択肢</div>
+          <div class="q-choices"><ol>${q.choices.map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ol></div>
+        ` : (hasImageChoices ? '<div class="label">選択肢</div><div class="q-text">（画像選択肢）</div>' : '')}
+        ${ans ? `
+          <div class="label">現在の正解</div>
+          <div class="q-answer">${escapeHtml(ans)} 番</div>
+        ` : ''}
+        ${q.comment ? `
+          <div class="label">解説</div>
+          <div class="q-explanation">${escapeHtml(q.comment)}</div>
+        ` : ''}
+
+        <div class="label" style="margin-top:16px">どう直したいか（修正指示）</div>
+        <textarea class="fix-instr" id="fix-instr-${escapeHtml(qid)}"
+          placeholder="例）正解をチオ硫酸ナトリウムからヒドロキソコバラミンに変えたい。選択肢にもヒドロキソコバラミンを入れて、過去問のまま改題して。&#10;例）この問題は出題から外したい。&#10;例）図を新しいものに差し替えたい（差し替え用の画像はあとで渡す）。"></textarea>
+        <div class="report-actions">
+          <button class="copy-btn" onclick="copyReviseRequest('${escapeHtml(qid)}')" title="改題・修正の依頼文をクリップボードにコピー">📋 Claudeに修正依頼をコピー</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// 改題ルール（Claude Code 向け・厳守）— 依頼文の末尾に必ず付ける
+function reviseRulesBlock() {
+  return [
+    '## 改題ルール（Claude Code向け・厳守）',
+    '',
+    '【過去問のまま改題する場合】',
+    '- problem_id と year は変えない（過去問として検索・分類されるため）。',
+    '- display_title の末尾に「（改）」を付ける。',
+    '- revised: true を追加する。',
+    '- comment（解説）の冒頭に「（改題）」を付け、末尾に「元の正解は◯◯だった」という経緯を註として残す。',
+    '',
+    '【出題から外す（引退）場合】',
+    '- lecture_map.json の該当回の ids から problem_id を削除する（データ自体は jsonl に残す）。',
+    '',
+    '【画像を差し替える場合】',
+    '- 予想問題: FUTURE/<problem_id>.png を差し替える。',
+    '- 過去問: JPPE_norm/JPPE<回>/<problem_id>.png を差し替える（例 第98回なら JPPE_norm/JPPE098/098023.png）。',
+    '',
+    '【共通の作業ルール】',
+    '- 作業前に必ずバックアップを取る（<ファイル名>.bak_pre_<名前>_<日付>）。',
+    '- 編集後は JSON として壊れていないか妥当性を確認する。',
+    '- 変更したファイルだけを名指しで git add する（pptx 等、無関係な未コミット変更を巻き込まない）。',
+    '- そのうえで commit → push する。',
+  ].join('\n');
+}
+
+function buildReviseRequestText(q, instr) {
+  const qid = q.problem_id || '';
+  const isPast = q._sourceFile === 'hygiene_with_images_v4.jsonl';
+  const lines = [];
+  lines.push(`[${qid} の改題・修正依頼]`);
+  lines.push('');
+  lines.push('## 対象');
+  lines.push(`- 問題ID: ${qid}`);
+  lines.push(`- 種別: ${isPast ? '過去問' : '予想問題'}`);
+  lines.push(`- 対象ファイル: ${q._sourceFile || '(不明)'}`);
+  if (q.display_title) lines.push(`- 表示名: ${q.display_title}`);
+  lines.push('');
+  lines.push('## 現在の問題内容');
+  lines.push('**問題文:**');
+  lines.push(q.problem_text || '(なし)');
+  lines.push('');
+  if (q.assets && q.assets.length > 0) {
+    lines.push('**画像:**');
+    q.assets.forEach(a => lines.push(`- ${a}`));
+    lines.push('');
+  }
+  if (q.choices && q.choices.length > 0 && q.choices[0] !== 'IMAGES') {
+    lines.push('**選択肢:**');
+    q.choices.forEach((c, i) => lines.push(`${i + 1}. ${c}`));
+    lines.push('');
+  } else if (q.choices && q.choices[0] === 'IMAGES') {
+    lines.push('**選択肢:** （画像選択肢）');
+    lines.push('');
+  }
+  const ans = Array.isArray(q.answer) ? q.answer.join(', ') : (q.answer || '');
+  lines.push(`**現在の正解:** ${ans} 番`);
+  lines.push('');
+  if (q.comment) {
+    lines.push('**現在の解説:**');
+    lines.push(q.comment);
+    lines.push('');
+  }
+  lines.push('## 教員からの修正指示');
+  lines.push(instr && instr.trim() ? instr.trim() : '(未記入 — 上記内容を踏まえて適切に修正してください)');
+  lines.push('');
+  lines.push(reviseRulesBlock());
+  return lines.join('\n');
+}
+
+async function copyReviseRequest(qid) {
+  const q = questionMap[qid];
+  if (!q) { showToast('⚠ 問題データが見つかりません: ' + qid); return; }
+  const instrEl = document.getElementById('fix-instr-' + qid);
+  const instr = instrEl ? instrEl.value : '';
+  const text = buildReviseRequestText(q, instr);
+  await copyToClipboard(text, '📋 修正依頼をコピーしました — Claudeに貼り付けてください');
 }
 
 let _adminToastTimer = null;
