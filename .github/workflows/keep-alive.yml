@@ -2,6 +2,11 @@ name: Supabase Keep Alive
 
 # Supabase 無料プランは7日間アクセスがないとプロジェクトが自動停止される。
 # このワークフローが毎日1回 REST API に軽いクエリを送り「活動中」を維持する。
+#
+# 2026-08-19 追記: GitHub は「60日間リポジトリに活動がない」とスケジュール実行を
+# 自動無効化する（実際に無効化され通知メールが届いた）。対策として、実行のたびに
+# 心拍ファイルを1行コミットし、リポジトリの活動を絶やさないようにした。
+# このコミット自体が「活動」としてカウントされ、以後の自動無効化を防ぐ。
 
 on:
   schedule:
@@ -10,10 +15,15 @@ on:
   # Actions タブから手動実行も可能
   workflow_dispatch:
 
+permissions:
+  contents: write # 心拍ファイルのコミットに必要
+
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Ping Supabase REST API
         run: |
           echo "Supabase プロジェクトを keep-alive..."
@@ -27,3 +37,12 @@ jobs:
             exit 1
           fi
           echo "Supabase ping 成功。プロジェクトは活動中です。"
+
+      - name: 心拍を記録（GitHubの60日ルール対策）
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .github/keep-alive-heartbeat.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/keep-alive-heartbeat.txt
+          git commit -m "chore: keep-alive heartbeat [skip ci]"
+          git push
