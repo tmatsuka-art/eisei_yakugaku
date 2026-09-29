@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>衛生薬学 学習アプリ 使い方ガイド</title>
+<style>
+  :root{
+    --navy:#5C2787; --navy2:#7a3aa8;
+    --blue:#3aaab2; --blue-dark:#2c8c93; --blue-bg:#e6f5f6;
+    --accent2:#7dc5b6; --highlight:#5b1f8c; --highlight-bg:#f1eaf7;
+    --green:#1a7a4a; --green-bg:#e8f5ee; --red:#b02020; --red-bg:#fceaea;
+    --gray:#f6f8fc; --border:#dde3ee; --text:#1a2035; --muted:#6b7a99;
+  }
+  *{ box-sizing:border-box; }
+  @page{ size:A4; margin:13mm 12mm; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:"Yu Gothic","Meiryo","Hiragino Kaku Gothic ProN",sans-serif;
+    color:var(--text); font-size:10.3pt; line-height:1.65;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  h1,h2,h3{ margin:0; font-weight:700; }
+
+  /* 表紙バンド */
+  .cover{
+    background:linear-gradient(120deg,var(--navy) 0%,var(--navy2) 55%,var(--blue) 100%);
+    color:#fff; border-radius:14px; padding:22px 26px; margin-bottom:16px;
+  }
+  .cover .eyebrow{ font-size:9pt; letter-spacing:.14em; opacity:.85; }
+  .cover h1{ font-size:21pt; margin:4px 0 6px; }
+  .cover .sub{ font-size:10.5pt; opacity:.95; }
+  .cover .tag{
+    display:inline-block; margin-top:12px; background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.4); border-radius:999px;
+    padding:5px 14px; font-size:9.5pt;
+  }
+
+  /* セクション見出し */
+  .sec{ break-inside:avoid; margin-bottom:14px; }
+  .sec-title{
+    display:flex; align-items:center; gap:9px;
+    font-size:13pt; color:var(--navy); font-weight:700;
+    border-left:6px solid var(--blue); padding:3px 0 3px 11px; margin-bottom:9px;
+  }
+  .sec-title .num{
+    background:var(--blue); color:#fff; width:23px; height:23px; flex:0 0 auto;
+    border-radius:7px; font-size:11pt; display:inline-flex;
+    align-items:center; justify-content:center;
+  }
+
+  /* カード／ボックス */
+  .card{ background:var(--gray); border:1px solid var(--border); border-radius:11px; padding:13px 16px; }
+  .note{ background:var(--blue-bg); border:1px solid var(--accent2); border-radius:11px; padding:12px 16px; }
+  .warn{ background:#fff7ec; border:1px solid #f0c27a; border-radius:11px; padding:12px 16px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+
+  p{ margin:0 0 7px; }
+  ul{ margin:5px 0 7px; padding-left:1.25em; }
+  li{ margin-bottom:3px; }
+  b{ color:var(--navy); }
+  .muted{ color:var(--muted); }
+
+  /* ナビ説明 */
+  .nav-item{ background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px 12px; text-align:center; }
+  .nav-item .ico{ font-size:18pt; }
+  .nav-item .nm{ font-weight:700; color:var(--navy); margin-top:3px; }
+  .nav-item .ds{ font-size:9pt; color:var(--muted); }
+
+  /* ステップ */
+  .step{ display:flex; gap:11px; margin-bottom:9px; break-inside:avoid; }
+  .step .n{
+    flex:0 0 auto; width:27px; height:27px; border-radius:50%;
+    background:var(--highlight); color:#fff; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:11pt;
+  }
+  .step .tx{ flex:1; }
+  .step .tx b{ color:var(--highlight); }
+
+  /* 擬似ボタン・ラベル */
+  .btn{ display:inline-block; border-radius:7px; padding:3px 11px; font-size:9pt; font-weight:700; white-space:nowrap; }
+  .btn-main{ background:var(--blue); color:#fff; }
+  .btn-sub{ background:#fff; color:var(--blue-dark); border:1.5px solid var(--blue); }
+  .btn-ok{ background:var(--green-bg); color:var(--green); border:1px solid var(--green); }
+  .btn-rep{ background:#fff1dd; color:#9a6212; border:1px solid #e0a94e; }
+  .pill{ background:var(--highlight-bg); color:var(--highlight); border-radius:6px; padding:1px 8px; font-size:9pt; font-weight:700; }
+
+  .correct{ color:var(--green); font-weight:700; }
+  .wrong{ color:var(--red); font-weight:700; }
+
+  table.faq{ width:100%; border-collapse:collapse; }
+  table.faq td{ border-top:1px solid var(--border); padding:7px 4px; vertical-align:top; }
+  table.faq td.q{ width:38%; font-weight:700; color:var(--navy); }
+
+  .foot{ margin-top:14px; border-top:2px solid var(--border); padding-top:8px; font-size:8.6pt; color:var(--muted); display:flex; justify-content:space-between; }
+  .page-break{ page-break-before:always; }
+  .small{ font-size:9pt; }
+</style>
+</head>
+<body>
+
+<!-- ===== 表紙バンド ===== -->
+<div class="cover">
+  <div class="eyebrow">JUNTENDO PHARMACY ・ HYGIENIC CHEMISTRY</div>
+  <h1>衛生薬学 学習アプリ　使い方ガイド</h1>
+  <div class="sub">順天堂大学 薬学部 衛生化学分野 ／ 国家試験 過去問・予想問題 学習ツール</div>
+  <span class="tag">🖊 ブラウザで開くだけ・登録不要・スマホ／PC対応</span>
+</div>
+
+<!-- ===== 0. これは何？ ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">0</span>このアプリは何？</div>
+  <div class="card">
+    <p>衛生薬学の<b>国家試験の過去問</b>と<b>予想問題</b>を、スマホやパソコンで解いて学べる学習アプリです。
+    アプリのインストールは要りません。<b>先生から知らされたURLをブラウザで開くだけ</b>で使えます。ログインも登録も不要です。</p>
+    <p class="muted small" style="margin-bottom:0">💡 よく使うなら、開いたページを<b>ブックマーク（お気に入り）</b>に入れておくと毎回すぐ開けます。スマホなら「ホーム画面に追加」も便利です。</p>
+  </div>
+</div>
+
+<!-- ===== 1. 3つのメニュー ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">1</span>画面の全体 — 上にある3つのメニュー</div>
+  <p class="small">画面のいちばん上に、いつでも切り替えられる3つのボタンがあります。迷ったら <b>🏠 ホーム</b> に戻れば大丈夫です。</p>
+  <div class="grid3">
+    <div class="nav-item"><div class="ico">🏠</div><div class="nm">ホーム</div><div class="ds">出題範囲を選んで学習を始める出発点</div></div>
+    <div class="nav-item"><div class="ico">🔍</div><div class="nm">検索</div><div class="ds">キーワードで問題を探す</div></div>
+    <div class="nav-item"><div class="ico">📊</div><div class="nm">進捗</div><div class="ds">正答率や苦手分野を確認する</div></div>
+  </div>
+</div>
+
+<!-- ===== 2. 基本の流れ ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">2</span>いちばん基本の流れ（5ステップ）</div>
+  <div class="step"><div class="n">1</div><div class="tx"><b>何を解くか選ぶ</b>　ホームの「🎯 何を解きますか？」で範囲を選びます（最初は「すべて」でOK）。</div></div>
+  <div class="step"><div class="n">2</div><div class="tx"><b>出題数を選ぶ</b>　「🎯 出題数」で 10問・20問…など、解く問題数をタップします。</div></div>
+  <div class="step"><div class="n">3</div><div class="tx"><b>（任意）オプション</b>　<span class="pill">🔁 苦手問題のみ</span>＝間違えた問題だけ復習／<span class="pill">🔀 シャッフル</span>＝選択肢の並びを毎回入れ替え。</div></div>
+  <div class="step"><div class="n">4</div><div class="tx">　<span class="btn btn-main">▶ 学習をはじめる</span> を押すとテスト開始。選択肢を選ぶと<b>その場で採点</b>され、<span class="correct">✅ 正解</span>／<span class="wrong">❌ 不正解</span>と<b>解説</b>が出ます。</div></div>
+  <div class="step"><div class="n">5</div><div class="tx"><b>次へ進む</b>　「次へ」で進み、最後に<b>正答率</b>が出ます。<span class="btn btn-sub">🔁 不正解のみ再挑戦</span> でその場で復習もできます。</div></div>
+  <div class="note small" style="margin-top:4px">
+    📝 <b>「○つ選べ」の問題</b>では、答えを複数タップしてから採点されます（「※複数選択してください」と表示されます）。
+  </div>
+</div>
+
+<!-- ===== 3. 出題範囲の選び方 ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">3</span>出題範囲のいろいろな選び方</div>
+  <div class="grid2">
+    <div class="card">
+      <p style="margin-bottom:4px"><b>🚀 分野別にすぐ始める</b></p>
+      <p class="small" style="margin-bottom:0">ホーム下方の<b>分野カードをタップ</b>すると、その分野から<b>すぐに10問</b>のテストが始まります。手早く1分野を回したいときに。</p>
+    </div>
+    <div class="card">
+      <p style="margin-bottom:4px"><b>🔍 詳細フィルタを表示</b></p>
+      <p class="small" style="margin-bottom:0">「詳細フィルタ」を開くと、<b>コアカリの分野</b>・<b>国家試験の回</b>・<b>授業回</b>・<b>予想問題／過去問</b>などで細かく絞り込めます。</p>
+    </div>
+  </div>
+  <div class="note small" style="margin-top:11px">
+    🎯 <b>使い分けの例</b>：授業の復習なら「授業回」で／国試対策なら「国家試験の回」や「予想問題」で／苦手分野の集中演習なら「分野カード」や「コアカリ分野」で絞る、のがおすすめです。
+  </div>
+</div>
+
+<!-- ===== 4. 閲覧モード ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">4</span>📖 閲覧モード — 解かずに「読んで」覚える</div>
+  <div class="card small">
+    <p>ホームの <span class="btn btn-sub">📖 閲覧モード</span> を押すと、テスト形式ではなく<b>問題と解説を一覧で読む</b>ことができます。
+    試験直前の見直しや、答えを確認しながらの通読に向いています。</p>
+    <p style="margin-bottom:0"><span class="btn btn-sub">▼ 全解説を開く</span>／<span class="btn btn-sub">▲ 全解説を閉じる</span> でまとめて開閉でき、ページ送りで次の問題群へ進めます。</p>
+  </div>
+</div>
+
+<!-- 改ページ -->
+<div class="page-break"></div>
+
+<!-- ===== 5. 検索 ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">5</span>🔍 検索 — 言葉から問題を探す</div>
+  <div class="card small">
+    <p style="margin-bottom:0">上のメニューの <b>🔍 検索</b> を開き、キーワードを入れると、<b>問題文・選択肢・解説</b>の中からその言葉を含む問題が一覧表示されます。
+    「あの内容の問題をもう一度見たい」「特定の用語が出る問題だけ解きたい」というときに便利です。（例：「水質汚濁」「アレルギー」「BOD」など）</p>
+  </div>
+</div>
+
+<!-- ===== 6. 進捗 ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">6</span>📊 進捗 — 自分の成績と苦手を確認</div>
+  <div class="grid2">
+    <div class="card small">
+      <p style="margin-bottom:4px"><b>見られること</b></p>
+      <ul style="margin-bottom:0">
+        <li><b>正答率</b>・解いた数・<span class="wrong">不正解</span>の数</li>
+        <li>たまっていく<b>「苦手問題」</b>の数</li>
+        <li><b>分野ごとの成績</b>（どの分野が弱いか）</li>
+      </ul>
+    </div>
+    <div class="card small">
+      <p style="margin-bottom:4px"><b>「苦手問題」って？</b></p>
+      <p style="margin-bottom:0">一度<b>間違えた問題</b>は自動で「苦手問題」としてたまります。ホームの <span class="pill">🔁 苦手問題のみ</span> にチェックを入れて学習すれば、<b>間違えたところだけ</b>を集中して復習できます。</p>
+    </div>
+  </div>
+  <div class="warn small" style="margin-top:11px">
+    ⚠ <b>大切な注意：学習記録は「いま使っている端末・ブラウザ」だけに保存されます。</b><br>
+    そのため ―
+    <ul style="margin-bottom:0">
+      <li><b>別のスマホ・パソコンには引き継がれません</b>（成績は端末ごとに別々です）。いつも同じ端末・同じブラウザで使うのがおすすめです。</li>
+      <li>ブラウザの<b>シークレット／プライベートモード</b>や、履歴・サイトデータの<b>消去</b>を行うと、記録も消えます。</li>
+      <li>進捗画面の <span class="btn" style="background:#fceaea;color:#b02020;border:1px solid #b02020">🗑 全リセット</span> を押すと、これまでの記録がすべて消えます（押す前に確認メッセージが出ます）。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 7. 報告 ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">7</span>気になる点を先生に報告する</div>
+  <div class="card small">
+    <p>各問題の下に、フィードバック用のボタンがあります。学習しながら気づいたことを、その場で先生に伝えられます。</p>
+    <p style="margin-bottom:6px">
+      <span class="btn btn-ok">👍 OK（問題なし）</span>　…　内容に問題がなければ気軽に。
+      　　<span class="btn btn-rep">⚠ 気になる点を報告</span>　…　誤りや分かりにくい点があるとき。
+    </p>
+    <p style="margin-bottom:0">「報告」を押すと、理由の選択と<b>コメント欄（任意・500字まで）</b>が出ます。送信された内容は<b>先生に届き</b>、問題の改善に使われます。気づいたらどんどん送ってください。</p>
+  </div>
+  <p class="muted small" style="margin-top:6px">※ 問題によっては <b>✓ 検証済み</b> のマークが付いています。これは「先生が内容を確認済み」という目印です。</p>
+</div>
+
+<!-- ===== 8. FAQ ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">8</span>困ったとき（よくある質問）</div>
+  <div class="card" style="padding:6px 16px">
+    <table class="faq small">
+      <tr><td class="q">成績・進捗が消えてしまった</td><td>履歴やサイトデータの消去、シークレットモードの使用、別端末での利用が原因のことが多いです。記録は端末ごとに保存されるため、<b>いつも同じ端末・ブラウザ</b>で使ってください。</td></tr>
+      <tr><td class="q">スマホとPCで成績が違う</td><td>仕様です。記録は端末ごとに別々に保存されます。メインで使う端末を1つ決めるのがおすすめです。</td></tr>
+      <tr><td class="q">問題の画像が表示されない</td><td>通信環境を確認し、ページを再読み込み（リロード）してください。改善しなければ「⚠ 報告」から知らせてください。</td></tr>
+      <tr><td class="q">最新の状態にしたい</td><td>ページを再読み込みすると、最新の問題・修正が反映されます。</td></tr>
+      <tr><td class="q">解答が間違っている気がする</td><td>その問題の <span class="btn btn-rep">⚠ 報告</span> からコメントを送ってください。先生が確認します。</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 9. おすすめの使い方 ===== -->
+<div class="sec">
+  <div class="sec-title"><span class="num">9</span>おすすめの使い方</div>
+  <div class="grid3">
+    <div class="note small"><b>📅 授業の復習に</b><br>その週に習った<b>授業回</b>で絞って10〜20問。記憶が新しいうちに。</div>
+    <div class="note small"><b>🔁 苦手つぶしに</b><br><b>苦手問題のみ</b>で復習 →「不正解のみ再挑戦」で完全に消すまで繰り返す。</div>
+    <div class="note small"><b>🎓 試験前の総仕上げ</b><br><b>予想問題</b>や<b>過去問</b>を通しで。<b>閲覧モード</b>で要点を一気に見直し。</div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>順天堂大学 薬学部 衛生化学分野 ／ 衛生薬学 学習アプリ 使い方ガイド</span>
+  <span>困ったときは担当の先生まで</span>
+</div>
+
+</body>
+</html>

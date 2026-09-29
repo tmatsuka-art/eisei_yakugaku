@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><title>衛生薬学 運用マニュアル（教員用）</title><style>
+@page { size: A4; margin: 16mm 15mm; }
+* { box-sizing: border-box; }
+body { font-family: "Yu Gothic","Meiryo","Hiragino Kaku Gothic ProN",sans-serif;
+  font-size: 10pt; line-height: 1.72; color: #1a2035; margin: 0;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1 { font-size: 21pt; color: #5C2787; margin: 0 0 6px; padding-bottom: 10px;
+  border-bottom: 3px solid #3aaab2; line-height: 1.3; }
+h2 { font-size: 14pt; color: #fff;
+  background: linear-gradient(90deg,#5C2787 0%,#3aaab2 100%);
+  padding: 7px 13px; border-radius: 6px; margin: 26px 0 12px; break-after: avoid; }
+h3 { font-size: 12pt; color: #2c8c93; margin: 18px 0 7px;
+  border-left: 4px solid #7dc5b6; padding-left: 9px; break-after: avoid; }
+p { margin: 0 0 8px; }
+a { color: #2c8c93; text-decoration: none; }
+strong { color: #5C2787; }
+ul, ol { margin: 6px 0 10px; padding-left: 1.4em; }
+li { margin-bottom: 4px; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0 14px;
+  font-size: 9.2pt; break-inside: avoid; }
+th { background: #e6f5f6; color: #5C2787; font-weight: 700;
+  border: 1px solid #b8dde0; padding: 6px 9px; text-align: left; }
+td { border: 1px solid #dde3ee; padding: 6px 9px; vertical-align: top; }
+tr:nth-child(even) td { background: #f8fbfc; }
+code { background: #f1eef7; color: #5b1f8c; padding: 1px 5px; border-radius: 4px;
+  font-family: "Consolas","Courier New",monospace; font-size: 9pt; }
+pre { background: #f6f8fc; border: 1px solid #dde3ee; border-left: 4px solid #3aaab2;
+  border-radius: 6px; padding: 12px 14px; overflow-x: auto; break-inside: avoid;
+  font-size: 9pt; line-height: 1.6; }
+pre code { background: none; color: #1a2035; padding: 0;
+  font-family: "BIZ UDGothic","MS Gothic","Consolas",monospace; }
+blockquote { background: #fff7ec; border: 1px solid #f0c27a; border-left: 4px solid #e0a94e;
+  border-radius: 6px; margin: 12px 0; padding: 9px 14px; color: #6a4f22;
+  break-inside: avoid; font-size: 9.6pt; }
+blockquote p { margin: 0 0 5px; }
+blockquote p:last-child { margin-bottom: 0; }
+blockquote strong { color: #9a6212; }
+hr { border: none; border-top: 1px solid #e3e8f0; margin: 16px 0; }
+/* 目次（最初のol） */
+body > ol:first-of-type { background: #f8fbfc; border: 1px solid #dde3ee;
+  border-radius: 8px; padding: 12px 14px 12px 34px; }
+</style></head><body><h1>衛生薬学 学習プロジェクト 運用マニュアル（教員・管理者用）</h1>
+<p>順天堂大学 薬学部 衛生化学分野
+最終更新: 2026-06-24</p>
+<hr />
+<blockquote>
+<p><strong>このマニュアルについて</strong>
+このプロジェクト一式（学生用アプリ・管理画面・問題データ・弾幕機能）を、<strong>あなた自身が運用・管理するため</strong>の手引きです。中身はAIアシスタント（Claude）と一緒に作り上げてきたため、「どこに何があり、何がどう動いているか」をまず把握できるようにまとめました。
+プログラミングの知識は前提にしていません。困ったら、このマニュアルの該当箇所をClaudeに見せて「ここをやって」と頼めば大丈夫です。</p>
+</blockquote>
+<hr />
+<h2>目次</h2>
+<ol>
+<li><a href="#1-まず全体像">まず全体像（このプロジェクトの3つの顔）</a></li>
+<li><a href="#2-公開urlとファイルの早見表">公開URLとファイルの早見表</a></li>
+<li><a href="#3-学生用アプリ">学生用アプリ（index.html）</a></li>
+<li><a href="#4-管理画面で学生の声に対応する">管理画面（admin.html）で学生の声に対応する</a></li>
+<li><a href="#5-問題を直す追加する">問題を直す・追加する</a></li>
+<li><a href="#6-データとファイルの地図">データとファイルの地図</a></li>
+<li><a href="#7-弾幕機能">弾幕機能（授業中のコメント表示）</a></li>
+<li><a href="#8-公開更新のしくみ">公開・更新のしくみ（変更が学生に届くまで）</a></li>
+<li><a href="#9-困ったとき--よくある質問">困ったとき / よくある質問</a></li>
+<li><a href="#10-用語集">用語集（やさしい言葉で）</a></li>
+</ol>
+<hr />
+<p><a id="1-まず全体像"></a></p>
+<h2>1. まず全体像（このプロジェクトの3つの顔）</h2>
+<p>このプロジェクトは、見た目は別々ですが、<strong>3つの道具</strong>が組み合わさってできています。</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>道具</th>
+<th>誰が使う</th>
+<th>何をする</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>①</td>
+<td><strong>学習アプリ</strong>（index.html）</td>
+<td>学生</td>
+<td>過去問・予想問題を解いて学ぶ</td>
+</tr>
+<tr>
+<td>②</td>
+<td><strong>管理画面</strong>（admin.html）</td>
+<td>先生（あなた）</td>
+<td>学生の報告を確認し、問題を「確認済み」にする</td>
+</tr>
+<tr>
+<td>③</td>
+<td><strong>弾幕</strong>（danmaku_*.html）</td>
+<td>授業中の学生＋先生</td>
+<td>授業スライドにコメントを流す</td>
+</tr>
+</tbody>
+</table>
+<h3>データの置き場所は2か所だけ</h3>
+<p>むずかしく見えますが、データのありかは実は2種類です。</p>
+<pre><code>　【1】GitHub（ギットハブ）… ファイルの保管庫 ＆ 公開サーバー
+　　　・問題データ（jsonlファイル2つ）
+　　　・画像（FUTURE/ と JPPE_norm/）
+　　　・アプリ本体（index.html, admin.html, 弾幕ページ）
+　　　　→ これらは「GitHub Pages」という機能で、そのままWebサイトとして公開されている
+
+　【2】Supabase（スーパベース）… クラウドのデータベース（2プロジェクト）
+　　　・本体用：学生の「報告」と「検証済み」の記録、管理画面のログイン
+　　　・弾幕用：授業中のコメント（※こちらは別プロジェクト）
+</code></pre>
+<p>ポイント：
+- <strong>問題そのもの</strong>（問題文・選択肢・正解・解説・画像）は <strong>GitHub の中のファイル</strong>にあります。Supabaseには入っていません。
+- <strong>学生の声</strong>（報告・「妥当」評価）と<strong>検証の記録</strong>だけが <strong>Supabase</strong> に貯まります。
+- だから「問題を直す」＝GitHubのファイルを直す、「学生の報告を見る」＝Supabaseを見る（＝管理画面を開く）、という住み分けになっています。</p>
+<hr />
+<p><a id="2-公開urlとファイルの早見表"></a></p>
+<h2>2. 公開URLとファイルの早見表</h2>
+<h3>公開されているWebページ（GitHub Pages）</h3>
+<p>ベースURL： <strong><code>https://tmatsuka-art.github.io/eisei_yakugaku/</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>ページ</th>
+<th>URL</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学習アプリ</td>
+<td><code>…/eisei_yakugaku/index.html</code>（または末尾なし）</td>
+<td>学生に配るメインのURL</td>
+</tr>
+<tr>
+<td>管理画面</td>
+<td><code>…/eisei_yakugaku/admin.html</code></td>
+<td>先生用（ログイン必須）</td>
+</tr>
+<tr>
+<td>弾幕・投稿</td>
+<td><code>…/eisei_yakugaku/danmaku_post.html</code></td>
+<td>授業中、学生がコメントを送る</td>
+</tr>
+<tr>
+<td>弾幕・表示</td>
+<td><code>…/eisei_yakugaku/danmaku_screen.html</code></td>
+<td>授業中、コメントを流す投影画面</td>
+</tr>
+</tbody>
+</table>
+<h3>よく触る大事なファイル（GitHubリポジトリ内）</h3>
+<table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>中身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>future_questions.jsonl</code></td>
+<td><strong>予想問題 約1,408問</strong>（F001〜）の本体</td>
+</tr>
+<tr>
+<td><code>hygiene_with_images_v4.jsonl</code></td>
+<td><strong>過去問 648問</strong>（97〜111回）の本体</td>
+</tr>
+<tr>
+<td><code>lecture_map.json</code></td>
+<td>どの問題をどの授業回で出すかの割り当て表</td>
+</tr>
+<tr>
+<td><code>index.html</code> / <code>admin.html</code></td>
+<td>学習アプリ／管理画面の本体</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>Claude（AI）向けの作業ルール集。<strong>Claudeは作業前に必ずこれを読む</strong></td>
+</tr>
+<tr>
+<td><code>FUTURE/</code> フォルダ</td>
+<td>予想問題の図（PNG画像 約70枚）</td>
+</tr>
+<tr>
+<td><code>JPPE_norm/</code> フォルダ</td>
+<td>過去問の図（回ごとのフォルダ JPPE097〜111）</td>
+</tr>
+<tr>
+<td><code>by_subcat_md/</code> フォルダ</td>
+<td>分野別に問題を読みやすく書き出したMarkdown（49ファイル）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ファイル名に <strong><code>.bak</code></strong> が含まれるものは「<strong>作業前の控え（バックアップ）</strong>」です。普段は触りません（→ <a href="#6-データとファイルの地図">6章</a>）。</p>
+</blockquote>
+<hr />
+<p><a id="3-学生用アプリ"></a></p>
+<h2>3. 学生用アプリ（index.html）</h2>
+<p>学生が実際に解く画面です。学生向けの詳しい使い方は別冊「<strong>衛生薬学アプリ 使い方ガイド（PDF）</strong>」にまとめてあります。ここでは管理者として知っておく要点だけ。</p>
+<ul>
+<li><strong>できること</strong>：分野・国試の回・授業回・予想/過去問で範囲を選んで出題、即採点と解説、苦手問題のみ復習、検索、進捗確認、問題への「報告」。</li>
+<li><strong>ログイン不要</strong>：学生は匿名で使えます。学習の記録（正答率など）は<strong>その学生の端末のブラウザの中だけ</strong>に保存され、サーバーには送られません。</li>
+<li><strong>データの読み込み元</strong>：開くと <code>future_questions.jsonl</code> と <code>hygiene_with_images_v4.jsonl</code> を読み込み、画像は <code>FUTURE/</code> や <code>JPPE_norm/</code> から表示します。<strong>つまり、これらのファイルをGitHubで更新すれば、学生のアプリにも反映されます</strong>（→ <a href="#8-公開更新のしくみ">8章</a>）。</li>
+<li><strong>学生が送れるもの</strong>：各問題の「👍 OK（妥当）」「⚠ 気になる点を報告」。これだけがSupabaseに送られ、あなたの管理画面に届きます。</li>
+</ul>
+<hr />
+<p><a id="4-管理画面で学生の声に対応する"></a></p>
+<h2>4. 管理画面（admin.html）で学生の声に対応する</h2>
+<p>学生からの報告を確認し、対応し、問題を「確認済み」にしていく、<strong>先生専用の画面</strong>です。</p>
+<h3>4-1. 開き方とログイン</h3>
+<ol>
+<li>ブラウザで <strong><code>https://tmatsuka-art.github.io/eisei_yakugaku/admin.html</code></strong> を開きます。
+   - ⚠ <strong>必ずこの公開URLから開いてください。</strong> パソコンに保存した <code>admin.html</code> を単独でダブルクリックして開くと、問題データ（jsonl）を読み込めず、問題の中身が「見つかりません」になることがあります。</li>
+<li>「ログイン」画面が出ます。<strong>メールアドレス</strong>と<strong>パスワード</strong>を入れて「ログイン」。
+   - これはSupabaseに登録した管理者アカウントです（あなたが設定したもの）。
+   - 失敗すると赤字で「ログイン失敗」と出ます。</li>
+<li>一度ログインすれば、しばらくはログインしたままになります。やめるときは右上の「ログアウト」。</li>
+</ol>
+<h3>4-2. 5つのタブ</h3>
+<p>画面の上に5つのタブがあり、右の <code>(数字)</code> は件数です。</p>
+<table>
+<thead>
+<tr>
+<th>タブ</th>
+<th>表示されるもの</th>
+<th>できること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>⚠ 未対応の報告</strong></td>
+<td>まだ対応していない報告</td>
+<td>内容確認 → 対応済みにする／修正依頼コピー／検証済みにする</td>
+</tr>
+<tr>
+<td><strong>✓ 対応済み</strong></td>
+<td>対応を終えた報告</td>
+<td>内容確認／未対応に戻す</td>
+</tr>
+<tr>
+<td><strong>全報告</strong></td>
+<td>すべての報告</td>
+<td>上記の操作</td>
+</tr>
+<tr>
+<td><strong>📋 検証履歴</strong></td>
+<td>確認済みの問題一覧</td>
+<td>検証の解除／学生人気の問題を「公式検証に格上げ」</td>
+</tr>
+<tr>
+<td><strong>🔧 問題を直す</strong></td>
+<td>問題の検索ボックス</td>
+<td>報告が無くても、任意の問題を探して修正依頼を作る</td>
+</tr>
+</tbody>
+</table>
+<h3>4-3. 報告に対応する（基本の流れ）</h3>
+<p>「⚠ 未対応の報告」タブで、問題ごとに報告カードが並びます。カードには<strong>問題の中身</strong>と、各報告の<strong>種別</strong>（「正解が違うと思う」「選択肢が不適切」「問題文がわかりにくい」「図表がおかしい」「解説が不十分」「その他」）、<strong>日時</strong>、<strong>学生の匿名ID</strong>、<strong>コメント</strong>が出ます。</p>
+<p>対応の手順：
+1. 報告を読む。
+2. 直す必要があれば、後述の「📋 Claudeに修正依頼をコピー」で直す（→ <a href="#5-問題を直す追加する">5章</a>）。
+3. 「<strong>対応の結果</strong>」をプルダウンから選ぶ：
+   - <strong>fixed</strong>（修正した）／<strong>not_an_error</strong>（誤りではなかった）／<strong>wontfix</strong>（今回は直さない）／<strong>duplicate</strong>（重複）
+4. 必要ならメモを書いて、「<strong>✓ 対応済みにする</strong>」を押す。
+5. これで「対応済み」タブに移ります。間違えたら「↶ 未対応に戻す」で戻せます。</p>
+<blockquote>
+<p><strong>知っておくと安心な自動動作</strong>：対応の結果に <strong>fixed を選ぶと、その問題は自動で「検証済み（ヒトの目で確認済み）」にもなります</strong>。「直した＝確認した」とみなす仕組みです。
+ただし、その後「未対応に戻す」をしても、<strong>いったん付いた検証済みは自動では外れません</strong>。外したいときは下記の検証ボタンで解除してください。</p>
+</blockquote>
+<h3>4-4. 「検証済み」を管理する</h3>
+<p>「検証済み」は、<strong>その問題を人の目で確認した／妥当だ、という印</strong>です。問題カードや検証履歴に、次の3つのバッジで状態が出ます。</p>
+<table>
+<thead>
+<tr>
+<th>バッジ</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>✓ ヒトの目で確認済み</strong>（緑）</td>
+<td>先生が確認した。いちばん信頼できる状態</td>
+</tr>
+<tr>
+<td><strong>🤖 AI作成・検証募集中</strong>（青）</td>
+<td>まだ誰も確認していない</td>
+</tr>
+<tr>
+<td><strong>👥 学生が「妥当」と評価のみ</strong>（オレンジ）</td>
+<td>先生の確認はまだだが、学生が「妥当」と投票している</td>
+</tr>
+</tbody>
+</table>
+<p>操作：
+- 問題カードの「<strong>☐ 検証済みにする</strong>」で確認済みにできます（即実行）。「<strong>✓ 検証済み（解除）</strong>」で外せます（確認あり）。
+- 「📋 検証履歴」タブで、学生人気だけの問題（オレンジ）を「<strong>☑ 公式検証に格上げ</strong>」で先生のお墨付き（緑）に引き上げられます。</p>
+<h3>4-5. 「📋 Claudeに修正依頼をコピー」</h3>
+<p>このボタンは<strong>問題の中身を自動でコピー</strong>してくれるので、手で書き写す必要がありません。コピーされた文章を<strong>Claude（このAIアシスタント）に貼り付けて「直して」と頼む</strong>のが基本の流れです。</p>
+<ul>
+<li><strong>報告カードの中</strong>のボタン → 学生の報告内容＋問題の現在の中身＋「直して」という依頼文がコピーされます。</li>
+<li><strong>「🔧 問題を直す」タブ</strong>のボタン → そのカードの「<strong>どう直したいか</strong>」の入力欄に書いた指示も一緒にコピーされます。さらに、過去問の改題ルール（IDは変えない・タイトルに「（改）」を付ける等）も自動で付きます。</li>
+</ul>
+<blockquote>
+<p>このボタンは<strong>依頼文を作るだけ</strong>で、問題ファイルは書き換えません。実際の修正はClaudeが行います。</p>
+</blockquote>
+<h3>4-6. 毎朝の自動まとめ（GitHub Issue ダイジェスト）</h3>
+<p>毎朝<strong>8時（日本時間）</strong>に、過去24時間に届いた学生の報告を<strong>自動でまとめ、GitHubの「Issue（イシュー）」として1件作成</strong>する仕組みが動いています（メールではありません）。</p>
+<ul>
+<li>GitHubリポジトリ <code>tmatsuka-art/eisei_yakugaku</code> の「Issues」タブを見ると、<code>📋 学生報告ダイジェスト 2026/MM/DD（N件）</code> のような項目が並びます。</li>
+<li>中身は、報告のあった問題・件数・種別・コメントの一覧と、管理画面へのリンク。</li>
+<li>これを見れば、毎朝「昨日どんな報告が来たか」をまとめて把握できます。報告が0件の日はIssueは作られません。</li>
+</ul>
+<hr />
+<p><a id="5-問題を直す追加する"></a></p>
+<h2>5. 問題を直す・追加する</h2>
+<p>問題の中身を直すのは、<strong>あなたがClaude（AI）に頼み、Claudeがファイルを書き換える</strong>という二人三脚で行います。あなたが直接ファイルを編集する必要はありません。</p>
+<h3>5-1. 直すきっかけは2通り</h3>
+<p><strong>(a) 学生の報告から直す</strong>
+1. 管理画面で報告を開く。
+2. 「📋 Claudeに修正依頼をコピー」を押す。
+3. Claudeに貼り付けて「直して」と頼む。
+4. Claudeが該当ファイルを修正し、保存（コミット＆プッシュ）。
+5. 管理画面でその報告を「対応済み（fixed）」にする。</p>
+<p><strong>(b) 自分で気づいて直す</strong>
+- Claudeに直接「<strong>F856の選択肢3を直して</strong>」のように頼むだけでもOK。問題番号と直したい点が分かれば十分です。
+- きちんと依頼したいときは「🔧 問題を直す」タブで対象を検索し、指示を書いてコピー → Claudeへ。</p>
+<h3>5-2. まとめて点検する「AIレビュー」（モードA / B / C）</h3>
+<p>個別の修正とは別に、問題を10〜20問単位でまとめて点検・改善する作業があります。複数の専門の係（コアカリ係・過去問係・事実確認係・品質係など最大7係）が並列で点検し、見つかった改善案を後述のTierに仕分けます。</p>
+<p>頼み方は3モード。<strong>ふだんは何も言わずモードA</strong>です。</p>
+<table>
+<thead>
+<tr>
+<th>モード</th>
+<th>あなたの言い方</th>
+<th>違い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 <strong>モードA（標準）</strong></td>
+<td>「<strong>次のバッチやって</strong>」</td>
+<td>安全な変更は自動、重要な変更は確認を求められる（判断は1バッチ3〜5回程度）</td>
+</tr>
+<tr>
+<td>🟡 <strong>モードB（高速）</strong></td>
+<td>「<strong>モードBで頼む</strong>」</td>
+<td>表現の磨き込みも自動。確認は重要案件だけ</td>
+</tr>
+<tr>
+<td>🔴 <strong>モードC（背景）</strong></td>
+<td>「<strong>モードCで頼む</strong>」</td>
+<td>全部処理して、重要案件だけ後でまとめて判断</td>
+</tr>
+</tbody>
+</table>
+<h3>5-3. 何を確認させられる？（Tier 1・2・3）</h3>
+<p>改善案は重要度で3段階に仕分けられます。<strong>あなたが判断を求められるのは Tier 2 と Tier 3 だけ</strong>です。</p>
+<table>
+<thead>
+<tr>
+<th>段階</th>
+<th>内容</th>
+<th>あなたの関与</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tier 1</strong></td>
+<td>解説の追記、分類コードの軽微な修正、誤字直しなど</td>
+<td><strong>なし</strong>（自動反映・事後報告のみ）</td>
+</tr>
+<tr>
+<td><strong>Tier 2</strong></td>
+<td>攪乱肢の表現改善、絶対化表現の除去、正答位置の調整など</td>
+<td><strong>1回</strong>（「全部OK」か「この番号は却下」）</td>
+</tr>
+<tr>
+<td><strong>Tier 3</strong></td>
+<td>問題文の全面書き換え、削除、正解そのものの変更など</td>
+<td><strong>1問ずつ</strong>確認</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>迷ったら上の段階に上げる（＝確認を求める）ルールにしています。「勝手に直された」を防ぐためです。</p>
+</blockquote>
+<h3>5-4. 安全のしくみ（失敗してもやり直せる）</h3>
+<ul>
+<li><strong>バックアップを必ず取る</strong>：jsonlを直す前に、Claudeは <code>future_questions.jsonl.bak_pre_○○_日付</code> のような控えを作ります。名前を見れば「いつ・何の作業の前か」が分かります。</li>
+<li><strong>直接いきなり編集しない</strong>：必ず控えを取ってから。これはCLAUDE.mdに明記された鉄則です。</li>
+<li><strong>1つの修正＝1つの記録</strong>：変更はGitHubの履歴（コミット）に1件ずつ残るので、後から「いつ何を直したか」をたどれ、必要なら戻せます。</li>
+<li><strong>承認した分だけ反映</strong>：AIレビューでは、承認された内容をいったん決定ファイル（decisions）に貯め、専用スクリプトがまとめて反映します。Claudeが思いつきで書き換えることはありません。</li>
+</ul>
+<h3>5-5. 問題をまとめて追加・分類する</h3>
+<p>過去には、問題をまとめて追加したり、授業回（<code>lecture_map.json</code>）へ割り当て直したりする作業も行ってきました（<code>_work/</code> フォルダのスクリプト群がその痕跡）。</p>
+<blockquote>
+<p>⚠ 大事な前提：問題に元から付いている分類ラベルは<strong>3〜4割が誤り</strong>であることが分かっています。そのためラベルを鵜呑みにせず、<strong>問題の中身を読んで1問ずつ判定</strong>するのが、このプロジェクトで確立したやり方です。新しく分類・追加するときは、Claudeにもこの方針で進めてもらってください。</p>
+</blockquote>
+<hr />
+<p><a id="6-データとファイルの地図"></a></p>
+<h2>6. データとファイルの地図</h2>
+<h3>6-1. 「jsonl」って何？</h3>
+<p><code>.jsonl</code> は <strong>1行に1問</strong>が入ったテキストファイルです。各行が「項目名: 中身」の集まり（JSON形式）になっていて、Excelの表を縦に積んだようなイメージです。日本語が含まれるので、メモ帳で開くと文字化けすることがあります。<strong>直接いじらず、Claudeに頼んで編集する</strong>のが安全です。</p>
+<h3>6-2. 2つの問題ファイル</h3>
+<p><strong>① <code>future_questions.jsonl</code>（予想問題 約1,408問・F001〜）</strong></p>
+<p>1問に含まれる主な項目：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>中身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>problem_id</code></td>
+<td>問題の背番号（予想問題は必ず <code>F</code> で始まる）</td>
+</tr>
+<tr>
+<td><code>problem_text</code></td>
+<td>問題文</td>
+</tr>
+<tr>
+<td><code>choices</code></td>
+<td>選択肢（図問題は <code>['IMAGES']</code> という目印）</td>
+</tr>
+<tr>
+<td><code>answer</code></td>
+<td>正答の番号（複数選択もあり）</td>
+</tr>
+<tr>
+<td><code>comment</code></td>
+<td>解説</td>
+</tr>
+<tr>
+<td><code>new_corecurri_code</code></td>
+<td>新コアカリ（令和4年改訂）の分類コード</td>
+</tr>
+<tr>
+<td><code>corecurri_code</code></td>
+<td>旧コアカリのコード</td>
+</tr>
+<tr>
+<td><code>assets</code></td>
+<td>図ファイルへのパス（図なしは空）</td>
+</tr>
+<tr>
+<td><code>lecture</code> 関連 / <code>lecture_map.json</code></td>
+<td>どの授業回で出すか</td>
+</tr>
+<tr>
+<td><code>ai_review</code></td>
+<td>AIレビューの履歴。<strong>この項目が無い問題＝まだ点検していない目印</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>② <code>hygiene_with_images_v4.jsonl</code>（過去問 648問・97〜111回）</strong></p>
+<p>項目はほぼ共通ですが、過去問ならでは：
+- <code>problem_id</code> は <strong>回＋問番号の6桁</strong>（例 <code>097016</code> ＝ 第97回・問16）
+- <code>year</code> は国試の回数（97〜111。予想問題は <code>0</code>）
+- <code>display_title</code> は「第97回 衛生 問16」のような表示名
+- 図のある問題は189問。<code>assets</code> が <code>JPPE_norm/JPPE097/097123.png</code> のように画像を指す</p>
+<h3>6-3. <code>lecture_map.json</code>（授業回の割り当て表）</h3>
+<p>「どの問題を、どの科目の第何回で出すか」を決める表です。学習アプリの「授業回別」表示の土台になります。</p>
+<ul>
+<li>3科目（<strong>衛I＝衛生化学I／衛II＝衛生化学II／公衆＝公衆衛生学</strong>）に分かれる</li>
+<li>各科目の中に授業回（1, 2, 3…）があり、回ごとに<strong>テーマ</strong>と<strong>問題IDのリスト</strong>が入る</li>
+<li>問題を授業から外したいときは、この表からIDを抜きます（jsonlの問題自体は残る）</li>
+</ul>
+<h3>6-4. 画像の置き場所</h3>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>場所</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>予想問題の図</td>
+<td><code>FUTURE/</code> フォルダ（ファイル名＝problem_id、例 <code>F002.png</code>）</td>
+</tr>
+<tr>
+<td>過去問の図</td>
+<td><code>JPPE_norm/JPPE097</code>〜<code>JPPE111</code>（回ごとのフォルダ）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>画像は<strong>すべてGitHubの中</strong>にあります。Supabaseには置いていません。</p>
+</blockquote>
+<h3>6-5. <code>by_subcat_md/</code>（分野別の読みやすい問題集）</h3>
+<p>jsonl（機械向け）の中身を、<strong>分野ごとに人が読みやすく書き出した</strong>Markdown（49ファイル）です。点検や印刷に使えます。これは元データ（jsonl）から作り直せる「派生物」なので、ここを直しても本体には反映されません。<strong>直すのは必ずjsonl側</strong>です。</p>
+<h3>6-6. Supabase（クラウドのデータベース）</h3>
+<p>本体のSupabaseプロジェクト（<code>gmkrsgqgndlrabiicvkh.supabase.co</code>）には、<strong>2つの表</strong>だけがあります。</p>
+<table>
+<thead>
+<tr>
+<th>表</th>
+<th>中身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>question_feedback</code></td>
+<td>学生の「👍 妥当」評価と「⚠ 報告」。報告には種別・コメント・日時・匿名IDが入る。対応すると先生のメモや結果も追記される</td>
+</tr>
+<tr>
+<td><code>question_verifications</code></td>
+<td>「検証済み」の記録（問題ID・検証日時・手動か報告経由か・メモ）</td>
+</tr>
+</tbody>
+</table>
+<p>そのほか、ログイン認証（管理画面用）と、毎朝のダイジェスト自動作成（<a href="#4-管理画面で学生の声に対応する">4-6</a>）もここで動いています。</p>
+<h3>6-7. 控え・記録ファイルの見分け方</h3>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>例</th>
+<th>何か</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>バックアップ</strong></td>
+<td><code>*.bak_pre_○○_日付</code></td>
+<td>作業前の控え。普段触らない。新しい日付ほど最近</td>
+</tr>
+<tr>
+<td><strong>レビュー進捗</strong></td>
+<td><code>ai_review_log_第9回.md</code> 等</td>
+<td>どの問題を点検したかのチェック表</td>
+</tr>
+<tr>
+<td><strong>引き継ぎメモ</strong></td>
+<td><code>HANDOFF_2026-06-10.md</code> 等</td>
+<td>前回作業の引き継ぎ。<strong>新しい日付のものが最新</strong></td>
+</tr>
+<tr>
+<td><strong>経緯まとめ</strong></td>
+<td><code>検証経過まとめ.md</code>、<code>新コアカリ分類案.md</code></td>
+<td>これまでの方針・分類ルール</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>新しいセッションでClaudeに作業を頼むときは、「最新のHANDOFFを読んでから始めて」と言うと、前回の続きをスムーズに引き継げます。</p>
+</blockquote>
+<hr />
+<p><a id="7-弾幕機能"></a></p>
+<h2>7. 弾幕機能（授業中のコメント表示）</h2>
+<p>授業スライドの上に、学生がスマホから送ったコメントを、ニコニコ動画のように右から左へ流す機能です。匿名なので学生が気軽に反応・質問でき、大教室でも双方向のやりとりが生まれます。</p>
+<blockquote>
+<p>⚠ 弾幕のデータは、学習アプリとは<strong>別のSupabaseプロジェクト</strong>（<code>eisei-quiz-live</code>）の <code>danmaku_comments</code> という表に貯まります。学習アプリの報告とは混ざりません。</p>
+</blockquote>
+<h3>7-1. 3つのページの役割</h3>
+<table>
+<thead>
+<tr>
+<th>ページ</th>
+<th>役割</th>
+<th>開き方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>danmaku_post.html</code></td>
+<td><strong>学生が投稿</strong>する画面</td>
+<td>スマホで <code>…/danmaku_post.html</code>（QRから自動で開ける）</td>
+</tr>
+<tr>
+<td><code>danmaku_screen.html</code></td>
+<td><strong>コメントを流す投影</strong>画面</td>
+<td>OBS用は <code>…/danmaku_screen.html?transparent=1</code></td>
+</tr>
+<tr>
+<td><code>弾幕デモ.html</code></td>
+<td><strong>練習用</strong>（ネット不要、その場で試せる）</td>
+<td>ファイルを直接開く</td>
+</tr>
+</tbody>
+</table>
+<p><strong>部屋（room）</strong>：授業ごとにコメントを分けたいときは、URLに <code>?room=授業名</code> を付けます（投稿側・表示側で同じ名前にする）。投影画面のQRコードは自動で同じ部屋に紐づくので、学生がQRを読めば自動的に同じ部屋に入ります。</p>
+<h3>7-2. 授業当日の流れ</h3>
+<p>OBS（無料の画面合成ソフト）で「PowerPointの画面」と「透明な弾幕ページ」を2枚重ねて投影します。</p>
+<ol>
+<li><strong>PowerPoint</strong>を「ウィンドウ表示のスライドショー」で開く（スライドショーの設定 →「出席者として閲覧する（ウィンドウ表示）」）。送りは →キー / Page Down / ホイール。</li>
+<li><strong>OBSを起動</strong>し、弾幕が上・PowerPointが下の重ね順、右下にQRが出ているか確認。</li>
+<li><strong>投影</strong>：教室なら「全画面プロジェクター」、Zoomなら「仮想カメラ開始」→ ZoomでOBS Virtual Cameraを選ぶ。</li>
+<li><strong>学生に投稿してもらう</strong>：QRを読んでもらう。投稿は3秒に1回まで。</li>
+<li><strong>終了</strong>：OBSの全画面/仮想カメラを止め、PowerPointを Esc で終了。</li>
+</ol>
+<blockquote>
+<p><strong>弾幕が出ない＝故障とは限りません。</strong> 弾幕は「開いた後に届いた新しいコメント」を流します。起動直後に直近のコメントを少し流したあとは、新しい投稿が来るまで画面はQRだけになります（正常）。出ないときは、まず投稿側と表示側の<strong>部屋(room)が一致</strong>しているかを確認してください。</p>
+</blockquote>
+<h3>7-3. OBS設定の要点</h3>
+<p>詳しくは <code>弾幕_OBS設定ガイド.md</code> と <code>弾幕_授業当日の操作手順.md</code> にあります。要点は：
+- OBSで<strong>ブラウザソース</strong>を追加し、URLに <code>…/danmaku_screen.html?transparent=1</code> を指定（幅1920・高さ1080）。
+- <code>?transparent=1</code> を付けると弾幕ページの背景が透明になり、下のPowerPointが透けます（クロマキー不要）。
+- もし弾幕の背景が黒くてスライドが隠れるときは、<strong>URL末尾の <code>?transparent=1</code> が付いているか</strong>を確認。</p>
+<blockquote>
+<p>補足：当日手順メモには「通信: SUBSCRIBED」表示や「🔄再読み込み」ボタンの記述がありますが、現在のページには無い可能性があります。実機のOBSで一度表示を確認しておくと安心です。</p>
+</blockquote>
+<hr />
+<p><a id="8-公開更新のしくみ"></a></p>
+<h2>8. 公開・更新のしくみ（変更が学生に届くまで）</h2>
+<p>このサイトは <strong>GitHub Pages</strong> で公開されています。仕組みはシンプルです。</p>
+<pre><code>　ファイルを直す（Claudeが編集）
+　　　↓
+　GitHubに保存（コミット＆プッシュ＝Claudeが実行）
+　　　↓
+　数十秒〜数分で、公開URLに自動反映
+　　　↓
+　学生がページを再読み込みすると最新の問題が見える
+</code></pre>
+<ul>
+<li>問題を直したり追加したりすると、<strong>GitHubに保存された時点で自動的に公開サイトにも反映</strong>されます。特別な「アップロード」操作は要りません。</li>
+<li>学生側は、<strong>ページを再読み込み（リロード）</strong>すれば最新になります。</li>
+<li>「ちゃんと反映されたかな？」と思ったら、公開URL（<code>…/index.html</code>）を開いて確認できます。</li>
+</ul>
+<blockquote>
+<p>このプロジェクトは <strong>main（メイン）という1本の流れに直接保存</strong>する運用です。Claudeに「直して」と頼むと、修正 → 保存 → 公開反映まで一通りやってくれます。</p>
+</blockquote>
+<hr />
+<p><a id="9-困ったとき--よくある質問"></a></p>
+<h2>9. 困ったとき / よくある質問</h2>
+<table>
+<thead>
+<tr>
+<th>困りごと</th>
+<th>どうする</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管理画面で問題の中身が「見つかりません」</td>
+<td>保存したファイルを直接開いていませんか。必ず公開URL <code>…/admin.html</code> から開いてください</td>
+</tr>
+<tr>
+<td>管理画面にログインできない</td>
+<td>メール／パスワードを確認。分からなくなったらSupabaseの管理者設定の問題なので、Claudeに相談を</td>
+</tr>
+<tr>
+<td>学生が「答えが違う」と報告してきた</td>
+<td>管理画面で「📋 Claudeに修正依頼をコピー」→ Claudeに貼って確認・修正を依頼</td>
+</tr>
+<tr>
+<td>問題を直したのに学生の画面が古い</td>
+<td>学生にページの再読み込みを案内。数分待っても反映されなければClaudeに確認を依頼</td>
+</tr>
+<tr>
+<td>直したら別のところが壊れた気がする</td>
+<td>慌てず、控え（<code>.bak_pre_…</code>）があります。「最新のバックアップから戻して」とClaudeに頼めます</td>
+</tr>
+<tr>
+<td>弾幕が流れない</td>
+<td>投稿側・表示側の <code>room</code> が一致しているか確認。起動直後に出ないのは正常</td>
+</tr>
+<tr>
+<td>何から手をつければいいか分からない</td>
+<td>このマニュアルの該当章をClaudeに見せて「ここをやりたい」と伝えれば、一緒に進められます</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a id="10-用語集"></a></p>
+<h2>10. 用語集（やさしい言葉で）</h2>
+<table>
+<thead>
+<tr>
+<th>言葉</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub（ギットハブ）</strong></td>
+<td>ファイルの保管庫。変更の履歴が全部残り、いつでも戻せる。ここに置いたファイルはそのままWebで公開もできる</td>
+</tr>
+<tr>
+<td><strong>GitHub Pages</strong></td>
+<td>GitHubの中身をそのままWebサイトとして公開する機能。このプロジェクトの公開URLはこれ</td>
+</tr>
+<tr>
+<td><strong>コミット / プッシュ</strong></td>
+<td>「変更を保存する」「保存をGitHubに送る」操作。Claudeが代わりに行う</td>
+</tr>
+<tr>
+<td><strong>リポジトリ</strong></td>
+<td>このプロジェクト一式が入っているGitHub上の入れ物（<code>tmatsuka-art/eisei_yakugaku</code>）</td>
+</tr>
+<tr>
+<td><strong>Supabase（スーパベース）</strong></td>
+<td>クラウドのデータベース。学生の報告や検証記録、弾幕コメントが貯まる</td>
+</tr>
+<tr>
+<td><strong>jsonl</strong></td>
+<td>1行に1問が入ったテキストのデータ形式。問題の本体</td>
+</tr>
+<tr>
+<td><strong>コアカリ / new_corecurri_code</strong></td>
+<td>薬学教育のモデル・コア・カリキュラムの分類。問題がどの項目に当たるかのコード</td>
+</tr>
+<tr>
+<td><strong>検証済み</strong></td>
+<td>人の目で確認した、という印。Supabaseに記録される</td>
+</tr>
+<tr>
+<td><strong>攪乱肢（かくらんし）</strong></td>
+<td>誤答の選択肢。良問にするための作り方ルールがCLAUDE.mdにある</td>
+</tr>
+<tr>
+<td><strong>Issue（イシュー）</strong></td>
+<td>GitHubの「やること・気づきメモ」機能。毎朝の報告まとめがここに自動で立つ</td>
+</tr>
+<tr>
+<td><strong>OBS</strong></td>
+<td>画面を重ねて配信・録画する無料ソフト。弾幕の投影に使う</td>
+</tr>
+<tr>
+<td><strong>room（ルーム）</strong></td>
+<td>弾幕の「部屋」。授業ごとにコメントを分ける合言葉</td>
+</tr>
+<tr>
+<td><strong>CLAUDE.md</strong></td>
+<td>Claude（AI）への作業指示書。Claudeは作業前に必ず読む。運用ルールを変えたいときはここを更新する</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>このマニュアルの更新について</strong>
+運用を変えたとき（新しい機能を足した、手順を変えた等）は、このファイル（<code>運用マニュアル_教員用.md</code>）をClaudeに更新してもらってください。「マニュアルの○章を最新に直して」と頼めば、内容を反映してPDFも作り直せます。</p>
+</blockquote></body></html>
