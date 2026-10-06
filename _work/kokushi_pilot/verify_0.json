@@ -1,0 +1,213 @@
+[
+ {
+  "problem_id": "F1127",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "事実関係はすべて2025年版と一致（ナイアシンのUL：ニコチンアミド300 mg/ニコチン酸80 mgと別値、B6のULは感覚性ニューロパチーが根拠、K・B12はUL設定なし、乳児の溶血性貧血はメナジオン）。",
+   "攪乱肢4（K1とK3の入れ替え）・5（B6とB12の入れ替え）は中途半端な知識で選びやすく、質は良い。絶対化表現なし。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://h-crisis.niph.go.jp/wp-content/uploads/2024/10/001316126.pdf"
+  ]
+ },
+ {
+  "problem_id": "F1273",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "正答2は一意で、事実関係に誤りはない。",
+   "選択肢5は「ビタミンKがレチノール結合タンパク質と結合する」という内容で、タンパク質名だけで誤りとわかり、知識がなくても消去できる。",
+   "選択肢4の「直接」が誤答の目印になっている（絶対化に近い修飾）。"
+  ],
+  "fix": "選択肢4→「β-カロテンは、小腸上皮細胞で開裂されて2分子のレチノイン酸を生じる。」（解説4は現行のままでよい）\n選択肢5→「ビタミンEは、肝臓のα-トコフェロール輸送タンパク質により、γ-トコフェロールが優先的にVLDLへ組み込まれる。」\n解説5→「5：誤。肝臓のα-トコフェロール輸送タンパク質（α-TTP）はα-トコフェロールを選択的にVLDLへ組み込むため、血中・組織中のビタミンEの大部分はα-トコフェロールである。食事摂取基準もα-トコフェロール量で示されている。」",
+  "sources": [
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3E",
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3A"
+  ]
+ },
+ {
+  "problem_id": "F225",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "内容は2025年版と一致（Aは推奨量・UL、Dは目安量9.0 μg・UL 100 μg、Eは目安量・UL、Kは目安量のみ）。組合せは一意に決まる。",
+   "RUBRIC Cで画像付きとされている問題だが、表が本文中に文字で入っており、画像がなくても成立する。画像を残すと、表示内容が重複したり食い違ったりするおそれがある。",
+   "表の区切り「｜」がアプリでどう表示されるかは要確認。"
+  ],
+  "fix": "内容の修正は不要。drop_image: true を付けて画像を外す（表は本文に入っているため）。アプリで「｜」区切りの表が崩れる場合は、各行を「ビタミンA：（ア）／設定あり」のような形に直す。",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/vitamin-d.html"
+  ]
+ },
+ {
+  "problem_id": "F226",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。攪乱肢3〜5は補酵素の入れ替え（B12↔PLP、パントテン酸↔リボフラビン、PLP↔FAD）で、RUBRICの趣旨に合っている。",
+   "細かい点：問題文は「補酵素型」と言っているのに、選択肢2だけ「ビオチン」とビタミン名になっている。直すなら問題文を「水溶性ビタミンまたはその補酵素型が関与する酵素反応に関する記述」とする程度でよい（必須ではない）。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%81%E3%82%A2%E3%83%9F%E3%83%B3",
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%93%E3%82%AA%E3%83%81%E3%83%B3"
+  ]
+ },
+ {
+  "problem_id": "F231",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答1（B1を含まない高カロリー輸液による乳酸アシドーシス）は国試頻出の事項で、一意に決まる。",
+   "選択肢4はアリチアミンの脂溶性を反転させたもので、知識がないと見抜けないため許容範囲。正答だけが「〜ことがある」で終わるが、国試でもよく見る形であり問題にはしない。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%81%E3%82%A2%E3%83%9F%E3%83%B3",
+   "https://www.takanohara-ch.or.jp/wordpress/wp-content/uploads/2015/08/di201507.pdf"
+  ]
+ },
+ {
+  "problem_id": "F232",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "選択肢5を確認した：2025年版のビタミンCの推定平均必要量は、壊血病を予防する最小量ではなく「良好な栄養状態の確実な維持」の観点から算定されている（成人の推奨量は100 mg/日）。なお、報告書案の段階で推奨量50 mgとする報道があったが、確定版の値は80/100 mgである。",
+   "解説4の「食品表示基準では還元型と酸化型の合計をビタミンC量とする」も裏付けが取れた。",
+   "正答の2つがどちらもFe²⁺に関する記述で、受験テクニックで選べる余地がわずかにあるが、許容範囲。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/vitamin-c.html",
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://ssl.mac.or.jp/memberregistration/trivia.php?id=79",
+   "https://www.this.ne.jp/news/16576/"
+  ]
+ },
+ {
+  "problem_id": "F234",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "2025年版との照合：妊婦の付加量は後期のみ（推定平均必要量＋60、推奨量＋80 μgRAE/日）。β-カロテンの換算は1/12。いずれも解説と一致する。",
+   "選択肢4の「6 μg」（旧レチノール当量の係数）は、中途半端な知識だと選んでしまう良い攪乱肢である。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://hfnet.nibn.go.jp/vitamin/detail171/"
+  ]
+ },
+ {
+  "problem_id": "F235",
+  "my_answer": [
+   "2",
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。選択肢5は「促進→抑制」の反転だが、PTHを介したフィードバックを理解していないと見抜けない文脈なので許容範囲。",
+   "選択肢3（GPCR）：膜を介する非ゲノム作用の報告はあるが、作用の主体は核内受容体VDRであり、「Gタンパク質共役型受容体を介して」は誤りと判定できる。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/vitamin/detail221/",
+   "https://www.ejim.mhlw.go.jp/pro/overseas/c03/17.html"
+  ]
+ },
+ {
+  "problem_id": "F237",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。攪乱肢は、B12との取り違え（メチルマロン酸、内因子）、ポリグルタミン酸型とモノグルタミン酸型の取り違え、核と細胞質の成熟の解離の向きの反転で、どれも知識がなければ消去できない。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/vitamin/detail652/",
+   "https://www.city.fukuoka.med.or.jp/kensa/ensinbunri/enshin_44_x.pdf"
+  ]
+ },
+ {
+  "problem_id": "F239",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。攪乱肢はメチオニンとトリプトファン、玄米とトウモロコシ、FADとNAD、カルチノイド症候群での増加と減少の入れ替えで、質は良い。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.msdmanuals.com/ja-jp/home/11-%E6%A0%84%E9%A4%8A%E9%9A%9C%E5%AE%B3/%E3%83%93%E3%82%BF%E3%83%9F%E3%83%B3/%E3%83%8A%E3%82%A4%E3%82%A2%E3%82%B7%E3%83%B3%E6%AC%A0%E4%B9%8F%E7%97%87"
+  ]
+ },
+ {
+  "problem_id": "F240",
+  "my_answer": [
+   "2",
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。納豆のK2（MK-7）、オステオカルシンのGla化、PIVKA-IIがカルボキシ化不足のプロトロンビンであること、のいずれも解説は正確。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://jsth.medical-words.jp/words/word-360/",
+   "https://bukai.pharm.or.jp/bukai_kanei/topics/topics12.html"
+  ]
+ },
+ {
+  "problem_id": "F241",
+  "my_answer": [
+   "2",
+   "5"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答は一意。攪乱肢は、壁細胞と主細胞、トランスコバラミンとトランスフェリン、スクシニルCoAとプロピオニルCoAの入れ替えで、RUBRICの趣旨に合っている。",
+   "選択肢2の「唾液由来のハプトコリン」は胃液にも由来するが、教科書で一般的な記述であり、正答が揺れることはない。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.ejim.mhlw.go.jp/pro/overseas/c03/14.html",
+   "https://hfnet.nibn.go.jp/vitamin/detail177/"
+  ]
+ }
+]

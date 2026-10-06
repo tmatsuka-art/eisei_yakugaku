@@ -1,0 +1,189 @@
+[
+ {
+  "problem_id": "F475",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "誤りの選択肢4つのうち3つ（1 TIBC低下、2 フェリチン上昇、5 血清鉄上昇）が「上昇↔低下」の単純反転で、RUBRIC A-3が極力避けるとする作り方に偏っている。特に5の「血清鉄が上昇する」は、鉄欠乏という病名から語感だけで消去できる。",
+   "事実関係・正答の一意性・解説の書式には問題なし。"
+  ],
+  "fix": "選択肢5を「間接ビリルビン値が上昇する」に差し替える。解説5を「5：誤。間接ビリルビン値の上昇は、赤血球の破壊が亢進する溶血性貧血でみられる所見であり、鉄欠乏性貧血ではみられない。」に差し替える。",
+  "sources": [
+   "https://hfnet.nibn.go.jp/mineral/detail675/",
+   "https://nsmc.hosp.go.jp/Journal/2017-7/SMCJ2017-7_review01.pdf"
+  ]
+ },
+ {
+  "problem_id": "F476",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "選択肢2「牛乳に含まれるカゼインホスホペプチド（CPP）」：CPPは牛乳中のカゼインが消化されて生じるペプチドであり、牛乳そのものに含まれるとは言いにくい。厳しく読む受験者が「誤」と判断する余地があり、正答の一意性がわずかに揺らぐ。",
+   "事例中の玄米（フィチン酸）や加工食品（リン）の情報は解説でしか使われておらず、選択肢3〜5は事例を読まなくても解ける。実践問題としては事例の使い方が弱い（作り直すほどではない）。",
+   "解説5（1,000 mg/日以上のカルシウムサプリメントで心筋梗塞リスク上昇の報告）とポイント（骨粗鬆症の新規収載、25-ヒドロキシビタミンD 20 ng/mL以上）は2025年版の記載と一致する。"
+  ],
+  "fix": "選択肢2を「牛乳のカゼインが消化されて生じるカゼインホスホペプチド（CPP）は、カルシウムの不溶化を防いで吸収を助ける」に修正する。解説2の冒頭を「2：正。カゼインの消化により生じるCPPは、腸管内でリン酸カルシウムが沈殿するのを防ぎ、カルシウムの吸収を促進する。」に修正する。（任意）事例をもっと活かすなら、選択肢4を「玄米に多いフィチン酸は、カルシウムの吸収を促進する」に差し替え、解説4を「4：誤。フィチン酸はカルシウムと難溶性の塩をつくり、吸収を妨げる。」とする。",
+  "sources": [
+   "https://eat-treat.jp/columns/1235",
+   "https://hfnet.nibn.go.jp/mineral/detail660/",
+   "https://www.j-milk.jp/knowledge/nutrition/berohe000000oedv.html",
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf"
+  ]
+ },
+ {
+  "problem_id": "F477",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "解説3の数値に誤りがある。2025年版の亜鉛の耐容上限量は、成人女性では全年齢区分で35 mg/日（2020年版にあった75歳以上の30 mg/日はなくなった）。解説の「成人女性30〜35 mg/日」は2025年版と合わない。男性の40〜45 mg/日は正しい。",
+   "問題文・選択肢・正答には問題なし。選択肢3（マグネシウムとの取り違え）、4（鉄との体内量比較）、5（ペニシラミンの作用の取り違え）はいずれも中途半端な知識を引っかける良い攪乱肢。血清亜鉛52 µg/dLとポイントの閾値（60未満で欠乏、60〜80未満で潜在性欠乏）は診療指針2024でも変わっていない。"
+  ],
+  "fix": "解説3を「3：誤。亜鉛の耐容上限量は、食品を含む総摂取量に対して設定されている（成人男性40〜45 mg/日、成人女性35 mg/日）。通常の食品以外からの摂取に限って耐容上限量が設定されているのはマグネシウムである。」に修正する。ポイントの「亜鉛欠乏症の診療指針では」を「亜鉛欠乏症の診療指針2024では」に修正する。",
+  "sources": [
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/mineral-zn-cu.html",
+   "https://hondana-storage.s3.amazonaws.com/76/files/%E9%A3%9F%E4%BA%8B%E6%91%82%E5%8F%96%E5%9F%BA%E6%BA%962025%EF%BC%88%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E9%A3%9F%E5%93%81%E5%AD%A6%E7%B7%8F%E8%AB%96%EF%BC%89(1).pdf",
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://www.carenet.com/news/general/carenet/60577"
+  ]
+ },
+ {
+  "problem_id": "F479",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。2（T₄→T₃の向きの取り違え）、3（克山病とカシン・ベック病の取り違え）、4（ニンニク臭とアセトン臭の取り違え）、5（SODとGPxの取り違え）は、いずれも知識がないと見抜けない。理論の1つ選べとしては想起型に寄っているが、許容範囲。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/mineral/detail681/",
+   "https://lpi.oregonstate.edu/jp/mic/%E3%83%9F%E3%83%8D%E3%83%A9%E3%83%AB/%E3%82%BB%E3%83%AC%E3%83%B3"
+  ]
+ },
+ {
+  "problem_id": "F480",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。食塩の過剰摂取は尿中へのカルシウム排泄を増やすため、骨粗鬆症とも関連がないわけではないが、「最も関連が深い」としているので正答は高血圧に一意に決まる。必須として難易度・形式も妥当。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf"
+  ]
+ },
+ {
+  "problem_id": "F629",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。3（トランスフェリンとフェリチンの取り違え）、4（排泄による調節という誤解）、5（還元と酸化の取り違え）は、いずれも中途半端な知識の人が選びやすい。解説も正確。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://nsmc.hosp.go.jp/Journal/2017-7/SMCJ2017-7_review01.pdf",
+   "https://hfnet.nibn.go.jp/mineral/detail675/"
+  ]
+ },
+ {
+  "problem_id": "F630",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。軽微な点として、選択肢2（亜鉛によるメタロチオネイン誘導）が選択肢5（酢酸亜鉛の作用機序）の誤りを示すヒントになっている。ただし両方の知識が必要で、答えがそのまま推測できるほどではないため修正は不要。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/mineral/detail674/",
+   "https://grj.umin.jp/grj/atp7a.htm",
+   "https://nsmc.hosp.go.jp/Journal/2017-7/SMCJ2017-7_review01.pdf"
+  ]
+ },
+ {
+  "problem_id": "F631",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。2（耐容上限量はサプリメント等に限って350 mg/日）は2025年版と一致する。4は低↔高の反転だが、腎排泄の知識がないと見抜けないので許容範囲。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://www.pmda.go.jp/files/000235889.pdf"
+  ]
+ },
+ {
+  "problem_id": "F651",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。ナトリウムの推定平均必要量600 mg/日、カリウムの目安量（男性2,500・女性2,000 mg/日）、目標量（男性3,000以上・女性2,600 mg/日以上）は2025年版と一致する。令和6年国民健康・栄養調査（概要2025年12月公表）の食塩摂取量は総数9.6 g、男性10.5 g、女性8.9 gで、解説と一致する。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://www.mhlw.go.jp/content/10900000/001603146.pdf",
+   "https://sndj-web.jp/news/003727.php"
+  ]
+ },
+ {
+  "problem_id": "F652",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。正答は一意。マグネシウム（Mg-ATP複合体）とフッ素（フルオロアパタイト）は、中途半端な知識の人が迷う良い攪乱肢。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/mineral/detail661/",
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf"
+  ]
+ },
+ {
+  "problem_id": "F761",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "問題なし。必須としては易しいが、基本知識の確認として妥当。コバルト（ビタミンB12）が唯一それらしく見える攪乱肢。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://nsmc.hosp.go.jp/Journal/2017-7/SMCJ2017-7_review01.pdf"
+  ]
+ }
+]

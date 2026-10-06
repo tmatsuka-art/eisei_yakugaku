@@ -1,0 +1,178 @@
+[
+ {
+  "problem_id": "F660",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.msdmanuals.com/professional/special-subjects/illicit-drugs-and-intoxicants/wernicke-encephalopathy"
+  ]
+ },
+ {
+  "problem_id": "F751",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.pharm.or.jp/words/c.html"
+  ]
+ },
+ {
+  "problem_id": "F752",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.pharm.or.jp/words/d.html"
+  ]
+ },
+ {
+  "problem_id": "F762",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.pharm.or.jp/words/b12.html"
+  ]
+ },
+ {
+  "problem_id": "F779",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "問題・正答は問題ない（「主に」があるため一意）。ただし解説3の「1α位の水酸化は行われない」は不正確。皮膚のケラチノサイトにも1α-水酸化酵素（CYP27B1）が発現し、局所で活性型ビタミンDが生成される（マクロファージなど他の腎外組織も同様）。"
+  ],
+  "fix": "解説3を次に置き換える：「3：誤。皮膚では紫外線（UV-B）により7-デヒドロコレステロールからプレビタミンD3が生じ、ビタミンD3となる。皮膚にも1α-水酸化酵素は発現するが局所での作用にとどまり、血中の活性型ビタミンDは主に腎臓で生成される。」",
+  "sources": [
+   "https://www.pharm.or.jp/words/d.html",
+   "https://www.sciencedirect.com/science/article/abs/pii/S0003986112000756",
+   "https://ar.iiarjournals.org/content/29/9/3659"
+  ]
+ },
+ {
+  "problem_id": "F780",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "軽微（修正必須ではない）：選択肢の並びが A, C, D, K, E と不自然（位置調整で並べ替えるなら A, C, D, E, K が自然）。ビオチンや葉酸なども腸内細菌が産生するが、選択肢にないため正答の一意性には影響しない。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.pharm.or.jp/words/k.html",
+   "https://bifidus-fund.jp/keyword/kw073.shtml"
+  ]
+ },
+ {
+  "problem_id": "F228",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "選択肢4「亜鉛 ― シトクロムcオキシダーゼ」は国試の水準では誤り（銅酵素）と扱われるが、哺乳類（ウシ心筋）のシトクロムcオキシダーゼはサブユニットVbに構造亜鉛を1原子含むことが結晶構造で確認されている。「構成成分（補因子）とする」と問うているので、詳しい受験生ほど迷う。解説4の「銅とヘム鉄を含む」も亜鉛・マグネシウムに触れていない。"
+  ],
+  "fix": "選択肢4を「亜鉛 ― キサンチンオキシダーゼ」に差し替え、解説4を次にする：「4：誤。キサンチンオキシダーゼは、モリブデン（モリブデン補欠因子）、鉄硫黄クラスター、FADを含む。亜鉛を含む酵素には炭酸脱水酵素、アルコールデヒドロゲナーゼ、アルカリホスファターゼなどがある。」（選択肢4を残す場合は、解説4を「シトクロムcオキシダーゼの活性中心は銅（CuA、CuB）とヘム鉄である。」に改め、活性中心の金属を問う意図であることを明確にする。）",
+  "sources": [
+   "https://hfnet.nibn.go.jp/mineral/detail681/",
+   "https://pubmed.ncbi.nlm.nih.gov/6095824/",
+   "https://pubmed.ncbi.nlm.nih.gov/9623800/"
+  ]
+ },
+ {
+  "problem_id": "F236",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://sndj-web.jp/news/003031.php",
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/mineral-tetsu.html"
+  ]
+ },
+ {
+  "problem_id": "F245",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://hfnet.nibn.go.jp/mineral/detail680/"
+  ]
+ },
+ {
+  "problem_id": "F246",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.mhlw.go.jp/shingi/2009/05/dl/s0529-4am.pdf",
+   "https://www.shouman.jp/disease/details/08_08_112/"
+  ]
+ },
+ {
+  "problem_id": "F247",
+  "my_answer": [
+   "1",
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://data.medience.co.jp/guide/guide-03030001.html"
+  ]
+ },
+ {
+  "problem_id": "F248",
+  "my_answer": [
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://sndj-web.jp/news/003727.php"
+  ]
+ }
+]
