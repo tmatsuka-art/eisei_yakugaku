@@ -46,6 +46,7 @@ article.st-approve{border-left:5px solid var(--ok)} article.st-reject{border-lef
 .badge.check{background:var(--ok-soft);color:var(--ok)}
 .summary{margin:10px 0 4px;padding:10px 12px;background:var(--tag);border-radius:6px;font-size:.9rem}
 .summary .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em;margin-bottom:2px}
+.summary.rev{border-left:4px solid var(--pen)}
 .cc{margin:8px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.84rem}
 .cc .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em}
 .cc b{color:var(--ok)}
@@ -97,6 +98,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--pen);outline
 
   <div class="note">
     新しく作った15問です。<b>抜け</b>は診断で抜けていた知識点を埋める問題、<b>新コアカリ</b>は学修目標3)「方策を立案する」や学修事項(3)食薬区分・(6)国民健康・栄養調査に対応した問題です。1問ずつ<b>承認・却下・保留</b>を選び、直してほしい点は欄に書いて「メモを保存」を押してください。<br>
+    <b>更新（ChatGPTの指摘と先生のコメントを反映）：</b>13問を修正しました。各問の「今回の修正」をご覧ください。判断後に問題文・選択肢を変えた問題には、その旨を表示しています。<br>
     どの問題も、作成していない別のAIが正答を見ずに解き直し（15問とも正答一致）、根拠を食事摂取基準2025年版（報告書原文・建帛社の表）、先生の教科書、公的機関の資料で確認しています。
   </div>
   <details class="note" id="recode"><summary><b>あわせて行ったこと：新コアカリのコードの振り直し（第2・3回、26問）</b></summary><div id="recodeList"></div></details>
@@ -158,6 +160,7 @@ function card(it){
     </div>
     <div class="summary"><span class="lbl">ねらい（${esc(it.topic)}）</span>${esc(it.summary)}</div>
     ${it.checkNote?`<div class="meta">検証で直した点：${esc(it.checkNote)}</div>`:''}
+    ${it.rev?`<div class="summary rev"><span class="lbl">今回の修正（先生のコメント・ChatGPTの指摘・再検証を反映）${it.stemChanged&&decisions[it.id]&&decisions[it.id].status?' ― 判断後に問題文・選択肢を変えたので、もう一度ご確認ください':''}</span>${esc(it.rev)}</div>`:''}
     ${(it.unverified||[]).length?`<details><summary>資料で確認できなかった記述（${it.unverified.length}件）</summary><ul class="issues">${it.unverified.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}
     ${issues}
     
