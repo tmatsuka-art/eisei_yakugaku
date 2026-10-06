@@ -37,3 +37,6 @@ _work/kokushi_pilot/crosscheck_*.json
 _work/kokushi_pilot/cc_in_*.jsonl
 _work/kokushi_pilot/page_data.json
 _work/kokushi_pilot/review_pilot.html
+_work/kokushi_new23/verify_new*.json
+_work/kokushi_new23/page_new_data.json
+_work/kokushi_new23/review_new23.html
