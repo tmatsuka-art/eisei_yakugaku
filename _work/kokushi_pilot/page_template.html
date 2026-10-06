@@ -46,6 +46,9 @@ article.st-approve{border-left:5px solid var(--ok)} article.st-reject{border-lef
 .badge.check{background:var(--ok-soft);color:var(--ok)}
 .summary{margin:10px 0 4px;padding:10px 12px;background:var(--tag);border-radius:6px;font-size:.9rem}
 .summary .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em;margin-bottom:2px}
+.cc{margin:8px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.84rem}
+.cc .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em}
+.cc b{color:var(--ok)}
 .issues{margin:6px 0 0;padding-left:1.2em;font-size:.82rem;color:var(--muted)}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:12px 0 4px}
 .seg button{border:0;background:var(--paper);color:var(--muted);font:inherit;font-size:.82rem;padding:5px 14px;cursor:pointer}
@@ -90,7 +93,8 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--pen);outline
 
   <div class="note">
     1問ずつ<b>承認・却下・保留</b>を選んでください。直してほしい点は欄に書いて「メモを保存」を押すと、次の作業で反映します。判断はこのページに保存され、学生のアプリにはまだ何も反映されていません。<br>
-    緑の行が正答です。広い画面では改訂前と改訂後が左右に並び、スマホでは上のボタンで切り替えます。「削除・統合」の問題は、承認すると削除（または統合先へ吸収）します。
+    緑の行が正答です。広い画面では改訂前と改訂後が左右に並び、スマホでは上のボタンで切り替えます。「削除・統合」の問題は、承認すると削除（または統合先へ吸収）します。<br>
+    「資料との照合」は、問題と解説の記述を1つずつ、食事摂取基準2025年版の表（建帛社）と先生の教科書に照らした結果です。「資料に記載がなかった記述」は、どちらの資料でも確かめられなかったものなので、重点的にご確認ください。
   </div>
   <p class="ro" id="dbstate" hidden></p>
   <div class="list" id="list"></div>
@@ -121,6 +125,18 @@ function qBlock(q, kind, it){
   </div>`;
 }
 
+function ccBlock(it){
+  const c = it.cc; if(!c) return '';
+  const n = k => c.counts[k]||0;
+  const ok = n('建帛社表で確認')+n('教科書で確認')+n('報告書原文で確認');
+  const total = ok + n('資料に記載なし') + n('食い違い');
+  const flag = c.risk ? '<span class="badge v-merge_delete">先生の判断が必要</span>' : '';
+  const iss = c.issues.length ? `<ul class="issues">${c.issues.map(x=>`<li>食い違い${c.fixed?'（修正済み）':''}：${esc(x)}</li>`).join('')}</ul>` : '';
+  const miss = c.missing.length ? `<details><summary>資料に記載がなかった記述（${c.missing.length}件）</summary><ul class="issues">${c.missing.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>` : '';
+  return `<div class="cc"><span class="lbl">資料との照合</span>
+    <span class="ccn">記述${total}件のうち <b>${ok}件を確認</b>（食事摂取基準の表 ${n('建帛社表で確認')}・教科書 ${n('教科書で確認')}${n('報告書原文で確認')?'・報告書原文 '+n('報告書原文で確認'):''}）</span> ${flag}${iss}${miss}</div>`;
+}
+
 function card(it){
   const d = decisions[it.id] || {};
   const st = d.status ? ' st-'+d.status : '';
@@ -136,6 +152,7 @@ function card(it){
     </div>
     <div class="summary"><span class="lbl">${del?'削除・統合の理由':'変更の要点'}</span>${esc(it.summary)}</div>
     ${it.checkNote?`<div class="meta">検証で直した点：${esc(it.checkNote)}</div>`:''}
+    ${ccBlock(it)}
     ${issues}
     ${del ? '' : `<div class="seg" role="group" aria-label="表示の切り替え"><button type="button" data-show="after" aria-pressed="true">改訂後</button><button type="button" data-show="before" aria-pressed="false">改訂前</button></div>`}
     <div class="cols">${del ? qBlock(it.before,'before',it) : qBlock(it.before,'before',it).replace('class="q before"','class="q before" hidden') + qBlock(it.after,'after',it)}</div>

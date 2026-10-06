@@ -32,3 +32,8 @@ desktop.ini
 
 # Claude Code 関連
 .claude/settings.local.json
+# 教科書の要旨を含む照合結果は公開リポジトリに置かない
+_work/kokushi_pilot/crosscheck_*.json
+_work/kokushi_pilot/cc_in_*.jsonl
+_work/kokushi_pilot/page_data.json
+_work/kokushi_pilot/review_pilot.html
