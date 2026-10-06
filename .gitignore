@@ -46,3 +46,7 @@ _work/kokushi_new23/teacher_comments.json
 _work/kokushi_recheck23/chatgpt_review_*.txt
 _work/kokushi_recheck23/verify_*.json
 _work/kokushi_recheck23/review_fix23.html
+_work/kokushi_lec4/verify_*.json
+_work/kokushi_lec4/page_lec4_data.json
+_work/kokushi_lec4/review_lec4.html
+_work/kokushi_lec4/img/

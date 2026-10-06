@@ -1,0 +1,254 @@
+<title>第4回 改訂レビュー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+<style>
+/* Layout: one reading column of exam-sheet cards, sticky tally bar on top; side-by-side before/after on wide screens */
+:root{
+  --bg:#f6f7f9; --paper:#ffffff; --ink:#1c2433; --muted:#5d6676; --line:#dfe3ea;
+  --pen:#b8322a; --pen-soft:#fbecea;
+  --ok:#2e7d4f; --ok-soft:#e5f3ea; --ng:#b8322a; --ng-soft:#fbecea; --hold:#9a6a00; --hold-soft:#fbf2dc;
+  --tag:#eef1f6;
+  --f-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161d; --paper:#1a1f28; --ink:#e7ebf2; --muted:#9aa3b2; --line:#2c3340;
+  --pen:#f0776c; --pen-soft:#3a2224;
+  --ok:#6fcf97; --ok-soft:#1d3226; --ng:#f0776c; --ng-soft:#3a2224; --hold:#e6b84d; --hold-soft:#382e17;
+  --tag:#242b37; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161d; --paper:#1a1f28; --ink:#e7ebf2; --muted:#9aa3b2; --line:#2c3340;
+  --pen:#f0776c; --pen-soft:#3a2224;
+  --ok:#6fcf97; --ok-soft:#1d3226; --ng:#f0776c; --ng-soft:#3a2224; --hold:#e6b84d; --hold-soft:#382e17;
+  --tag:#242b37; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:8px 64px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px}
+h1{font-family:var(--f-head);font-size:1.35rem;margin:0;text-wrap:balance;letter-spacing:.02em}
+.lead{color:var(--muted);font-size:.85rem;margin:2px 0 8px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums}
+.tally span{padding:2px 8px;border-radius:999px;background:var(--tag)}
+.tally .a{background:var(--ok-soft);color:var(--ok)} .tally .r{background:var(--ng-soft);color:var(--ng)} .tally .h{background:var(--hold-soft);color:var(--hold)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:.82rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.note{margin:14px 0;padding:12px 14px;border:1px solid var(--line);background:var(--paper);border-radius:8px;font-size:.88rem}
+.note b{color:var(--pen)}
+.list{display:grid;gap:18px;margin-top:14px}
+article{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+article.st-approve{border-left:5px solid var(--ok)} article.st-reject{border-left:5px solid var(--ng)} article.st-hold{border-left:5px solid var(--hold)}
+.head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pid{font-family:var(--f-head);font-size:1.15rem;font-weight:700}
+.badge{font-size:.75rem;padding:2px 8px;border-radius:4px;background:var(--tag);color:var(--muted);letter-spacing:.04em}
+.badge.v-rewrite{background:var(--pen-soft);color:var(--pen)}
+.badge.v-merge_delete{background:var(--ng-soft);color:var(--ng)}
+.badge.check{background:var(--ok-soft);color:var(--ok)}
+.summary{margin:10px 0 4px;padding:10px 12px;background:var(--tag);border-radius:6px;font-size:.9rem}
+.summary .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em;margin-bottom:2px}
+.cc{margin:8px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.84rem}
+.cc .lbl{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em}
+.cc b{color:var(--ok)}
+.issues{margin:6px 0 0;padding-left:1.2em;font-size:.82rem;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:12px 0 4px}
+.seg button{border:0;background:var(--paper);color:var(--muted);font:inherit;font-size:.82rem;padding:5px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.cols{display:grid;gap:14px}
+.cols.one{grid-template-columns:1fr!important}
+table.gap{border-collapse:collapse;font-size:.84rem;width:100%;margin-top:6px}
+table.gap td,table.gap th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+.q{min-width:0}
+.q h3{font-size:.75rem;letter-spacing:.12em;color:var(--muted);margin:0 0 6px;font-weight:700}
+.q.after h3{color:var(--pen)}
+.meta{font-size:.75rem;color:var(--muted);margin-bottom:4px}
+.stem{white-space:pre-wrap;margin:0 0 8px}
+ol.ch{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+ol.ch li{display:grid;grid-template-columns:1.8em 1fr auto;gap:6px;padding:4px 6px;border-radius:4px;align-items:start}
+ol.ch li .n{font-variant-numeric:tabular-nums;color:var(--muted);text-align:center;border:1px solid var(--line);border-radius:3px;line-height:1.5;font-size:.85rem}
+ol.ch li.ok{background:var(--ok-soft)} ol.ch li.ok .mk{color:var(--ok);font-size:.75rem;font-weight:700;white-space:nowrap}
+details{margin-top:8px;font-size:.86rem}
+details summary{cursor:pointer;color:var(--muted)}
+.cm{white-space:pre-wrap;margin:6px 0 0;padding:8px 10px;border-left:3px solid var(--line)}
+.img{margin:6px 0;border:1px solid var(--line);border-radius:4px;max-width:100%}
+.src{margin:6px 0 0;padding-left:1.2em;word-break:break-all;font-size:.78rem}
+.src a{color:var(--muted)}
+.decide{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);display:grid;gap:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btns button{flex:1 1 90px;min-height:42px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+.btns button.approve[aria-pressed="true"]{background:var(--ok);color:var(--paper);border-color:var(--ok)}
+.btns button.reject[aria-pressed="true"]{background:var(--ng);color:var(--paper);border-color:var(--ng)}
+.btns button.hold[aria-pressed="true"]{background:var(--hold);color:var(--paper);border-color:var(--hold)}
+textarea{width:100%;min-height:64px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;font-size:.9rem;padding:8px}
+.saverow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.saverow button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;padding:4px 12px;font:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+.ro{font-size:.82rem;color:var(--muted)}
+@media (min-width:860px){ .cols{grid-template-columns:1fr 1fr} .seg{display:none} .cols .q[hidden]{display:block!important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>第4回 三大栄養素・消化吸収</h1>
+    <p class="lead">衛生化学I　予想問題27問（改訂26・削除案1）＋新問題8問（F1429〜F1436）</p>
+    <div class="tally" id="tally"></div>
+    <div class="filters" id="filters"></div>
+  </header>
+
+  <div class="note">
+    1問ずつ<b>承認・却下・保留</b>を選び、直してほしい点は欄に書いて「メモを保存」を押してください。緑の行が正答です。新問題は「新問題」、削除案は「削除・統合」と表示しています。<br>
+    すべての問題を、作成していない別のAIが正答を見ずに解き直し（全問正答一致）、記述を食事摂取基準2025年版の報告書原文・先生の教科書・公的機関と学会の資料で確認しています。講義回の中で同じ知識点を同じ角度で問う重複も解消しました。<br>
+    形式：必須7・理論20・実践7、「2つ選べ」18問（改訂前は必須3・理論24・実践0、「2つ選べ」2問）。
+  </div>
+  <details class="note" open><summary><b>抜けていた知識点と、今回埋めたもの・残ったもの</b></summary><div class="tw"><table class="gap"><thead><tr><th>知識点</th><th>状況</th></tr></thead><tbody><tr><td>単糖の吸収と輸送体（SGLT1・GLUT5・GLUT2）</td><td>埋めた（F481）</td></tr><tr><td>脂質の消化・吸収（ミセル、カイロミクロン、中鎖脂肪酸）</td><td>埋めた（F463）</td></tr><tr><td>エネルギー産生栄養素バランス（2025年版）</td><td>埋めた（F485、F1432）</td></tr><tr><td>食物繊維</td><td>埋めた（F613、F1433）</td></tr><tr><td>生物価・正味たんぱく質利用率、窒素出納</td><td>埋めた（F223、F1429、F483）</td></tr><tr><td>絶食・糖質制限時の代謝（ケトン体・糖新生）</td><td>埋めた（F719）</td></tr><tr><td>食後の血糖・インスリン動態とGI</td><td>埋めた（F482、F1430）</td></tr><tr><td>消化管ホルモン</td><td>一部（F1431はGLP-1のみ。セクレチン・コレシストキニンは先生の教科書に記載がなく、公的資料でも確認できなかったため未使用）</td></tr><tr><td>トランス脂肪酸・コレステロールの2025年版での扱い</td><td>一部（F624・F1435。食事摂取基準のトランス脂肪酸の文言は資料間で表現が食い違い、選択肢に使っていない）</td></tr><tr><td>アルコールのエネルギー換算係数7 kcal/g</td><td>埋めた（F485、F713の解説）</td></tr><tr><td>乳糖不耐症・α-グルコシダーゼ阻害薬</td><td>一部（F650は乳糖不耐症。α-グルコシダーゼ阻害薬は未作成）</td></tr></tbody></table></div></details>
+  <p class="ro" id="dbstate" hidden></p>
+  <div class="list" id="list"></div>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const ITEMS = JSON.parse(document.getElementById('data').textContent);
+const VLABEL = {keep:'維持（書式のみ）', polish:'磨き', rewrite:'作り直し', merge_delete:'削除・統合', new:'新問題'};
+const decisions = {};   // id -> {status, note}
+let filter = 'all';
+let db = null, canWrite = true;
+
+function esc(s){return String(s ?? '').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmt(q){ return (q.section || '区分なし') + '・' + (q.answer.length===2 ? '2つ選べ' : '1つ選べ'); }
+
+function qBlock(q, kind, it){
+  if(!q) return '';
+  const ans = new Set(q.answer.map(String));
+  const img = (kind==='before' && q.image && ['F243'].includes(it.id)) ? `<img class="img" src="img/${it.id}.png" alt="${it.id}の図">` : '';
+  const dropped = (kind==='after' && q.dropImage) ? '<div class="meta">図は使わない形に変更</div>' : '';
+  return `<div class="q ${kind}" data-kind="${kind}">
+    <h3>${kind==='before'?'改訂前':(it.before?'改訂後':'新問題'+(it.kind?'（'+it.kind+'）':''))}</h3>
+    <div class="meta">${esc(fmt(q))}</div>${dropped}
+    <p class="stem">${esc(q.text)}</p>${img}
+    <ol class="ch">${q.choices.map((c,i)=>`<li class="${ans.has(String(i+1))?'ok':''}"><span class="n">${i+1}</span><span>${esc(c)}</span>${ans.has(String(i+1))?'<span class="mk">正答</span>':''}</li>`).join('')}</ol>
+    <details><summary>解説を見る</summary><p class="cm">${esc(q.comment)}</p></details>
+  </div>`;
+}
+
+function ccBlock(it){
+  const c = it.cc; if(!c) return '';
+  const n = k => c.counts[k]||0;
+  const ok = n('建帛社表で確認')+n('教科書で確認')+n('報告書原文で確認');
+  const total = ok + n('資料に記載なし') + n('食い違い');
+  const flag = c.risk ? '<span class="badge v-merge_delete">先生の判断が必要</span>' : '';
+  const iss = c.issues.length ? `<ul class="issues">${c.issues.map(x=>`<li>食い違い${c.fixed?'（修正済み）':''}：${esc(x)}</li>`).join('')}</ul>` : '';
+  const miss = c.missing.length ? `<details><summary>資料に記載がなかった記述（${c.missing.length}件）</summary><ul class="issues">${c.missing.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>` : '';
+  return `<div class="cc"><span class="lbl">資料との照合</span>
+    <span class="ccn">記述${total}件のうち <b>${ok}件を確認</b>（食事摂取基準の表 ${n('建帛社表で確認')}・教科書 ${n('教科書で確認')}${n('報告書原文で確認')?'・報告書原文 '+n('報告書原文で確認'):''}）</span> ${flag}${iss}${miss}</div>`;
+}
+
+function card(it){
+  const d = decisions[it.id] || {};
+  const st = d.status ? ' st-'+d.status : '';
+  const del = it.verdict==='merge_delete';
+  const srcs = (it.sources||[]).length ? `<details><summary>根拠の資料（${it.sources.length}件）</summary><ul class="src">${it.sources.map(u=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join('')}</ul></details>` : '';
+  const issues = (it.issues||[]).length ? `<details><summary>診断で見つかった問題点（${it.issues.length}件）</summary><ul class="issues">${it.issues.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>` : '';
+  return `<article id="c-${it.id}" class="${st.trim()}" data-id="${it.id}">
+    <div class="head">
+      <span class="pid">${it.id}</span>
+      <span class="badge v-${it.verdict}">${VLABEL[it.verdict]}</span>
+      <span class="badge">第${it.lec}回</span>
+      ${it.check?`<span class="badge check">独立検証：${esc(it.check)}</span>`:''}
+    </div>
+    <div class="summary"><span class="lbl">${del?'削除・統合の理由':'変更の要点'}</span>${esc(it.summary)}</div>
+    ${it.checkNote?`<div class="meta">検証で直した点：${esc(it.checkNote)}</div>`:''}
+    
+    ${issues}
+    ${(del||!it.before) ? '' : `<div class="seg" role="group" aria-label="表示の切り替え"><button type="button" data-show="after" aria-pressed="true">改訂後</button><button type="button" data-show="before" aria-pressed="false">改訂前</button></div>`}
+    <div class="cols${!it.before?' one':''}">${!it.before ? qBlock(it.after,'after',it) : del ? qBlock(it.before,'before',it) : qBlock(it.before,'before',it).replace('class="q before"','class="q before" hidden') + qBlock(it.after,'after',it)}</div>
+    ${srcs}
+    <div class="decide">
+      <div class="btns" role="group" aria-label="判断">
+        <button type="button" class="approve" data-st="approve" aria-pressed="${d.status==='approve'}">${del?'削除を承認':'承認'}</button>
+        <button type="button" class="reject" data-st="reject" aria-pressed="${d.status==='reject'}">${del?'残す':'却下'}</button>
+        <button type="button" class="hold" data-st="hold" aria-pressed="${d.status==='hold'}">保留</button>
+      </div>
+      <textarea id="note-${it.id}" placeholder="直してほしい点・コメント（任意）">${esc(d.note||'')}</textarea>
+      <div class="saverow"><button type="button" data-save>メモを保存</button><span data-msg></span></div>
+    </div>
+  </article>`;
+}
+
+function visible(it){
+  const s = decisions[it.id]?.status;
+  if(filter==='todo') return !s;
+  if(filter==='hold') return s==='hold';
+  if(filter==='lec2') return it.lec===2;
+  if(filter==='lec3') return it.lec===3;
+  return true;
+}
+
+function renderTally(){
+  const c={approve:0,reject:0,hold:0};
+  ITEMS.forEach(it=>{const s=decisions[it.id]?.status; if(s) c[s]++;});
+  const todo = ITEMS.length - c.approve - c.reject - c.hold;
+  document.getElementById('tally').innerHTML =
+    `<span>全${ITEMS.length}問</span><span class="a">承認 ${c.approve}</span><span class="r">却下 ${c.reject}</span><span class="h">保留 ${c.hold}</span><span>未判断 ${todo}</span>`;
+}
+function renderFilters(){
+  const F=[['all','すべて'],['todo','未判断'],['hold','保留']];
+  document.getElementById('filters').innerHTML = F.map(([k,l])=>`<button type="button" class="chip" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join('');
+}
+function renderList(){
+  document.getElementById('list').innerHTML = ITEMS.filter(visible).map(card).join('') || '<p class="ro">該当する問題はありません。</p>';
+  if(!canWrite) document.querySelectorAll('.decide button, .decide textarea').forEach(el=>el.disabled=true);
+}
+function renderAll(){ renderTally(); renderFilters(); renderList(); }
+
+async function save(id, patch, msgEl){
+  const cur = Object.assign({}, decisions[id]||{}, patch, {updatedAt:new Date().toISOString()});
+  decisions[id]=cur;
+  if(!db){ if(msgEl) msgEl.textContent='この画面では保存できません'; return; }
+  try{ await db.doc('decisions/'+id).set(cur); if(msgEl) msgEl.textContent='保存しました'; }
+  catch(e){
+    if(e && e.code==='invalid_argument'){ canWrite=false; document.getElementById('dbstate').hidden=false; document.getElementById('dbstate').textContent='このページを編集する権限がないため、閲覧のみになります。'; }
+    if(msgEl) msgEl.textContent='保存できませんでした（'+(e&&e.code||'不明')+'）';
+  }
+}
+
+document.addEventListener('click', e=>{
+  const f = e.target.closest('[data-f]');
+  if(f){ filter=f.dataset.f; renderFilters(); renderList(); return; }
+  const art = e.target.closest('article'); if(!art) return;
+  const id = art.dataset.id;
+  const sh = e.target.closest('[data-show]');
+  if(sh){ art.querySelectorAll('[data-show]').forEach(b=>b.setAttribute('aria-pressed', String(b===sh)));
+    art.querySelectorAll('.q').forEach(q=>q.hidden = q.dataset.kind!==sh.dataset.show); return; }
+  const b = e.target.closest('[data-st]');
+  if(b){
+    const st = decisions[id]?.status===b.dataset.st ? null : b.dataset.st;
+    const note = art.querySelector('textarea').value;
+    save(id,{status:st, note}, art.querySelector('[data-msg]')).then(()=>{
+      renderTally();
+      art.className = st ? 'st-'+st : '';
+      art.querySelectorAll('[data-st]').forEach(x=>x.setAttribute('aria-pressed', String(x.dataset.st===st)));
+    });
+    return;
+  }
+  if(e.target.closest('[data-save]')){
+    save(id,{note:art.querySelector('textarea').value, status:decisions[id]?.status||null}, art.querySelector('[data-msg]'));
+  }
+});
+
+renderAll();
+(async()=>{
+  db = await claude.use('db');
+  if(!db){ const s=document.getElementById('dbstate'); s.hidden=false; s.textContent='判断の保存は、claude.ai にサインインして開いたときに使えます。'; canWrite=false; renderList(); return; }
+  db.collection('decisions').onSnapshot(snap=>{
+    let changed=false;
+    snap.docs.forEach(d=>{ const v=d.data(); const cur=decisions[d.id];
+      if(!cur || cur.status!==v.status || cur.note!==v.note){ decisions[d.id]=v; changed=true; } });
+    if(changed){
+      // keep any text being typed
+      const active=document.activeElement; const typing = active && active.tagName==='TEXTAREA' ? {id:active.id, v:active.value} : null;
+      renderAll();
+      if(typing){ const t=document.getElementById(typing.id); if(t){ t.value=typing.v; t.focus(); } }
+    }
+  }, ()=>{});
+})();
+</script>
