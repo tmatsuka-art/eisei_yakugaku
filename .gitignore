@@ -66,3 +66,7 @@ _work/kokushi_lec6/page/
 _work/kokushi_lec6/verify_*.json
 _work/kokushi_lec6/blind_*.jsonl
 _work/kokushi_lec6/key_*.jsonl
+_work/kokushi_forensic/page/
+_work/kokushi_forensic/verify_*.json
+_work/kokushi_forensic/blind_*.jsonl
+_work/kokushi_forensic/key_*.jsonl
