@@ -62,3 +62,7 @@ _work/kokushi_pub2/page/
 _work/kokushi_pub2/verify_*.json
 _work/kokushi_pub2/blind_*.jsonl
 _work/kokushi_pub2/key_*.jsonl
+_work/kokushi_lec6/page/
+_work/kokushi_lec6/verify_*.json
+_work/kokushi_lec6/blind_*.jsonl
+_work/kokushi_lec6/key_*.jsonl
