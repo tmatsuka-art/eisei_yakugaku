@@ -74,3 +74,8 @@ _work/kokushi_lec7/page/
 _work/kokushi_lec7/verify_*.json
 _work/kokushi_lec7/blind_*.jsonl
 _work/kokushi_lec7/key_*.jsonl
+_work/kokushi_rerev23/db_recheck/
+_work/kokushi_rerev23/page/
+_work/kokushi_rerev23/verify_*.json
+_work/kokushi_rerev23/blind_*.jsonl
+_work/kokushi_rerev23/key_*.jsonl
