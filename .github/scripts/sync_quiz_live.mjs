@@ -122,6 +122,7 @@ async function main() {
   const KEY_RAW = process.env.QUIZ_SUPABASE_SERVICE_ROLE_KEY;
   const KEY = (KEY_RAW ?? '').trim();
   if (!URL_ || !KEY) throw new Error('QUIZ_SUPABASE_URL / QUIZ_SUPABASE_SERVICE_ROLE_KEY が設定されていません');
+  if (/^https?:/.test(KEY)) throw new Error('鍵の欄に URL が入っています。Secrets の EISEIQUIZJSONUPDATE には Supabase の secret（service_role）の鍵を入れてください');
   const H = { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' };
 
   // 2. クイズ側の該当行を読む（100件ずつ）
