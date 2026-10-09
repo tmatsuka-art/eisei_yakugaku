@@ -4,9 +4,8 @@ name: クイズへの反映（Quiz Live 同期）
 # main で直したら、クイズ（Eisei Quiz Live）のデータベースの同じ問題も自動で直す。
 # 2026-10-09 先生の依頼。詳しくは .github/scripts/sync_quiz_live.mjs の説明を参照。
 #
-# 必要な Secrets（リポジトリの Settings → Secrets and variables → Actions）：
-#   QUIZ_SUPABASE_URL               クイズの Supabase の URL（https://xxxx.supabase.co）
-#   QUIZ_SUPABASE_SERVICE_ROLE_KEY  クイズの Supabase の service_role キー
+# クイズの Supabase の URL は公開情報なのでここに書く。鍵（service_role / secret）は
+# リポジトリの Secrets に EISEIQUIZJSONUPDATE という名前で登録（2026-10-09 先生が登録）。
 
 on:
   push:
@@ -47,8 +46,8 @@ jobs:
       - name: JSON の変更をクイズへ反映（push）
         if: github.event_name == 'push'
         env:
-          QUIZ_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
-          QUIZ_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.QUIZ_SUPABASE_SERVICE_ROLE_KEY }}
+          QUIZ_SUPABASE_URL: https://rnzomqldodkrcjzkknea.supabase.co
+          QUIZ_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.EISEIQUIZJSONUPDATE }}
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
         run: |
@@ -60,8 +59,8 @@ jobs:
       - name: 指定した問題をクイズへ反映（手動）
         if: github.event_name == 'workflow_dispatch'
         env:
-          QUIZ_SUPABASE_URL: ${{ secrets.QUIZ_SUPABASE_URL }}
-          QUIZ_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.QUIZ_SUPABASE_SERVICE_ROLE_KEY }}
+          QUIZ_SUPABASE_URL: https://rnzomqldodkrcjzkknea.supabase.co
+          QUIZ_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.EISEIQUIZJSONUPDATE }}
           IDS: ${{ inputs.ids }}
           APPLY: ${{ inputs.apply }}
         run: |
