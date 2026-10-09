@@ -173,9 +173,13 @@ async function main() {
 main()
   .catch((e) => {
     log(`エラー：${e.message}`);
+    if (process.env.GITHUB_ACTIONS) console.log(`::error::${e.message.replace(/\n/g, ' ')}`);
     process.exitCode = 1;
   })
   .finally(() => {
+    // 結果の要約を注釈にも出す（Actions の画面の一番上に表示される）
+    if (process.env.GITHUB_ACTIONS && out.length)
+      console.log(`::notice title=クイズへの反映::${out.filter(Boolean).slice(-3).join(' / ')}`);
     if (process.env.GITHUB_STEP_SUMMARY)
       appendFileSync(process.env.GITHUB_STEP_SUMMARY, '## クイズへの反映\n\n```\n' + out.join('\n') + '\n```\n');
   });
