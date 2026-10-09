@@ -117,8 +117,10 @@ async function main() {
   log(`JSON で中身が変わった問題：${ids.length} 問`);
   if (ids.length === 0) return;
 
-  const URL_ = process.env.QUIZ_SUPABASE_URL;
-  const KEY = process.env.QUIZ_SUPABASE_SERVICE_ROLE_KEY;
+  // 末尾の / や /rest/v1/ が付いていても動くようにする
+  const URL_ = (process.env.QUIZ_SUPABASE_URL ?? '').trim().replace(/\/+$/, '').replace(/\/rest\/v1$/, '');
+  const KEY_RAW = process.env.QUIZ_SUPABASE_SERVICE_ROLE_KEY;
+  const KEY = (KEY_RAW ?? '').trim();
   if (!URL_ || !KEY) throw new Error('QUIZ_SUPABASE_URL / QUIZ_SUPABASE_SERVICE_ROLE_KEY が設定されていません');
   const H = { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' };
 
