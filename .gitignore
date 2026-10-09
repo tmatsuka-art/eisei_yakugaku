@@ -70,3 +70,7 @@ _work/kokushi_forensic/page/
 _work/kokushi_forensic/verify_*.json
 _work/kokushi_forensic/blind_*.jsonl
 _work/kokushi_forensic/key_*.jsonl
+_work/kokushi_lec7/page/
+_work/kokushi_lec7/verify_*.json
+_work/kokushi_lec7/blind_*.jsonl
+_work/kokushi_lec7/key_*.jsonl
