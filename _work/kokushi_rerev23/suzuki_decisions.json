@@ -1,0 +1,534 @@
+{
+ "F751": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F651": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:10:53.471Z",
+  "versions": [
+   "rev"
+  ]
+ },
+ "F1421": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:56:50.619Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F232": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "やさしい版の1.2.3発展の5、旧版の1で問題作ってほしい",
+  "updatedAt": "2026-10-09T06:04:03.638Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F509": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "4.5の正解が明らかすぎるので、旧の5の腸内細菌とかいれて選択肢にしてほしい",
+  "updatedAt": "2026-10-09T06:42:36.691Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1414": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": null,
+  "note": "不要",
+  "updatedAt": "2026-10-09T06:51:31.000Z",
+  "versions": []
+ },
+ "F474": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:38:49.053Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F248": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:02:02.057Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F762": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:48:07.082Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1418": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:54:23.597Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F508": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F780": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F761": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:11:17.456Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F249": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "解説から悪性貧血は削除してください。4は巨赤芽球貧血ではなく別のものにしてほしい、貧血縛りでなくてもいいのでは",
+  "updatedAt": "2026-10-09T06:30:24.736Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F1273": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:49:32.484Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F225": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "選択肢５個なので、脂溶性ビタミンに絞る必要性もないのかもしれない。ビタミンの推奨量か目安量なのかは結構難しい問題ですね。",
+  "updatedAt": "2026-10-09T05:48:55.964Z",
+  "versions": [
+   "easy",
+   "rev"
+  ]
+ },
+ "F1428": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:17:14.171Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F226": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "発展はかなり発展、旧版の問題も結構良いかと。",
+  "updatedAt": "2026-10-09T05:57:53.934Z",
+  "versions": [
+   "easy",
+   "rev",
+   "old"
+  ]
+ },
+ "F466": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "正解の選択肢をビタミンAに変えてほしい",
+  "updatedAt": "2026-10-09T06:35:27.483Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F1426": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:16:32.374Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F476": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:03:22.816Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F465": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F480": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F647": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F471": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:38:03.610Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F235": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:17:25.948Z",
+  "versions": [
+   "easy",
+   "rev"
+  ]
+ },
+ "F475": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": null,
+  "note": "",
+  "updatedAt": "2026-10-09T07:02:46.570Z",
+  "versions": []
+ },
+ "F629": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:06:35.425Z",
+  "versions": [
+   "easy",
+   "old"
+  ]
+ },
+ "F234": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "旧版の1にやさしい版の4入れてほしい　5は頭蓋内圧亢進症の文にしてほしい",
+  "updatedAt": "2026-10-09T06:25:16.897Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F237": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:18:33.418Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F649": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "5は同じこと言ってるので、化学名はレチノールである　とかにでもかえてください",
+  "updatedAt": "2026-10-09T06:45:40.659Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F246": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:00:17.498Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1127": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:48:43.486Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F469": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "3を正解の文章「葉酸はテトラヒドロ葉酸としてヌクレオチド合成（DNA合成）に必要な一炭素単位の転移反応に関与する。」にして2つ選べにしてほしい",
+  "updatedAt": "2026-10-09T06:37:51.603Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F631": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:09:23.748Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F245": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:59:22.142Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F228": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:57:21.143Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F1416": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:52:15.648Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1420": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:55:52.869Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F231": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "5は例えば、腸内細菌によって合成されるので欠乏症は現れにくい、というような文章に変えてほしい。あまりに間違いすぎる気がする。",
+  "updatedAt": "2026-10-09T06:25:26.226Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F467": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:35:57.333Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F239": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:19:46.346Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F240": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "発展の5は　ビタミンKは腸内細菌によっては合成されない　とかにかえてほしい",
+  "updatedAt": "2026-10-09T06:22:14.112Z",
+  "versions": [
+   "easy",
+   "rev"
+  ]
+ },
+ "F630": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "5の文章は発展版の5にでも間違えた文章にして変えてください（亜鉛を過剰に摂取すると、小腸でメタロチオネインが誘導されて銅の吸収が増加する）",
+  "updatedAt": "2026-10-09T07:08:39.303Z",
+  "versions": [
+   "old"
+  ]
+ },
+ "F1427": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:16:58.545Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F236": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:58:07.373Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1271": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:49:07.599Z",
+  "versions": [
+   "rev"
+  ]
+ },
+ "F479": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "easy_keep",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F1415": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": null,
+  "note": "不要",
+  "updatedAt": "2026-10-09T06:51:39.020Z",
+  "versions": []
+ },
+ "F1422": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:12:29.854Z",
+  "versions": [
+   "rev"
+  ]
+ },
+ "F652": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:11:06.151Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F1424": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:12:59.141Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F247": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:01:11.626Z",
+  "versions": [
+   "easy",
+   "old"
+  ]
+ },
+ "F752": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:48:00.999Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F241": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "発展2は難解なのでは旧の5と変えてほしい",
+  "updatedAt": "2026-10-09T06:24:59.826Z",
+  "versions": [
+   "easy",
+   "rev"
+  ]
+ },
+ "F1419": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:55:24.091Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F473": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T06:38:35.762Z",
+  "versions": [
+   "easy"
+  ]
+ },
+ "F477": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "",
+  "updatedAt": "2026-10-09T07:03:42.766Z",
+  "versions": [
+   "rev"
+  ]
+ },
+ "F779": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "rev",
+  "note": "",
+  "updatedAt": "2026-10-08T00:00:00Z"
+ },
+ "F1417": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": null,
+  "note": "",
+  "updatedAt": "2026-10-09T06:53:20.469Z",
+  "versions": []
+ },
+ "F1425": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": null,
+  "note": "不要",
+  "updatedAt": "2026-10-09T07:15:11.860Z",
+  "versions": []
+ },
+ "F660": {
+  "by": "先生のチャット指示（10/8「すべてお願いします」）をClaudeが記入",
+  "choice": "versions",
+  "note": "2は似てるからなにか別の選択肢に変えてほしい",
+  "updatedAt": "2026-10-09T06:47:42.534Z",
+  "versions": [
+   "rev"
+  ]
+ }
+}
