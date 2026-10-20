@@ -1,0 +1,746 @@
+[
+ {
+  "problem_id": "F1127",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "理論2つ。過剰症の問いは良いが、ナイアシンの型別UL・K1とK3の区別・B12のUL有無など耐容上限量の細目が3肢を占める",
+  "replacement_idea": "過剰症の組合せ（A：頭蓋内圧亢進・催奇形性、D：高Ca血症、B6：感覚性ニューロパチー）を主にし、UL細目は1肢までにする"
+ },
+ {
+  "problem_id": "F1271",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "欠乏症の対応を問う基本形で国試並み（旧版と同じ）",
+  "replacement_idea": "現状維持（必須型にするなら選択肢を疾患名だけにする）"
+ },
+ {
+  "problem_id": "F1273",
+  "lecture": 2,
+  "biochem": 3,
+  "too_hard": 3,
+  "reason": "トランスサイレチン/RBP複合体、肝星細胞、α-トコフェロール輸送タンパク質など体内輸送の細目のみで衛生の文脈がない",
+  "replacement_idea": "脂溶性ビタミンの蓄積性と過剰症、β-カロテンは過剰症を起こしにくいこと、油と一緒にとると吸収が高まることを問う"
+ },
+ {
+  "problem_id": "F225",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "4ビタミンについて推奨量/目安量の別とUL有無を組み合わせで問い、099122より一段細かい",
+  "replacement_idea": "「耐容上限量が設定されていないビタミンはどれか」（099122型）の形に簡略化する"
+ },
+ {
+  "problem_id": "F226",
+  "lecture": 2,
+  "biochem": 3,
+  "too_hard": 2,
+  "reason": "トランスケトラーゼ、メチルマロニルCoAムターゼ、芳香族L-アミノ酸脱炭酸酵素など酵素名の対応だけを問う生化学問題",
+  "replacement_idea": "補酵素の働きを欠乏症の理由として問う（B1→糖代謝・脚気/乳酸アシドーシス、B6→アミノ基転移・イソニアジド服用者の欠乏）"
+ },
+ {
+  "problem_id": "F231",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 2,
+  "reason": "アノイリナーゼ、アリチアミンの脂溶性、α-KGDHの補酵素など機序の細目が多い（肢1のTPN乳酸アシドーシスは108235並み）",
+  "replacement_idea": "B1欠乏が起こりやすい場面（多量飲酒、B1を含まない高カロリー輸液、精白米・インスタント食品への偏り）と症状を問う"
+ },
+ {
+  "problem_id": "F232",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 2,
+  "reason": "グロノラクトンオキシダーゼ、デヒドロアスコルビン酸の還元、推奨量の算定根拠など細目が多い",
+  "replacement_idea": "壊血病の症状、摂取源（野菜・果物、加熱や保存で減る）、非ヘム鉄の吸収促進、喫煙者での必要量を問う"
+ },
+ {
+  "problem_id": "F234",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "妊婦付加量の時期別の値、RAE換算係数（12 μg）など食事摂取基準の数値細目が中心",
+  "replacement_idea": "妊娠初期のレチノール過剰と催奇形性、レバーやサプリメントでの過剰、β-カロテンは過剰症を起こしにくいことを問う"
+ },
+ {
+  "problem_id": "F235",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "活性化の調節とVDRの作用様式を問う。1α水酸化とPTHは102227・105227並みだが受容体の型は細目",
+  "replacement_idea": "日照不足・完全母乳・食品（魚、きのこ）によるくる病予防（108237型）と腎不全での活性化低下に寄せる"
+ },
+ {
+  "problem_id": "F237",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 2,
+  "reason": "メチルマロン酸、モノ/ポリグルタミン酸型、巨赤芽球の核と細胞質の成熟など血液学・生化学の細目",
+  "replacement_idea": "神経管閉鎖障害の予防、妊娠前からの付加的摂取、摂取源（緑黄色野菜・レバー）、加熱で失われやすいことを問う"
+ },
+ {
+  "problem_id": "F239",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 1,
+  "reason": "ペラグラの基本は国試並み。カルチノイド症候群の肢は臨床的な細目",
+  "replacement_idea": "カルチノイドの肢を「トウモロコシを主食とする地域で多発」「トリプトファンから生合成される」など食生活の論点に替える"
+ },
+ {
+  "problem_id": "F240",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "VKORの阻害、PIVKA-II、オステオカルシンなど作用機序寄り（γ-カルボキシ化自体は104118並み）",
+  "replacement_idea": "摂取源（緑黄色野菜のK1、納豆のK2）と欠乏が起こりやすい場面（新生児、抗菌薬の長期投与）を問う"
+ },
+ {
+  "problem_id": "F241",
+  "lecture": 2,
+  "biochem": 3,
+  "too_hard": 2,
+  "reason": "内因子の分泌細胞、ハプトコリン、輸送体、代謝反応と吸収・代謝の生化学のみ（107237より細かい）",
+  "replacement_idea": "欠乏が起こりやすい人（胃全摘後、萎縮性胃炎の高齢者、厳格な菜食、メトホルミン長期服用）と症状を問う"
+ },
+ {
+  "problem_id": "F249",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 2,
+  "reason": "実践2つ。メトホルミンによるB12吸収低下、高用量経口補充など臨床の細目。事例文も287字と長い",
+  "replacement_idea": "事例を短くし（胃全摘後など107236型）、欠乏ビタミンの推定と摂取源・補充経路を問う"
+ },
+ {
+  "problem_id": "F465",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "必須の基本形で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F466",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 1,
+  "reason": "薬物とビタミンの関係で、薬理学寄り。MTXとロイコボリン、レボドパとB6は衛生の範囲を超え気味",
+  "replacement_idea": "衛生の観点で頻出の組合せ（ワルファリンと納豆、イソニアジドとB6、抗菌薬とK）に絞り、残りは食品・欠乏の論点にする"
+ },
+ {
+  "problem_id": "F467",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "ワルファリン服用者の納豆・青汁の事例で、衛生の実践問題として国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F469",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 1,
+  "reason": "妊娠希望者の葉酸摂取の事例で良い。肢2（サプリメントの葉酸の型）だけ生化学の細目",
+  "replacement_idea": "肢2を「通常の食品の葉酸より吸収率が高い」など摂取の論点に替える"
+ },
+ {
+  "problem_id": "F471",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "ナイアシン当量の1段階計算。国試に例はないが手順は短い",
+  "replacement_idea": "現状維持でよい（トリプトファン60 mgがナイアシン1 mgに相当することを知識として問う形でも可）"
+ },
+ {
+  "problem_id": "F473",
+  "lecture": 2,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "必須を11-cis-レチナールとロドプシンの構造の問いに変えたため生化学寄りになった",
+  "replacement_idea": "「欠乏により夜盲症を起こすビタミンはどれか」など欠乏症・過剰症を問う必須に戻す"
+ },
+ {
+  "problem_id": "F474",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "欠乏症からビタミンを選ぶ必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F508",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "B6の代表的な働きを語句で問う必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F509",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 1,
+  "reason": "新生児ビタミンK欠乏性出血症の事例で良い。PIVKA-IIの意味、3か月法の細部がやや細かい",
+  "replacement_idea": "事例を短くし、母乳のK含量、腸内細菌叢が未熟、K2シロップによる予防に絞る"
+ },
+ {
+  "problem_id": "F647",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "卵白アビジンとビオチンの古典的な必須",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F649",
+  "lecture": 2,
+  "biochem": 3,
+  "too_hard": 2,
+  "reason": "ラジカル連鎖の停止機構、クロマン環の水素供与、α-TTPの選択性など生化学の細目が中心",
+  "replacement_idea": "抗酸化作用（生体膜の脂質過酸化を防ぐ）、摂取源（植物油・種実）、未熟児の溶血性貧血、ULがあることを問う"
+ },
+ {
+  "problem_id": "F660",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "アルコール多飲者のウェルニッケ脳症の初期対応で106230並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F751",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "欠乏症の原因を機序とともに選ぶ必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F752",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "くる病の病態を選ぶ必須で国試並み",
+  "replacement_idea": "現状維持（正答位置のみ調整）"
+ },
+ {
+  "problem_id": "F762",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "B12に含まれる金属を問う必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F779",
+  "lecture": 2,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "1α水酸化の臓器を問う必須で102227並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F780",
+  "lecture": 2,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "腸内細菌によるKの供給を問う必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F228",
+  "lecture": 3,
+  "biochem": 3,
+  "too_hard": 1,
+  "reason": "微量元素と酵素の組合せは097226に例があるが、Mo-亜硫酸オキシダーゼ、Mn-アルギナーゼは細目",
+  "replacement_idea": "代表例（Se-GPx、Zn-炭酸脱水酵素、Cu-セルロプラスミン）に絞るか、欠乏症・摂取源の組合せに替える"
+ },
+ {
+  "problem_id": "F236",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "若年女性の減量と鉄欠乏の事例で衛生の実践として良い。推奨量の月経有無の区別・ULの有無は細目",
+  "replacement_idea": "現状維持に近い。食事摂取基準の肢は「月経ありの女性で推奨量が高い」程度にとどめる"
+ },
+ {
+  "problem_id": "F245",
+  "lecture": 3,
+  "biochem": 1,
+  "too_hard": 2,
+  "reason": "サイログロブリンの残基、妊婦のUL、成人UL 3,000 µgの数値など細目が多い",
+  "replacement_idea": "日本人は海藻からの摂取が多く過剰に注意、欠乏でも過剰でも甲状腺腫、甲状腺ホルモンの構成成分であることを問う"
+ },
+ {
+  "problem_id": "F246",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "欠乏症の組合せで国試並み（腸性肢端皮膚炎・カシン・ベック病はやや細かい誤答肢）",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F247",
+  "lecture": 3,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "PTH・カルシトニンの作用など内分泌生理の問題で、栄養の視点が薄い",
+  "replacement_idea": "Ca摂取の論点（日本人の摂取不足、乳製品の吸収率、シュウ酸・フィチン酸、ビタミンD・日照）と骨粗鬆症予防に替える"
+ },
+ {
+  "problem_id": "F248",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "食塩相当量の計算で101122並み。問題文の条件説明がやや長い",
+  "replacement_idea": "現状維持（条件文を短くする）"
+ },
+ {
+  "problem_id": "F475",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "鉄欠乏性貧血の検査所見を問う基本形で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F476",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "閉経後女性の食生活とCa吸収の事例で107234並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F477",
+  "lecture": 3,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "味覚障害の事例だが、正答が酵素の構成成分で、事例が答えに使われていない",
+  "replacement_idea": "亜鉛欠乏が起こりやすい要因（高齢、偏った食事、キレート作用のある薬）と摂取源（牡蠣・肉類）を事例から判断させる"
+ },
+ {
+  "problem_id": "F479",
+  "lecture": 3,
+  "biochem": 2,
+  "too_hard": 1,
+  "reason": "Se-GPxは103023並み。脱ヨウ素酵素のT3/T4の向きなど一部が細かい",
+  "replacement_idea": "克山病・過剰症（爪や毛髪の脆弱化、にんにく臭）・摂取源（魚介類）を中心にする"
+ },
+ {
+  "problem_id": "F480",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "必須の基本形",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F629",
+  "lecture": 3,
+  "biochem": 3,
+  "too_hard": 2,
+  "reason": "DMT1、ヘプシジン、フェロポルチンなど吸収調節の分子名が中心",
+  "replacement_idea": "ヘム鉄と非ヘム鉄の吸収率、ビタミンCで促進・タンニンやフィチン酸で阻害、鉄は排泄で調節されないことを問う"
+ },
+ {
+  "problem_id": "F630",
+  "lecture": 3,
+  "biochem": 3,
+  "too_hard": 3,
+  "reason": "ATP7A/ATP7B、セルロプラスミン、酢酸亜鉛の作用機序など遺伝性疾患と分子の細目のみ",
+  "replacement_idea": "銅欠乏（亜鉛サプリメントの過剰、銅を含まない輸液）で貧血が起こること、摂取源、ウィルソン病は銅の蓄積であることを問う"
+ },
+ {
+  "problem_id": "F631",
+  "lecture": 3,
+  "biochem": 1,
+  "too_hard": 2,
+  "reason": "低Mg血症とPTHの関係など臨床生理の細目が正答。酸化マグネシウムの肢は誤り方向",
+  "replacement_idea": "酸化マグネシウム服用中の腎機能低下高齢者で高マグネシウム血症に注意、ULは通常の食品以外に限って設定、を問う"
+ },
+ {
+  "problem_id": "F651",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "Na/Kの指標の種類は良いが、カリウム目標量の男女差、令和6年調査値など数値の細目が入る",
+  "replacement_idea": "「Naは目標量（未満）、Kは目標量（以上）」と「日本人の食塩摂取量は目標量を上回る」程度にとどめる"
+ },
+ {
+  "problem_id": "F652",
+  "lecture": 3,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "リンを選ぶ必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F761",
+  "lecture": 3,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "必須の基本形",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F223",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 1,
+  "reason": "たんぱく質の栄養価の評価法で099121・097122並み",
+  "replacement_idea": "現状維持（肢の長さをそろえる）"
+ },
+ {
+  "problem_id": "F224",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 2,
+  "reason": "n-6目安量の算定根拠（中央値）など食事摂取基準の細目が入る",
+  "replacement_idea": "魚のEPA・DHAと冠動脈疾患予防（111020型）、n-3/n-6は目安量、摂取源の違いを問う"
+ },
+ {
+  "problem_id": "F242",
+  "lecture": 4,
+  "biochem": 3,
+  "too_hard": 3,
+  "reason": "フルクトキナーゼ、脂肪酸合成酵素の生成物、SREBP-1など代謝調節の細目のみ",
+  "replacement_idea": "果糖・砂糖の過剰摂取と脂肪肝・肥満、清涼飲料、WHOの遊離糖類の摂取目標（総エネルギーの10%未満）を問う"
+ },
+ {
+  "problem_id": "F243",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "脂質異常症の診断基準の数値（随時採血のTG 175、non-HDL 170）とFriedewald式の扱いなど臨床検査の細目",
+  "replacement_idea": "診断基準の主な項目（LDL 140、HDL 40未満）だけを使い、食事指導（飽和脂肪酸・食物繊維）と組み合わせる"
+ },
+ {
+  "problem_id": "F462",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "必須アミノ酸を問う必須で099016並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F463",
+  "lecture": 4,
+  "biochem": 3,
+  "too_hard": 1,
+  "reason": "膵リパーゼの位置特異性、胆汁酸の再吸収部位など。中鎖脂肪酸は097121並み",
+  "replacement_idea": "中鎖脂肪酸が胆汁酸を必要とせず門脈に入ることを、胆汁分泌不全などの栄養管理への利用と結びつけて問う"
+ },
+ {
+  "problem_id": "F464",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "必須脂肪酸を問う必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F481",
+  "lecture": 4,
+  "biochem": 3,
+  "too_hard": 0,
+  "reason": "SGLT1・GLUT5・GLUT2・マルターゼは097121・105119・102121並みの水準だが、衛生の文脈がない",
+  "replacement_idea": "乳糖不耐やα-グルコシダーゼ阻害薬（104227型）、難消化性デキストリンなど食品・医薬品の文脈に結びつける"
+ },
+ {
+  "problem_id": "F482",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "架空試験の表から2つのGIを計算し、最高値・時間も読ませる。問題文377字で、111126より手順が多い",
+  "replacement_idea": "111126型の短い図（または2行の表）で、GIの高低と玄米・難消化性デキストリンなど食品選択を問う"
+ },
+ {
+  "problem_id": "F483",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "窒素出納の2段階計算で097122並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F484",
+  "lecture": 4,
+  "biochem": 3,
+  "too_hard": 1,
+  "reason": "アポB-48/B-100、LDLの生成過程などリポたんぱく質の生化学のみ",
+  "replacement_idea": "LDL・HDLと動脈硬化、飽和脂肪酸・トランス脂肪酸・n-3系脂肪酸の影響に結びつける"
+ },
+ {
+  "problem_id": "F485",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "PFCバランスの算定順序、アルコールを含むかなど報告書の細部と年齢・性別の値",
+  "replacement_idea": "「エネルギー産生栄養素バランスは目標量として％エネルギーで示される」「日本人は脂肪エネルギー比率が上限に近い」程度に"
+ },
+ {
+  "problem_id": "F497",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "表から3つの比を求めてアミノ酸価を出す計算で、107019より一段手間がかかる",
+  "replacement_idea": "精白米の第一制限アミノ酸（リシン）と、豆類との組合せによる補足効果を問う形でもよい（計算として残すなら表を3行に）"
+ },
+ {
+  "problem_id": "F500",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "呼吸商の1段階計算で100121・106127並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F501",
+  "lecture": 4,
+  "biochem": 2,
+  "too_hard": 3,
+  "reason": "肝硬変のBCAA療法、肝不全用経口栄養剤の適応、たんぱく質制限量など臨床栄養の細目",
+  "replacement_idea": "フィッシャー比の定義と肝硬変での低下、BCAAが筋肉で代謝されることの2点に絞る（または第4回から外す）"
+ },
+ {
+  "problem_id": "F611",
+  "lecture": 4,
+  "biochem": 2,
+  "too_hard": 0,
+  "reason": "還元性の有無は糖の化学で、衛生の文脈はない",
+  "replacement_idea": "スクロースの構成単糖や、むし歯の原因になりにくい糖アルコール（特定保健用食品の関与成分）を問う"
+ },
+ {
+  "problem_id": "F612",
+  "lecture": 4,
+  "biochem": 3,
+  "too_hard": 1,
+  "reason": "α-1,6結合とアミラーゼ、筋グリコーゲンの利用など糖の構造・代謝のみ",
+  "replacement_idea": "利用可能炭水化物と食物繊維の違い、難消化性の糖質と食後血糖を問う"
+ },
+ {
+  "problem_id": "F613",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "食物繊維は107127並み。成分表のエネルギー換算係数（2 kcal/g）、30〜49歳男性の目標量の値は細目",
+  "replacement_idea": "水溶性・不溶性の違い、目標量が設定されていること、日本人は目標量に届いていないことを問う"
+ },
+ {
+  "problem_id": "F624",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "トランス脂肪酸の発生源・健康影響・表示制度で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F627",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "BCAAを選ぶ必須で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F628",
+  "lecture": 4,
+  "biochem": 2,
+  "too_hard": 0,
+  "reason": "消化酵素の活性化と吸収形態で097121並み",
+  "replacement_idea": "現状維持（衛生の文脈を足すなら、ペプチドとして吸収されることを経腸栄養剤の利用と結びつける）"
+ },
+ {
+  "problem_id": "F650",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "乳糖不耐の事例で、生化学の知識を症状の理由として問う良い例",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F713",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "栄養成分表示からアトウォーター係数で脂肪エネルギー比率を出す2段階計算で国試並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F718",
+  "lecture": 4,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "呼吸商1.0を問う必須",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F719",
+  "lecture": 4,
+  "biochem": 2,
+  "too_hard": 2,
+  "reason": "糖質制限の事例に計算と代謝機序（オキサロ酢酸の不足、ホルモン感受性リパーゼ）が重なり108233より細かい",
+  "replacement_idea": "108233型にそろえ、ケトン体が増える理由（脂肪酸のβ酸化亢進）と炭水化物エネルギー比率を目標量と比べる問いにする"
+ },
+ {
+  "problem_id": "F769",
+  "lecture": 4,
+  "biochem": 1,
+  "too_hard": 0,
+  "reason": "n-3系脂肪酸を選ぶ必須で098016並み",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F1061",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "指標間の関係を問うが、肢5（飽和を基準とした栄養素と欠乏症状を基準とした栄養素の比較）は総論の細部",
+  "replacement_idea": "各指標の名称と目的（不足の回避・過剰摂取の回避・生活習慣病の予防）の対応を問う"
+ },
+ {
+  "problem_id": "F1361",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "乳児・小児で成長曲線を使うことは総論の知識だが、国試では成人のBMIまでが中心",
+  "replacement_idea": "成人で過不足の評価にBMIを使うこと、目標とするBMIの範囲（18〜49歳 18.5〜24.9）を問う"
+ },
+ {
+  "problem_id": "F1362",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "推奨量の算定式（EAR×(1+2×CV)）は国試に出ない総論の細部",
+  "replacement_idea": "推奨量と推定平均必要量の意味（97〜98%と50%）の理解を問う"
+ },
+ {
+  "problem_id": "F1363",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "基準哺乳量0.78 L/日、平均値と中央値の違い、6〜11か月の算定方法など報告書の細部",
+  "replacement_idea": "目安量は十分な科学的根拠がない場合に設定され、目安量以上なら不足のリスクは低いことを問う"
+ },
+ {
+  "problem_id": "F1364",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "LOAELから不確実性因子10で割ってULを求める算定方法は国試に出ない総論の細部",
+  "replacement_idea": "耐容上限量の目的（過剰摂取による健康障害の回避）と、サプリメントを含めて比較することを問う"
+ },
+ {
+  "problem_id": "F1365",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "減らすことを目指す目標量の栄養素を問い、111019と同水準",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F633",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "ULの使い方は大事だが、「できるだけ接近することを回避する量」など総論の言い回しを覚えているかの問題になっている",
+  "replacement_idea": "ULは通常の食品に加えサプリメント等の摂取も含めて評価すること、ULを超えるとリスクが高まることを問う"
+ },
+ {
+  "problem_id": "F634",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "目標量の算定（中間値の使い方、エビデンスレベルD1、重症化予防との区別）は報告書の細部のみ",
+  "replacement_idea": "目標量は生活習慣病の発症予防のための指標で、ナトリウムは減らす・カリウムと食物繊維は増やす方向であることを問う（103016・111019型）"
+ },
+ {
+  "problem_id": "F227",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "概念図の指標を選ぶ問題で109019と同型",
+  "replacement_idea": "現状維持（図の確認のみ）"
+ },
+ {
+  "problem_id": "F1366",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "推定エネルギー必要量の計算自体は103121並みだが、身体活動レベルの説明表まで読ませ問題文が494字",
+  "replacement_idea": "基礎代謝基準値と身体活動レベルの数値を与えて計算させる103121型に短くする"
+ },
+ {
+  "problem_id": "F1376",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 2,
+  "reason": "食事調査法の長所短所の比較は総論の細部で、国試の栄養分野には例が少ない",
+  "replacement_idea": "国民健康・栄養調査で用いる方法（秤量記録法・比例案分）に結びつけるか、1〜2肢に減らす"
+ },
+ {
+  "problem_id": "F1377",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "必要な調査日数の表と日間変動・誤差範囲の関係は疫学・統計の細部",
+  "replacement_idea": "日間変動があるため1日の調査では個人の習慣的な摂取量を評価しにくい、という要点だけを問う"
+ },
+ {
+  "problem_id": "F1378",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "カットポイント法の前提や鉄での偏りなど、集団評価の方法論の細部",
+  "replacement_idea": "集団の不足の評価には推定平均必要量を下回る者の割合を使う、の1点を問う短い問題にする"
+ },
+ {
+  "problem_id": "F1379",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "2025年版の改定点（アルコールの扱い、B12の目安量化、鉄のUL）など改定の細部の暗記",
+  "replacement_idea": "改定点は問わず、指標の種類と主な栄養素の設定状況（例：ナトリウム・カリウムの目標量）を問う"
+ },
+ {
+  "problem_id": "F281",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 0,
+  "reason": "国民健康・栄養調査の根拠法を問い、111123の論点と同水準",
+  "replacement_idea": "現状維持"
+ },
+ {
+  "problem_id": "F283",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "サプリメント利用者の摂取量と食事摂取基準の比較で、方策立案型の良い例。ただ問題文が長い",
+  "replacement_idea": "表を3栄養素程度に減らして短くする"
+ },
+ {
+  "problem_id": "F284",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "目標とするBMIの下限の決め方（中間値、他の健康障害の勘案）など算定根拠の細部",
+  "replacement_idea": "年齢区分ごとの目標とするBMIの範囲と、高齢者ではフレイル予防のため下限が高いことを問う"
+ },
+ {
+  "problem_id": "F288",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 1,
+  "reason": "国民健康・栄養調査の表の読み取りと判定基準で、099123・106020に近い方策立案型の良い例",
+  "replacement_idea": "現状維持（計算の肢は1〜2個にとどめる）"
+ },
+ {
+  "problem_id": "F493",
+  "lecture": 5,
+  "biochem": 0,
+  "too_hard": 3,
+  "reason": "調査対象の基準日、調査日数、歩数の区分など実施要領の細部",
+  "replacement_idea": "調査の根拠法（健康増進法）、毎年実施、栄養摂取・身体状況・生活習慣の3つの調査で構成される、を問う"
+ }
+]

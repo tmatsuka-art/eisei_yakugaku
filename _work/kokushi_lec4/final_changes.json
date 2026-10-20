@@ -1,0 +1,206 @@
+[
+ {
+  "problem_id": "F223",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢4「鶏卵の生物価は100より低い」は、生物価がほぼすべての食品で100未満のため知識がなくても正と判断できたので、「鶏卵の生物価は牛乳より高い」（教科書の表：鶏卵94、牛乳85）に差し替えました。正答は2・4のままです。"
+ },
+ {
+  "problem_id": "F224",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢4に「1歳以上の」を加えました（乳児の目安量は母乳から算定するため）。選択肢5「オレイン酸からリノール酸を合成できる」はF464（必須脂肪酸）と同じ知識点だったので、「EPA・DHAの主な供給源は植物油」（正しくは魚）に差し替えました。正答は1・4のままです。"
+ },
+ {
+  "problem_id": "F242",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢3（糖質からリノール酸が合成される）は「オレイン酸からリノール酸を合成できない」がF464・F224と合わせて3か所に出ていたため、「脂肪酸合成酵素でつくられるのはステアリン酸」（正しくはパルミチン酸）に差し替えました。リノール酸の説明はF464に任せます。正答は5のままです。"
+ },
+ {
+  "problem_id": "F243",
+  "changed": true,
+  "stem_or_choice_changed": false,
+  "summary": "問題文・選択肢は変えていません。解説末尾のポイントにあった食事摂取基準（飽和脂肪酸・コレステロール）の記述はF1435と重なり、この問題の論点（診断基準）からも外れていたので、採血条件と基準値の説明に替えました。"
+ },
+ {
+  "problem_id": "F462",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F463",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢3の「炭素数12以下」は短鎖脂肪酸も含むように読めたので「中鎖脂肪酸（炭素数8〜12）」と書き直し、教科書の文と重ならない言い回しにしました。解説4は、教科書内で数値（95%と80%以上）が揺れていたため数値を外しました。正答は1・3のままです。"
+ },
+ {
+  "problem_id": "F464",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F481",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F482",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "リードの「いずれも」がどこまでかかるか曖昧だったので「（いずれも10名の平均値）」と書き直しました。選択肢4・5（インスリンによる肝グリコーゲン分解の抑制、GLUT4）はF1430と同じ知識点だったため、GIの求め方（最高値の比ではない）と、GIの低い食品の意味に差し替え、本問はGIの算出と読み取りに絞りました。正答は1・5のままです。"
+ },
+ {
+  "problem_id": "F483",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F484",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢1「主なアポリポたんぱく質」は量の多さか構造上の成分かで解釈が分かれたため、「カイロミクロンは、アポBとしてアポB-100をもつ」と書き直しました。正答は2・4のままです。"
+ },
+ {
+  "problem_id": "F485",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F497",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F500",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢3「主なエネルギー源 たんぱく質」は問題文の「たんぱく質の燃焼は無視できる」と矛盾し知識なしで消せたので、「糖質と脂質がほぼ半分ずつ」に差し替えました。解説1に、本問の値は非たんぱく質呼吸商と同じに扱えることを加えました。正答は1のままです。"
+ },
+ {
+  "problem_id": "F501",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "問題文を「肝性脳症の既往はなく、食事は毎食ほぼ全量摂取できている」とし、食事の量と、たんぱく質制限が必要な状態ではないことを明示しました。選択肢1は測定値ではないため「低下していると考えられる」、選択肢4は「食事摂取量が十分であるため」と書き直しました。BCAA製剤の使い分けは教科書の記述で確認でき、添付文書には依拠していません。正答は1・3のままです。"
+ },
+ {
+  "problem_id": "F611",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F612",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F613",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F624",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F627",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F628",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F650",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢2（ガラクトースの輸送体GLUT5）はF481の選択肢2と同じ知識点だったので、「スクラーゼの活性が低い」（乳糖を分解するのはラクターゼ）に差し替え、輸送体はF481に任せました。解説4に、大腸に届いた乳糖が腸内細菌に発酵されてガスを生じることを加えました。正答は3のままです。"
+ },
+ {
+  "problem_id": "F713",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F718",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F719",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "問題文に健康診断の時期（この食事を続けている間に受けた先週の健診）を明記しました。選択肢1（筋グリコーゲンは血糖維持に使われない）はF612の選択肢4と同じ知識点だったので、「インスリンでホルモン感受性リパーゼが活性化」（正しくはグルカゴン等で活性化、インスリンで不活性化）に差し替えました。選択肢5は因果が読み取れるよう「オキサロ酢酸が糖新生に使われて不足し」と直しました。正答は3・5のままです。"
+ },
+ {
+  "problem_id": "F769",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F1429",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F1430",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢2（小腸のSGLT1）はF481、旧選択肢3（インスリンによる肝グリコーゲン分解）と4（GLUT4）はF482と重なっていたため、F482側からインスリンの選択肢を外したうえで、本問を「食後のインスリンの作用」の担当にしました。新たに表の読み取り（インスリンと血糖の最高値の時点）、糖新生（誤）、肝臓のグリコーゲン合成（正）を入れ、筋グリコーゲンの選択肢はF612に任せて外しました。正答は3・5です。"
+ },
+ {
+  "problem_id": "F1431",
+  "changed": false,
+  "stem_or_choice_changed": false,
+  "summary": "変更なし。"
+ },
+ {
+  "problem_id": "F1432",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "選択肢4は報告書（たんぱく質の章 印刷94〜95ページ、エネルギー産生栄養素バランス表の脚注3）の書き方に合わせ、「フレイル及びサルコペニアの発症を予防できる可能性があるたんぱく質量（1.2 g/kg体重/日）を考慮して設定」とし、15%という数値はF485の選択肢2に任せて外しました。選択肢3（75歳以上女性の推奨量）はF1434と重なるため、「乳児にも窒素出納法による推定平均必要量がある」（正しくは目安量）に差し替えました。正答は1・4のままです。"
+ },
+ {
+  "problem_id": "F1433",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "正答2つ（飽和脂肪酸の置き換え・食物繊維）がF1435とほぼ同じだったため役割を分け、本問は「町（集団）の方策：脂質の量と食物繊維」の担当にしました。データから飽和脂肪酸を外し、選択肢3「脂質エネルギー比率が上限超え→揚げ物を減らす」を正答に、選択肢4を「炭水化物は範囲内なので質（精製穀類・甘味飲料）の取組を外す」（誤）に替えました。解説2のメタ・アナリシスは報告書p.133で確認できましたが、F1436に移して本問では目標量の考え方で説明しています。正答は3・5です。"
+ },
+ {
+  "problem_id": "F1434",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "正答5だけが「増やす」積極策で形から正答が分かったため、選択肢4を「たんぱく質はそのままで、菓子類や甘い飲み物でエネルギーだけを増やす」（増やす方向の誤り）に差し替えました。ポイントは、報告書の脚注（必要エネルギーが低い者では下限が推奨量を下回る場合がある）に合わせて書き直しました。正答は5のままです。 最終確認で、どの基準に照らすか（食事摂取基準2025年版）を問題文に明記した。"
+ },
+ {
+  "problem_id": "F1435",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "F1433と正答が重なっていたため、本問は「個人の脂質の質とコレステロール」の担当にしました。食物繊維の選択肢とデータを外し、選択肢5を「コレステロールは目標量なしだが200 mg/日未満が望ましい→鶏卵・加工肉を見直す」（正）、選択肢3を「LDLを下げるため魚油サプリを追加」（誤：報告書ではLDLは下がらず、わずかに上昇）に替えました。選択肢2には目標量（7%エネルギー以下）との比較を書き加え、選択肢1の文末の絶対的な言い方も直しました。正答は2・5です。 最終確認で、どの基準に照らすか（食事摂取基準2025年版）を問題文に明記した。"
+ },
+ {
+  "problem_id": "F1436",
+  "changed": true,
+  "stem_or_choice_changed": true,
+  "summary": "5つの選択肢のうち4つが他問（ケトン体・炭水化物比率＝F719、トランス脂肪酸の表示＝F624、脂質由来エネルギーの割合＝F713）と重なっていたため、検証者の案を参考に「表示と食事記録を読んで説明・助言を選ぶ2つ選べ」に作り直しました。正答は「炭水化物制限の減量効果は同じエネルギーの脂質制限食と差がない→総エネルギー摂取量を見直す」（報告書p.133）と「表示の熱量には食物繊維分（約12 kcal）も含まれる」の2つ（3・4）です。誤答はバーの本数を増やしたときのエネルギーの数え違い、炭水化物の推定平均必要量（実際は目標量のみ）、食物繊維が小腸で吸収されるという誤解で作りました。問題文にバーを毎日2本食べていることを加えています。 最終確認で、どの基準に照らすか（食事摂取基準2025年版）を問題文に明記した。"
+ }
+]

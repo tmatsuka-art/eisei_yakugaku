@@ -1,0 +1,966 @@
+[
+ {
+  "id": "F225",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "rev"
+  ],
+  "note": "選択肢５個なので、脂溶性ビタミンに絞る必要性もないのかもしれない。ビタミンの推奨量か目安量なのかは結構難しい問題ですね。",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F225 にやさしい版 ＝再改訂版",
+   "F1446 に発展版（「発展」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F226",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "rev",
+   "old"
+  ],
+  "note": "発展はかなり発展、旧版の問題も結構良いかと。",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F226 にやさしい版",
+   "F1447 に発展版（「発展」タグ）",
+   "新しい番号に旧版 ＝再改訂版を追加（「旧版」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F231",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "5は例えば、腸内細菌によって合成されるので欠乏症は現れにくい、というような文章に変えてほしい。あまりに間違いすぎる気がする。",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F231 にやさしい版 ＝再改訂版",
+   "F1448（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F232",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "やさしい版の1.2.3発展の5、旧版の1で問題作ってほしい",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F232 にやさしい版 ＝再改訂版",
+   "F1449（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F234",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "旧版の1にやさしい版の4入れてほしい　5は頭蓋内圧亢進症の文にしてほしい",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F234 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1450（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F235",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "rev"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F235 にやさしい版",
+   "F1451 に発展版（「発展」タグ）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F237",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F237 にやさしい版",
+   "F1452（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F239",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F239 にやさしい版",
+   "F1453（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F240",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "rev"
+  ],
+  "note": "発展の5は　ビタミンKは腸内細菌によっては合成されない　とかにかえてほしい",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F240 にやさしい版",
+   "F1454 に発展版 ＝再改訂版（「発展」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F241",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "rev"
+  ],
+  "note": "発展2は難解なのでは旧の5と変えてほしい",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F241 にやさしい版",
+   "F1455 に発展版 ＝再改訂版（「発展」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F249",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "解説から悪性貧血は削除してください。4は巨赤芽球貧血ではなく別のものにしてほしい、貧血縛りでなくてもいいのでは",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F249 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1456（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F465",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F466",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "正解の選択肢をビタミンAに変えてほしい",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F466 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1457（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F467",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F467 に旧版 ＝再改訂版（今のやさしい版と入れ替え）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F469",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "3を正解の文章「葉酸はテトラヒドロ葉酸としてヌクレオチド合成（DNA合成）に必要な一炭素単位の転移反応に関与する。」にして2つ選べにしてほしい",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F469 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1458（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F471",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F471 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1459（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F473",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F473 にやさしい版",
+   "F1460（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F474",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F474 に旧版 ＝再改訂版（今のやさしい版と入れ替え）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F508",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F509",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "4.5の正解が明らかすぎるので、旧の5の腸内細菌とかいれて選択肢にしてほしい",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F509 にやさしい版 ＝再改訂版",
+   "F1461（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F647",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F649",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "5は同じこと言ってるので、化学名はレチノールである　とかにでもかえてください",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F649 にやさしい版 ＝再改訂版",
+   "F1462（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F660",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "rev"
+  ],
+  "note": "2は似てるからなにか別の選択肢に変えてほしい",
+  "touched": true,
+  "main": "発展版",
+  "acts": [
+   "F660 に発展版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1463（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F751",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F752",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F752 にやさしい版",
+   "F1464（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F762",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F762 にやさしい版",
+   "F1465（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F779",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F780",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1127",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F1127 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1466（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F1271",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "rev"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "発展版",
+  "acts": [
+   "F1271 に発展版（今のやさしい版と入れ替え）",
+   "F1467（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1273",
+  "lec": 2,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F1273 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1468（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F1414",
+  "lec": 2,
+  "kind": "new",
+  "sel": [],
+  "note": "不要",
+  "touched": true,
+  "main": "削除",
+  "acts": [
+   "F1414（元の新作）を削除",
+   "F1469（やさしい版）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1415",
+  "lec": 2,
+  "kind": "new",
+  "sel": [],
+  "note": "不要",
+  "touched": true,
+  "main": "削除",
+  "acts": [
+   "F1415（元の新作）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1416",
+  "lec": 2,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1416 をやさしい版に置き換え",
+   "F1470（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1417",
+  "lec": 2,
+  "kind": "new",
+  "sel": [],
+  "note": "",
+  "touched": true,
+  "main": "保留",
+  "acts": [
+   "選択なし・コメントなし → 今のまま（先生のご判断待ち）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1418",
+  "lec": 2,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1418 をやさしい版に置き換え",
+   "F1472（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1419",
+  "lec": 2,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1419 をやさしい版に置き換え",
+   "F1473（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1420",
+  "lec": 2,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1420 をやさしい版に置き換え",
+   "F1474（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1421",
+  "lec": 2,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1421 をやさしい版に置き換え",
+   "F1475（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F228",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F228 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1476（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F236",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F236 にやさしい版",
+   "F1477（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F245",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F245 にやさしい版",
+   "F1478（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F246",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F246 にやさしい版",
+   "F1479（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F247",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F247 にやさしい版",
+   "F1480（発展版のコピー）を削除",
+   "新しい番号に旧版 ＝再改訂版を追加（「旧版」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F248",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F248 にやさしい版",
+   "F1481（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F475",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": true,
+  "main": "今のまま",
+  "acts": [
+   "選択なし → 今のまま（変更なしの問題）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F476",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F476 にやさしい版",
+   "F1482（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F477",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "rev"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "発展版",
+  "acts": [
+   "F477 に発展版（今のやさしい版と入れ替え）",
+   "F1483（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F479",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F480",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [],
+  "note": "",
+  "touched": false,
+  "main": "今のまま",
+  "acts": [
+   "変更なし（鈴木先生の判断なし。10月8日の反映のまま）"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F629",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy",
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F629 にやさしい版",
+   "F1485（発展版のコピー）を削除",
+   "新しい番号に旧版 ＝再改訂版を追加（「旧版」タグ）"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F630",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "5の文章は発展版の5にでも間違えた文章にして変えてください（亜鉛を過剰に摂取すると、小腸でメタロチオネインが誘導されて銅の吸収が増加する）",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F630 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1486（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F631",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "old"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "旧版",
+  "acts": [
+   "F631 に旧版 ＝再改訂版（今のやさしい版と入れ替え）",
+   "F1487（発展版のコピー）を削除"
+  ],
+  "rerev": true
+ },
+ {
+  "id": "F651",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "rev"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "発展版",
+  "acts": [
+   "F651 に発展版（今のやさしい版と入れ替え）",
+   "F1488（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F652",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F652 にやさしい版",
+   "F1489（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F761",
+  "lec": 3,
+  "kind": "revised",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F761 にやさしい版",
+   "F1490（発展版のコピー）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1422",
+  "lec": 3,
+  "kind": "new",
+  "sel": [
+   "rev"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "元の新作",
+  "acts": [
+   "F1422（元の新作）のまま",
+   "F1491（やさしい版）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1424",
+  "lec": 3,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1424 をやさしい版に置き換え",
+   "F1492（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1425",
+  "lec": 3,
+  "kind": "new",
+  "sel": [],
+  "note": "不要",
+  "touched": true,
+  "main": "削除",
+  "acts": [
+   "F1425（元の新作）を削除",
+   "F1493（やさしい版）を削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1426",
+  "lec": 3,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1426 をやさしい版に置き換え",
+   "F1494（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1427",
+  "lec": 3,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1427 をやさしい版に置き換え",
+   "F1495（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ },
+ {
+  "id": "F1428",
+  "lec": 3,
+  "kind": "new",
+  "sel": [
+   "easy"
+  ],
+  "note": "",
+  "touched": true,
+  "main": "やさしい版",
+  "acts": [
+   "F1428 をやさしい版に置き換え",
+   "F1496（やさしい版の追加分）は重複になるので削除"
+  ],
+  "rerev": false
+ }
+]

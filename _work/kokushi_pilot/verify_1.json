@@ -1,0 +1,202 @@
+[
+ {
+  "problem_id": "F249",
+  "my_answer": [
+   "1",
+   "5"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答一意。2（葉酸で神経障害は改善しない）、3（葉酸は基準値内）、4（MCV 114は大球性）はいずれも検査値・機序から明確に誤り。",
+   "5は事実として正しい（高用量経口で受動拡散により約1%吸収、筋注と同等の報告）。ただし国試では『吸収障害→非経口投与』と教わる学生が多く、迷わせる良い攪乱になる一方、解説の根拠が海外情報中心なので、教員確認の際に一言補足があるとよい（任意）。",
+   "rev_all.jsonl で drop_image: true が設定済みであり、旧画像との不整合はない。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://medical.nikkeibp.co.jp/leaf/mem/pub/series/iwaoka3/201802/554660.html",
+   "https://www.aafp.org/pubs/afp/issues/2022/0600/p663.html",
+   "https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional/"
+  ]
+ },
+ {
+  "problem_id": "F465",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "必須として適切な難易度・形式。",
+   "key の sources が空。基本知識だが、RUBRIC A-1に従い出典URLを1件入れておくとよい（内容の修正は不要）。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/vitamin-b1.html"
+  ]
+ },
+ {
+  "problem_id": "F466",
+  "my_answer": [
+   "1",
+   "3"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "選択肢4は『代謝を阻害して』と『高カルシウム血症』の2点を誤りにしている。フェニトインは酵素誘導でビタミンDの不活性化を促進するので、『阻害』の部分が誤りなのか結果が誤りなのかが分かれ、1選択肢1論点の原則（RUBRIC A-3）から外れる。誤りは1点に絞るべき。",
+   "解説1の『ピリドキサールリン酸とキレートを形成する』は用語が不正確。イソニアジドはピリドキサール（リン酸）とヒドラゾンを形成する（加えてピリドキサールキナーゼを阻害する）。キレートは金属配位の用語。",
+   "そのほかの選択肢（2：ロイコボリンとB12の入れ替え、5：レボドパ単剤とピリドキシン）は中途半端な知識で選びやすい良い攪乱肢。"
+  ],
+  "fix": "選択肢4を『フェニトインの長期服用は、ビタミンDの不活性化を促進して高カルシウム血症を起こすことがある。』に置き換える（誤りを結果の1点に限定）。解説4は『4：誤。フェニトインは肝臓の薬物代謝酵素を誘導してビタミンDの不活性化を促進するため、長期服用により低カルシウム血症や、くる病・骨軟化症を起こすことがある。高カルシウム血症ではない。』とする。解説1は『1：正。イソニアジドはピリドキサール（ピリドキサールリン酸）とヒドラゾンを形成して尿中排泄を増やすなどして、ビタミンB6不足の状態をつくり、末梢神経障害を起こす。予防のためビタミンB6製剤を併用することが多い。』に置き換える。",
+  "sources": [
+   "https://www.kegg.jp/medicus-bin/japic_med?japic_code=00014256",
+   "https://www.msdmanuals.com/professional/nutritional-disorders/vitamin-deficiency-dependency-and-toxicity/vitamin-k-deficiency"
+  ]
+ },
+ {
+  "problem_id": "F467",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答一意。2（服用時刻をずらす）、3（クロレラ）、4（油で吸収抑制）、5（代謝促進という機序の取り違え）はいずれも半端な知識で選びやすく、攪乱肢として良質。",
+   "正答1は『やめるよう説明』と『処方医に情報提供』の2行為を含むが、どちらも適切なので半分正しい状態にはならず、実践の対応選択として許容範囲。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.pmda.go.jp/safety/consultation-for-patients/on-drugs/qa/0016.html"
+  ]
+ },
+ {
+  "problem_id": "F469",
+  "my_answer": [
+   "1",
+   "5"
+  ],
+  "agree": true,
+  "verdict": "minor",
+  "problems": [
+   "選択肢2は『胎児の神経管閉鎖障害（正しい）に加えて母体の鉄欠乏性貧血（誤り）』で、前半が正しく後半が誤りの『半分正しい』選択肢になっている（RUBRIC A-3違反）。前半に引かれて正と判断する受験者と、後半で誤と判断する受験者に分かれる作りは避けるべき。",
+   "1・4・5の内容は2025年版食事摂取基準（付記：通常の食品以外の食品に含まれる葉酸400 μg/日、耐容上限量は通常の食品以外の食品の葉酸に適用）および厚生労働省の通知（妊娠1か月以上前から妊娠3か月まで）と一致することを確認した。"
+  ],
+  "fix": "選択肢2を『葉酸の不足により母体に起こる貧血は、小球性低色素性貧血である。』に置き換える。解説2は『2：誤。葉酸の不足はDNA合成の障害により巨赤芽球性貧血（大球性貧血）を起こす。小球性低色素性貧血は鉄欠乏性貧血でみられる。』とする。",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://kennet.mhlw.go.jp/information/information/food/e-05-002.html"
+  ]
+ },
+ {
+  "problem_id": "F471",
+  "my_answer": [
+   "2"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "計算 12＋720/60＝24 mgNE を確認。定義は2025年版（NE＝ナイアシン＋1/60トリプトファン）と一致。攪乱肢は係数の取り違え（1/30・1/6）や未加算・単純加算で、計算ミスの型に対応しており良い。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf"
+  ]
+ },
+ {
+  "problem_id": "F473",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "攪乱肢がすべてビタミンAの関連化合物で、語感では消去できない。必須として適切。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://bsd.neuroinf.jp/wiki/%E3%83%AD%E3%83%89%E3%83%97%E3%82%B7%E3%83%B3"
+  ]
+ },
+ {
+  "problem_id": "F474",
+  "my_answer": [
+   "3"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "口角炎を起こしうるB6・ナイアシンが選択肢にないため正答一意。必須として適切。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.tyojyu.or.jp/net/kenkou-tyoju/eiyouso/vitamin-b2.html"
+  ]
+ },
+ {
+  "problem_id": "F508",
+  "my_answer": [
+   "5"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答一意。易しいが必須として妥当。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kegg.jp/medicus-bin/japic_med?japic_code=00056046"
+  ]
+ },
+ {
+  "problem_id": "F509",
+  "my_answer": [
+   "1",
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "選択肢4は2021年の日本小児科学会等の提言（哺乳確立時、生後1週または産科退院時のいずれか早い時期、その後は生後3か月まで週1回投与）と一致することを確認した。",
+   "選択肢3は『亢進』と『低下』の反転型だが、PIVKA-IIの意味を知らないと見抜けないので許容範囲。選択肢5は問題文に『血小板数は基準範囲内』とあるので本文から消去できるが、データ読み取りを問う実践としては問題ない（任意で、本文の血小板の記載を残したまま5を『本症の出血は、主にフィブリノゲンの消費によって起こる。』のような機序の取り違えにすると難度が上がる）。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.jpeds.or.jp/modules/guidelines/index.php?content_id=134",
+   "https://www.radionikkei.jp/uptodate/docs/uptodate-220920.pdf"
+  ]
+ },
+ {
+  "problem_id": "F647",
+  "my_answer": [
+   "1"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "正答一意。必須として適切。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://hfnet.nibn.go.jp/vitamin/detail180/"
+  ]
+ },
+ {
+  "problem_id": "F649",
+  "my_answer": [
+   "1",
+   "4"
+  ],
+  "agree": true,
+  "verdict": "pass",
+  "problems": [
+   "4の『α-トコフェロールのみ』は絶対化表現だが正答側の使用で、2025年版の注（α-トコフェロール以外のビタミンEは含まない）と一致するためRUBRIC上は許容。",
+   "2（α-TTPの基質の入れ替え）、3（ビタミンCとKの入れ替え）、5（溶血性貧血と巨赤芽球性貧血の取り違え）は攪乱肢として良質。"
+  ],
+  "fix": "",
+  "sources": [
+   "https://www.kenpakusha.co.jp/data/seigo1/005004-05.pdf",
+   "https://lpi.oregonstate.edu/mic/vitamins/vitamin-E"
+  ]
+ }
+]

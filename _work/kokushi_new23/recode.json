@@ -1,0 +1,473 @@
+{
+ "mapping_fix": "170行目: | E-2-1-(3) | 食薬区分 | 食薬区分【1,2,3】 |（医薬品と食品の区分）／149行目: | D-2-b | 食事摂取基準 | **E-2-1-(2)** | 指標の役割を問う場合は(1)、栄養管理への活用は(4)、食事調査・集団評価は(6) |",
+ "items": [
+  {
+   "problem_id": "F1127",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ビタミン過剰症と耐容上限量が主題"
+  },
+  {
+   "problem_id": "F1271",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ビタミン欠乏症の組合せを問う"
+  },
+  {
+   "problem_id": "F1273",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "脂溶性ビタミンの吸収・輸送・貯蔵"
+  },
+  {
+   "problem_id": "F225",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "不足回避の指標と耐容上限量の設定状況"
+  },
+  {
+   "problem_id": "F226",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "補酵素型と関与する酵素反応"
+  },
+  {
+   "problem_id": "F231",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "代謝が中心。正答は欠乏（乳酸アシドーシス）で(2)とも迷う"
+  },
+  {
+   "problem_id": "F232",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "生合成・還元作用など生理機能"
+  },
+  {
+   "problem_id": "F234",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ビタミンA過剰症と食事摂取基準"
+  },
+  {
+   "problem_id": "F235",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "ビタミンDの代謝と活性化調節"
+  },
+  {
+   "problem_id": "F237",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "補酵素作用・吸収形態が中心"
+  },
+  {
+   "problem_id": "F239",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "正答・誤答の多くがペラグラ（欠乏症）"
+  },
+  {
+   "problem_id": "F240",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "γ-カルボキシ化など凝固での機能"
+  },
+  {
+   "problem_id": "F241",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "B12の吸収・輸送と補酵素作用"
+  },
+  {
+   "problem_id": "F249",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "メトホルミンによるB12吸収低下と補充療法"
+  },
+  {
+   "problem_id": "F465",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "B1欠乏症を問う"
+  },
+  {
+   "problem_id": "F466",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "医薬品とビタミンの相互作用"
+  },
+  {
+   "problem_id": "F467",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "ワルファリンとビタミンK食品の服薬指導"
+  },
+  {
+   "problem_id": "F469",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "妊娠前の葉酸補給（神経管閉鎖障害予防）"
+  },
+  {
+   "problem_id": "F471",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "正答は欠乏症ペラグラ。過剰の選択肢も含む"
+  },
+  {
+   "problem_id": "F473",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "ロドプシン形成（視覚での役割）"
+  },
+  {
+   "problem_id": "F474",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "B2欠乏症（口角炎）を問う"
+  },
+  {
+   "problem_id": "F508",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "B6の生理作用"
+  },
+  {
+   "problem_id": "F509",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "新生児ビタミンK欠乏性出血症。予防投与で(4)とも迷う"
+  },
+  {
+   "problem_id": "F647",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "アビジンによるビオチン吸収阻害"
+  },
+  {
+   "problem_id": "F649",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "ビタミンEの抗酸化機能が中心"
+  },
+  {
+   "problem_id": "F660",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "ウェルニッケ脳症の初期治療（B1投与）"
+  },
+  {
+   "problem_id": "F751",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "壊血病（欠乏症）の原因"
+  },
+  {
+   "problem_id": "F752",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "くる病（欠乏症）の病態"
+  },
+  {
+   "problem_id": "F762",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "B12の構造（コバルト）"
+  },
+  {
+   "problem_id": "F779",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "ビタミンD活性化の臓器"
+  },
+  {
+   "problem_id": "F780",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "腸内細菌によるビタミンK供給"
+  },
+  {
+   "problem_id": "F228",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "微量元素を補因子とする酵素"
+  },
+  {
+   "problem_id": "F236",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "減量による鉄欠乏性貧血の症例"
+  },
+  {
+   "problem_id": "F245",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ヨウ素の欠乏・過剰と耐容上限量"
+  },
+  {
+   "problem_id": "F246",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "微量元素の欠乏症の組合せ"
+  },
+  {
+   "problem_id": "F247",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "血中カルシウムの調節機構"
+  },
+  {
+   "problem_id": "F248",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食塩摂取量と目標量（過剰の評価）"
+  },
+  {
+   "problem_id": "F475",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "鉄欠乏性貧血の所見"
+  },
+  {
+   "problem_id": "F476",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(4)",
+   "reason": "骨粗鬆症予防の食生活相談。選択肢は吸収因子"
+  },
+  {
+   "problem_id": "F477",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "亜鉛欠乏による味覚障害の症例"
+  },
+  {
+   "problem_id": "F479",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "正答はGPxの構成成分（機能）"
+  },
+  {
+   "problem_id": "F480",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ナトリウム過剰と高血圧"
+  },
+  {
+   "problem_id": "F629",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "鉄の吸収と体内動態"
+  },
+  {
+   "problem_id": "F630",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "銅の代謝・輸送（遺伝性疾患を含む）"
+  },
+  {
+   "problem_id": "F631",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "低・高マグネシウム血症と耐容上限量"
+  },
+  {
+   "problem_id": "F651",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(2)",
+   "reason": "Na・Kの目標量など過不足回避の指標"
+  },
+  {
+   "problem_id": "F652",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "リンの生体内での役割"
+  },
+  {
+   "problem_id": "F761",
+   "current": "E-2-1-(1)",
+   "proposed": "E-2-1-(1)",
+   "reason": "ヘムに含まれる金属（構成成分）"
+  },
+  {
+   "problem_id": "F227",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食事摂取基準の指標の概念図。食薬区分ではない"
+  },
+  {
+   "problem_id": "F283",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食事摂取基準の活用（不足・過剰の評価）"
+  },
+  {
+   "problem_id": "F284",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "エネルギー過不足の指標（BMI）"
+  },
+  {
+   "problem_id": "F489",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食事摂取基準の各指標の定義"
+  },
+  {
+   "problem_id": "F490",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "エネルギー産生栄養素バランス（目標量）"
+  },
+  {
+   "problem_id": "F633",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "耐容上限量の定義"
+  },
+  {
+   "problem_id": "F634",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "目標量の定義"
+  },
+  {
+   "problem_id": "F1061",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食事摂取基準の各指標の定義"
+  },
+  {
+   "problem_id": "F1204",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "食事摂取基準の各指標の定義"
+  },
+  {
+   "problem_id": "F1235",
+   "current": "E-2-1-(3)",
+   "proposed": "E-1-1-(5)",
+   "reason": "SDGsと健康の国際動向。栄養の問題ではない"
+  },
+  {
+   "problem_id": "F1361",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "推定平均必要量の定義"
+  },
+  {
+   "problem_id": "F1362",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "推奨量の算出方法"
+  },
+  {
+   "problem_id": "F1363",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "目安量の設定根拠"
+  },
+  {
+   "problem_id": "F1364",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "耐容上限量の設定（NOAEL・不確実性因子）"
+  },
+  {
+   "problem_id": "F1365",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "目標量が設定された栄養素"
+  },
+  {
+   "problem_id": "F1366",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "エネルギー必要量とBMI"
+  },
+  {
+   "problem_id": "F1367",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "たんぱく質の食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1368",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "脂質の食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1369",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "炭水化物の食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1370",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "脂溶性ビタミンの耐容上限量"
+  },
+  {
+   "problem_id": "F1371",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "水溶性ビタミンの食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1372",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "ミネラルの食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1373",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "妊婦・授乳婦の付加量"
+  },
+  {
+   "problem_id": "F1374",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "小児の食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1375",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "高齢者の食事摂取基準の値"
+  },
+  {
+   "problem_id": "F1376",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(6)",
+   "reason": "食事調査法（疫学的手法）"
+  },
+  {
+   "problem_id": "F1377",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(6)",
+   "reason": "日間変動・個人間変動（食事調査の解析）"
+  },
+  {
+   "problem_id": "F1378",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(6)",
+   "reason": "カットポイント法による集団の摂取評価"
+  },
+  {
+   "problem_id": "F1379",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(2)",
+   "reason": "2020年版の改定点（フレイル予防等）"
+  },
+  {
+   "problem_id": "F1380",
+   "current": "E-2-1-(3)",
+   "proposed": "E-2-1-(4)",
+   "reason": "フレイル予防のための栄養管理"
+  }
+ ]
+}
