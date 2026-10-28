@@ -20,6 +20,9 @@ for pid in L['ids']:
     items.append(dict(id=pid, kind=kind, text=q['problem_text'], choices=q['choices'], answer=q['answer'],
                       comment=q.get('comment', ''), section=q.get('section', ''), img=img,
                       change=ch[0] if ch and (q.get('ai_review') or {}).get('reviewed_at', '') >= '2026-10-08' else ''))
+SEM = ['F748', 'F749', 'F747', 'F746', 'F745', 'F742', 'F741', 'F639', 'F279', 'F274', 'F273', 'F258', 'F257', 'F256', 'F1573', 'F1571', 'F1567', 'F1566', 'F1560', 'F1557', 'F1541', 'F1542', 'F1551', 'F1555', 'F1558', 'F1568', 'F1572', 'F251', 'F255', 'F277']
+for x in items: x['sem'] = SEM.index(x['id']) + 1 if x['id'] in SEM else 0
+assert sum(1 for x in items if x['sem']) == 30
 items.sort(key=lambda x: ['past', 'future', 'new'].index(x['kind']))
 src = open(R + '_work/kokushi_brush45/page/src_lec45.html').read()
 css = src[src.index('<style>'):src.index('</style>') + 8].replace('</style>', '''.sec{font-family:var(--f-head);font-size:1.15rem;margin:8px 0 0}
@@ -27,7 +30,7 @@ css = src[src.index('<style>'):src.index('</style>') + 8].replace('</style>', ''
 </style>''')
 body = r'''<div class="wrap">
 <header><h1>第6回 特別用途食品・保健機能食品 再確認</h1>
-<p class="lead">衛生化学I 第6回の今の74問（10月23日に先生方の判断を反映した版）です。不具合のある問題に「直す」または「削除する」を選び、どこをどう直すかをコメント欄に書いてください。書いた内容は自動で保存されます。</p></header>
+<p class="lead">衛生化学I 第6回の今の74問（10月23日に先生方の判断を反映した版）です。最初は、10月23日のゼミ演習で出した30問を出題順に表示しています（上のボタンで74問すべてに切り替えられます）。不具合のある問題に「直す」または「削除する」を選び、どこをどう直すかをコメント欄に書いてください。書いた内容は自動で保存されます。</p></header>
 <section class="box"><h2>使い方</h2>
 <p>問題ごとに「このままでよい」「直す」「削除する」「保留」のどれかを押してください。「直す」のときは、どの選択肢・解説をどう直すかをコメント欄に書き、「コメントを保存」を押してください。全部の問題に判断を入れなくてもかまいません。判断のない問題は、今のまま残します。</p>
 <p>正解の選択肢は緑色で表示しています。解説は「解説」を押すと開きます。</p></section>
@@ -39,7 +42,7 @@ body = r'''<div class="wrap">
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const ITEMS = JSON.parse(document.getElementById('data').textContent);
-const COLL='lec6v3'; const dec={}; let db=null, canWrite=true, filter='all';
+const COLL='lec6v3'; const dec={}; let db=null, canWrite=true, filter='sem';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const BTN=[['ok','このままでよい'],['fix','直す'],['delete','削除する'],['hold','保留']];
 const LBL=Object.fromEntries(BTN);
@@ -47,7 +50,7 @@ const KIND={past:'過去問',future:'予想問題',new:'新しく加えた予想
 const SEC={past:'過去問（問題文は本試験のまま。解説を直せます）',future:'予想問題（もとからある問題）',new:'新しく加えた予想問題（10月23日）'};
 function card(it,i){ const d=dec[it.id]||{}; const a=new Set(it.answer||[]);
   return `<article id="c-${it.id}" class="${d.choice?'done':''}" data-id="${it.id}">
-   <div class="head"><span class="pid">${esc(it.id)}</span><span class="chip">${i}／${ITEMS.length}</span><span class="chip ${it.kind==='new'?'n':''}">${KIND[it.kind]}</span>
+   <div class="head"><span class="pid">${esc(it.id)}</span>${it.sem?`<span class="chip t">ゼミ演習 Q${it.sem}</span>`:''}<span class="chip ${it.kind==='new'?'n':''}">${KIND[it.kind]}</span>
    <span class="chip">${esc((it.section?it.section+'・':'')+((it.answer||[]).length===2?'2つ選べ':'1つ選べ'))}</span></div>
    ${it.change?`<p class="chg">今回の見直しで：${esc(it.change)}</p>`:''}
    <div class="ver"><p class="stem">${esc(it.text)}</p>${it.img?`<img src="${esc(it.img)}" alt="問題の図" style="max-width:100%;background:#fff;border:1px solid var(--line);border-radius:4px">`:''}
@@ -57,11 +60,13 @@ function card(it,i){ const d=dec[it.id]||{}; const a=new Set(it.answer||[]);
    <div class="decide"><div class="opts" role="group" aria-label="判断">${BTN.map(([k,l])=>`<button type="button" data-choice="${k}" aria-pressed="${d.choice===k}">${l}</button>`).join('')}</div>
     <textarea id="note-${it.id}" placeholder="直す点・コメント（例：選択肢3を「〜」に。解説2の「〜」は誤り）">${esc(d.note||'')}</textarea>
     <div class="save"><button type="button" data-save>コメントを保存</button><span data-msg></span></div></div></article>`; }
-function visible(it){ const d=dec[it.id]||{}; if(['past','future','new'].includes(filter)) return it.kind===filter;
+function visible(it){ const d=dec[it.id]||{}; if(filter==='sem') return !!it.sem; if(['past','future','new'].includes(filter)) return it.kind===filter;
   if(filter==='todo') return !d.choice; if(filter==='marked') return d.choice==='fix'||d.choice==='delete'||!!d.note; return true; }
-function render(){ const F=[['all','すべて'],['past','過去問'],['future','予想問題'],['new','新しく加えた問題'],['marked','直す・削除・コメントあり'],['todo','未判断']];
+function render(){ const F=[['sem','ゼミ演習で出した30問'],['all','74問すべて'],['past','過去問'],['future','予想問題'],['new','新しく加えた問題'],['marked','直す・削除・コメントあり'],['todo','未判断']];
   document.getElementById('filters').innerHTML=F.map(([k,l])=>`<button type="button" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join('');
-  let h='', last=null; ITEMS.forEach((it,i)=>{ if(!visible(it)) return; if(it.kind!==last){ h+=`<h2 class="sec">${SEC[it.kind]}</h2>`; last=it.kind; } h+=card(it,i+1); });
+  let h='', last=null; const list=filter==='sem'?[...ITEMS].sort((a,b)=>a.sem-b.sem):ITEMS;
+  if(filter==='sem') h+=`<h2 class="sec">10月23日のゼミ演習「松川_衛生化学I_第6回ゼミ演習」Q1〜Q30（出題順）</h2>`;
+  list.forEach((it)=>{ const i=ITEMS.indexOf(it); if(!visible(it)) return; if(filter!=='sem'&&it.kind!==last){ h+=`<h2 class="sec">${SEC[it.kind]}</h2>`; last=it.kind; } h+=card(it,i+1); });
   document.getElementById('list').innerHTML=h||'<p>該当する問題はありません。</p>'; tally();
   if(!canWrite) document.querySelectorAll('.decide button,.decide textarea').forEach(e=>e.disabled=true); }
 function tally(){ const c=k=>ITEMS.filter(x=>(dec[x.id]||{}).choice===k).length;
